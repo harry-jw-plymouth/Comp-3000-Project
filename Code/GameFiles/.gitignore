@@ -1,0 +1,9 @@
+### Unity produces absoloutely massive amounts of data not required for github ##
+## This data is being ignored ##
+Library/
+Logs/
+UserSettings/
+Temp/
+
+##temp ignore
+Assets/Tiles/ 
