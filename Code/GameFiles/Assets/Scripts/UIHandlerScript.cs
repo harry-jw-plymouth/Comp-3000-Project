@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class UIHandlerScript : MonoBehaviour
 {
+    public GameObject BuildingsMenuPopUp;
     public static bool TileEditorOn;
     //  public Square[,] GameGrid;
     private void Start()
@@ -22,5 +23,18 @@ public class UIHandlerScript : MonoBehaviour
         {
             TileEditorOn= true;
         }
+    }
+    public void OnBuildingsButtonClick()
+    {
+        Debug.Log("Building button clicked");
+        if (BuildingsMenuPopUp.activeInHierarchy)
+        {
+            BuildingsMenuPopUp.SetActive(false);
+        }
+        else
+        {
+            BuildingsMenuPopUp.SetActive(true);
+        }
+            
     }
 }
