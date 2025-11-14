@@ -151,7 +151,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::GridCreator
   GameMap: {fileID: 367962549}
   GameTile: {fileID: 11400000, guid: adca81024aaf96c46b46fd8a28d66cc9, type: 2}
-  RoadTile: {fileID: 11400000, guid: c49a14667a88e204f8ee64077c13384e, type: 2}
 --- !u!156049354 &94827940
 Grid:
   m_ObjectHideFlags: 0
