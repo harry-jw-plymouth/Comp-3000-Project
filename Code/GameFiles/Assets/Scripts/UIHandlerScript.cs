@@ -15,6 +15,7 @@ public class UIHandlerScript : MonoBehaviour
     public void OnRoadButtonClicked()
     {
         Debug.Log("Road button clicked");
+        BuildingsMenuPopUp.SetActive(false);
         if (TileEditorOn)
         {
             TileEditorOn = false;
@@ -26,6 +27,7 @@ public class UIHandlerScript : MonoBehaviour
     }
     public void OnBuildingsButtonClick()
     {
+        TileEditorOn = false;
         Debug.Log("Building button clicked");
         if (BuildingsMenuPopUp.activeInHierarchy)
         {
