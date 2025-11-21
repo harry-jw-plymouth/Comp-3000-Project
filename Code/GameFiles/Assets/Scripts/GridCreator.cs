@@ -11,7 +11,10 @@ public class GridCreator : MonoBehaviour
     public Tilemap GameMap;
     bool UpdateNeeded = false;
 
+    Vector3Int PreviousMousePosition = new Vector3Int(-1, -1, 0);
+
     List<PlacedBuilding>PlacedBuildings=new List<PlacedBuilding>();
+    List<Vector3Int> PreviousBuildingHighlight = new List<Vector3Int>();
 
     public RuleTile GameTile;
     public RuleTile RoadTile;
@@ -52,6 +55,23 @@ public class GridCreator : MonoBehaviour
         }
         return true;
     }
+    void DrawSelectedBuilding(Vector3Int MouseHoverPosition)
+    {
+        for (int Y = 0; Y < BuildingsListManager.Buildings[BuildingsListManager.BuildingCurrentlySelected].Shape.GetLength(0); Y++)
+        {
+            for (int X = 0; X < BuildingsListManager.Buildings[BuildingsListManager.BuildingCurrentlySelected].Shape.GetLength(1); X++)
+            {
+                if (BuildingsListManager.Buildings[BuildingsListManager.BuildingCurrentlySelected].Shape[Y, X] != -1)
+                {
+                    Vector3Int CurrentPos = GetPositionForSquare(MouseHoverPosition, BuildingsListManager.Buildings[BuildingsListManager.BuildingCurrentlySelected].Shape, X, Y, BuildingsListManager.Buildings[BuildingsListManager.BuildingCurrentlySelected].Origin);
+                    GameMap.SetColor(CurrentPos, new Color(1f, 1f, 1f, 0.5f));
+                    PreviousBuildingHighlight.Add(CurrentPos);
+                }
+
+            }
+        }
+
+    }
     Vector3Int GetPositionForSquare(Vector3Int ClickPos, int[,]shape,int CurrentX,int CurrentY,int[] Origin) 
     {
         int XDiff =  System.Math.Abs( Origin[0] - CurrentX);
@@ -62,15 +82,50 @@ public class GridCreator : MonoBehaviour
         return new Vector3Int(NewX,NewY,0);
 
     }
-
-    // Update is called once per frame
-    void Update()
+    void RevertPreviousBuildingHightlight()
     {
-        if(Input.GetMouseButtonDown(0))
+        for(int i = 0;i<PreviousBuildingHighlight.Count;i++)
+        {
+            GameMap.SetTileFlags(PreviousBuildingHighlight[i], TileFlags.None);
+            GameMap.SetColor(PreviousBuildingHighlight[i],Color.white);
+        }
+        PreviousBuildingHighlight = PreviousBuildingHighlight = new List<Vector3Int>();
+
+    }
+    void CheckForMouseHover()
+    {
+        Vector3Int MouseHoverPosition = GameMap.WorldToCell(Camera.main.ScreenToWorldPoint(Input.mousePosition));
+        if (GameMap.HasTile(MouseHoverPosition) && MouseHoverPosition != PreviousMousePosition)
+        {
+            try
+            {
+                if (GameMap.HasTile(PreviousMousePosition))
+                {
+                    GameMap.SetTileFlags(PreviousMousePosition, TileFlags.None);
+                    GameMap.SetColor(PreviousMousePosition, Color.white);
+                }
+                GameMap.SetTileFlags(MouseHoverPosition, TileFlags.None);
+                GameMap.SetColor(MouseHoverPosition, new Color(1f, 1f, 1f, 0.5f));
+                if (BuildingsListManager.BuildingCurrentlySelected != -1)
+                {
+                    RevertPreviousBuildingHightlight();
+                    DrawSelectedBuilding(MouseHoverPosition);
+                }
+                PreviousMousePosition = MouseHoverPosition;
+            }
+            catch
+            {
+                Debug.Log("Hovering Over none grid square");
+            }
+
+        }
+    }
+    void CheckForMouseClicK() {
+        if (Input.GetMouseButtonDown(0))
         {
             Vector3 ClickPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             Vector3Int CellClickedPos = GameMap.WorldToCell(ClickPos);
-           // Debug.Log("Click at: " + ClickPos);
+            // Debug.Log("Click at: " + ClickPos);
             Debug.Log("Click at: " + CellClickedPos);
             if (UIHandlerScript.TileEditorOn == true)
             {
@@ -92,16 +147,17 @@ public class GridCreator : MonoBehaviour
                 {
                     Debug.Log("Click not in grid square");
 
-                }                                             
+                }
             }
             if (BuildingsListManager.BuildingCurrentlySelected != -1)
             {
 
-                if(GameGrid[CellClickedPos.x, CellClickedPos.y].Contains == 0)
+                if (GameGrid[CellClickedPos.x, CellClickedPos.y].Contains == 0)
                 {
-                    if (CheckIfBuildingCanBeplaced(CellClickedPos.x, CellClickedPos.y, BuildingsListManager.Buildings[BuildingsListManager.BuildingCurrentlySelected])){
+                    if (CheckIfBuildingCanBeplaced(CellClickedPos.x, CellClickedPos.y, BuildingsListManager.Buildings[BuildingsListManager.BuildingCurrentlySelected]))
+                    {
                         Debug.Log("Shape Y: " + BuildingsListManager.Buildings[BuildingsListManager.BuildingCurrentlySelected].Shape.GetLength(0));
-                        Debug.Log("Shape X: " + BuildingsListManager.Buildings[BuildingsListManager.BuildingCurrentlySelected].Shape.GetLength(1)); 
+                        Debug.Log("Shape X: " + BuildingsListManager.Buildings[BuildingsListManager.BuildingCurrentlySelected].Shape.GetLength(1));
                         for (int Y = 0; Y < BuildingsListManager.Buildings[BuildingsListManager.BuildingCurrentlySelected].Shape.GetLength(0); Y++)
                         {
                             for (int X = 0; X < BuildingsListManager.Buildings[BuildingsListManager.BuildingCurrentlySelected].Shape.GetLength(1); X++)
@@ -111,20 +167,24 @@ public class GridCreator : MonoBehaviour
                                     Vector3Int CurrentPos = GetPositionForSquare(CellClickedPos, BuildingsListManager.Buildings[BuildingsListManager.BuildingCurrentlySelected].Shape, X, Y, BuildingsListManager.Buildings[BuildingsListManager.BuildingCurrentlySelected].Origin);
                                     GameGrid[CurrentPos.x, CurrentPos.y].Contains = 2;
                                     GameMap.SetTile(CurrentPos, SmallHouseTile);
-                                   
-                                    
-
                                 }
-                                
-                            }        
+
+                            }
                         }
                     }
                 }
-                PlacedBuildings.Add(new PlacedBuilding(BuildingsListManager.Buildings[BuildingsListManager.BuildingCurrentlySelected],new int[] {CellClickedPos.x,CellClickedPos.y}));
+                RevertPreviousBuildingHightlight();
+                PlacedBuildings.Add(new PlacedBuilding(BuildingsListManager.Buildings[BuildingsListManager.BuildingCurrentlySelected], new int[] { CellClickedPos.x, CellClickedPos.y }));
                 BuildingsListManager.BuildingCurrentlySelected = -1;
             }
         }
-        
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        CheckForMouseHover();
+        CheckForMouseClicK();    
     }
     void CreateGrid()
     {
