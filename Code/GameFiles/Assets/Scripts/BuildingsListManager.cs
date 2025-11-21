@@ -9,9 +9,9 @@ public class BuildingsListManager : MonoBehaviour
 
     public GameObject BuildingObject; // prefab item
     public RectTransform BuildingsView; //scroll view
-    int BuildingCurrentlySelected = -1;
+    public static int BuildingCurrentlySelected = -1;
     
-    public Building[] Buildings;
+    public static Building[] Buildings;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -23,12 +23,11 @@ public class BuildingsListManager : MonoBehaviour
         //temporarily hard coded, in future will pull more dynamically
         Buildings = new Building[]
         {
-            new Building("Small House"," A small house"),
-            new Building("Medium House", " A medium house for a bigger family"),
-            new Building("Convenience shop", " a little shop, a bit overpriced"),
-            new Building("Hospital","A hospital")
+            new Building("Small House"," A small house", new int[1,1]{{0}} ,new int[]{0,0} ),
+            new Building("Medium House", " A medium house for a bigger family",new int[1,2]{{0,1}}  , new int[] {0,0 }),
+            new Building("Convenience shop", " a little shop, a bit overpriced",new int[1,2]{{0,1}}, new int[] { 0, 0 }),
+            new Building("Hospital","A hospital",new int[2,2]{{1,1},{0,1} } ,new int[]{1,0})
         };
-
     }
 
     // Update is called once per frame
@@ -70,6 +69,7 @@ public class BuildingsListManager : MonoBehaviour
     {
         UnityEngine.Debug.Log("Clicked " + Buildings[BuildingPos].Name);
         BuildingCurrentlySelected = BuildingPos;
+
 
 
 
