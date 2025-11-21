@@ -2,7 +2,7 @@ using Unity.Mathematics.Geometry;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using System;
-
+using System.Collections.Generic;
 public class GridCreator : MonoBehaviour
 {
     public Square[,]GameGrid = new Square[GridCreator.WIDTH, GridCreator.HEIGHT];
@@ -10,6 +10,8 @@ public class GridCreator : MonoBehaviour
     public const int HEIGHT = 100;
     public Tilemap GameMap;
     bool UpdateNeeded = false;
+
+    List<PlacedBuilding>PlacedBuildings=new List<PlacedBuilding>();
 
     public RuleTile GameTile;
     public RuleTile RoadTile;
@@ -22,6 +24,32 @@ public class GridCreator : MonoBehaviour
     }
     bool CheckIfBuildingCanBeplaced(int x, int y,Building building)
     {
+        Debug.Log("New Y: " + (y + building.Shape.GetLength(0)));
+        if (x + building.Shape.GetLength(1) > WIDTH )
+        {
+            Debug.Log("Building cant be placed");
+            return false;
+        }
+        else if (y + building.Shape.GetLength(0) >= HEIGHT+1)
+        {
+            Debug.Log("Building cant be placed, final Y pos:"+ (y + building.Shape.GetLength(0)));
+            return false;
+
+        }
+
+        for (int Y = 0; Y < BuildingsListManager.Buildings[BuildingsListManager.BuildingCurrentlySelected].Shape.GetLength(0); Y++)
+        {
+            for (int X = 0; X < BuildingsListManager.Buildings[BuildingsListManager.BuildingCurrentlySelected].Shape.GetLength(1); X++)
+            {
+                Vector3Int CurrentPos = GetPositionForSquare(new Vector3Int(x,y,0), BuildingsListManager.Buildings[BuildingsListManager.BuildingCurrentlySelected].Shape, X, Y, 
+                    BuildingsListManager.Buildings[BuildingsListManager.BuildingCurrentlySelected].Origin);
+                if(GameGrid[CurrentPos.x, CurrentPos.y].Contains == 2 )
+                {
+                    Debug.Log(" Building cant be placed, building already occupying square: " + CurrentPos.x + " , " + CurrentPos.y);
+                    return false;
+                }
+            }
+        }
         return true;
     }
     Vector3Int GetPositionForSquare(Vector3Int ClickPos, int[,]shape,int CurrentX,int CurrentY,int[] Origin) 
@@ -42,7 +70,7 @@ public class GridCreator : MonoBehaviour
         {
             Vector3 ClickPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             Vector3Int CellClickedPos = GameMap.WorldToCell(ClickPos);
-            Debug.Log("Click at: " + ClickPos);
+           // Debug.Log("Click at: " + ClickPos);
             Debug.Log("Click at: " + CellClickedPos);
             if (UIHandlerScript.TileEditorOn == true)
             {
@@ -73,21 +101,26 @@ public class GridCreator : MonoBehaviour
                 {
                     if (CheckIfBuildingCanBeplaced(CellClickedPos.x, CellClickedPos.y, BuildingsListManager.Buildings[BuildingsListManager.BuildingCurrentlySelected])){
                         Debug.Log("Shape Y: " + BuildingsListManager.Buildings[BuildingsListManager.BuildingCurrentlySelected].Shape.GetLength(0));
-                        Debug.Log("Shape X: " + BuildingsListManager.Buildings[BuildingsListManager.BuildingCurrentlySelected].Shape.GetLength(1));
+                        Debug.Log("Shape X: " + BuildingsListManager.Buildings[BuildingsListManager.BuildingCurrentlySelected].Shape.GetLength(1)); 
                         for (int Y = 0; Y < BuildingsListManager.Buildings[BuildingsListManager.BuildingCurrentlySelected].Shape.GetLength(0); Y++)
                         {
                             for (int X = 0; X < BuildingsListManager.Buildings[BuildingsListManager.BuildingCurrentlySelected].Shape.GetLength(1); X++)
                             {
                                 if (BuildingsListManager.Buildings[BuildingsListManager.BuildingCurrentlySelected].Shape[Y, X] != -1)
                                 {
-                                    GameMap.SetTile(GetPositionForSquare(CellClickedPos, BuildingsListManager.Buildings[BuildingsListManager.BuildingCurrentlySelected].Shape,
-                                        X, Y, BuildingsListManager.Buildings[BuildingsListManager.BuildingCurrentlySelected].Origin), SmallHouseTile);
+                                    Vector3Int CurrentPos = GetPositionForSquare(CellClickedPos, BuildingsListManager.Buildings[BuildingsListManager.BuildingCurrentlySelected].Shape, X, Y, BuildingsListManager.Buildings[BuildingsListManager.BuildingCurrentlySelected].Origin);
+                                    GameGrid[CurrentPos.x, CurrentPos.y].Contains = 2;
+                                    GameMap.SetTile(CurrentPos, SmallHouseTile);
+                                   
+                                    
+
                                 }
                                 
                             }        
                         }
                     }
                 }
+                PlacedBuildings.Add(new PlacedBuilding(BuildingsListManager.Buildings[BuildingsListManager.BuildingCurrentlySelected],new int[] {CellClickedPos.x,CellClickedPos.y}));
                 BuildingsListManager.BuildingCurrentlySelected = -1;
             }
         }

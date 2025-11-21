@@ -62,11 +62,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\GridCreator.cs" />
+    <Compile Include="Assets\Scripts\Classes\PlacedBuilding.cs" />
     <Compile Include="Assets\Scripts\MainMenu.cs" />
     <Compile Include="Assets\Scripts\BuildingsListManager.cs" />
-    <Compile Include="Assets\Scripts\Building.cs" />
-    <Compile Include="Assets\Scripts\Square.cs" />
     <Compile Include="Assets\Scripts\UIHandlerScript.cs" />
+    <Compile Include="Assets\Scripts\Classes\Square.cs" />
+    <Compile Include="Assets\Scripts\Classes\Building.cs" />
     <Compile Include="Assets\Scripts\CameraController.cs" />
   </ItemGroup>
   <ItemGroup>
