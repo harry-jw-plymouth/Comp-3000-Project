@@ -2,11 +2,13 @@ using UnityEngine;
 
 public class PlacedBuilding
 {
-    Building buildingType;
-    int[] OriginPos;
-    public PlacedBuilding(Building buildingType, int[] originPos)
+   public  Building buildingType;
+    public int[] OriginPos;
+    public GameObject Sprite;
+    public PlacedBuilding(Building buildingType, int[] originPos, GameObject sprite)
     {
         this.buildingType = buildingType;
         OriginPos = originPos;
+        Sprite = sprite;
     }
 }

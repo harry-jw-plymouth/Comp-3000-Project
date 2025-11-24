@@ -10,18 +10,25 @@ public class GridCreator : MonoBehaviour
     public const int WIDTH = 100;
     public const int HEIGHT = 100;
     public Tilemap GameMap;
+
+
+    Camera MainCamera;
     bool UpdateNeeded = false;
 
     Vector3Int PreviousMousePosition = new Vector3Int(-1, -1, 0);
 
     List<PlacedBuilding>PlacedBuildings=new List<PlacedBuilding>();
+    List<GameObject> Sprites = new List<GameObject>();
     List<Vector3Int> PreviousBuildingHighlight = new List<Vector3Int>();
+
 
     public RuleTile GameTile;
     public RuleTile RoadTile;
 
     public RuleTile SmallHouseTile;
     public RuleTile MediumHouseTile;
+
+    public GameObject SmallHousePreFab;
     public GameObject MediumHousePreFab;
     public GameObject HospitalPrefab;
     public GameObject ShopPrefab;
@@ -79,6 +86,23 @@ public class GridCreator : MonoBehaviour
         }
 
     }
+    void RemoveSelectedBuilding(Building RemovedBuilding, Vector3Int Origin)
+    {
+        for (int Y = 0; Y < RemovedBuilding.Shape.GetLength(0); Y++)
+        {
+            for (int X = 0; X < RemovedBuilding.Shape.GetLength(1); X++)
+            {
+                if (RemovedBuilding.Shape[Y, X] != -1)
+                {
+                    Vector3Int CurrentPos = GetPositionForSquare(Origin, RemovedBuilding.Shape, X, Y, RemovedBuilding.Origin);
+                    GameMap.SetColor(CurrentPos, new Color(1f, 1f, 1f, 0.5f));
+                    GameMap.SetTile(CurrentPos, GameTile);
+                }
+
+            }
+        }
+
+    }
     Vector3Int GetPositionForSquare(Vector3Int ClickPos, int[,]shape,int CurrentX,int CurrentY,int[] Origin) 
     {
         int XDiff =  System.Math.Abs( Origin[0] - CurrentX);
@@ -99,9 +123,30 @@ public class GridCreator : MonoBehaviour
         PreviousBuildingHighlight = PreviousBuildingHighlight = new List<Vector3Int>();
 
     }
+    int GetBuildingClicked(Vector3Int MousePos)
+    {
+        for (int i = 0; PlacedBuildings.Count > i; i++)
+        {
+            PlacedBuilding Currentbuilding = PlacedBuildings[i];
+            for (int Y = 0; Y < Currentbuilding.buildingType. Shape.GetLength(0); Y++)
+            {
+                for (int X = 0; X < Currentbuilding.buildingType.Shape.GetLength(1); X++)
+                {
+
+                    Vector3Int CurrentPos = GetPositionForSquare(new Vector3Int(Currentbuilding.OriginPos[0], Currentbuilding.OriginPos[1],0), Currentbuilding.buildingType.Shape, X, Y, Currentbuilding.buildingType.Origin);
+                    if(CurrentPos == MousePos)
+                    {
+                        Debug.Log("Item found at" + CurrentPos);
+                        return i;
+                    }
+                }
+            }
+        }
+        return -1;
+    }
     void CheckForMouseHover()
     {
-        Vector3Int MouseHoverPosition = GameMap.WorldToCell(Camera.main.ScreenToWorldPoint(Input.mousePosition));
+        Vector3Int MouseHoverPosition =GameMap.WorldToCell(Camera.main.ScreenToWorldPoint(Input.mousePosition));
         if (GameMap.HasTile(MouseHoverPosition) && MouseHoverPosition != PreviousMousePosition)
         {
             try
@@ -158,7 +203,7 @@ public class GridCreator : MonoBehaviour
             }
             if (BuildingsListManager.BuildingCurrentlySelected != -1)
             {
-
+                GameObject NewSprite = new GameObject(); 
                 if (GameGrid[CellClickedPos.x, CellClickedPos.y].Contains == 0)
                 {
                     if (CheckIfBuildingCanBeplaced(CellClickedPos.x, CellClickedPos.y, BuildingsListManager.Buildings[BuildingsListManager.BuildingCurrentlySelected]))
@@ -178,7 +223,7 @@ public class GridCreator : MonoBehaviour
                                         if (BuildingsListManager.Buildings[BuildingsListManager.BuildingCurrentlySelected].Shape[Y, X] == 0)
                                         {
                                             Vector3 AdjustedStartPos = CurrentPos + new Vector3(1, 0.5f, 0);
-                                            GameObject MediumHouse = Instantiate(MediumHousePreFab, AdjustedStartPos, Quaternion.identity);
+                                            NewSprite = Instantiate(MediumHousePreFab, AdjustedStartPos, Quaternion.identity);
                                         }
                                     }
                                     else if (BuildingsListManager.BuildingCurrentlySelected == 2)
@@ -186,7 +231,7 @@ public class GridCreator : MonoBehaviour
                                         if (BuildingsListManager.Buildings[BuildingsListManager.BuildingCurrentlySelected].Shape[Y, X] == 0)
                                         {
                                             Vector3 AdjustedStartPos = CurrentPos + new Vector3(1, 0.5f, 0);
-                                            GameObject Shop = Instantiate(ShopPrefab, AdjustedStartPos, Quaternion.identity);
+                                            NewSprite = Instantiate(ShopPrefab, AdjustedStartPos, Quaternion.identity);
                                         }
                                     }
                                     else if (BuildingsListManager.BuildingCurrentlySelected == 3)
@@ -194,23 +239,55 @@ public class GridCreator : MonoBehaviour
                                         if (BuildingsListManager.Buildings[BuildingsListManager.BuildingCurrentlySelected].Shape[Y, X] == 0)
                                         {
                                             Vector3 AdjustedStartPos = CurrentPos + new Vector3(0, 0, 0);
-                                            GameObject Hospital = Instantiate(HospitalPrefab, AdjustedStartPos, Quaternion.identity);
+                                            NewSprite = Instantiate(HospitalPrefab, AdjustedStartPos, Quaternion.identity);
                                         }
                                     }
-                                    else
+                                    else if(BuildingsListManager.BuildingCurrentlySelected==0)
                                     {
-                                        GameMap.SetTile(CurrentPos, SmallHouseTile);
+                                        Vector3 AdjustedStartPos = CurrentPos + new Vector3(0, 0, 0);
+                                        NewSprite = Instantiate(SmallHousePreFab, AdjustedStartPos, Quaternion.identity);
+                                        
                                     }
                                     
                                 }
 
                             }
-                        }
+                        }                        
+                        RevertPreviousBuildingHightlight();
+                        PlacedBuildings.Add(new PlacedBuilding(BuildingsListManager.Buildings[BuildingsListManager.BuildingCurrentlySelected], new int[] { CellClickedPos.x, CellClickedPos.y }, NewSprite));
                     }
                 }
                 RevertPreviousBuildingHightlight();
-                PlacedBuildings.Add(new PlacedBuilding(BuildingsListManager.Buildings[BuildingsListManager.BuildingCurrentlySelected], new int[] { CellClickedPos.x, CellClickedPos.y }));
+    
                 BuildingsListManager.BuildingCurrentlySelected = -1;
+            }
+            else if (UIHandlerScript.BuildingRemoverOn)
+            {
+                Debug.Log("Removing Building");
+                //building removing check
+                if( GameGrid[CellClickedPos.x, CellClickedPos.y].Contains == 2){
+                    int BuildingPos = GetBuildingClicked(CellClickedPos);
+                    Debug.Log("Building found at poaition");
+                    if ( BuildingPos!= -1)
+                    {
+                        Debug.Log("Removing building " + BuildingPos);
+                        RemoveSelectedBuilding(PlacedBuildings[BuildingPos].buildingType,
+                            new Vector3Int(PlacedBuildings[BuildingPos].OriginPos[0], PlacedBuildings[BuildingPos].OriginPos[1], 0));
+                        if (PlacedBuildings[BuildingPos] != null)
+                        {
+                            Destroy(PlacedBuildings[BuildingPos].Sprite);
+                        }
+                        PlacedBuildings.RemoveAt(BuildingPos);
+
+                      //  if (Sprites[BuildingPos] != null)
+                      //  {
+                            
+                       // }
+
+                    }
+                }
+
+
             }
         }
     }
@@ -231,6 +308,7 @@ public class GridCreator : MonoBehaviour
                 Vector3Int CurrentPosition=new Vector3Int(x, y, 0);
                 GameMap.SetTile(CurrentPosition, GameTile);
                 GameGrid[x, y] = new Square(0);
+
             }
         }
     }
