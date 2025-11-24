@@ -286,6 +286,9 @@ MonoBehaviour:
   GameTile: {fileID: 11400000, guid: adca81024aaf96c46b46fd8a28d66cc9, type: 2}
   RoadTile: {fileID: 11400000, guid: c49a14667a88e204f8ee64077c13384e, type: 2}
   SmallHouseTile: {fileID: 11400000, guid: 01f1174f0bdc37e4397d2e594b094202, type: 2}
+  MediumHouseTile: {fileID: 11400000, guid: ac1cba31994bb6c49a208bf01efba04f, type: 2}
+  MediumHousePreFab: {fileID: 542735642625511032, guid: 609adda3048b9404d8b04a7efd494982, type: 3}
+  HospitalPrefab: {fileID: 1523579773146520067, guid: 6ebbc2865a0d4e54ab56088738f8bafb, type: 3}
 --- !u!156049354 &94827940
 Grid:
   m_ObjectHideFlags: 0

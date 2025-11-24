@@ -1,8 +1,9 @@
+using System;
+using System.Collections.Generic;
 using Unity.Mathematics.Geometry;
 using UnityEngine;
 using UnityEngine.Tilemaps;
-using System;
-using System.Collections.Generic;
+using UnityEngine.UIElements;
 public class GridCreator : MonoBehaviour
 {
     public Square[,]GameGrid = new Square[GridCreator.WIDTH, GridCreator.HEIGHT];
@@ -20,6 +21,12 @@ public class GridCreator : MonoBehaviour
     public RuleTile RoadTile;
 
     public RuleTile SmallHouseTile;
+    public RuleTile MediumHouseTile;
+    public GameObject MediumHousePreFab;
+    public GameObject HospitalPrefab;
+    public GameObject ShopPrefab;
+
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -166,7 +173,35 @@ public class GridCreator : MonoBehaviour
                                 {
                                     Vector3Int CurrentPos = GetPositionForSquare(CellClickedPos, BuildingsListManager.Buildings[BuildingsListManager.BuildingCurrentlySelected].Shape, X, Y, BuildingsListManager.Buildings[BuildingsListManager.BuildingCurrentlySelected].Origin);
                                     GameGrid[CurrentPos.x, CurrentPos.y].Contains = 2;
-                                    GameMap.SetTile(CurrentPos, SmallHouseTile);
+                                    if (BuildingsListManager.BuildingCurrentlySelected == 1)
+                                    {
+                                        if (BuildingsListManager.Buildings[BuildingsListManager.BuildingCurrentlySelected].Shape[Y, X] == 0)
+                                        {
+                                            Vector3 AdjustedStartPos = CurrentPos + new Vector3(1, 0.5f, 0);
+                                            GameObject MediumHouse = Instantiate(MediumHousePreFab, AdjustedStartPos, Quaternion.identity);
+                                        }
+                                    }
+                                    else if (BuildingsListManager.BuildingCurrentlySelected == 2)
+                                    {
+                                        if (BuildingsListManager.Buildings[BuildingsListManager.BuildingCurrentlySelected].Shape[Y, X] == 0)
+                                        {
+                                            Vector3 AdjustedStartPos = CurrentPos + new Vector3(1, 0.5f, 0);
+                                            GameObject Shop = Instantiate(ShopPrefab, AdjustedStartPos, Quaternion.identity);
+                                        }
+                                    }
+                                    else if (BuildingsListManager.BuildingCurrentlySelected == 3)
+                                    {
+                                        if (BuildingsListManager.Buildings[BuildingsListManager.BuildingCurrentlySelected].Shape[Y, X] == 0)
+                                        {
+                                            Vector3 AdjustedStartPos = CurrentPos + new Vector3(0, 0, 0);
+                                            GameObject Hospital = Instantiate(HospitalPrefab, AdjustedStartPos, Quaternion.identity);
+                                        }
+                                    }
+                                    else
+                                    {
+                                        GameMap.SetTile(CurrentPos, SmallHouseTile);
+                                    }
+                                    
                                 }
 
                             }
@@ -180,11 +215,12 @@ public class GridCreator : MonoBehaviour
         }
     }
 
+
     // Update is called once per frame
     void Update()
     {
         CheckForMouseHover();
-        CheckForMouseClicK();    
+        CheckForMouseClicK();
     }
     void CreateGrid()
     {
