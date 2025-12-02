@@ -172,6 +172,221 @@ public class GridCreator : MonoBehaviour
 
         }
     }
+    bool[,] GetSurroundingTiles(Vector3Int Origin)
+    {
+        bool[,] SurroundingTiles = new bool[3, 3]{
+        {false,false,false },
+        {false,false,false},
+        {false,false,false}};
+
+        // top left
+        if (GameGrid[Origin.x - 1, Origin.y - 1].Contains == 1)
+            SurroundingTiles[0, 0] = true;
+        //top middle
+        if (GameGrid[Origin.x , Origin.y -1].Contains == 1)
+            SurroundingTiles[0,1] = true;
+        //top right
+        if (GameGrid[Origin.x +1, Origin.y -1].Contains == 1)
+            SurroundingTiles[0, 2] = true;
+
+        //middle left
+        if (GameGrid[Origin.x -1 , Origin.y ].Contains == 1)
+            SurroundingTiles[1, 0] = true;
+        //Pure middle
+        if (GameGrid[Origin.x , Origin.y ].Contains == 1)
+            SurroundingTiles[1, 1] = true;
+        //middle right
+        if (GameGrid[Origin.x +1, Origin.y ].Contains == 1)
+            SurroundingTiles[1, 2] = true;
+
+        //top left
+        if (GameGrid[Origin.x - 1, Origin.y + 1].Contains == 1)
+            SurroundingTiles[2, 0] = true;
+        //top middle
+        if (GameGrid[Origin.x, Origin.y+1].Contains == 1)
+            SurroundingTiles[2, 1] = true;
+        //top right
+        if (GameGrid[Origin.x + 1, Origin.y+1].Contains == 1)
+            SurroundingTiles[2, 2] = true;
+
+
+        return SurroundingTiles;
+    }
+    void UpdateRoadsAroundEdit(Vector3Int EditPosition)
+    {
+        bool[,] SurroundingTiles = GetSurroundingTiles(EditPosition);
+        bool Check=true;
+        for (int x = 0; x < 3; x++)
+        {
+            for (int y = 0; y < 3; y++)
+            {
+                if (!SurroundingTiles[x, y])
+                {
+                    Check=false; break;
+                }
+                    
+            }
+        }
+        if (Check)
+        {
+            //road tile with no pavement, road all around 
+            //roads at all sides should be set to have no pavement connecting 
+        }
+        else
+        {
+            if (SurroundingTiles[0,1] && SurroundingTiles[1,0]&& SurroundingTiles[1, 2] && SurroundingTiles[2, 1])
+            {
+                //road tile with pavement on each corner but open roads all 4 directions
+                // 4 adjacent road tiles have open road leading into tile
+            }
+            else if (SurroundingTiles[0, 1] && SurroundingTiles[1, 0] && SurroundingTiles[1, 2] && !SurroundingTiles[2,1])
+            {
+                //Road tile with pavement in top corners and on the bottom
+                //road tiles to left, right and top should have road leading in
+            }
+            else if (SurroundingTiles[0, 1] && SurroundingTiles[1, 0] && !SurroundingTiles[1, 2] && !SurroundingTiles[2, 1])
+            {
+                //Road tile with pavement in top left corner,on the right and on the bottom
+                //road tiles to left and top should have road leading in
+            }
+            else if (SurroundingTiles[0, 1] && !SurroundingTiles[1, 0] && !SurroundingTiles[1, 2] && !SurroundingTiles[2, 1])
+            {
+                //Road tile with pavement in all directions other than ome
+                //road tiles to top should have road leading in
+            }
+            else if (SurroundingTiles[0, 1] && SurroundingTiles[1, 0] && !SurroundingTiles[1, 2] && SurroundingTiles[2, 1])
+            {
+                //Road tile with pavement to the right
+                //road tiles in all directions other than up should have road leading in
+            }
+            else if (SurroundingTiles[0, 1] && !SurroundingTiles[1, 0] && !SurroundingTiles[1, 2] && SurroundingTiles[2, 1])
+            {
+                //Road tile with pavement to the right and left
+                //road tiles above and below should have road leading in
+            }
+            else if (!SurroundingTiles[0, 1] && !SurroundingTiles[1, 0] && !SurroundingTiles[1, 2] && SurroundingTiles[2, 1])
+            {
+                //Road tile with pavement up, right and left
+                //road tile below should have road leading in
+            }
+        }
+
+
+    }
+    void PlaceBuilding(Vector3Int CellClickedPos)
+    {
+        //Place building
+        GameObject NewSprite = new GameObject();
+        if (GameGrid[CellClickedPos.x, CellClickedPos.y].Contains == 0)
+        {
+            if (CheckIfBuildingCanBeplaced(CellClickedPos.x, CellClickedPos.y, BuildingsListManager.Buildings[BuildingsListManager.BuildingCurrentlySelected]))
+            {
+                Debug.Log("Shape Y: " + BuildingsListManager.Buildings[BuildingsListManager.BuildingCurrentlySelected].Shape.GetLength(0));
+                Debug.Log("Shape X: " + BuildingsListManager.Buildings[BuildingsListManager.BuildingCurrentlySelected].Shape.GetLength(1));
+                for (int Y = 0; Y < BuildingsListManager.Buildings[BuildingsListManager.BuildingCurrentlySelected].Shape.GetLength(0); Y++)
+                {
+                    for (int X = 0; X < BuildingsListManager.Buildings[BuildingsListManager.BuildingCurrentlySelected].Shape.GetLength(1); X++)
+                    {
+                        if (BuildingsListManager.Buildings[BuildingsListManager.BuildingCurrentlySelected].Shape[Y, X] != -1)
+                        {
+                            Vector3Int CurrentPos = GetPositionForSquare(CellClickedPos, BuildingsListManager.Buildings[BuildingsListManager.BuildingCurrentlySelected].Shape, X, Y, BuildingsListManager.Buildings[BuildingsListManager.BuildingCurrentlySelected].Origin);
+                            GameGrid[CurrentPos.x, CurrentPos.y].Contains = 2;
+                            if (BuildingsListManager.BuildingCurrentlySelected == 1)
+                            {
+                                if (BuildingsListManager.Buildings[BuildingsListManager.BuildingCurrentlySelected].Shape[Y, X] == 0)
+                                {
+                                    Vector3 AdjustedStartPos = CurrentPos + new Vector3(1, 0.5f, 0);
+                                    NewSprite = Instantiate(MediumHousePreFab, AdjustedStartPos, Quaternion.identity);
+                                }
+                            }
+                            else if (BuildingsListManager.BuildingCurrentlySelected == 2)
+                            {
+                                if (BuildingsListManager.Buildings[BuildingsListManager.BuildingCurrentlySelected].Shape[Y, X] == 0)
+                                {
+                                    Vector3 AdjustedStartPos = CurrentPos + new Vector3(1, 0.5f, 0);
+                                    NewSprite = Instantiate(ShopPrefab, AdjustedStartPos, Quaternion.identity);
+                                }
+                            }
+                            else if (BuildingsListManager.BuildingCurrentlySelected == 3)
+                            {
+                                if (BuildingsListManager.Buildings[BuildingsListManager.BuildingCurrentlySelected].Shape[Y, X] == 0)
+                                {
+                                    Vector3 AdjustedStartPos = CurrentPos + new Vector3(0, 0, 0);
+                                    NewSprite = Instantiate(HospitalPrefab, AdjustedStartPos, Quaternion.identity);
+                                }
+                            }
+                            else if (BuildingsListManager.BuildingCurrentlySelected == 0)
+                            {
+                                Vector3 AdjustedStartPos = CurrentPos + new Vector3(0, 0, 0);
+                                NewSprite = Instantiate(SmallHousePreFab, AdjustedStartPos, Quaternion.identity);
+
+                            }
+
+                        }
+
+                    }
+                }
+                RevertPreviousBuildingHightlight();
+                PlacedBuildings.Add(new PlacedBuilding(BuildingsListManager.Buildings[BuildingsListManager.BuildingCurrentlySelected], new int[] { CellClickedPos.x, CellClickedPos.y }, NewSprite));
+            }
+        }
+        RevertPreviousBuildingHightlight();
+
+        BuildingsListManager.BuildingCurrentlySelected = -1;
+
+    }
+    void PlaceTiles(Vector3Int CellClickedPos)
+    {
+        //Place tiles 
+        try
+        {
+            if (GameGrid[CellClickedPos.x, CellClickedPos.y].Contains == 0)
+            {
+                GameGrid[CellClickedPos.x, CellClickedPos.y].Contains = 1;
+                GameMap.SetTile(CellClickedPos, RoadTile);
+            }
+            else
+            {
+                GameGrid[CellClickedPos.x, CellClickedPos.y].Contains = 0;
+                GameMap.SetTile(CellClickedPos, GameTile);
+
+            }
+            UpdateRoadsAroundEdit(CellClickedPos);
+        }
+        catch
+        {
+            Debug.Log("Click not in grid square");
+
+        }
+
+    }
+    void RemoveBuildings(Vector3Int CellClickedPos)
+    {
+        Debug.Log("Removing Building");
+        //building removing check
+        if (GameGrid[CellClickedPos.x, CellClickedPos.y].Contains == 2)
+        {
+            int BuildingPos = GetBuildingClicked(CellClickedPos);
+            Debug.Log("Building found at poaition");
+            if (BuildingPos != -1)
+            {
+                Debug.Log("Removing building " + BuildingPos);
+                RemoveSelectedBuilding(PlacedBuildings[BuildingPos].buildingType,
+                    new Vector3Int(PlacedBuildings[BuildingPos].OriginPos[0], PlacedBuildings[BuildingPos].OriginPos[1], 0));
+                if (PlacedBuildings[BuildingPos] != null)
+                {
+                    Destroy(PlacedBuildings[BuildingPos].Sprite);
+                }
+                PlacedBuildings.RemoveAt(BuildingPos);
+
+                //  if (Sprites[BuildingPos] != null)
+                //  {
+
+                // }
+
+            }
+        }
+    }
     void CheckForMouseClicK() {
         if (Input.GetMouseButtonDown(0))
         {
@@ -181,113 +396,15 @@ public class GridCreator : MonoBehaviour
             Debug.Log("Click at: " + CellClickedPos);
             if (UIHandlerScript.TileEditorOn == true)
             {
-                try
-                {
-                    if (GameGrid[CellClickedPos.x, CellClickedPos.y].Contains == 0)
-                    {
-                        GameGrid[CellClickedPos.x, CellClickedPos.y].Contains = 1;
-                        GameMap.SetTile(CellClickedPos, RoadTile);
-                    }
-                    else
-                    {
-                        GameGrid[CellClickedPos.x, CellClickedPos.y].Contains = 0;
-                        GameMap.SetTile(CellClickedPos, GameTile);
-
-                    }
-                }
-                catch
-                {
-                    Debug.Log("Click not in grid square");
-
-                }
+                PlaceTiles(CellClickedPos);
             }
             if (BuildingsListManager.BuildingCurrentlySelected != -1)
             {
-                GameObject NewSprite = new GameObject(); 
-                if (GameGrid[CellClickedPos.x, CellClickedPos.y].Contains == 0)
-                {
-                    if (CheckIfBuildingCanBeplaced(CellClickedPos.x, CellClickedPos.y, BuildingsListManager.Buildings[BuildingsListManager.BuildingCurrentlySelected]))
-                    {
-                        Debug.Log("Shape Y: " + BuildingsListManager.Buildings[BuildingsListManager.BuildingCurrentlySelected].Shape.GetLength(0));
-                        Debug.Log("Shape X: " + BuildingsListManager.Buildings[BuildingsListManager.BuildingCurrentlySelected].Shape.GetLength(1));
-                        for (int Y = 0; Y < BuildingsListManager.Buildings[BuildingsListManager.BuildingCurrentlySelected].Shape.GetLength(0); Y++)
-                        {
-                            for (int X = 0; X < BuildingsListManager.Buildings[BuildingsListManager.BuildingCurrentlySelected].Shape.GetLength(1); X++)
-                            {
-                                if (BuildingsListManager.Buildings[BuildingsListManager.BuildingCurrentlySelected].Shape[Y, X] != -1)
-                                {
-                                    Vector3Int CurrentPos = GetPositionForSquare(CellClickedPos, BuildingsListManager.Buildings[BuildingsListManager.BuildingCurrentlySelected].Shape, X, Y, BuildingsListManager.Buildings[BuildingsListManager.BuildingCurrentlySelected].Origin);
-                                    GameGrid[CurrentPos.x, CurrentPos.y].Contains = 2;
-                                    if (BuildingsListManager.BuildingCurrentlySelected == 1)
-                                    {
-                                        if (BuildingsListManager.Buildings[BuildingsListManager.BuildingCurrentlySelected].Shape[Y, X] == 0)
-                                        {
-                                            Vector3 AdjustedStartPos = CurrentPos + new Vector3(1, 0.5f, 0);
-                                            NewSprite = Instantiate(MediumHousePreFab, AdjustedStartPos, Quaternion.identity);
-                                        }
-                                    }
-                                    else if (BuildingsListManager.BuildingCurrentlySelected == 2)
-                                    {
-                                        if (BuildingsListManager.Buildings[BuildingsListManager.BuildingCurrentlySelected].Shape[Y, X] == 0)
-                                        {
-                                            Vector3 AdjustedStartPos = CurrentPos + new Vector3(1, 0.5f, 0);
-                                            NewSprite = Instantiate(ShopPrefab, AdjustedStartPos, Quaternion.identity);
-                                        }
-                                    }
-                                    else if (BuildingsListManager.BuildingCurrentlySelected == 3)
-                                    {
-                                        if (BuildingsListManager.Buildings[BuildingsListManager.BuildingCurrentlySelected].Shape[Y, X] == 0)
-                                        {
-                                            Vector3 AdjustedStartPos = CurrentPos + new Vector3(0, 0, 0);
-                                            NewSprite = Instantiate(HospitalPrefab, AdjustedStartPos, Quaternion.identity);
-                                        }
-                                    }
-                                    else if(BuildingsListManager.BuildingCurrentlySelected==0)
-                                    {
-                                        Vector3 AdjustedStartPos = CurrentPos + new Vector3(0, 0, 0);
-                                        NewSprite = Instantiate(SmallHousePreFab, AdjustedStartPos, Quaternion.identity);
-                                        
-                                    }
-                                    
-                                }
-
-                            }
-                        }                        
-                        RevertPreviousBuildingHightlight();
-                        PlacedBuildings.Add(new PlacedBuilding(BuildingsListManager.Buildings[BuildingsListManager.BuildingCurrentlySelected], new int[] { CellClickedPos.x, CellClickedPos.y }, NewSprite));
-                    }
-                }
-                RevertPreviousBuildingHightlight();
-    
-                BuildingsListManager.BuildingCurrentlySelected = -1;
+                PlaceBuilding(CellClickedPos);
             }
             else if (UIHandlerScript.BuildingRemoverOn)
             {
-                Debug.Log("Removing Building");
-                //building removing check
-                if( GameGrid[CellClickedPos.x, CellClickedPos.y].Contains == 2){
-                    int BuildingPos = GetBuildingClicked(CellClickedPos);
-                    Debug.Log("Building found at poaition");
-                    if ( BuildingPos!= -1)
-                    {
-                        Debug.Log("Removing building " + BuildingPos);
-                        RemoveSelectedBuilding(PlacedBuildings[BuildingPos].buildingType,
-                            new Vector3Int(PlacedBuildings[BuildingPos].OriginPos[0], PlacedBuildings[BuildingPos].OriginPos[1], 0));
-                        if (PlacedBuildings[BuildingPos] != null)
-                        {
-                            Destroy(PlacedBuildings[BuildingPos].Sprite);
-                        }
-                        PlacedBuildings.RemoveAt(BuildingPos);
-
-                      //  if (Sprites[BuildingPos] != null)
-                      //  {
-                            
-                       // }
-
-                    }
-                }
-
-
+                RemoveBuildings(CellClickedPos);
             }
         }
     }
