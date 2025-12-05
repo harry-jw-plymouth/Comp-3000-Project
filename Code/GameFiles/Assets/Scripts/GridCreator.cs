@@ -12,7 +12,7 @@ public class GridCreator : MonoBehaviour
     public Tilemap GameMap;
 
 
-    Camera MainCamera;
+    public Camera MainCamera;
     bool UpdateNeeded = false;
 
     Vector3Int PreviousMousePosition = new Vector3Int(-1, -1, 0);
@@ -38,6 +38,12 @@ public class GridCreator : MonoBehaviour
     void Start()
     {
         CreateGrid();
+        CenterCamera();
+    }
+    void CenterCamera()
+    {
+        Vector3 CenterPos = GameMap.CellToWorld(new Vector3Int(WIDTH / 2, HEIGHT / 2, 0));
+        MainCamera.transform.position = new Vector3(CenterPos.x, CenterPos.y, MainCamera.transform.position.z);
     }
     bool CheckIfBuildingCanBeplaced(int x, int y,Building building)
     {
@@ -416,6 +422,17 @@ public class GridCreator : MonoBehaviour
         CheckForMouseHover();
         CheckForMouseClicK();
     }
+    void CreateStartingArea()
+    {
+        Vector3Int MapCenter=new Vector3Int(WIDTH/2, HEIGHT/2,0);
+        for(int i = -5; i < 5; i++)
+        {
+            GameGrid[MapCenter.x+i, MapCenter.y].Contains = 1;
+            GameMap.SetTile(new Vector3Int(MapCenter.x + i, MapCenter.y,0), RoadTile);
+            GameGrid[MapCenter.x + i, MapCenter.y+1].Contains = 1;
+            GameMap.SetTile(new Vector3Int(MapCenter.x + i, MapCenter.y+1, 0), RoadTile);
+        }
+    }
     void CreateGrid()
     {
         for (int x = 0; x < WIDTH; x++)
@@ -427,6 +444,15 @@ public class GridCreator : MonoBehaviour
                 GameGrid[x, y] = new Square(0);
 
             }
+        }
+        if (MainMenu.GameSaveID == -1)
+        {
+            //Generate starting map
+            CreateStartingArea();
+        }
+        else
+        {
+            //Generate from save 
         }
     }
 }
