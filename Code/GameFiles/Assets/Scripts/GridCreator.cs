@@ -6,10 +6,10 @@ using UnityEngine.Tilemaps;
 using UnityEngine.UIElements;
 public class GridCreator : MonoBehaviour
 {
-    public Square[,]GameGrid = new Square[GridCreator.WIDTH, GridCreator.HEIGHT];
+    public static Square[,]GameGrid = new Square[GridCreator.WIDTH, GridCreator.HEIGHT];
     public const int WIDTH = 100;
     public const int HEIGHT = 100;
-    public Tilemap GameMap;
+    public static Tilemap GameMap;
 
 
     public Camera MainCamera;
