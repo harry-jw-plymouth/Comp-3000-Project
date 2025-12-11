@@ -15,6 +15,7 @@ public class BuildingsListManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        UnityEngine.Debug.Log("Starting buildings list manager");
         SetBuildings();
         DisplayBuildings();
     }
@@ -26,7 +27,8 @@ public class BuildingsListManager : MonoBehaviour
             new Building("Small House"," A small house", new int[1,1]{{0}} ,new int[]{0,0} ),
             new Building("Medium House", " A medium house for a bigger family",new int[1,2]{{0,1}}  , new int[] {0,0 }),
             new Building("Convenience shop", " a little shop, a bit overpriced",new int[1,2]{{0,1}}, new int[] { 0, 0 }),
-            new Building("Hospital","A hospital",new int[2,2]{{1,1},{0,1} } ,new int[]{1,0})
+            new Building("Hospital","A hospital",new int[2,2]{{1,1},{0,1} } ,new int[]{1,0}),
+            new Building("Town Hall", "The core building for your city",new int[3,3]{{1,1,1},{ 1, 1, 1 }, { 0,1,1}},new int[] { 2,0 })
         };
     }
 

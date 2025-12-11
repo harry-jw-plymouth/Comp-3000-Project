@@ -32,6 +32,7 @@ public class GridCreator : MonoBehaviour
     public GameObject MediumHousePreFab;
     public GameObject HospitalPrefab;
     public GameObject ShopPrefab;
+    public GameObject TownHallPrefab;
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -42,6 +43,7 @@ public class GridCreator : MonoBehaviour
     }
     void CenterCamera()
     {
+        Debug.Log("Camera centered");
         Vector3 CenterPos = GameMap.CellToWorld(new Vector3Int(WIDTH / 2, HEIGHT / 2, 0));
         MainCamera.transform.position = new Vector3(CenterPos.x, CenterPos.y, MainCamera.transform.position.z);
     }
@@ -431,7 +433,24 @@ public class GridCreator : MonoBehaviour
             GameMap.SetTile(new Vector3Int(MapCenter.x + i, MapCenter.y,0), RoadTile);
             GameGrid[MapCenter.x + i, MapCenter.y+1].Contains = 1;
             GameMap.SetTile(new Vector3Int(MapCenter.x + i, MapCenter.y+1, 0), RoadTile);
+
+
         }
+        Vector3 BuildingStart = GameMap.CellToWorld(MapCenter);
+        GameObject NewSprite = new GameObject();
+        GameGrid[WIDTH/2,HEIGHT/2].Contains = 2;
+        Vector3 AdjustedStartPos = MapCenter + new Vector3(-0.5f, 3.5f, 0);
+        NewSprite = Instantiate( TownHallPrefab, AdjustedStartPos, Quaternion.identity);
+        PlacedBuildings.Add(new PlacedBuilding(BuildingsListManager.Buildings[4]
+            , new int[] { MapCenter.x,MapCenter.y },
+            NewSprite));
+        for(int x = 0; x < 3; x++)
+        {
+            for (int y = 0; y < 3; y++) {
+                GameGrid[MapCenter.x+ x,MapCenter.y+ y+3].Contains = 2;
+            }
+        }
+
     }
     void CreateGrid()
     {
@@ -444,7 +463,7 @@ public class GridCreator : MonoBehaviour
                 GameGrid[x, y] = new Square(0);
 
             }
-        }
+        } 
         if (MainMenu.GameSaveID == -1)
         {
             //Generate starting map

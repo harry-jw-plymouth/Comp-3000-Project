@@ -262,6 +262,7 @@ GameObject:
   m_Component:
   - component: {fileID: 94827941}
   - component: {fileID: 94827940}
+  - component: {fileID: 94827942}
   - component: {fileID: 94827939}
   m_Layer: 0
   m_Name: Grid
@@ -283,6 +284,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GridCreator
   GameMap: {fileID: 367962549}
+  MainCamera: {fileID: 519420031}
   GameTile: {fileID: 11400000, guid: adca81024aaf96c46b46fd8a28d66cc9, type: 2}
   RoadTile: {fileID: 11400000, guid: c49a14667a88e204f8ee64077c13384e, type: 2}
   SmallHouseTile: {fileID: 11400000, guid: 01f1174f0bdc37e4397d2e594b094202, type: 2}
@@ -291,6 +293,7 @@ MonoBehaviour:
   MediumHousePreFab: {fileID: 542735642625511032, guid: 609adda3048b9404d8b04a7efd494982, type: 3}
   HospitalPrefab: {fileID: 1523579773146520067, guid: 6ebbc2865a0d4e54ab56088738f8bafb, type: 3}
   ShopPrefab: {fileID: 8584031067253484874, guid: 63cff120ceefec4489b1670207c80d0c, type: 3}
+  TownHallPrefab: {fileID: 8032346269742479764, guid: af213f2145add674ca0c4a759c136563, type: 3}
 --- !u!156049354 &94827940
 Grid:
   m_ObjectHideFlags: 0
@@ -319,6 +322,20 @@ Transform:
   - {fileID: 367962547}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &94827942
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 94827938}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d8932016a37dfb498c8b9a1247ac41d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BuildingsListManager
+  BuildingObject: {fileID: 7887236245890613118, guid: 4a124c1c5329331419d1558417985eb9, type: 3}
+  BuildingsView: {fileID: 144164748}
 --- !u!1 &144164747
 GameObject:
   m_ObjectHideFlags: 0
@@ -475,7 +492,7 @@ TilemapRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -1
   m_ChunkSize: {x: 32, y: 32, z: 32}
   m_ChunkCullingBounds: {x: 0, y: 0, z: 0}
   m_MaxChunkCount: 16
@@ -2563,7 +2580,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1831244043}
   - component: {fileID: 1831244042}
-  - component: {fileID: 1831244044}
   m_Layer: 0
   m_Name: UIHandler
   m_TagString: Untagged
@@ -2600,20 +2616,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1831244044
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1831244041}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7d8932016a37dfb498c8b9a1247ac41d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::BuildingsListManager
-  BuildingObject: {fileID: 7887236245890613118, guid: 4a124c1c5329331419d1558417985eb9, type: 3}
-  BuildingsView: {fileID: 144164748}
 --- !u!1 &1888136399
 GameObject:
   m_ObjectHideFlags: 0
