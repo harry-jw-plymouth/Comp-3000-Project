@@ -41,6 +41,10 @@ public class GridCreator : MonoBehaviour
         CreateGrid();
         CenterCamera();
     }
+    private void Awake()
+    {
+        
+    }
     void CenterCamera()
     {
         Debug.Log("Camera centered");
