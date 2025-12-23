@@ -9,6 +9,7 @@ public class GridCreator : MonoBehaviour
     public static Square[,]GameGrid = new Square[GridCreator.WIDTH, GridCreator.HEIGHT];
     public const int WIDTH = 100;
     public const int HEIGHT = 100;
+    [SerializeField] private Tilemap GameMapReference;
     public static Tilemap GameMap;
 
 
@@ -43,7 +44,7 @@ public class GridCreator : MonoBehaviour
     }
     private void Awake()
     {
-        
+        GameMap = GameMapReference;
     }
     void CenterCamera()
     {
