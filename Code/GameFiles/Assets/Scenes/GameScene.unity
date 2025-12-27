@@ -283,6 +283,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1f2572d82deac9418ef7480a592c828, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GridCreator
+  GameMapReference: {fileID: 367962549}
   MainCamera: {fileID: 519420031}
   GameTile: {fileID: 11400000, guid: adca81024aaf96c46b46fd8a28d66cc9, type: 2}
   RoadTile: {fileID: 11400000, guid: c49a14667a88e204f8ee64077c13384e, type: 2}

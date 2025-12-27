@@ -69,6 +69,7 @@
     <Compile Include="Assets\Scripts\Classes\Citzen.cs" />
     <Compile Include="Assets\Scripts\SQLite.cs" />
     <Compile Include="Assets\Scripts\UIHandlerScript.cs" />
+    <Compile Include="Assets\Scripts\SaveItemScript.cs" />
     <Compile Include="Assets\Scripts\DbModels\SaveFileModel.cs" />
     <Compile Include="Assets\Scripts\Classes\Square.cs" />
     <Compile Include="Assets\Scripts\CItzenHandlerScript.cs" />
