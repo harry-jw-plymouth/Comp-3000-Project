@@ -1,14 +1,20 @@
 using UnityEngine;
 
-[CreateAssetMenu(menuName ="Citzen/Citzen Data")]
 public class CItzenScript : MonoBehaviour
 {
-    public string CitzenType;
-    public Sprite Sprite;
+    public ScriptedCitzen CitzenInfo;
+    public SpriteRenderer Renderer;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+        Renderer = GetComponent<SpriteRenderer>();
+        SetUp();
+
+    }
+    void SetUp()
+    {
+        Renderer.sprite=CitzenInfo.Sprite;
+        gameObject.name = CitzenInfo.name;
     }
 
     // Update is called once per frame
