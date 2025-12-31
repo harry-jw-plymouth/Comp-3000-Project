@@ -24,7 +24,6 @@ public class MainMenu : MonoBehaviour
     void Start()
     {
         SelectableSavesCanvas.SetActive(false);
-        PopulateSaveView();
     }
     void PopulateSaveView()
     {
@@ -48,6 +47,8 @@ public class MainMenu : MonoBehaviour
     {
         SavesCanvas.SetActive(false);
         SelectableSavesCanvas.SetActive(true);
+
+        PopulateSaveView();
     }
     public void OnGenerateNewClicked()
     {

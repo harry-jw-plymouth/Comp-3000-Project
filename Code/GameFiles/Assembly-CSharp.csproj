@@ -65,9 +65,11 @@
     <Compile Include="Assets\Scripts\Classes\PlacedBuilding.cs" />
     <Compile Include="Assets\Scripts\MainMenu.cs" />
     <Compile Include="Assets\Scripts\BuildingsListManager.cs" />
+    <Compile Include="Assets\Scripts\CItzenScript.cs" />
     <Compile Include="Assets\Scripts\DBManagerScript.cs" />
     <Compile Include="Assets\Scripts\Classes\Citzen.cs" />
     <Compile Include="Assets\Scripts\SQLite.cs" />
+    <Compile Include="Assets\Scripts\SciptedCitzen.cs" />
     <Compile Include="Assets\Scripts\UIHandlerScript.cs" />
     <Compile Include="Assets\Scripts\SaveItemScript.cs" />
     <Compile Include="Assets\Scripts\DbModels\SaveFileModel.cs" />
