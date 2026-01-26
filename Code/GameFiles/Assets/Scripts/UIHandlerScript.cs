@@ -5,7 +5,10 @@ public class UIHandlerScript : MonoBehaviour
 {
     public GameObject BuildingsMenuPopUp;
     public GameObject BuildingRemoveButton;
+    public GameObject TransportButton;
+    public GameObject TransportBuilderPopUp;
     public static bool TileEditorOn;
+    public static bool TransportPlacementOn=false;
     public static bool BuildingRemoverOn = false;
     //  public Square[,] GameGrid;
     private void Start()
@@ -26,6 +29,21 @@ public class UIHandlerScript : MonoBehaviour
         else
         {
             TileEditorOn= true;
+        }
+    }
+    public void OnTransportButtonClicked()
+    {
+        Debug.Log("Transport button clicked");
+        if (TransportPlacementOn)
+        {
+            TransportPlacementOn = false;
+        }
+        else
+        {
+            BuildingsMenuPopUp.SetActive(false);
+            BuildingRemoveButton.SetActive(false);
+            TransportPlacementOn = true;
+            TransportBuilderPopUp.SetActive(true);
         }
     }
     public void OnBuildingsButtonClick()
