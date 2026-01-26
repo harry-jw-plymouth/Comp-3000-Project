@@ -17,11 +17,23 @@ public class UIHandlerScript : MonoBehaviour
     //  GameGrid = new Square[GridCreator.WIDTH, GridCreator.HEIGHT];
     //   SetGrid();
 }
+    void SetUIInactive()
+    {
+      //  TransportButton.SetActive(false);
+        BuildingsMenuPopUp.SetActive(false);
+        TransportBuilderPopUp.SetActive(false);
+        BuildingsListManager.BuildingCurrentlySelected = -1;
+        BuildingRemoveButton.SetActive(false);
+
+        TileEditorOn = false;
+        TransportPlacementOn = false;
+        BuildingRemoverOn=false;
+
+    }
     public void OnRoadButtonClicked()
     {
         Debug.Log("Road button clicked");
-        BuildingsMenuPopUp.SetActive(false);
-        BuildingRemoveButton.SetActive(false);
+        SetUIInactive();
         if (TileEditorOn)
         {
             TileEditorOn = false;
@@ -34,28 +46,26 @@ public class UIHandlerScript : MonoBehaviour
     public void OnTransportButtonClicked()
     {
         Debug.Log("Transport button clicked");
+        SetUIInactive();
         if (TransportPlacementOn)
         {
             TransportPlacementOn = false;
         }
         else
         {
-            BuildingsMenuPopUp.SetActive(false);
-            BuildingRemoveButton.SetActive(false);
             TransportPlacementOn = true;
             TransportBuilderPopUp.SetActive(true);
         }
     }
     public void OnBuildingsButtonClick()
     {
+        SetUIInactive();
         TileEditorOn = false;
         Debug.Log("Building button clicked");
         if (BuildingsMenuPopUp.activeInHierarchy)
         {
             BuildingsListManager.BuildingCurrentlySelected = -1;
             BuildingRemoverOn= false;
-            BuildingsMenuPopUp.SetActive(false);
-            BuildingRemoveButton.SetActive(false);
         }
         else
         {
@@ -66,7 +76,9 @@ public class UIHandlerScript : MonoBehaviour
     }
     public void OnBuildingRemoveButtonClick()
     {
-       
+        SetUIInactive();
+        TransportBuilderPopUp.SetActive(false);
+
         if (BuildingRemoverOn)
         {
             Debug.Log("Building remover off");
@@ -79,7 +91,6 @@ public class UIHandlerScript : MonoBehaviour
             Debug.Log("Building remover on");
             BuildingsListManager.BuildingCurrentlySelected = -1;
             BuildingRemoverOn = true;
-            BuildingsMenuPopUp.SetActive(false);
         }
 
     }

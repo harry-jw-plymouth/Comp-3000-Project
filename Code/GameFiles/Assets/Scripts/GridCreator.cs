@@ -401,7 +401,7 @@ public class GridCreator : MonoBehaviour
         }
     }
     void CheckForMouseClicK() {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) )
         {
             Vector3 ClickPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             Vector3Int CellClickedPos = GameMap.WorldToCell(ClickPos);
@@ -411,7 +411,7 @@ public class GridCreator : MonoBehaviour
             {
                 PlaceTiles(CellClickedPos);
             }
-            if (BuildingsListManager.BuildingCurrentlySelected != -1)
+            else if (BuildingsListManager.BuildingCurrentlySelected != -1)
             {
                 PlaceBuilding(CellClickedPos);
             }
@@ -419,6 +419,11 @@ public class GridCreator : MonoBehaviour
             {
                 RemoveBuildings(CellClickedPos);
             }
+            else if (UIHandlerScript.TransportPlacementOn)
+            {
+                TransportPlacementScript.PlaceRail(CellClickedPos.x, CellClickedPos.y);
+            }
+            
         }
     }
 
