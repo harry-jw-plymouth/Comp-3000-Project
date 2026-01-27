@@ -5,9 +5,11 @@ using System.Collections.Generic;
 
 public class NPChandler : MonoBehaviour
 {
+    int MovementCounter = 0; int frameToMoveOn = 10;
     List<Citzen> NPCList=new List<Citzen>();
     int NumberOfNpcs;
     public GameObject NPCPrefab;
+
 
     Vector3Int MapCenter = new Vector3Int(GridCreator.WIDTH / 2, GridCreator.HEIGHT / 2, 0);
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -18,15 +20,15 @@ public class NPChandler : MonoBehaviour
     }
     int GetNumberOfNPCs()
     {
-        return 5;   
+        return 1;   
     }
     void LoadNPCs()
     {
         Vector3 worldPosition = GridCreator.GameMap.GetCellCenterWorld(MapCenter);
         for (int i = 0; i < NumberOfNpcs; i++) {
             worldPosition.x++; ;
-            Instantiate(NPCPrefab,worldPosition,Quaternion.identity );
-            NPCList.Add(new Citzen(worldPosition));
+            GameObject Current= Instantiate(NPCPrefab,worldPosition,Quaternion.identity );
+            NPCList.Add(new Citzen(worldPosition,Current));
             Debug.Log("placinng NPC");
         }
     }
@@ -39,7 +41,7 @@ public class NPChandler : MonoBehaviour
     bool CheckIfOnRoad(Vector3 Position)
     {
         Vector3Int GridPosition = GridCreator.GameMap.WorldToCell(Position);
-        if (GridCreator.GameGrid[GridPosition.x, GridPosition.y].Contains != 0)
+        if (GridCreator.GameGrid[GridPosition.x, GridPosition.y].Contains != 1)
         {
             return false;
         }
@@ -47,9 +49,12 @@ public class NPChandler : MonoBehaviour
     }
     void SelectNewAction(int NPCIndex)
     {
-        if (CheckIfOnRoad(NPCList[NPCIndex].GetPosition())){
+        if (!CheckIfOnRoad(NPCList[NPCIndex].GetPosition())){
+            //Debug.Log("Not on road");
             if (GridCreator.GetIfRoadExists())
             {
+                Debug.Log("RoadFound");
+                NPCList[NPCIndex].SetCurrentAction(0) ;
                 //Go to nearest path
                 Vector3 RoadPos= GridCreator.GetPosOfNearestRoad(NPCList[NPCIndex].GetPosition());
                 NPCList[NPCIndex].SetMovementTarget(RoadPos);
@@ -58,12 +63,32 @@ public class NPChandler : MonoBehaviour
     }
     void UpdateNPCs()
     {
+        MovementCounter++;
         // check for updates to each NPC
         for (int i = 0; i < NumberOfNpcs; i++) {
+            //New action
             if (NPCList[i].GetCurrentAction() == -1)
             {
+               // Debug.Log("Selecting new action");
                 SelectNewAction(i);
             }
+            //NPc moving
+            else if (NPCList[i].GetCurrentAction() == 0 )
+            {
+                if (NPCList[i].GetMoveCounter() == frameToMoveOn)
+                {
+                    NPCList[i].ResetCounter();
+                    Debug.Log("Moving towards target");
+                    NPCList[i].MovetowardsTarget();
+                }
+                else
+                {
+                    NPCList[i].UpdateCounter();
+                }
+
+                
+            }
+            
         }
 
     }
