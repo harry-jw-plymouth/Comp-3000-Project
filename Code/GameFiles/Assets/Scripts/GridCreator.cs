@@ -21,7 +21,7 @@ public class GridCreator : MonoBehaviour
     List<PlacedBuilding>PlacedBuildings=new List<PlacedBuilding>();
     List<GameObject> Sprites = new List<GameObject>();
     List<Vector3Int> PreviousBuildingHighlight = new List<Vector3Int>();
-
+    
 
     public RuleTile GameTile;
     public RuleTile RoadTile;
@@ -421,7 +421,7 @@ public class GridCreator : MonoBehaviour
             }
             else if (UIHandlerScript.TransportPlacementOn)
             {
-                TransportPlacementScript.PlaceRail(CellClickedPos.x, CellClickedPos.y);
+                TransportPlacementScript.PlaceRail(CellClickedPos);
             }
             
         }
