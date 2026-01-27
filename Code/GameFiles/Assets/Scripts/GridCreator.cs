@@ -99,6 +99,61 @@ public class GridCreator : MonoBehaviour
         }
 
     }
+    public static bool GetIfRoadExists()
+    {
+        for(int Y = 0; Y < HEIGHT; Y++)
+        {
+            for(int X = 0; X < WIDTH; X++)
+            {
+                if (GameGrid[X, Y].Contains == 1)
+                {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+    static int GetDistanceBetweenPostions(Vector3Int Pos1, Vector3Int Pos2)
+    {
+        int XDiff=0, YDiff=0;
+        if (Pos1.x > Pos2.x)
+        {
+            XDiff = Pos1.x - Pos2.x;
+        }
+        else
+        {
+            XDiff = Pos2.x - Pos1.x;
+        }
+        if (Pos1.y > Pos2.y) { 
+            YDiff= Pos1.y - Pos2.y;
+        }
+        else
+        {
+            YDiff = Pos2.y - Pos1.y;
+        }
+        return XDiff + YDiff;
+    }
+    public static Vector3 GetPosOfNearestRoad(Vector3 CurrentPos)
+    { 
+        Vector3 CurrentClosest=new Vector3(0,0,0);
+        int CurrentMinDistance=100000;
+        for (int Y = 0; Y < HEIGHT; Y++)
+        {
+            for (int X = 0; X < WIDTH; X++)
+            {
+                if (GameGrid[X, Y].Contains == 1)
+                {
+                    int Distance = GetDistanceBetweenPostions(GameMap.WorldToCell(new Vector3(X, Y, 0)),GameMap.WorldToCell(CurrentPos));
+                    if (Distance < CurrentMinDistance)
+                    {
+                        CurrentMinDistance = Distance;
+                        CurrentClosest=new Vector3(X, Y, 0);
+                    }
+                }
+            }
+        }
+        return CurrentClosest;
+    }
     void RemoveSelectedBuilding(Building RemovedBuilding, Vector3Int Origin)
     {
         for (int Y = 0; Y < RemovedBuilding.Shape.GetLength(0); Y++)
