@@ -49,6 +49,7 @@ public class NPChandler : MonoBehaviour
     }
     void SelectNewAction(int NPCIndex)
     {
+        int RandomValue = UnityEngine.Random.Range(0, 100);
         if (!CheckIfOnRoad(NPCList[NPCIndex].GetPosition())){
             //Debug.Log("Not on road");
             if (GridCreator.GetIfRoadExists())
@@ -60,6 +61,24 @@ public class NPChandler : MonoBehaviour
                 RoadPos.y += 0.5f;
                 RoadPos.x += 0.5f;
                 NPCList[NPCIndex].SetMovementTarget(RoadPos);
+            }
+        }
+        else
+        {
+           // Debug.Log("Already on road");
+            if (RandomValue < 10)
+            {
+                //Go to nearest shop
+                NPCList[NPCIndex].SetCurrentAction(0);
+                Vector3 ShopPos = GridCreator.GetPosOfNearestShop(NPCList[NPCIndex].GetPosition());
+                ShopPos.x += 0.5f; ShopPos.y += 0.5f;
+                NPCList[NPCIndex].SetMovementTarget(ShopPos);
+                
+
+            }
+            else
+            {
+                //Wander
             }
         }
     }

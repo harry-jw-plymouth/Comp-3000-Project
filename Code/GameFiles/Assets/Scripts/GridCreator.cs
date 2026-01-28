@@ -18,7 +18,7 @@ public class GridCreator : MonoBehaviour
 
     Vector3Int PreviousMousePosition = new Vector3Int(-1, -1, 0);
 
-    List<PlacedBuilding>PlacedBuildings=new List<PlacedBuilding>();
+    public static List<PlacedBuilding>PlacedBuildings=new List<PlacedBuilding>();
     List<GameObject> Sprites = new List<GameObject>();
     List<Vector3Int> PreviousBuildingHighlight = new List<Vector3Int>();
     
@@ -152,6 +152,31 @@ public class GridCreator : MonoBehaviour
                     }
                 }
             }
+        }
+        return CurrentClosest;
+    }
+    public static Vector3 GetPosOfNearestShop(Vector3 CurrentPos)
+    {
+        Vector3 CurrentClosest = new Vector3(0, 0, 0);
+        bool ShopFound = false;
+        int CurrentMinDistance = 100000;
+        for(int i = 0; i < PlacedBuildings.Count; i++)
+        {
+            if (PlacedBuildings[i].GetIfIsShop())
+            {
+                int Distance = GetDistanceBetweenPostions(GameMap.WorldToCell(PlacedBuildings[i].GetBuildingPos()), GameMap.WorldToCell(CurrentPos));
+                if (Distance < CurrentMinDistance)
+                {
+                    ShopFound= true;
+                    CurrentMinDistance = Distance;
+                    CurrentClosest = PlacedBuildings[i].GetBuildingPos();
+                }
+            }
+        }
+
+        if (!ShopFound)
+        {
+            return new Vector3(-1,-1,-1);
         }
         return CurrentClosest;
     }
@@ -396,7 +421,9 @@ public class GridCreator : MonoBehaviour
                     }
                 }
                 RevertPreviousBuildingHightlight();
-                PlacedBuildings.Add(new PlacedBuilding(BuildingsListManager.Buildings[BuildingsListManager.BuildingCurrentlySelected], new int[] { CellClickedPos.x, CellClickedPos.y }, NewSprite));
+                PlacedBuilding New = new PlacedBuilding(BuildingsListManager.Buildings[BuildingsListManager.BuildingCurrentlySelected], new int[] { CellClickedPos.x, CellClickedPos.y }, NewSprite);
+                New.SetBuildingPos(CellClickedPos);
+                PlacedBuildings.Add(New);
             }
         }
         RevertPreviousBuildingHightlight();
