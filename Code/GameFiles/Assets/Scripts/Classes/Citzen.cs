@@ -7,6 +7,10 @@ public class Citzen
     int CurrentAction=-1;
     //-1 No action 
     // 0 Moving
+    //1 InBuilding
+    int InBuilding = 0;
+    bool TargetIsbuilding=false;
+    Building BuildingCurrentlyTargetting;
     Vector3 MovementTarget=new Vector3(0,0,0);
     Vector3 Position;
     public bool UpdateNeeded;
@@ -16,6 +20,11 @@ public class Citzen
         NPCSprite = sprite;
         Position= Pos;
         UpdateNeeded = true;
+
+    }
+    public void SetTargetBuilding(Building target)
+    {
+        BuildingCurrentlyTargetting = target;
     }
     public Vector3 GetPosition()
     {
@@ -45,6 +54,29 @@ public class Citzen
     {
         MoveCounter = 0;
     }
+    public void SetIfTargetIsBuilding(bool Target)
+    {
+        TargetIsbuilding = Target;
+    }
+    public bool GetIfTargetIsBuilding()
+    {
+        return TargetIsbuilding;
+    }
+    public void SpendTImeInBuilding()
+    {
+        InBuilding--;
+        if (InBuilding == 0)
+        {
+            NPCSprite.GetComponent<SpriteRenderer>().enabled = true;
+            BuildingCurrentlyTargetting = null;
+            SetCurrentAction(-1);
+
+        }
+    }
+    public int GetTimeInBuilding(int LowerBound,int UpperBound)
+    {
+        return UnityEngine.Random.Range(LowerBound, UpperBound); 
+    }
     public void MovetowardsTarget()
     {
         Debug.Log("Moving");
@@ -69,7 +101,19 @@ public class Citzen
         {
             Debug.Log("Arrived at target");
             MovementTarget = new Vector3();
-            SetCurrentAction(-1);
+            if (TargetIsbuilding)
+            {
+                SetCurrentAction(1);
+                TargetIsbuilding = false;
+                InBuilding = GetTimeInBuilding(BuildingCurrentlyTargetting.GetLowerBound(),BuildingCurrentlyTargetting.GetUpperBound());
+                NPCSprite.GetComponent<SpriteRenderer>().enabled = false;
+            }
+            else
+            {
+                SetCurrentAction(-1);
+            }
+               
+
         }
     }
     

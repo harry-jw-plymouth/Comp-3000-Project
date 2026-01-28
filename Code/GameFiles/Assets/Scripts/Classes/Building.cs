@@ -8,14 +8,17 @@ public class Building
     public int[,] Shape;
     public int[] Origin;
     bool IsShop;
+    int LowerTimeInBuilding,UpperTimeInBuilding; 
 
-    public Building(string name, string description, int[,] shape, int[] origin, bool Shop)
+    public Building(string name, string description, int[,] shape, int[] origin, bool Shop ,int LB,int UB)
     {
         Name = name;
         Description = description;
         Shape = shape;
         Origin = origin;
         IsShop= Shop;
+        LowerTimeInBuilding = LB;
+        UpperTimeInBuilding = UB;
         // 2d array to show shape of building in grid
         // -1 is empty square
         // 0 is origin square(Where the building is placed in correlation to the location selected by the player)
@@ -24,6 +27,14 @@ public class Building
     public bool GetIfBuildingIsAShop()
     {
         return IsShop;
+    }
+    public int GetLowerBound()
+    {
+        return LowerTimeInBuilding;
+    }
+    public int GetUpperBound()
+    {
+        return UpperTimeInBuilding;
     }
 
 }

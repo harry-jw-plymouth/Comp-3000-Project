@@ -6,6 +6,7 @@ using System.Collections.Generic;
 public class NPChandler : MonoBehaviour
 {
     int MovementCounter = 0; int frameToMoveOn = 10;
+    int BuildingFrame = 20 ;
     List<Citzen> NPCList=new List<Citzen>();
     int NumberOfNpcs;
     public GameObject NPCPrefab;
@@ -68,13 +69,24 @@ public class NPChandler : MonoBehaviour
            // Debug.Log("Already on road");
             if (RandomValue < 10)
             {
-                //Go to nearest shop
-                NPCList[NPCIndex].SetCurrentAction(0);
                 Vector3 ShopPos = GridCreator.GetPosOfNearestShop(NPCList[NPCIndex].GetPosition());
-                ShopPos.x += 0.5f; ShopPos.y += 0.5f;
-                NPCList[NPCIndex].SetMovementTarget(ShopPos);
-                
+                if (ShopPos.x != -1)
+                {
+                    //Go to nearest shop
+                    NPCList[NPCIndex].SetCurrentAction(0);
 
+                    ShopPos.x += 0.5f; ShopPos.y += 0.5f;
+                    NPCList[NPCIndex].SetMovementTarget(ShopPos);
+                    NPCList[NPCIndex].SetIfTargetIsBuilding(true);
+                    NPCList[NPCIndex].SetTargetBuilding(GridCreator.GetSelectedBuilding());
+                    
+                }
+                else
+                {
+                    //no shop found
+                }
+
+                
             }
             else
             {
@@ -106,6 +118,18 @@ public class NPChandler : MonoBehaviour
                 {
                     NPCList[i].UpdateCounter();
                 }          
+            }
+            else if (NPCList[i].GetCurrentAction() == 1)
+            {
+                if (NPCList[i].GetMoveCounter() == BuildingFrame)
+                {
+                    NPCList[i].ResetCounter();
+                    NPCList[i].SpendTImeInBuilding();
+                }
+                else
+                {
+                    NPCList[i].UpdateCounter();
+                }
             }
             
         }

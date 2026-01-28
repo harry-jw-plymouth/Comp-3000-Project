@@ -21,7 +21,8 @@ public class GridCreator : MonoBehaviour
     public static List<PlacedBuilding>PlacedBuildings=new List<PlacedBuilding>();
     List<GameObject> Sprites = new List<GameObject>();
     List<Vector3Int> PreviousBuildingHighlight = new List<Vector3Int>();
-    
+
+    public static Building RecentlySelectedBuilding;
 
     public RuleTile GameTile;
     public RuleTile RoadTile;
@@ -167,6 +168,7 @@ public class GridCreator : MonoBehaviour
                 int Distance = GetDistanceBetweenPostions(GameMap.WorldToCell(PlacedBuildings[i].GetBuildingPos()), GameMap.WorldToCell(CurrentPos));
                 if (Distance < CurrentMinDistance)
                 {
+                    RecentlySelectedBuilding = PlacedBuildings[i].buildingType;
                     ShopFound= true;
                     CurrentMinDistance = Distance;
                     CurrentClosest = PlacedBuildings[i].GetBuildingPos();
@@ -179,6 +181,10 @@ public class GridCreator : MonoBehaviour
             return new Vector3(-1,-1,-1);
         }
         return CurrentClosest;
+    }
+    public static Building GetSelectedBuilding()
+    {
+        return RecentlySelectedBuilding;
     }
     void RemoveSelectedBuilding(Building RemovedBuilding, Vector3Int Origin)
     {

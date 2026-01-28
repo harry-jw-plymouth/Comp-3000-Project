@@ -25,15 +25,15 @@ public class BuildingsListManager : MonoBehaviour
         Buildings = new Building[]
         {
             new Building("Small House"," A small house", new int[1,1]{{0}} ,new int[]{0,0},
-            false),
+            false ,100, 1000),
             new Building("Medium House", " A medium house for a bigger family",new int[1,2]{{0,1}}  , new int[] {0,0 },
-            false),
+            false,100,1000),
             new Building("Convenience shop", " a little shop, a bit overpriced",new int[1,2]{{0,1}}, new int[] { 0, 0 },
-            true),
+            true,100,300),
             new Building("Hospital","A hospital",new int[2,2]{{1,1},{0,1} } ,new int[]{1,0},
-            false),
+            false,100,300),
             new Building("Town Hall", "The core building for your city",new int[3,3]{{1,1,1},{ 1, 1, 1 }, { 0,1,1}},new int[] { 2,0 }, 
-            false)
+            false,100,500)
         };
     }
 
