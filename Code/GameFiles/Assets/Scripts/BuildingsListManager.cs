@@ -24,10 +24,10 @@ public class BuildingsListManager : MonoBehaviour
         //temporarily hard coded, in future will pull more dynamically
         Buildings = new Building[]
         {
-            new Building("Small House"," A small house", new int[1,1]{{0}} ,new int[]{0,0},
-            false ,100, 1000),
-            new Building("Medium House", " A medium house for a bigger family",new int[1,2]{{0,1}}  , new int[] {0,0 },
-            false,100,1000),
+            new Home("Small House"," A small house", new int[1,1]{{0}} ,new int[]{0,0},
+            false ,100, 1000,5),
+            new Home("Medium House", " A medium house for a bigger family",new int[1,2]{{0,1}}  , new int[] {0,0 },
+            false,100,1000,3),
             new Building("Convenience shop", " a little shop, a bit overpriced",new int[1,2]{{0,1}}, new int[] { 0, 0 },
             true,100,300),
             new Building("Hospital","A hospital",new int[2,2]{{1,1},{0,1} } ,new int[]{1,0},

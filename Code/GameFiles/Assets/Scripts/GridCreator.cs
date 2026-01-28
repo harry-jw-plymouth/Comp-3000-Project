@@ -21,6 +21,7 @@ public class GridCreator : MonoBehaviour
     public static List<PlacedBuilding>PlacedBuildings=new List<PlacedBuilding>();
     List<GameObject> Sprites = new List<GameObject>();
     List<Vector3Int> PreviousBuildingHighlight = new List<Vector3Int>();
+    List<>
 
     public static Building RecentlySelectedBuilding;
 

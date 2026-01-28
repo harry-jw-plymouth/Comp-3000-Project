@@ -87,7 +87,7 @@ public class NPChandler : MonoBehaviour
         else
         {
            // Debug.Log("Already on road");
-            if (RandomValue < 10)
+            if (RandomValue < 5)
             {
                 Vector3 ShopPos = GridCreator.GetPosOfNearestShop(NPCList[NPCIndex].GetPosition());
                 if (ShopPos.x != -1)
@@ -113,8 +113,9 @@ public class NPChandler : MonoBehaviour
             else
             {
                 //Wander
-                Vector3 WanderTarget = GetWanderTarget();
-               // NPCList[NPCIndex].SetCurrentAction(0);
+                NPCList[NPCIndex].SetMovementTarget(GetWanderTarget());
+                NPCList[NPCIndex].SetCurrentAction(0);
+                // NPCList[NPCIndex].SetCurrentAction(0);
 
             }
         }

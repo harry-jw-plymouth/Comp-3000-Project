@@ -7,8 +7,8 @@ public class Building
     public string Description;
     public int[,] Shape;
     public int[] Origin;
-    bool IsShop;
-    int LowerTimeInBuilding,UpperTimeInBuilding; 
+    public bool IsShop;
+    public int LowerTimeInBuilding,UpperTimeInBuilding; 
 
     public Building(string name, string description, int[,] shape, int[] origin, bool Shop ,int LB,int UB)
     {
