@@ -26,7 +26,7 @@ public class NPChandler : MonoBehaviour
     {
         Vector3 worldPosition = GridCreator.GameMap.GetCellCenterWorld(MapCenter);
         for (int i = 0; i < NumberOfNpcs; i++) {
-            worldPosition.x++; ;
+            worldPosition.x++; 
             GameObject Current= Instantiate(NPCPrefab,worldPosition,Quaternion.identity );
             NPCList.Add(new Citzen(worldPosition,Current));
             Debug.Log("placinng NPC");
@@ -57,6 +57,8 @@ public class NPChandler : MonoBehaviour
                 NPCList[NPCIndex].SetCurrentAction(0) ;
                 //Go to nearest path
                 Vector3 RoadPos= GridCreator.GetPosOfNearestRoad(NPCList[NPCIndex].GetPosition());
+                RoadPos.y += 0.5f;
+                RoadPos.x += 0.5f;
                 NPCList[NPCIndex].SetMovementTarget(RoadPos);
             }
         }
@@ -84,9 +86,7 @@ public class NPChandler : MonoBehaviour
                 else
                 {
                     NPCList[i].UpdateCounter();
-                }
-
-                
+                }          
             }
             
         }

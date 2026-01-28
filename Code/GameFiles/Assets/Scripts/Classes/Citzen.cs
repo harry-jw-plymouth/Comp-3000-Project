@@ -48,23 +48,29 @@ public class Citzen
     public void MovetowardsTarget()
     {
         Debug.Log("Moving");
-        if (Position.y > MovementTarget.y) {
-            Position.y -= MovementSpeed;
+        if (Position.y > MovementTarget.y)
+        {
+            Position.y = Mathf.Max(Position.y - MovementSpeed, MovementTarget.y);
         }
         else
         {
-            Position.y+= MovementSpeed;
+            Position.y = Mathf.Min(Position.y + MovementSpeed, MovementTarget.y);
         }
         if (Position.x > MovementTarget.x)
         {
-            Position.x -= MovementSpeed;
+            Position.x = Mathf.Max(Position.x- MovementSpeed,MovementTarget.x);
         }
         else
         {
-            Position.x += MovementSpeed;
+            Position.x = Mathf.Min(Position.x+ MovementSpeed, MovementTarget.x);
         }
         NPCSprite.transform.position = Position;
-        
+        if(MovementTarget.x==Position.x  && MovementTarget.y == Position.y)
+        {
+            Debug.Log("Arrived at target");
+            MovementTarget = new Vector3();
+            SetCurrentAction(-1);
+        }
     }
     
 }
