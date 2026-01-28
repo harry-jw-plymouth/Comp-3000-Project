@@ -15,12 +15,26 @@ public class Citzen
     Vector3 Position;
     public bool UpdateNeeded;
     GameObject NPCSprite;
+    bool IsHomeLess = true;
+    Vector3 HomePosition=new Vector3(-1,-1,-1);
     public Citzen(Vector3 Pos,GameObject sprite)
     {
         NPCSprite = sprite;
         Position= Pos;
         UpdateNeeded = true;
 
+    }
+    public void SetHomePos(Vector3 Pos)
+    {
+        HomePosition = Pos;
+    }
+    public void UpdateHomeStatus(bool NewStatus)
+    {
+        IsHomeLess = NewStatus;
+    }
+    public bool GetIfHomeless()
+    {
+        return IsHomeLess;
     }
     public void SetTargetBuilding(Building target)
     {

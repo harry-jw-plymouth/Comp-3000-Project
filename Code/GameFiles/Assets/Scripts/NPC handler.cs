@@ -1,7 +1,8 @@
 using NUnit.Framework;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
-using System.Collections.Generic;
+using UnityEngine.UIElements;
 
 public class NPChandler : MonoBehaviour
 {
@@ -18,10 +19,53 @@ public class NPChandler : MonoBehaviour
     {
         NumberOfNpcs = GetNumberOfNPCs();
         LoadNPCs();
+        SetHomes();
     }
     int GetNumberOfNPCs()
     {
         return 10;   
+    }
+    public void SetHomes()
+    {
+        int TotalSet=0; int TotalNotSet = 0;
+        Debug.Log("Setting homes");
+        bool HomeFound=false;
+        for (int i = 0; i < NumberOfNpcs; i++) {
+            HomeFound = false;
+            if (NPCList[i].GetIfHomeless())
+            {
+                foreach (PlacedBuilding building in GridCreator.PlacedBuildings)
+                {
+
+                    if (building.GetType() is Home home)
+                    {
+                        if (!home.GetIfFull())
+                        {
+                            HomeFound = true;
+                            home.AdjustResidents(1);
+                            NPCList[i].UpdateHomeStatus(true);
+                            NPCList[i].SetHomePos(building.GetBuildingPos());
+                            TotalSet++;
+                        }
+                    }
+                    if (HomeFound)
+                    {
+                        break;
+                    }
+                }
+                if (!HomeFound)
+                {
+                    NPCList[i].UpdateHomeStatus(false);
+                    NPCList[i].SetHomePos(new Vector3(-1, -1, -1));
+                    TotalNotSet++;
+                }
+            }
+            else
+            {
+                TotalSet++;
+            }
+        }
+        Debug.Log("NPC homes set: " + TotalSet + "\n Total not set: " + TotalNotSet);
     }
     void LoadNPCs()
     {

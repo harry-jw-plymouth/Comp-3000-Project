@@ -21,6 +21,11 @@ public class PlacedBuilding
     {
         return BuildingPos;
     }
+    public Building GetType()
+    {
+        return buildingType;
+    }
+    
 
     public bool GetIfIsShop()
     {

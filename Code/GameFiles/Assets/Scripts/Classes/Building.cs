@@ -8,7 +8,9 @@ public class Building
     public int[,] Shape;
     public int[] Origin;
     public bool IsShop;
+    public bool IsHome=false;
     public int LowerTimeInBuilding,UpperTimeInBuilding; 
+
 
     public Building(string name, string description, int[,] shape, int[] origin, bool Shop ,int LB,int UB)
     {
@@ -27,6 +29,10 @@ public class Building
     public bool GetIfBuildingIsAShop()
     {
         return IsShop;
+    }
+    public bool GetIfIsHome()
+    {
+        return IsHome; 
     }
     public int GetLowerBound()
     {

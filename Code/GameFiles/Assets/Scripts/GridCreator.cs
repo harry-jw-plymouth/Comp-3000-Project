@@ -6,6 +6,7 @@ using UnityEngine.Tilemaps;
 using UnityEngine.UIElements;
 public class GridCreator : MonoBehaviour
 {
+    [SerializeField] NPChandler npcHandler;
     public static Square[,]GameGrid = new Square[GridCreator.WIDTH, GridCreator.HEIGHT];
     public const int WIDTH = 100;
     public const int HEIGHT = 100;
@@ -21,7 +22,9 @@ public class GridCreator : MonoBehaviour
     public static List<PlacedBuilding>PlacedBuildings=new List<PlacedBuilding>();
     List<GameObject> Sprites = new List<GameObject>();
     List<Vector3Int> PreviousBuildingHighlight = new List<Vector3Int>();
-    List<>
+
+   public static  List<PlacedBuilding> HomesPlaced = new List<PlacedBuilding>();
+ 
 
     public static Building RecentlySelectedBuilding;
 
@@ -435,6 +438,10 @@ public class GridCreator : MonoBehaviour
                 PlacedBuilding New = new PlacedBuilding(BuildingsListManager.Buildings[BuildingsListManager.BuildingCurrentlySelected], new int[] { CellClickedPos.x, CellClickedPos.y }, NewSprite);
                 New.SetBuildingPos(CellClickedPos);
                 PlacedBuildings.Add(New);
+                if (New.GetType().GetIfIsHome())
+                {
+                    npcHandler.SetHomes();
+                }
             }
         }
         RevertPreviousBuildingHightlight();
