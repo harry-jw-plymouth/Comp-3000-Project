@@ -36,15 +36,19 @@ public class GridCreator : MonoBehaviour
     public GameObject ShopPrefab;
     public GameObject TownHallPrefab;
 
+    public static List<Vector3> RoadPositions=new List<Vector3>();
+
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+
         CreateGrid();
         CenterCamera();
     }
     private void Awake()
     {
+
         GameMap = GameMapReference;
     }
     void CenterCamera()
@@ -446,11 +450,13 @@ public class GridCreator : MonoBehaviour
             {
                 GameGrid[CellClickedPos.x, CellClickedPos.y].Contains = 1;
                 GameMap.SetTile(CellClickedPos, RoadTile);
+                RoadPositions.Add(CellClickedPos);
             }
             else
             {
                 GameGrid[CellClickedPos.x, CellClickedPos.y].Contains = 0;
                 GameMap.SetTile(CellClickedPos, GameTile);
+                RoadPositions.Remove(CellClickedPos);
 
             }
             UpdateRoadsAroundEdit(CellClickedPos);
@@ -490,7 +496,7 @@ public class GridCreator : MonoBehaviour
         }
     }
     void CheckForMouseClicK() {
-        if (Input.GetMouseButtonDown(0) )
+        if (Input.GetMouseButtonDown(0))
         {
             Vector3 ClickPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             Vector3Int CellClickedPos = GameMap.WorldToCell(ClickPos);
@@ -512,9 +518,19 @@ public class GridCreator : MonoBehaviour
             {
                 TransportPlacementScript.PlaceRail(CellClickedPos);
             }
-            
+
         }
     }
+    public static Vector3 GetRandomRoadCoorindates()
+    {
+        if (GetIfRoadExists())
+        {
+            int RandomValue = UnityEngine.Random.Range(0, RoadPositions.Count);
+            return RoadPositions[RandomValue];
+        }
+        else return new Vector3(-1, -1, -1);
+    }
+
 
 
     // Update is called once per frame

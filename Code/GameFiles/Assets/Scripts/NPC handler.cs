@@ -21,7 +21,7 @@ public class NPChandler : MonoBehaviour
     }
     int GetNumberOfNPCs()
     {
-        return 1;   
+        return 10;   
     }
     void LoadNPCs()
     {
@@ -47,6 +47,26 @@ public class NPChandler : MonoBehaviour
             return false;
         }
         return true;
+    }
+    public Vector3 GetWanderTarget()
+    {
+
+        Vector3 RoadTarget = GridCreator.GetRandomRoadCoorindates();
+        if (RoadTarget.x == -1)
+        {
+            //No road
+            Debug.Log("No road found");
+            int RandomX = UnityEngine.Random.Range(0,GridCreator.WIDTH);
+            int RandomY = UnityEngine.Random.Range(0, GridCreator.HEIGHT);
+            Vector3 FinalPos= GridCreator.GameMap.CellToWorld(new Vector3Int(RandomX, RandomY, 0));
+            FinalPos.x += 0.5f;FinalPos.y += 0.5f;
+            return FinalPos;
+        }
+        else
+        {
+            RoadTarget.x += 0.5f;RoadTarget.y += 0.5f;
+            return RoadTarget;
+        }
     }
     void SelectNewAction(int NPCIndex)
     {
@@ -84,6 +104,8 @@ public class NPChandler : MonoBehaviour
                 else
                 {
                     //no shop found
+                    NPCList[NPCIndex].SetMovementTarget(GetWanderTarget());
+                    NPCList[NPCIndex].SetCurrentAction(0);
                 }
 
                 
@@ -91,6 +113,9 @@ public class NPChandler : MonoBehaviour
             else
             {
                 //Wander
+                Vector3 WanderTarget = GetWanderTarget();
+               // NPCList[NPCIndex].SetCurrentAction(0);
+
             }
         }
     }
