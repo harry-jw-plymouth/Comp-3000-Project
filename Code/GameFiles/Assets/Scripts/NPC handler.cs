@@ -8,7 +8,7 @@ public class NPChandler : MonoBehaviour
 {
     int MovementCounter = 0; int frameToMoveOn = 10;
     int BuildingFrame = 20 ;
-    List<Citzen> NPCList=new List<Citzen>();
+   [SerializeField]  List<Citzen> NPCList=new List<Citzen>();
     int NumberOfNpcs;
     public GameObject NPCPrefab;
 
@@ -25,21 +25,36 @@ public class NPChandler : MonoBehaviour
     {
         return 10;   
     }
+    public  float GetHomeLessPercentage()
+    {
+        int total = 0;
+        for(int i = 0; i < NPCList.Count; i++)
+        {
+            if (NPCList[i].GetIfHomeless())
+            {
+                total++;
+            }
+        }
+        Debug.Log("Numebr homeless:" + total);
+        float percent = (float)total / NPCList.Count * 100f;
+        Debug.Log("homesless %:" + percent);
+        return percent;
+    }
     public void SetHomes()
     {
         int TotalSet=0; int TotalNotSet = 0;
-        Debug.Log("Setting homes");
-        Debug.Log("Number of buildings in NPC handler:" + GridCreator.PlacedBuildings.Count);
+   //     Debug.Log("Setting homes");
+     //   Debug.Log("Number of buildings in NPC handler:" + GridCreator.PlacedBuildings.Count);
         bool HomeFound=false;
         for (int i = 0; i < NumberOfNpcs; i++) {
             HomeFound = false;
             if (NPCList[i].GetIfHomeless())
             {
-                Debug.Log("Npc:" + i);
+       //         Debug.Log("Npc:" + i);
                 
                 foreach (PlacedBuilding building in GridCreator.PlacedBuildings)
                 {
-                    Debug.Log("Building type: " + building.buildingType.GetType());
+         //           Debug.Log("Building type: " + building.buildingType.GetType());
                     if (building.buildingType is Home home)
                     {
                         if (!home.GetIfFull())
@@ -82,7 +97,7 @@ public class NPChandler : MonoBehaviour
             worldPosition.x++; 
             GameObject Current= Instantiate(NPCPrefab,worldPosition,Quaternion.identity );
             NPCList.Add(new Citzen(worldPosition,Current));
-            Debug.Log("placinng NPC");
+          //  Debug.Log("placinng NPC");
         }
     }
 
@@ -107,7 +122,7 @@ public class NPChandler : MonoBehaviour
         if (RoadTarget.x == -1)
         {
             //No road
-            Debug.Log("No road found");
+          //  Debug.Log("No road found");
             int RandomX = UnityEngine.Random.Range(0,GridCreator.WIDTH);
             int RandomY = UnityEngine.Random.Range(0, GridCreator.HEIGHT);
             Vector3 FinalPos= GridCreator.GameMap.CellToWorld(new Vector3Int(RandomX, RandomY, 0));
@@ -167,7 +182,7 @@ public class NPChandler : MonoBehaviour
                 //go home
                 Vector3 HomePos = NPCList[NPCIndex].GetHomePos();
                 if (HomePos.x != -1) {
-                    Debug.Log("Going home");
+               //     Debug.Log("Going home");
                     NPCList[NPCIndex].SetCurrentAction(0);
                     NPCList[NPCIndex].SetMovementTarget(HomePos);
                     NPCList[NPCIndex].SetIfTargetIsBuilding(true);
