@@ -8,6 +8,7 @@ public class Citzen
     //-1 No action 
     // 0 Moving
     //1 InBuilding
+    //2 at home
     int InBuilding = 0;
     bool TargetIsbuilding=false;
     Building BuildingCurrentlyTargetting;
@@ -16,6 +17,7 @@ public class Citzen
     public bool UpdateNeeded;
     GameObject NPCSprite;
     bool IsHomeLess = true;
+    Building Home;
     Vector3 HomePosition=new Vector3(-1,-1,-1);
     public Citzen(Vector3 Pos,GameObject sprite)
     {
@@ -23,6 +25,18 @@ public class Citzen
         Position= Pos;
         UpdateNeeded = true;
 
+    }
+    public void SetHome(Building home)
+    {
+        Home =home;
+    }
+    public Building GetHome()
+    {
+        return Home;
+    }
+    public Vector3 GetHomePos()
+    {
+        return HomePosition;
     }
     public void SetHomePos(Vector3 Pos)
     {
@@ -87,6 +101,18 @@ public class Citzen
 
         }
     }
+    public void SpendTImeAtHome()
+    {
+        Debug.Log("NPC at home");
+        InBuilding--;
+        if (InBuilding == 0)
+        {
+            NPCSprite.GetComponent<SpriteRenderer>().enabled = true;
+            BuildingCurrentlyTargetting = null;
+            SetCurrentAction(-1);
+
+        }
+    }
     public int GetTimeInBuilding(int LowerBound,int UpperBound)
     {
         return UnityEngine.Random.Range(LowerBound, UpperBound); 
@@ -121,6 +147,10 @@ public class Citzen
                 TargetIsbuilding = false;
                 InBuilding = GetTimeInBuilding(BuildingCurrentlyTargetting.GetLowerBound(),BuildingCurrentlyTargetting.GetUpperBound());
                 NPCSprite.GetComponent<SpriteRenderer>().enabled = false;
+                if (BuildingCurrentlyTargetting.IsHome)
+                {
+                    SetCurrentAction(2);
+                }
             }
             else
             {

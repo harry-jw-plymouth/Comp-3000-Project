@@ -48,6 +48,7 @@ public class NPChandler : MonoBehaviour
                             {
                                 HomeFound = true;
 
+                                NPCList[i].SetHome(home);
                                 NPCList[i].UpdateHomeStatus(false);
                                 NPCList[i].SetHomePos(building.GetBuildingPos());
                                 TotalSet++;
@@ -126,7 +127,7 @@ public class NPChandler : MonoBehaviour
             //Debug.Log("Not on road");
             if (GridCreator.GetIfRoadExists())
             {
-                Debug.Log("RoadFound");
+              //  Debug.Log("RoadFound");
                 NPCList[NPCIndex].SetCurrentAction(0) ;
                 //Go to nearest path
                 Vector3 RoadPos= GridCreator.GetPosOfNearestRoad(NPCList[NPCIndex].GetPosition());
@@ -161,6 +162,19 @@ public class NPChandler : MonoBehaviour
 
                 
             }
+            else if(RandomValue>=5 && RandomValue < 20)
+            {
+                //go home
+                Vector3 HomePos = NPCList[NPCIndex].GetHomePos();
+                if (HomePos.x != -1) {
+                    Debug.Log("Going home");
+                    NPCList[NPCIndex].SetCurrentAction(0);
+                    NPCList[NPCIndex].SetMovementTarget(HomePos);
+                    NPCList[NPCIndex].SetIfTargetIsBuilding(true);
+                    NPCList[NPCIndex].SetTargetBuilding(NPCList[NPCIndex].GetHome());
+                }
+                
+            }
             else
             {
                 //Wander
@@ -188,7 +202,7 @@ public class NPChandler : MonoBehaviour
                 if (NPCList[i].GetMoveCounter() == frameToMoveOn)
                 {
                     NPCList[i].ResetCounter();
-                    Debug.Log("Moving towards target");
+              //      Debug.Log("Moving towards target");
                     NPCList[i].MovetowardsTarget();
                 }
                 else
@@ -202,6 +216,18 @@ public class NPChandler : MonoBehaviour
                 {
                     NPCList[i].ResetCounter();
                     NPCList[i].SpendTImeInBuilding();
+                }
+                else
+                {
+                    NPCList[i].UpdateCounter();
+                }
+            }
+            else if (NPCList[i].GetCurrentAction() == 2)
+            {
+                if (NPCList[i].GetMoveCounter() == BuildingFrame)
+                {
+                    NPCList[i].ResetCounter();
+                    NPCList[i].SpendTImeAtHome();
                 }
                 else
                 {
