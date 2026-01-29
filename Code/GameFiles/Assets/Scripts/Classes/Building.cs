@@ -42,5 +42,9 @@ public class Building
     {
         return UpperTimeInBuilding;
     }
+    public virtual Building GetInstance()
+    {
+        return new Building(Name, Description, Shape, Origin,IsShop,LowerTimeInBuilding,UpperTimeInBuilding);
+    }
 
 }

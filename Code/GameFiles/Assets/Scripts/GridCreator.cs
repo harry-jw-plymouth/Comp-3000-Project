@@ -435,9 +435,10 @@ public class GridCreator : MonoBehaviour
                     }
                 }
                 RevertPreviousBuildingHightlight();
-                PlacedBuilding New = new PlacedBuilding(BuildingsListManager.Buildings[BuildingsListManager.BuildingCurrentlySelected], new int[] { CellClickedPos.x, CellClickedPos.y }, NewSprite);
+                PlacedBuilding New = new PlacedBuilding(BuildingsListManager.Buildings[BuildingsListManager.BuildingCurrentlySelected].GetInstance(), new int[] { CellClickedPos.x, CellClickedPos.y }, NewSprite);
                 New.SetBuildingPos(CellClickedPos);
                 PlacedBuildings.Add(New);
+                Debug.Log("New buildings count"+PlacedBuildings.Count);
                 if (New.GetType().GetIfIsHome())
                 {
                     npcHandler.SetHomes();

@@ -25,11 +25,18 @@ public class Home : Building
     }
     public bool AdjustResidents(int change)
     {
-        if (!((CurrentResidents + change) < 0 || (CurrentResidents + change) > MaximumNumberOfReisdents))
-        {
-            MaximumNumberOfReisdents += change;
+        // if (!((CurrentResidents + change) < 0 || (CurrentResidents + change) > MaximumNumberOfReisdents))
+        //{
+        Debug.Log("Adjust residents function");
+        if((CurrentResidents+change)>-1 && (CurrentResidents + change) <= MaximumNumberOfReisdents){ 
+            Debug.Log("Residetns after adjustemnt"+CurrentResidents);
+            CurrentResidents += change;
             return true;
         }
         return false;
+    }
+    public override Building GetInstance()
+    {
+        return new Home(Name, Description, Shape, Origin, IsShop, LowerTimeInBuilding, UpperTimeInBuilding, MaximumNumberOfReisdents);
     }
 }
