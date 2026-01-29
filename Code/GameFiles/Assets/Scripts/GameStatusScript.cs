@@ -1,5 +1,7 @@
+using NUnit.Framework;
 using TMPro;
 using UnityEngine;
+using System.Collections.Generic;
 
 public class GameStatusScript : MonoBehaviour
 {
@@ -7,10 +9,17 @@ public class GameStatusScript : MonoBehaviour
     [SerializeField] TextMeshProUGUI DisplayText;
     int FrequencyOfRatingUpdate = 1000;
     int FrequencyCounter = 0;
+    [SerializeField] static RatingInfo CurrentInfo = new RatingInfo();
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         
+    }
+    public static List<string> GetReport()
+    {
+        List<string> Info=CurrentInfo.GetReport();
+        CurrentInfo.ClearReports();
+        return Info;
     }
 
     // Update is called once per frame
@@ -26,7 +35,8 @@ public class GameStatusScript : MonoBehaviour
     }
     void CalculateCityRating()
     {
-        RatingInfo CurrentInfo = new RatingInfo();
+        //clear old reports
+        CurrentInfo.ClearReports();
         CurrentInfo.SetHomeLessPercentage ( npcHandler.GetHomeLessPercentage());
 
 

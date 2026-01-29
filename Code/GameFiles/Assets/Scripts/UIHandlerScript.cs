@@ -1,8 +1,15 @@
+using NUnit.Framework;
 using UnityEditor;
 using UnityEngine;
+using System.Collections.Generic;
+using System.Globalization;
+using TMPro;
 
 public class UIHandlerScript : MonoBehaviour
 {
+    public TextMeshProUGUI ReportText;
+    public GameObject ReportDisplay;
+    public GameObject RatingDisplay;
     public GameObject BuildingsMenuPopUp;
     public GameObject BuildingRemoveButton;
     public GameObject TransportButton;
@@ -29,6 +36,24 @@ public class UIHandlerScript : MonoBehaviour
         TransportPlacementOn = false;
         BuildingRemoverOn=false;
 
+    }
+    public void OnRatingClicked()
+    {
+        Debug.Log(" rating section clicked");
+        ReportDisplay.SetActive(true);
+        List<string> Updates = GameStatusScript.GetReport();
+        string Info = "";
+        for(int i = 0; i < Updates.Count; i++)
+        {
+            Info += Updates[i] + "\n";
+        }
+        ReportText.text = Info;
+
+    }
+    public void OnReportClicked()
+    {
+        Debug.Log(" report section clicked");
+        ReportDisplay.SetActive(false);
     }
     public void OnRoadButtonClicked()
     {
