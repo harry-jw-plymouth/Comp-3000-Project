@@ -19,6 +19,10 @@ public class Citzen
     bool IsHomeLess = true;
     Building Home;
     Vector3 HomePosition=new Vector3(-1,-1,-1);
+
+
+    int TiredNess = 0;
+
     public Citzen(Vector3 Pos,GameObject sprite)
     {
         NPCSprite = sprite;
@@ -101,15 +105,28 @@ public class Citzen
 
         }
     }
+    public void AdjustTiredness(int Change)
+    {
+        TiredNess += Change;
+    }
+    public int GetTiredNess()
+    {
+        return TiredNess;
+    }
     public void SpendTImeAtHome()
     {
         Debug.Log("NPC at home");
         InBuilding--;
+        TiredNess--;
         if (InBuilding == 0)
         {
             NPCSprite.GetComponent<SpriteRenderer>().enabled = true;
             BuildingCurrentlyTargetting = null;
             SetCurrentAction(-1);
+            if (TiredNess < 0)
+            {
+                TiredNess = 0;
+            }
 
         }
     }
@@ -119,6 +136,7 @@ public class Citzen
     }
     public void MovetowardsTarget()
     {
+        TiredNess++;
         Debug.Log("Moving");
         if (Position.y > MovementTarget.y)
         {
