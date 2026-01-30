@@ -612,6 +612,7 @@ public class GridCreator : MonoBehaviour
                 GameGrid[MapCenter.x+ x,MapCenter.y+ y+3].Contains = 2;
             }
         }
+        npcHandler.SetHomes();
 
     }
     void CreateGrid()

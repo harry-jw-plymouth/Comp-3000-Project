@@ -46,6 +46,7 @@ public class DBManager : MonoBehaviour
         foreach (SaveFileModel SaveFile in SaveFiles) {
             Debug.Log("SaveID : " + SaveFile.Id);
             Debug.Log("SaveName: " + SaveFile.Name);
+            Debug.Log("Type:" + SaveFile.Type);
         }
     }
     public static List<SaveFileModel> GetSaveFiles()

@@ -1,8 +1,5 @@
-using NUnit.Framework;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Tilemaps;
-using UnityEngine.UIElements;
 
 public class NPChandler : MonoBehaviour
 {
@@ -23,7 +20,14 @@ public class NPChandler : MonoBehaviour
     }
     int GetNumberOfNPCs()
     {
-        return 10;   
+        //New save
+        // if new save ID create new npcs
+        if (MainMenu.GameSaveID == -1)
+        {
+            return 10;
+        }
+        //else get NPC amounf from save file
+         return 10;   
     }
     public int GetCurrentNumberOfNPCs()
     {

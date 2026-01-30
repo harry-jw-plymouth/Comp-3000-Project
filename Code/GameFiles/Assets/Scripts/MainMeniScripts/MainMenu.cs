@@ -14,9 +14,6 @@ public class MainMenu : MonoBehaviour
     public GameObject SelectableSavesCanvas; //Scene 2
     public static int GameSaveID;
 
-    [SerializeField] private Transform ScrollContent;
-    [SerializeField] private SaveItemScript ScrollPrefab;
-
 
 
     int CurrentScene = 0;
@@ -25,19 +22,19 @@ public class MainMenu : MonoBehaviour
     {
         SelectableSavesCanvas.SetActive(false);
     }
-    void PopulateSaveView()
-    {
-        List<SaveFileModel> SaveFiles=DBManager.GetSaveFiles();
+//    void PopulateSaveView()
+  //  {
+    //    List<SaveFileModel> SaveFiles=DBManager.GetSaveFiles();
 
-        Debug.Log("Amount of files to display:" + SaveFiles.Count);
-        for (int i = 0;  i < SaveFiles.Count; i++)
-        {
-            SaveItemScript ScrollItem = Instantiate(ScrollPrefab, ScrollContent);
-            //ScrollItem.GetComponentInChildren<TMP_Text>().text = SaveFiles[i].Name;
-            ScrollItem.Setup(SaveFiles[i].Name);
-        }
+      //  Debug.Log("Amount of files to display:" + SaveFiles.Count);
+     //   for (int i = 0;  i < SaveFiles.Count; i++)
+       // {
+         //   SaveItemScript ScrollItem = Instantiate(ScrollPrefab, ScrollContent);
+           // //ScrollItem.GetComponentInChildren<TMP_Text>().text = SaveFiles[i].Name;
+     //       ScrollItem.Setup(SaveFiles[i].Name);
+       // }
 
-    }
+    //}
     public void OnStartClicked()
     {
         StartButton.SetActive(false);
@@ -47,8 +44,6 @@ public class MainMenu : MonoBehaviour
     {
         SavesCanvas.SetActive(false);
         SelectableSavesCanvas.SetActive(true);
-
-        PopulateSaveView();
     }
     public void OnGenerateNewClicked()
     {
@@ -61,6 +56,11 @@ public class MainMenu : MonoBehaviour
      
         }
         SceneManager.LoadScene("GameScene");
+    }
+    public void OnBackButtonClicked()
+    {
+        SavesCanvas.SetActive(true);
+        SelectableSavesCanvas.SetActive(false);
     }
 
 
