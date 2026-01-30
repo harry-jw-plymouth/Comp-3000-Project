@@ -39,6 +39,7 @@ public class GameStatusScript : MonoBehaviour
         CurrentInfo.ClearReports();
         CurrentInfo.SetHomeLessPercentage ( npcHandler.GetHomeLessPercentage());
         CurrentInfo.SetShopRating(npcHandler.GetCurrentNumberOfNPCs(), GridCreator.GetNumberOfShops());
+        CurrentInfo.SetHospitalRating(npcHandler.GetCurrentNumberOfNPCs(), GridCreator.GetNumberOfHospitals());
 
         //Calculate rating
         CurrentInfo.CalulcateRating();

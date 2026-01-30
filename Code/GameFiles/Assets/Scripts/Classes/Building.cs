@@ -9,22 +9,29 @@ public class Building
     public int[] Origin;
     public bool IsShop;
     public bool IsHome=false;
+    public bool IsHospital = false;
     public int LowerTimeInBuilding,UpperTimeInBuilding; 
 
 
-    public Building(string name, string description, int[,] shape, int[] origin, bool Shop ,int LB,int UB)
+    public Building(string name, string description, int[,] shape, int[] origin, bool Shop ,int LB,int UB,bool hospital)
     {
         Name = name;
         Description = description;
         Shape = shape;
-        Origin = origin;
-        IsShop= Shop;
-        LowerTimeInBuilding = LB;
-        UpperTimeInBuilding = UB;
         // 2d array to show shape of building in grid
         // -1 is empty square
         // 0 is origin square(Where the building is placed in correlation to the location selected by the player)
         // 1 is square
+        Origin = origin;
+        IsShop= Shop;
+        LowerTimeInBuilding = LB;
+        UpperTimeInBuilding = UB;
+        IsHospital= hospital;
+
+    }
+    public bool GetIfIsHospital()
+    {
+        return IsHospital;
     }
     public bool GetIfBuildingIsAShop()
     {
@@ -44,7 +51,7 @@ public class Building
     }
     public virtual Building GetInstance()
     {
-        return new Building(Name, Description, Shape, Origin,IsShop,LowerTimeInBuilding,UpperTimeInBuilding);
+        return new Building(Name, Description, Shape, Origin,IsShop,LowerTimeInBuilding,UpperTimeInBuilding,IsHospital);
     }
 
 }

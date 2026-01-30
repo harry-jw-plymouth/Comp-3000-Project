@@ -9,6 +9,7 @@ public class RatingInfo
     List<string> ReportList = new List<string>();
     float HomeLessPercentage = 100;
     int ShopRating = 0;
+    int HospitalRating = 0;
     public void SetHomeLessPercentage(float New){
         HomeLessPercentage = New;
         if(HomeLessPercentage > 60)
@@ -30,6 +31,40 @@ public class RatingInfo
     }
     public float GetHomeLessPercentage() { 
         return HomeLessPercentage;
+    }
+    public void SetHospitalRating(int NumberOfNPCs, int NumberOfHospitals)
+    {
+        if (NumberOfHospitals == 0)
+        {
+            //No hospitals
+            HospitalRating = 0;
+            AddReport("No hospitals, build one as soon as possible");
+        }
+        else if ((float)(NumberOfNPCs / 200) >= NumberOfHospitals && (float)(NumberOfNPCs / 150) < NumberOfHospitals)
+        {
+            //one shop per 40-30 people
+            HospitalRating = 30;
+            AddReport("Another hospital needed very soon");
+        }
+        else if ((float)(NumberOfNPCs / 150) >= NumberOfHospitals && (float)(NumberOfNPCs / 120) < NumberOfHospitals)
+        {
+            //one hospital per 150-120 people
+            HospitalRating = 60;
+            AddReport("More hospitals needed somewhat soon");
+        }
+        else if ((float)(NumberOfNPCs /120) >= NumberOfHospitals && (float)(NumberOfNPCs / 100) < NumberOfHospitals)
+        {
+            //one hospital per 120-100 people
+            HospitalRating = 60;
+            AddReport("A good amount of hospitals");
+        }
+        else
+        {
+            //one hospital per 100 people or more
+            HospitalRating = 100;
+            AddReport("A very good amount of hospitals");
+        }
+        Debug.Log("Hospital rating:" + HospitalRating);
     }
     public void SetShopRating(int NumberOfNPCs,int NumberOfShops)
     {
@@ -65,7 +100,7 @@ public class RatingInfo
     }
     public void CalulcateRating()
     {
-        Rating=((int)(100-HomeLessPercentage)+ShopRating)/2;
+        Rating=((int)(100-HomeLessPercentage)+ShopRating+HospitalRating)/3;
     }
     public void AddReport(string Report) {  
         ReportList.Add(Report); 

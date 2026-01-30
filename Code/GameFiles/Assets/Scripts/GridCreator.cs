@@ -108,12 +108,24 @@ public class GridCreator : MonoBehaviour
         }
 
     }
+    public static int GetNumberOfHospitals()
+    {
+        int Number = 0;
+        for (int i = 0; i < PlacedBuildings.Count; i++)
+        {
+            if (PlacedBuildings[i].GetIfIsShop())
+            {
+                Number++;
+            }
+        }
+        return Number;
+    }
     public static int GetNumberOfShops()
     {
         int Number = 0;
         for(int i = 0; i < PlacedBuildings.Count; i++)
         {
-            if (PlacedBuildings[i].GetIfIsShop())
+            if (PlacedBuildings[i].GetIfIsHospital()) 
             {
                 Number++;
             }
