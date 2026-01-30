@@ -10,6 +10,7 @@ public class RatingInfo
     float HomeLessPercentage = 100;
     int ShopRating = 0;
     int HospitalRating = 0;
+    int RoadRating = 0;
     public void SetHomeLessPercentage(float New){
         HomeLessPercentage = New;
         if(HomeLessPercentage > 60)
@@ -32,6 +33,62 @@ public class RatingInfo
     public float GetHomeLessPercentage() { 
         return HomeLessPercentage;
     }
+    public void SetRoadRating(int NumberOfRoads,int NumberOfBuildings)
+    {
+        Debug.Log("Number of roads: " + NumberOfRoads);
+        Debug.Log("Number of buildings:" + NumberOfBuildings);
+        float RoadsPerBuilding = (float)NumberOfRoads / NumberOfBuildings;
+        if (NumberOfRoads == 0 )
+        {
+            //No Roads
+            RoadRating = 0;
+            AddReport("No Roads, build one as soon as possible");
+        }
+        else if ((RoadsPerBuilding < 1f))
+        {
+            //less roads than buildings or very few roads built
+            RoadRating = 10;
+            AddReport("More road needed as soon as possible");
+        }
+        else if ((RoadsPerBuilding < 1.5f &&RoadsPerBuilding>=1f) ||NumberOfRoads<3)
+        {
+            //less roads than buildings or very few roads built
+            RoadRating = 15;
+            AddReport("More road needed as soon as possible");
+        }
+        else if (RoadsPerBuilding < 1.5f && RoadsPerBuilding >= 2f)
+        {
+            //1-2 roads oer building
+            RoadRating = 25;
+            AddReport("More road needed as soon as possible");
+        }
+        else if (RoadsPerBuilding < 2f && RoadsPerBuilding >= 1.5f)
+        {
+            //2-4 roads per building
+            RoadRating = 50;
+            AddReport("More roads needed somewhat soon");
+        }
+        else if (RoadsPerBuilding < 2.5f && RoadsPerBuilding >= 2f)
+        {
+            //4-5 roads per building
+            RoadRating = 75;
+            AddReport("almost enough roads");
+        }
+        else if (RoadsPerBuilding<3.33f && RoadsPerBuilding>=2.5f)
+        {
+            //5-7 roads per building
+            RoadRating = 75;
+            AddReport("A good amount of roads");
+        }
+        else
+        {
+            //7 or more roads per building
+            RoadRating = 100;
+            AddReport("Enough roads");
+        }
+        Debug.Log("Value:"+RoadsPerBuilding);
+        Debug.Log("road rating:" + RoadRating);
+    }
     public void SetHospitalRating(int NumberOfNPCs, int NumberOfHospitals)
     {
         if (NumberOfHospitals == 0)
@@ -49,13 +106,13 @@ public class RatingInfo
         else if ((float)(NumberOfNPCs / 150) >= NumberOfHospitals && (float)(NumberOfNPCs / 120) < NumberOfHospitals)
         {
             //one hospital per 150-120 people
-            HospitalRating = 60;
+            HospitalRating = 55;
             AddReport("More hospitals needed somewhat soon");
         }
         else if ((float)(NumberOfNPCs /120) >= NumberOfHospitals && (float)(NumberOfNPCs / 100) < NumberOfHospitals)
         {
             //one hospital per 120-100 people
-            HospitalRating = 60;
+            HospitalRating = 75;
             AddReport("A good amount of hospitals");
         }
         else
@@ -64,7 +121,7 @@ public class RatingInfo
             HospitalRating = 100;
             AddReport("A very good amount of hospitals");
         }
-        Debug.Log("Hospital rating:" + HospitalRating);
+        //Debug.Log("Hospital rating:" + HospitalRating);
     }
     public void SetShopRating(int NumberOfNPCs,int NumberOfShops)
     {
@@ -100,7 +157,7 @@ public class RatingInfo
     }
     public void CalulcateRating()
     {
-        Rating=((int)(100-HomeLessPercentage)+ShopRating+HospitalRating)/3;
+        Rating=((int)(100-HomeLessPercentage)+ShopRating+HospitalRating+RoadRating)/4;
     }
     public void AddReport(string Report) {  
         ReportList.Add(Report); 

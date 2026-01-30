@@ -285,6 +285,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::GridCreator
   npcHandler: {fileID: 1443401069}
   GameMapReference: {fileID: 367962549}
+  NumberOfRoads: 0
   MainCamera: {fileID: 519420031}
   GameTile: {fileID: 11400000, guid: adca81024aaf96c46b46fd8a28d66cc9, type: 2}
   RoadTile: {fileID: 11400000, guid: c49a14667a88e204f8ee64077c13384e, type: 2}
@@ -3849,6 +3850,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameStatusScript
   npcHandler: {fileID: 1443401069}
+  gridCreator: {fileID: 94827939}
   DisplayText: {fileID: 372028361}
 --- !u!1 &1578450398
 GameObject:

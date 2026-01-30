@@ -6,6 +6,7 @@ using System.Collections.Generic;
 public class GameStatusScript : MonoBehaviour
 {
     [SerializeField] NPChandler npcHandler;
+    [SerializeField] GridCreator gridCreator;
     [SerializeField] TextMeshProUGUI DisplayText;
     int FrequencyOfRatingUpdate = 1000;
     int FrequencyCounter = 0;
@@ -37,9 +38,11 @@ public class GameStatusScript : MonoBehaviour
     {
         //clear old reports
         CurrentInfo.ClearReports();
+        //Set ratings of each type
         CurrentInfo.SetHomeLessPercentage ( npcHandler.GetHomeLessPercentage());
         CurrentInfo.SetShopRating(npcHandler.GetCurrentNumberOfNPCs(), GridCreator.GetNumberOfShops());
         CurrentInfo.SetHospitalRating(npcHandler.GetCurrentNumberOfNPCs(), GridCreator.GetNumberOfHospitals());
+        CurrentInfo.SetRoadRating(gridCreator.GetNumberOfRoads(), gridCreator.GetNumberOfBuildings());
 
         //Calculate rating
         CurrentInfo.CalulcateRating();

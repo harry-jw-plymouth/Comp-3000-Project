@@ -115,7 +115,7 @@ public class Citzen
     }
     public void SpendTImeAtHome()
     {
-        Debug.Log("NPC at home");
+       // Debug.Log("NPC at home");
         InBuilding--;
         TiredNess--;
         if (InBuilding == 0)
@@ -137,7 +137,7 @@ public class Citzen
     public void MovetowardsTarget()
     {
         TiredNess++;
-        Debug.Log("Moving");
+     //   Debug.Log("Moving");
         if (Position.y > MovementTarget.y)
         {
             Position.y = Mathf.Max(Position.y - MovementSpeed, MovementTarget.y);
@@ -157,7 +157,7 @@ public class Citzen
         NPCSprite.transform.position = Position;
         if(MovementTarget.x==Position.x  && MovementTarget.y == Position.y)
         {
-            Debug.Log("Arrived at target");
+         //   Debug.Log("Arrived at target");
             MovementTarget = new Vector3();
             if (TargetIsbuilding)
             {

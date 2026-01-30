@@ -39,9 +39,9 @@ public class NPChandler : MonoBehaviour
                 total++;
             }
         }
-        Debug.Log("Numebr homeless:" + total);
+     //   Debug.Log("Numebr homeless:" + total);
         float percent = (float)total / NPCList.Count * 100f;
-        Debug.Log("homesless %:" + percent);
+       // Debug.Log("homesless %:" + percent);
         return percent;
     }
     public void SetHomes()
@@ -92,7 +92,7 @@ public class NPChandler : MonoBehaviour
                 TotalSet++;
             }
         }
-        Debug.Log("NPC homes set: " + TotalSet + "\n Total not set: " + TotalNotSet);
+     //   Debug.Log("NPC homes set: " + TotalSet + "\n Total not set: " + TotalNotSet);
     }
     void LoadNPCs()
     {

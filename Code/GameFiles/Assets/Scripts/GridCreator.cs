@@ -12,7 +12,7 @@ public class GridCreator : MonoBehaviour
     public const int HEIGHT = 100;
     [SerializeField] private Tilemap GameMapReference;
     public static Tilemap GameMap;
-
+    public int NumberOfRoads = 0;
 
     public Camera MainCamera;
     bool UpdateNeeded = false;
@@ -84,7 +84,7 @@ public class GridCreator : MonoBehaviour
                     BuildingsListManager.Buildings[BuildingsListManager.BuildingCurrentlySelected].Origin);
                 if(GameGrid[CurrentPos.x, CurrentPos.y].Contains == 2 )
                 {
-                    Debug.Log(" Building cant be placed, building already occupying square: " + CurrentPos.x + " , " + CurrentPos.y);
+                  //  Debug.Log(" Building cant be placed, building already occupying square: " + CurrentPos.x + " , " + CurrentPos.y);
                     return false;
                 }
             }
@@ -107,6 +107,14 @@ public class GridCreator : MonoBehaviour
             }
         }
 
+    }
+    public int GetNumberOfBuildings()
+    {
+        return PlacedBuildings.Count;
+    }
+    public int GetNumberOfRoads()
+    {
+        return NumberOfRoads;
     }
     public static int GetNumberOfHospitals()
     {
@@ -299,7 +307,7 @@ public class GridCreator : MonoBehaviour
             }
             catch
             {
-                Debug.Log("Hovering Over none grid square");
+         //       Debug.Log("Hovering Over none grid square");
             }
 
         }
@@ -413,8 +421,8 @@ public class GridCreator : MonoBehaviour
         {
             if (CheckIfBuildingCanBeplaced(CellClickedPos.x, CellClickedPos.y, BuildingsListManager.Buildings[BuildingsListManager.BuildingCurrentlySelected]))
             {
-                Debug.Log("Shape Y: " + BuildingsListManager.Buildings[BuildingsListManager.BuildingCurrentlySelected].Shape.GetLength(0));
-                Debug.Log("Shape X: " + BuildingsListManager.Buildings[BuildingsListManager.BuildingCurrentlySelected].Shape.GetLength(1));
+            //    Debug.Log("Shape Y: " + BuildingsListManager.Buildings[BuildingsListManager.BuildingCurrentlySelected].Shape.GetLength(0));
+              //  Debug.Log("Shape X: " + BuildingsListManager.Buildings[BuildingsListManager.BuildingCurrentlySelected].Shape.GetLength(1));
                 for (int Y = 0; Y < BuildingsListManager.Buildings[BuildingsListManager.BuildingCurrentlySelected].Shape.GetLength(0); Y++)
                 {
                     for (int X = 0; X < BuildingsListManager.Buildings[BuildingsListManager.BuildingCurrentlySelected].Shape.GetLength(1); X++)
@@ -462,7 +470,7 @@ public class GridCreator : MonoBehaviour
                 PlacedBuilding New = new PlacedBuilding(BuildingsListManager.Buildings[BuildingsListManager.BuildingCurrentlySelected].GetInstance(), new int[] { CellClickedPos.x, CellClickedPos.y }, NewSprite);
                 New.SetBuildingPos(CellClickedPos);
                 PlacedBuildings.Add(New);
-                Debug.Log("New buildings count"+PlacedBuildings.Count);
+           //     Debug.Log("New buildings count"+PlacedBuildings.Count);
                 if (New.GetType().GetIfIsHome())
                 {
                     npcHandler.SetHomes();
@@ -483,10 +491,15 @@ public class GridCreator : MonoBehaviour
             {
                 GameGrid[CellClickedPos.x, CellClickedPos.y].Contains = 1;
                 GameMap.SetTile(CellClickedPos, RoadTile);
+                NumberOfRoads++;
                 RoadPositions.Add(CellClickedPos);
             }
             else
             {
+                if(GameGrid[CellClickedPos.x, CellClickedPos.y].Contains == 1)
+                {
+                    NumberOfRoads--;
+                }
                 GameGrid[CellClickedPos.x, CellClickedPos.y].Contains = 0;
                 GameMap.SetTile(CellClickedPos, GameTile);
                 RoadPositions.Remove(CellClickedPos);
@@ -496,7 +509,7 @@ public class GridCreator : MonoBehaviour
         }
         catch
         {
-            Debug.Log("Click not in grid square");
+//            Debug.Log("Click not in grid square");
 
         }
 
@@ -534,7 +547,7 @@ public class GridCreator : MonoBehaviour
             Vector3 ClickPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             Vector3Int CellClickedPos = GameMap.WorldToCell(ClickPos);
             // Debug.Log("Click at: " + ClickPos);
-            Debug.Log("Click at: " + CellClickedPos);
+          //  Debug.Log("Click at: " + CellClickedPos);
             if (UIHandlerScript.TileEditorOn == true)
             {
                 PlaceTiles(CellClickedPos);
@@ -581,6 +594,7 @@ public class GridCreator : MonoBehaviour
             GameMap.SetTile(new Vector3Int(MapCenter.x + i, MapCenter.y,0), RoadTile);
             GameGrid[MapCenter.x + i, MapCenter.y+1].Contains = 1;
             GameMap.SetTile(new Vector3Int(MapCenter.x + i, MapCenter.y+1, 0), RoadTile);
+            NumberOfRoads += 2;
 
 
         }
