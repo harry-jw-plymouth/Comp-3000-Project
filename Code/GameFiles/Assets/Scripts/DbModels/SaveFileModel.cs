@@ -10,4 +10,5 @@ public class SaveFileModel
     public string Name { get; set; }
     //"SandBox" for free mode, "Standard" for mode with money
     public string Type { get; set; }
+    public bool IsEmpty {  get; set; }
 }

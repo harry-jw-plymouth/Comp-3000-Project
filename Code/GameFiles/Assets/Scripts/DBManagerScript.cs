@@ -15,6 +15,7 @@ public class DBManager : MonoBehaviour
     void Start()
     {
         InitialiseDb();
+        ResetSaves();
         DisplaySaveFiles();
     }
     private void Awake()
@@ -34,9 +35,21 @@ public class DBManager : MonoBehaviour
     {
         
     }
-    public static void CreateNewFile(string FileName)
+    public static void ClearDB()
     {
-        SaveFileModel Save = new SaveFileModel { Name=FileName};
+        db.DeleteAll<SaveFileModel>();
+    }
+    public static void ResetSaves()
+    {
+        ClearDB();
+        CreateNewFile("", "", true);
+        CreateNewFile("", "", true);
+        CreateNewFile("", "", true);
+
+    }
+    public static void CreateNewFile(string FileName,string FileType, bool FileIsEmpty)
+    {
+        SaveFileModel Save = new SaveFileModel { Name=FileName,Type=FileType,IsEmpty=FileIsEmpty};
         db.Insert(Save);
     }
     public void DisplaySaveFiles()

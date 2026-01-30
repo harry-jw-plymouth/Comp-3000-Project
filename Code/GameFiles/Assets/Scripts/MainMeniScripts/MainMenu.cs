@@ -14,6 +14,10 @@ public class MainMenu : MonoBehaviour
     public GameObject SelectableSavesCanvas; //Scene 2
     public static int GameSaveID;
 
+    public GameObject SaveObject1;
+    public GameObject SaveObject2;
+    public GameObject SaveObject3;
+
 
 
     int CurrentScene = 0;
@@ -44,6 +48,19 @@ public class MainMenu : MonoBehaviour
     {
         SavesCanvas.SetActive(false);
         SelectableSavesCanvas.SetActive(true);
+        ShowSaves();
+    }
+    public void ShowSaves()
+    {
+        SaveObject1.SetActive(false);
+        SaveObject2.SetActive(false);
+        SaveObject3.SetActive(false);
+
+        List<SaveFileModel> Saves = DBManager.GetSaveFiles();
+        if (!Saves[0].IsEmpty)
+        {
+            SaveObject1.SetActive(true);
+        }
     }
     public void OnGenerateNewClicked()
     {
@@ -52,15 +69,20 @@ public class MainMenu : MonoBehaviour
 
         if (GameSaveID == -1)
         {
-            DBManager.CreateNewFile("New File");
+            DBManager.CreateNewFile("New File","",false);
      
         }
         SceneManager.LoadScene("GameScene");
+        
     }
     public void OnBackButtonClicked()
     {
         SavesCanvas.SetActive(true);
         SelectableSavesCanvas.SetActive(false);
+
+        SaveObject1.SetActive(false);
+        SaveObject2.SetActive(false);
+        SaveObject3.SetActive(false);
     }
 
 
