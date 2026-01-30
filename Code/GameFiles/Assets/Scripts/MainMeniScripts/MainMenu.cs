@@ -18,6 +18,14 @@ public class MainMenu : MonoBehaviour
     public GameObject SaveObject2;
     public GameObject SaveObject3;
 
+    public GameObject SaveObjectButton1;
+    public GameObject SaveObjectButton2;
+    public GameObject SaveObjectButton3;
+
+    public GameObject NewObjectButton;
+
+
+
 
 
     int CurrentScene = 0;
@@ -56,12 +64,53 @@ public class MainMenu : MonoBehaviour
         SaveObject2.SetActive(false);
         SaveObject3.SetActive(false);
 
+        SaveObjectButton1.SetActive(false);
+        SaveObjectButton2.SetActive(false);
+        SaveObjectButton3.SetActive(false);
+
+        NewObjectButton.SetActive(false);
+
         List<SaveFileModel> Saves = DBManager.GetSaveFiles();
         if (!Saves[0].IsEmpty)
         {
             SaveObject1.SetActive(true);
         }
+        else
+        {
+            SaveObjectButton1.SetActive(true);
+        }
+        if (!Saves[1].IsEmpty)
+        {
+            SaveObject2.SetActive(true);
+        }
+        else
+        {
+            SaveObjectButton2.SetActive(true);
+        }
+        if (!Saves[2].IsEmpty)
+        {
+            SaveObject3.SetActive(true);
+        }
+        else
+        {
+            SaveObjectButton3.SetActive(true);
+        }
     }
+    public void OnCreateNewButtonClicked()
+    {
+        Debug.Log("Create new clicked");
+        SaveObject1.SetActive(false);
+        SaveObject2.SetActive(false);
+        SaveObject3.SetActive(false);
+
+        SaveObjectButton1.SetActive(false);
+        SaveObjectButton2.SetActive(false);
+        SaveObjectButton3.SetActive(false);
+
+        NewObjectButton.SetActive(true);
+
+    }
+
     public void OnGenerateNewClicked()
     {
         //var Parmeters=new LoadSceneParameters(LoadSceneMode.Single)
