@@ -9,7 +9,7 @@ public class NPChandler : MonoBehaviour
     int MovementCounter = 0; int frameToMoveOn = 10;
     int BuildingFrame = 20 ;
    [SerializeField]  List<Citzen> NPCList=new List<Citzen>();
-    int NumberOfNpcs;
+    [SerializeField] int NumberOfNpcs;
     public GameObject NPCPrefab;
 
 
@@ -24,6 +24,10 @@ public class NPChandler : MonoBehaviour
     int GetNumberOfNPCs()
     {
         return 10;   
+    }
+    public int GetCurrentNumberOfNPCs()
+    {
+        return NPCList.Count;
     }
     public  float GetHomeLessPercentage()
     {
