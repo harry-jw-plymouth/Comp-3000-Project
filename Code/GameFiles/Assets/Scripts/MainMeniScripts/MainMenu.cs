@@ -93,7 +93,7 @@ public class MainMenu : MonoBehaviour
     }
     public void OnSave3Click()
     {
-        LoadSaveFile(3);
+        LoadSaveFile(2);
     }
     public void ShowSaves()
     {

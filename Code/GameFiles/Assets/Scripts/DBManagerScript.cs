@@ -3,6 +3,7 @@ using SQLite4Unity3d;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Xml.Linq;
 using System.Xml.Serialization;
 using UnityEditor.Build.Content;
 using UnityEngine;
@@ -59,6 +60,23 @@ public class DBManager : MonoBehaviour
         SaveMapModel Map = db.Table<SaveMapModel>()
                      .FirstOrDefault(x => x.AssociatedSaveID == AssociatedID);
         return Map;
+    }
+    public static bool UpdateMapSave(int AssociatedID, int width, int Height, Square[,] Grid)
+    {
+        var SaveFile = db.Table<SaveMapModel>().Where(x => x.AssociatedSaveID == AssociatedID).FirstOrDefault();
+
+        if (SaveFile == null)
+        {
+            Debug.Log("Error updating save file");
+            return false;
+        }
+        SaveFile.GridWidth = width;
+        SaveFile.GridHeight = Height;
+        SaveFile.GridData = GetMapForDB(Grid,Height,width);
+
+        db.Update(SaveFile);
+        return true;
+
     }
   //  public static Square[,] GeB(int AssociatedId)
    // {

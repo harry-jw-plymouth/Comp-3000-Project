@@ -625,10 +625,11 @@ public class GridCreator : MonoBehaviour
     {
         try
         {
-            if (MainMenu.NewFileCreated == false)
+            if (MainMenu.NewFileCreated == true)
             {
                 //Create new
-                SaveMapModel CurrentMap = DBManager.GetSpecificMap(MainMenu.GetCurrentSaveID());
+                Debug.Log("Creating new");
+                
                 for (int x = 0; x < WIDTH; x++)
                 {
                     for (int y = 0; y < HEIGHT; y++)
@@ -645,21 +646,32 @@ public class GridCreator : MonoBehaviour
             }
             else
             {
+                Debug.Log("Loading map from db");
+                Debug.Log("SaveID" + MainMenu.GetCurrentSaveID());
                 //Get from db and set up
                 SaveMapModel CurrentSaveMap = DBManager.GetSpecificMap(MainMenu.GetCurrentSaveID());
+                Debug.Log("CurrentID:" + CurrentSaveMap.AssociatedSaveID);
+                Debug.Log("Map size" + CurrentSaveMap.GridData.Length);
                 byte[] UnconvertedMap = CurrentSaveMap.GridData;
+                for(int i=0;i< UnconvertedMap.Length; i++)
+                {
+                    Debug.Log(UnconvertedMap[i]);
+                }
                 for (int x = 0; x < CurrentSaveMap.GridWidth; x++)
                 {
                     for (int y = 0; y < CurrentSaveMap.GridHeight; y++)
                     {
+                    
                         GameGrid[x, y] =new Square(  UnconvertedMap[x + y * CurrentSaveMap.GridWidth]);
                         Vector3Int CurrentPosition = new Vector3Int(x, y, 0);
                         if (GameGrid[x, y].Contains == 0){
                             GameMap.SetTile(CurrentPosition, GameTile);
+                            
                         }
                         if (GameGrid[x, y].Contains == 1)
                         {
                             GameMap.SetTile(CurrentPosition, RoadTile);
+                            Debug.Log("Placing road tile");
                         }
                         if (GameGrid[x, y].Contains == 2)
                         {
@@ -672,7 +684,8 @@ public class GridCreator : MonoBehaviour
                 }
             }
         }
-        catch {
+        catch (Exception e){
+            Debug.LogError(e);
             for (int x = 0; x < WIDTH; x++)
             {
                 for (int y = 0; y < HEIGHT; y++)

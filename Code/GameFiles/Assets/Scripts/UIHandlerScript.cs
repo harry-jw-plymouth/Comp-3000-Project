@@ -48,6 +48,7 @@ public class UIHandlerScript : MonoBehaviour
     public void OnSaveButtonClicked()
     {
         Debug.Log("Save button clicked");
+        DBManager.UpdateMapSave(MainMenu.CurrentSaveID, GridCreator.WIDTH, GridCreator.HEIGHT, GridCreator.GameGrid);
     }
     public void OnExitButtonClicked()
     {

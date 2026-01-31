@@ -35,8 +35,8 @@ public class RatingInfo
     }
     public void SetRoadRating(int NumberOfRoads,int NumberOfBuildings)
     {
-        Debug.Log("Number of roads: " + NumberOfRoads);
-        Debug.Log("Number of buildings:" + NumberOfBuildings);
+       // Debug.Log("Number of roads: " + NumberOfRoads);
+       // Debug.Log("Number of buildings:" + NumberOfBuildings);
         float RoadsPerBuilding = (float)NumberOfRoads / NumberOfBuildings;
         if (NumberOfRoads == 0 )
         {
@@ -86,8 +86,8 @@ public class RatingInfo
             RoadRating = 100;
             AddReport("Enough roads");
         }
-        Debug.Log("Value:"+RoadsPerBuilding);
-        Debug.Log("road rating:" + RoadRating);
+       // Debug.Log("Value:"+RoadsPerBuilding);
+       // Debug.Log("road rating:" + RoadRating);
     }
     public void SetHospitalRating(int NumberOfNPCs, int NumberOfHospitals)
     {
