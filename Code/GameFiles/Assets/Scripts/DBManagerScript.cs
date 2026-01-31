@@ -15,7 +15,7 @@ public class DBManager : MonoBehaviour
     void Start()
     {
         InitialiseDb();
-        ResetSaves();
+      //  ResetSaves();
         DisplaySaveFiles();
     }
     private void Awake()
@@ -28,6 +28,41 @@ public class DBManager : MonoBehaviour
         db = new SQLiteConnection(DBPath, SQLiteOpenFlags.ReadWrite | SQLiteOpenFlags.Create);
         db.CreateTable<SaveFileModel>();
         Debug.Log("Database loaded");
+    }
+    public static bool AttemptToCreateNewFile(string Name, string Mode)
+    {
+        List<SaveFileModel> SaveFiles = GetSaveFiles();
+        if (SaveFiles[0].IsEmpty)
+        {
+            Debug.Log("Saving to save file 1");
+            return UpdateForNewFile(Name, Mode, SaveFiles[0]);
+        }
+        else if (SaveFiles[1].IsEmpty)
+        {
+            Debug.Log("Saving to save file 2");
+            return UpdateForNewFile(Name, Mode, SaveFiles[1]);
+        }
+        else if (SaveFiles[2].IsEmpty){
+            Debug.Log("Saving to save file 3");
+
+            return UpdateForNewFile(Name,Mode,SaveFiles[2]);
+        }
+        Debug.Log("Error, no save slot available");
+        return false;
+    }
+    static bool UpdateForNewFile(string Name, string Mode, SaveFileModel Current) {
+        var SaveFile=db.Table<SaveFileModel>().Where(x=>x.Id==Current.Id).FirstOrDefault();
+
+        if (SaveFile == null) {
+            Debug.Log("Error updating save file");
+            return false;
+        }
+        SaveFile.Name = Name;
+        SaveFile.Type= Mode;
+        SaveFile.IsEmpty = false;
+
+        db.Update(SaveFile);
+        return true;
     }
 
     // Update is called once per frame

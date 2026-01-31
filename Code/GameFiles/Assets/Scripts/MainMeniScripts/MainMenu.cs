@@ -22,7 +22,9 @@ public class MainMenu : MonoBehaviour
     public GameObject SaveObjectButton2;
     public GameObject SaveObjectButton3;
 
+
     public GameObject NewObjectButton;
+    public GameObject ClearSavesButton;
 
     public TMP_Dropdown GameModeSelection;
     public TMP_InputField FileNameInput;
@@ -71,6 +73,7 @@ public class MainMenu : MonoBehaviour
         SaveObjectButton2.SetActive(false);
         SaveObjectButton3.SetActive(false);
 
+        ClearSavesButton.SetActive(true);
         NewObjectButton.SetActive(false);
 
         List<SaveFileModel> Saves = DBManager.GetSaveFiles();
@@ -103,8 +106,9 @@ public class MainMenu : MonoBehaviour
     {
         Debug.Log("Creating new save");
         string FileName = FileNameInput.text;
+        string GameModeSelected = GameModeSelection.options[GameModeSelection.value].text;
         Debug.Log("FileName:" +FileName);
-        Debug.Log("Game mode:" + GameModeSelection.options[GameModeSelection.value].text);
+        Debug.Log("Game mode:" +GameModeSelected);
 
         if (FileName == "")
         {
@@ -112,8 +116,13 @@ public class MainMenu : MonoBehaviour
         }
         else
         {
-
+            DBManager.AttemptToCreateNewFile(FileName, GameModeSelected);
         }
+    }
+    public void OnClearButtonClicked()
+    {
+        DBManager.ResetSaves();
+        ShowSaves();
     }
     public void OnCreateNewButtonClicked()
     {
@@ -125,6 +134,8 @@ public class MainMenu : MonoBehaviour
         SaveObjectButton1.SetActive(false);
         SaveObjectButton2.SetActive(false);
         SaveObjectButton3.SetActive(false);
+
+        ClearSavesButton.SetActive(false);
 
         NewObjectButton.SetActive(true);
 
@@ -151,6 +162,7 @@ public class MainMenu : MonoBehaviour
         SaveObject1.SetActive(false);
         SaveObject2.SetActive(false);
         SaveObject3.SetActive(false);
+        SaveObjectButton1.SetActive(false);
     }
 
 
