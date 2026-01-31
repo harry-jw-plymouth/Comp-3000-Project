@@ -73,6 +73,24 @@ public class MainMenu : MonoBehaviour
         SelectableSavesCanvas.SetActive(true);
         ShowSaves();
     }
+    public void LoadSaveFile(int Save)
+    {
+        NewFileCreated = false;
+        CurrentSaveID = Save;
+        SceneManager.LoadScene("GameScene");
+    }
+    public void OnSave1Click()
+    {
+        LoadSaveFile(0);
+    }
+    public void OnSave2Click()
+    {
+        LoadSaveFile(1);
+    }
+    public void OnSave3Click()
+    {
+        LoadSaveFile(3);
+    }
     public void ShowSaves()
     {
         SaveObject1.SetActive(false);

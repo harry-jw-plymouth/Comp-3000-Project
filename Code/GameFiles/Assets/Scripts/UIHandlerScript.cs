@@ -1,9 +1,10 @@
 using NUnit.Framework;
-using UnityEditor;
-using UnityEngine;
 using System.Collections.Generic;
 using System.Globalization;
 using TMPro;
+using UnityEditor;
+using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class UIHandlerScript : MonoBehaviour
 {
@@ -44,7 +45,15 @@ public class UIHandlerScript : MonoBehaviour
             PauseCanvas.SetActive(true);
         }
     }
-
+    public void OnSaveButtonClicked()
+    {
+        Debug.Log("Save button clicked");
+    }
+    public void OnExitButtonClicked()
+    {
+        Debug.Log("Exit button clicked");
+        SceneManager.LoadScene("MainMenu");
+    }
     void SetUIInactive()
     {
       //  TransportButton.SetActive(false);
