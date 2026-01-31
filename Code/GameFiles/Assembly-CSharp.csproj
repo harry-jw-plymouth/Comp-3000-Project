@@ -66,6 +66,7 @@
     <Compile Include="Assets\Scripts\Classes\RatingInfo.cs" />
     <Compile Include="Assets\Scripts\Classes\PlacedBuilding.cs" />
     <Compile Include="Assets\Scripts\BuildingsListManager.cs" />
+    <Compile Include="Assets\Scripts\DbModels\SaveMapModel.cs" />
     <Compile Include="Assets\Scripts\Classes\Home.cs" />
     <Compile Include="Assets\Scripts\MainMeniScripts\MainMenu.cs" />
     <Compile Include="Assets\Scripts\DBManagerScript.cs" />

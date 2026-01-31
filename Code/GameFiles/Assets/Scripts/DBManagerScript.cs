@@ -1,9 +1,11 @@
-using UnityEngine;
-using SQLite4Unity3d;
-using System.IO;
-using System.Collections.Generic;
-using System.Linq;
 using NUnit.Framework;
+using SQLite4Unity3d;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Xml.Serialization;
+using UnityEditor.Build.Content;
+using UnityEngine;
 
 public class DBManager : MonoBehaviour
 {
@@ -22,13 +24,48 @@ public class DBManager : MonoBehaviour
     {
         
     }
+
     void InitialiseDb()
     {
         string DBPath = Path.Combine(Application.persistentDataPath, SaveFileTableName);
         db = new SQLiteConnection(DBPath, SQLiteOpenFlags.ReadWrite | SQLiteOpenFlags.Create);
         db.CreateTable<SaveFileModel>();
+        db.CreateTable<SaveMapModel>();
         Debug.Log("Database loaded");
     }
+    public static byte[] GetMapForDB(Square[,] Grid, int Height, int Width)
+    {
+        byte[] TranslatedMap = new byte[Width * Height];
+        for (int y = 0; y < Height; y++)
+        {
+            for(int x = 0; x < Width; x++)
+            {
+                TranslatedMap[Width * y + x] = (byte)Grid[x, y].Contains;
+            }
+        }
+        return TranslatedMap;
+    }
+    public static void AddNewMapToDB(int AssociatedID, int width, int Height, Square[,]Grid )
+    {
+        SaveMapModel Map = new SaveMapModel { AssociatedSaveID = AssociatedID, GridWidth=width, GridHeight=Height,GridData=GetMapForDB(Grid,Height,width) };
+        db.Insert(Map);
+    }
+    public static List<SaveMapModel> GetMapsFromDB()
+    {
+        return db.Table<SaveMapModel>().ToList();
+    }
+    public static SaveMapModel GetSpecificMap(int AssociatedID)
+    {
+        SaveMapModel Map = db.Table<SaveMapModel>()
+                     .FirstOrDefault(x => x.AssociatedSaveID == AssociatedID);
+        return Map;
+    }
+  //  public static Square[,] GeB(int AssociatedId)
+   // {
+  //      SaveMapModel Map = GetSpecificMap(AssociatedId);
+   //     return Map
+
+//    }
     public static int AttemptToCreateNewFile(string Name, string Mode)
     {
         List<SaveFileModel> SaveFiles = GetSaveFiles();

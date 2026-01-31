@@ -623,24 +623,77 @@ public class GridCreator : MonoBehaviour
     }
     void CreateGrid()
     {
-        for (int x = 0; x < WIDTH; x++)
+        try
         {
-            for (int y = 0; y < HEIGHT; y++)
+            if (MainMenu.NewFileCreated == false)
             {
-                Vector3Int CurrentPosition=new Vector3Int(x, y, 0);
-                GameMap.SetTile(CurrentPosition, GameTile);
-                GameGrid[x, y] = new Square(0);
+                //Create new
+                SaveMapModel CurrentMap = DBManager.GetSpecificMap(MainMenu.GetCurrentSaveID());
+                for (int x = 0; x < WIDTH; x++)
+                {
+                    for (int y = 0; y < HEIGHT; y++)
+                    {
+                        Vector3Int CurrentPosition = new Vector3Int(x, y, 0);
+                        GameMap.SetTile(CurrentPosition, GameTile);
+                        GameGrid[x, y] = new Square(0);
 
+                    }
+                }
+                DBManager.AddNewMapToDB(MainMenu.GetCurrentSaveID(), WIDTH, HEIGHT, GameGrid);
+                CreateStartingArea();
+                
             }
-        } 
-        if (MainMenu.GetIfNewFileCreated())
-        {
-            //Generate starting map
-            CreateStartingArea();
+            else
+            {
+                //Get from db and set up
+                SaveMapModel CurrentSaveMap = DBManager.GetSpecificMap(MainMenu.GetCurrentSaveID());
+                byte[] UnconvertedMap = CurrentSaveMap.GridData;
+                for (int x = 0; x < CurrentSaveMap.GridWidth; x++)
+                {
+                    for (int y = 0; y < CurrentSaveMap.GridHeight; y++)
+                    {
+                        GameGrid[x, y] =new Square(  UnconvertedMap[x + y * CurrentSaveMap.GridWidth]);
+                        Vector3Int CurrentPosition = new Vector3Int(x, y, 0);
+                        if (GameGrid[x, y].Contains == 0){
+                            GameMap.SetTile(CurrentPosition, GameTile);
+                        }
+                        if (GameGrid[x, y].Contains == 1)
+                        {
+                            GameMap.SetTile(CurrentPosition, RoadTile);
+                        }
+                        if (GameGrid[x, y].Contains == 2)
+                        {
+                            GameMap.SetTile(CurrentPosition, GameTile);
+                            TransportPlacementScript.PlaceRail(CurrentPosition);
+                        }
+                        
+
+                    }
+                }
+            }
         }
-        else
-        {
-            //Generate from save 
+        catch {
+            for (int x = 0; x < WIDTH; x++)
+            {
+                for (int y = 0; y < HEIGHT; y++)
+                {
+                    Vector3Int CurrentPosition = new Vector3Int(x, y, 0);
+                    GameMap.SetTile(CurrentPosition, GameTile);
+                    GameGrid[x, y] = new Square(0);
+
+                }
+            }
+            if (MainMenu.GetIfNewFileCreated())
+            {
+                //Generate starting map
+                CreateStartingArea();
+            }
+            else
+            {
+                //Generate from save 
+            }
         }
+
+        
     }
 }

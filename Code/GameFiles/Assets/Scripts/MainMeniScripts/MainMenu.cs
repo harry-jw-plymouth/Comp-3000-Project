@@ -38,7 +38,7 @@ public class MainMenu : MonoBehaviour
 
 
     public static bool NewFileCreated = false;
-    public int CurrentSaveID = -1;
+    public static int CurrentSaveID = -1;
     int CurrentScene = 0;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -58,6 +58,10 @@ public class MainMenu : MonoBehaviour
        // }
 
     //}
+    public static int GetCurrentSaveID()
+    {
+        return CurrentSaveID;
+    }
     public static bool GetIfNewFileCreated()
     {
         return NewFileCreated;
