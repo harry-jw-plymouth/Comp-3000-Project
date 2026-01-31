@@ -1,5 +1,6 @@
 using System.Diagnostics;
 using TMPro;
+using UnityEditor;
 using UnityEditorInternal.Profiling.Memory.Experimental;
 using UnityEngine;
 using UnityEngine.UI;
@@ -41,6 +42,10 @@ public class BuildingsListManager : MonoBehaviour
     void Update()
     {
         
+    }
+    public static Building[] GetBuildings()
+    {
+        return Buildings;
     }
     void DisplayBuildings()
     {

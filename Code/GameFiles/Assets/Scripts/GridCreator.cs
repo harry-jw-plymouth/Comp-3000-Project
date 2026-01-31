@@ -621,6 +621,11 @@ public class GridCreator : MonoBehaviour
         npcHandler.SetHomes();
 
     }
+    GameObject GetSriteForBuilding(SaveBuildingModel Save)
+    {
+        // create sprite by instantiating then return so it can be saved
+        return null;
+    }
     void CreateGrid()
     {
         try
@@ -650,6 +655,7 @@ public class GridCreator : MonoBehaviour
                 Debug.Log("SaveID" + MainMenu.GetCurrentSaveID());
                 //Get from db and set up
                 SaveMapModel CurrentSaveMap = DBManager.GetSpecificMap(MainMenu.GetCurrentSaveID());
+                List<SaveBuildingModel> BuildingsFromDb=DBManager.GetAllBuildingsForSave(MainMenu.GetCurrentSaveID());
                 Debug.Log("CurrentID:" + CurrentSaveMap.AssociatedSaveID);
                 Debug.Log("Map size" + CurrentSaveMap.GridData.Length);
                 byte[] UnconvertedMap = CurrentSaveMap.GridData;
@@ -683,6 +689,14 @@ public class GridCreator : MonoBehaviour
                         
 
                     }
+                }
+                Building[] BaseBuildingTypes = BuildingsListManager.GetBuildings();
+                for (int i = 0; i < BuildingsFromDb.Count; i++) {
+                    PlacedBuilding New = new PlacedBuilding(BaseBuildingTypes[BuildingsFromDb[i].TypeIndex], new int[] { BuildingsFromDb[i].OriginX, BuildingsFromDb[i].OriginY, }, GetSriteForBuilding(BuildingsFromDb[i]));
+                    New.SetBuildingPos(new Vector3(BuildingsFromDb[i].Xpos, BuildingsFromDb[i].Ypos, 0));
+                    PlacedBuildings.Add(New);
+                   
+
                 }
             }
         }
