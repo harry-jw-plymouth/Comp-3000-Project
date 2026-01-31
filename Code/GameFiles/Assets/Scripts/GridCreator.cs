@@ -672,11 +672,13 @@ public class GridCreator : MonoBehaviour
                         {
                             GameMap.SetTile(CurrentPosition, RoadTile);
                             Debug.Log("Placing road tile");
+                            RoadPositions.Add(CurrentPosition);
+                            NumberOfRoads++;
                         }
                         if (GameGrid[x, y].Contains == 2)
                         {
-                            GameMap.SetTile(CurrentPosition, GameTile);
-                            TransportPlacementScript.PlaceRail(CurrentPosition);
+                         //   GameMap.SetTile(CurrentPosition, GameTile);
+                          //  TransportPlacementScript.PlaceRail(CurrentPosition);
                         }
                         
 
