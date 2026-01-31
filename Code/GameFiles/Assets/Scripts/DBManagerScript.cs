@@ -164,4 +164,32 @@ public class DBManager : MonoBehaviour
     {
         return db.Table<SaveFileModel>().ToList();
     }
+    public static void AddNewBuilding(int AssociatedId, PlacedBuilding Current)
+    {
+        SaveBuildingModel New = new SaveBuildingModel { AssociatedSaveID = AssociatedId,
+            TypeIndex=Current.GetTypeIndex(),
+            Xpos=Current.GetBuildingPos().x,
+            Ypos=Current.GetBuildingPos().y,
+            OriginX = Current.OriginPos[0],
+            OriginY = Current.OriginPos[1]
+        };
+        db.Insert(New);
+    }
+    public static void ClearBuildingsForSave(int IDToClear)
+    {
+        db.Execute("DELETE FROM Building WHERE AssociatedSaveID = ?", IDToClear);
+    }
+    public static void AddAllBuildingsForSave(int ID,List<PlacedBuilding> BuildingsToAdd)
+    {
+        ClearBuildingsForSave(ID);
+        for (int i = 0; i < BuildingsToAdd.Count; i++)
+        {
+            AddNewBuilding(ID, BuildingsToAdd[i]);
+        }
+    }
+    public static List<SaveBuildingModel> GetAllBuildingsForSave(int SaveID)
+    {
+        return db.Table<SaveBuildingModel>().Where(x=>x.AssociatedSaveID== SaveID).ToList();
+    }
 }
+

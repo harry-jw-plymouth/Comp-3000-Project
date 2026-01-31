@@ -11,7 +11,12 @@ public class PlacedBuilding
         this.buildingType = buildingType;
         OriginPos = originPos;
         Sprite = sprite;
+        
         //BuildingPos = new Vector3( originPos[0],originPos[1],0);
+    }
+    public int GetTypeIndex()
+    {
+        return buildingType.GetTypeIndex();
     }
     public void SetBuildingPos(Vector3 NewPos)
     {

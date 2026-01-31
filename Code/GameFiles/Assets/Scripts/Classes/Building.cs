@@ -10,10 +10,10 @@ public class Building
     public bool IsShop;
     public bool IsHome=false;
     public bool IsHospital = false;
-    public int LowerTimeInBuilding,UpperTimeInBuilding; 
+    public int LowerTimeInBuilding,UpperTimeInBuilding;
+    public int TypeIndex;
 
-
-    public Building(string name, string description, int[,] shape, int[] origin, bool Shop ,int LB,int UB,bool hospital)
+    public Building(string name, string description, int[,] shape, int[] origin, bool Shop ,int LB,int UB,bool hospital,int typeIndex)
     {
         Name = name;
         Description = description;
@@ -27,7 +27,11 @@ public class Building
         LowerTimeInBuilding = LB;
         UpperTimeInBuilding = UB;
         IsHospital= hospital;
-
+        TypeIndex = typeIndex;
+    }
+    public int GetTypeIndex()
+    {
+        return TypeIndex;
     }
     public bool GetIfIsHospital()
     {
@@ -51,7 +55,7 @@ public class Building
     }
     public virtual Building GetInstance()
     {
-        return new Building(Name, Description, Shape, Origin,IsShop,LowerTimeInBuilding,UpperTimeInBuilding,IsHospital);
+        return new Building(Name, Description, Shape, Origin,IsShop,LowerTimeInBuilding,UpperTimeInBuilding,IsHospital,TypeIndex);
     }
 
 }

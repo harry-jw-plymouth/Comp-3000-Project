@@ -62,6 +62,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\GridCreator.cs" />
+    <Compile Include="Assets\Scripts\DbModels\SaveBuildingModel.cs" />
     <Compile Include="Assets\Scripts\NPC handler.cs" />
     <Compile Include="Assets\Scripts\Classes\RatingInfo.cs" />
     <Compile Include="Assets\Scripts\Classes\PlacedBuilding.cs" />
@@ -74,7 +75,6 @@
     <Compile Include="Assets\Scripts\SQLite.cs" />
     <Compile Include="Assets\Scripts\UIHandlerScript.cs" />
     <Compile Include="Assets\Scripts\SaveItemScript.cs" />
-    <Compile Include="Assets\Scripts\DbModels\SaveBuildingsScript.cs" />
     <Compile Include="Assets\Scripts\DbModels\SaveFileModel.cs" />
     <Compile Include="Assets\Scripts\TransportPlacementScript.cs" />
     <Compile Include="Assets\Scripts\Classes\Square.cs" />
