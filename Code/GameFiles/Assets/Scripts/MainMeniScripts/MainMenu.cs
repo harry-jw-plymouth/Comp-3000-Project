@@ -24,6 +24,9 @@ public class MainMenu : MonoBehaviour
 
     public GameObject NewObjectButton;
 
+    public TMP_Dropdown GameModeSelection;
+    public TMP_InputField FileNameInput;
+
 
 
 
@@ -94,6 +97,22 @@ public class MainMenu : MonoBehaviour
         else
         {
             SaveObjectButton3.SetActive(true);
+        }
+    }
+    public void OnNewFileCreateButtonClicked()
+    {
+        Debug.Log("Creating new save");
+        string FileName = FileNameInput.text;
+        Debug.Log("FileName:" +FileName);
+        Debug.Log("Game mode:" + GameModeSelection.options[GameModeSelection.value].text);
+
+        if (FileName == "")
+        {
+            Debug.Log("Empty field");
+        }
+        else
+        {
+
         }
     }
     public void OnCreateNewButtonClicked()
