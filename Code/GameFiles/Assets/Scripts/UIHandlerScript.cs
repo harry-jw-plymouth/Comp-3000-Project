@@ -14,9 +14,11 @@ public class UIHandlerScript : MonoBehaviour
     public GameObject BuildingRemoveButton;
     public GameObject TransportButton;
     public GameObject TransportBuilderPopUp;
+    public GameObject PauseCanvas;
     public static bool TileEditorOn;
     public static bool TransportPlacementOn=false;
     public static bool BuildingRemoverOn = false;
+    public bool PauseMenuActive = false;
     //  public Square[,] GameGrid;
     private void Start()
     {
@@ -24,6 +26,25 @@ public class UIHandlerScript : MonoBehaviour
     //  GameGrid = new Square[GridCreator.WIDTH, GridCreator.HEIGHT];
     //   SetGrid();
 }
+    // Update is called once per frame
+    void Update()
+    {
+        
+    }
+    public void OpenPauseMenu()
+    {
+        if (PauseMenuActive)
+        {
+            PauseCanvas.SetActive(false);
+            PauseMenuActive = false;
+        }
+        else
+        {
+            PauseMenuActive = true;
+            PauseCanvas.SetActive(true);
+        }
+    }
+
     void SetUIInactive()
     {
       //  TransportButton.SetActive(false);
