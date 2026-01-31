@@ -590,10 +590,16 @@ public class GridCreator : MonoBehaviour
         Vector3Int MapCenter=new Vector3Int(WIDTH/2, HEIGHT/2,0);
         for(int i = -5; i < 5; i++)
         {
+            Vector3Int Position1 = new Vector3Int(MapCenter.x + i, MapCenter.y, 0);
+            Vector3Int Position2 = new Vector3Int(MapCenter.x + i, MapCenter.y + 1, 0);
+
             GameGrid[MapCenter.x+i, MapCenter.y].Contains = 1;
-            GameMap.SetTile(new Vector3Int(MapCenter.x + i, MapCenter.y,0), RoadTile);
+            GameMap.SetTile(Position1, RoadTile);
+            RoadPositions.Add(Position1);
+
             GameGrid[MapCenter.x + i, MapCenter.y+1].Contains = 1;
-            GameMap.SetTile(new Vector3Int(MapCenter.x + i, MapCenter.y+1, 0), RoadTile);
+            GameMap.SetTile(Position2, RoadTile);
+            RoadPositions.Add(Position2);
             NumberOfRoads += 2;
 
 
@@ -627,7 +633,7 @@ public class GridCreator : MonoBehaviour
 
             }
         } 
-        if (MainMenu.GameSaveID == -1)
+        if (MainMenu.GetIfNewFileCreated())
         {
             //Generate starting map
             CreateStartingArea();

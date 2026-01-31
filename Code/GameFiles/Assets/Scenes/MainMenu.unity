@@ -2233,7 +2233,7 @@ GameObject:
   - component: {fileID: 1137332247}
   - component: {fileID: 1137332246}
   m_Layer: 0
-  m_Name: Text (TMP)
+  m_Name: Save2Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5017,7 +5017,7 @@ GameObject:
   - component: {fileID: 1794256166}
   - component: {fileID: 1794256165}
   m_Layer: 0
-  m_Name: Text (TMP)
+  m_Name: Save1Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5912,7 +5912,7 @@ GameObject:
   - component: {fileID: 2046711913}
   - component: {fileID: 2046711912}
   m_Layer: 0
-  m_Name: Text (TMP)
+  m_Name: Save3Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6080,6 +6080,11 @@ MonoBehaviour:
   ClearSavesButton: {fileID: 1050708235}
   GameModeSelection: {fileID: 1595396749}
   FileNameInput: {fileID: 1644200946}
+  SaveText1: {fileID: 1794256165}
+  SaveText2: {fileID: 1137332246}
+  SaveText3: {fileID: 2046711912}
+  NewFileCreated: 0
+  CurrentSaveID: -1
 --- !u!4 &2073383013
 Transform:
   m_ObjectHideFlags: 0

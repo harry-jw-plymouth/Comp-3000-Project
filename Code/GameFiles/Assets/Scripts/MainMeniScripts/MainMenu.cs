@@ -29,10 +29,16 @@ public class MainMenu : MonoBehaviour
     public TMP_Dropdown GameModeSelection;
     public TMP_InputField FileNameInput;
 
+    public TMP_Text SaveText1;
+    public TMP_Text SaveText2;
+    public TMP_Text SaveText3;
 
 
 
 
+
+    public static bool NewFileCreated = false;
+    public int CurrentSaveID = -1;
     int CurrentScene = 0;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -52,6 +58,10 @@ public class MainMenu : MonoBehaviour
        // }
 
     //}
+    public static bool GetIfNewFileCreated()
+    {
+        return NewFileCreated;
+    }
     public void OnStartClicked()
     {
         StartButton.SetActive(false);
@@ -80,6 +90,8 @@ public class MainMenu : MonoBehaviour
         if (!Saves[0].IsEmpty)
         {
             SaveObject1.SetActive(true);
+            SaveText1.text = "Save slot 1: " + Saves[0].Name+"\n" +
+                "File type: "+Saves[0].Type;
         }
         else
         {
@@ -88,6 +100,8 @@ public class MainMenu : MonoBehaviour
         if (!Saves[1].IsEmpty)
         {
             SaveObject2.SetActive(true);
+            SaveText2.text = "Save slot 2: " + Saves[1].Name + "\n" +
+                "File type: " + Saves[1].Type;
         }
         else
         {
@@ -96,6 +110,8 @@ public class MainMenu : MonoBehaviour
         if (!Saves[2].IsEmpty)
         {
             SaveObject3.SetActive(true);
+            SaveText3.text = "Save slot 3: " + Saves[2].Name + "\n" +
+                "File type: " + Saves[2].Type;
         }
         else
         {
@@ -116,7 +132,14 @@ public class MainMenu : MonoBehaviour
         }
         else
         {
-            DBManager.AttemptToCreateNewFile(FileName, GameModeSelected);
+            int SaveID = DBManager.AttemptToCreateNewFile(FileName, GameModeSelected);
+            if (SaveID!=-1)
+            {
+                NewFileCreated = true;
+                CurrentSaveID = SaveID;
+                SceneManager.LoadScene("GameScene");
+
+            }
         }
     }
     public void OnClearButtonClicked()

@@ -29,26 +29,34 @@ public class DBManager : MonoBehaviour
         db.CreateTable<SaveFileModel>();
         Debug.Log("Database loaded");
     }
-    public static bool AttemptToCreateNewFile(string Name, string Mode)
+    public static int AttemptToCreateNewFile(string Name, string Mode)
     {
         List<SaveFileModel> SaveFiles = GetSaveFiles();
         if (SaveFiles[0].IsEmpty)
         {
             Debug.Log("Saving to save file 1");
-            return UpdateForNewFile(Name, Mode, SaveFiles[0]);
+            if(UpdateForNewFile(Name, Mode, SaveFiles[0])){
+                return 0;
+            }
+            return -1;
         }
         else if (SaveFiles[1].IsEmpty)
         {
             Debug.Log("Saving to save file 2");
-            return UpdateForNewFile(Name, Mode, SaveFiles[1]);
+            if(UpdateForNewFile(Name, Mode, SaveFiles[1])){
+                return 1;
+            }
+            return -1;
         }
         else if (SaveFiles[2].IsEmpty){
             Debug.Log("Saving to save file 3");
-
-            return UpdateForNewFile(Name,Mode,SaveFiles[2]);
+            if(UpdateForNewFile(Name, Mode, SaveFiles[2])){
+                return 2;
+            }
+            return -1;
         }
         Debug.Log("Error, no save slot available");
-        return false;
+        return -1;
     }
     static bool UpdateForNewFile(string Name, string Mode, SaveFileModel Current) {
         var SaveFile=db.Table<SaveFileModel>().Where(x=>x.Id==Current.Id).FirstOrDefault();

@@ -3,24 +3,24 @@
   "WorkspaceRootPath": "C:\\Uni stuff\\Year 3\\Comp 3000\\Comp-3000-Project\\Code\\GameFiles\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{5535B127-6443-C756-7444-11C2CBE43265}|Assembly-CSharp.csproj|c:\\uni stuff\\year 3\\comp 3000\\comp-3000-project\\code\\gamefiles\\assets\\scripts\\mainmeniscripts\\mainmenu.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5535B127-6443-C756-7444-11C2CBE43265}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\mainmeniscripts\\mainmenu.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{5535B127-6443-C756-7444-11C2CBE43265}|Assembly-CSharp.csproj|C:\\Uni stuff\\Year 3\\Comp 3000\\Comp-3000-Project\\Code\\GameFiles\\assets\\scripts\\gridcreator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5535B127-6443-C756-7444-11C2CBE43265}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\gridcreator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{5535B127-6443-C756-7444-11C2CBE43265}|Assembly-CSharp.csproj|C:\\Uni stuff\\Year 3\\Comp 3000\\Comp-3000-Project\\Code\\GameFiles\\assets\\scripts\\dbmanagerscript.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5535B127-6443-C756-7444-11C2CBE43265}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\dbmanagerscript.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{5535B127-6443-C756-7444-11C2CBE43265}|Assembly-CSharp.csproj|c:\\uni stuff\\year 3\\comp 3000\\comp-3000-project\\code\\gamefiles\\assets\\scripts\\mainmeniscripts\\mainmenu.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5535B127-6443-C756-7444-11C2CBE43265}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\mainmeniscripts\\mainmenu.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{5535B127-6443-C756-7444-11C2CBE43265}|Assembly-CSharp.csproj|c:\\uni stuff\\year 3\\comp 3000\\comp-3000-project\\code\\gamefiles\\assets\\scripts\\dbmodels\\savefilemodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{5535B127-6443-C756-7444-11C2CBE43265}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\dbmodels\\savefilemodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{5535B127-6443-C756-7444-11C2CBE43265}|Assembly-CSharp.csproj|C:\\Uni stuff\\Year 3\\Comp 3000\\Comp-3000-Project\\Code\\GameFiles\\assets\\scripts\\npc handler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5535B127-6443-C756-7444-11C2CBE43265}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\npc handler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{5535B127-6443-C756-7444-11C2CBE43265}|Assembly-CSharp.csproj|C:\\Uni stuff\\Year 3\\Comp 3000\\Comp-3000-Project\\Code\\GameFiles\\assets\\scripts\\dbmanagerscript.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5535B127-6443-C756-7444-11C2CBE43265}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\dbmanagerscript.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{5535B127-6443-C756-7444-11C2CBE43265}|Assembly-CSharp.csproj|C:\\Uni stuff\\Year 3\\Comp 3000\\Comp-3000-Project\\Code\\GameFiles\\assets\\scripts\\gridcreator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5535B127-6443-C756-7444-11C2CBE43265}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\gridcreator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{5535B127-6443-C756-7444-11C2CBE43265}|Assembly-CSharp.csproj|C:\\Uni stuff\\Year 3\\Comp 3000\\Comp-3000-Project\\Code\\GameFiles\\assets\\scripts\\npc handler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5535B127-6443-C756-7444-11C2CBE43265}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\npc handler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{5535B127-6443-C756-7444-11C2CBE43265}|Assembly-CSharp.csproj|C:\\Uni stuff\\Year 3\\Comp 3000\\Comp-3000-Project\\Code\\GameFiles\\assets\\scripts\\classes\\ratinginfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -77,31 +77,18 @@
       "VerticalTabListWidth": 256,
       "DocumentGroups": [
         {
-          "DockedWidth": 1201,
-          "SelectedChildIndex": 1,
+          "DockedWidth": 78,
+          "SelectedChildIndex": 0,
           "Children": [
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "DBManagerScript.cs",
-              "DocumentMoniker": "C:\\Uni stuff\\Year 3\\Comp 3000\\Comp-3000-Project\\Code\\GameFiles\\Assets\\Scripts\\DBManagerScript.cs",
-              "RelativeDocumentMoniker": "Assets\\Scripts\\DBManagerScript.cs",
-              "ToolTip": "C:\\Uni stuff\\Year 3\\Comp 3000\\Comp-3000-Project\\Code\\GameFiles\\Assets\\Scripts\\DBManagerScript.cs",
-              "RelativeToolTip": "Assets\\Scripts\\DBManagerScript.cs",
-              "ViewState": "AgIAAB4AAAAAAAAAAAAAABEAAAAIAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-19T22:10:06.222Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
               "Title": "MainMenu.cs",
               "DocumentMoniker": "C:\\Uni stuff\\Year 3\\Comp 3000\\Comp-3000-Project\\Code\\GameFiles\\Assets\\Scripts\\MainMeniScripts\\MainMenu.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\MainMeniScripts\\MainMenu.cs",
               "ToolTip": "C:\\Uni stuff\\Year 3\\Comp 3000\\Comp-3000-Project\\Code\\GameFiles\\Assets\\Scripts\\MainMeniScripts\\MainMenu.cs",
               "RelativeToolTip": "Assets\\Scripts\\MainMeniScripts\\MainMenu.cs",
-              "ViewState": "AgIAAIQAAAAAAAAAAAAAAKQAAAArAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAFCGwD4AAAAeAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-01-30T21:10:54.908Z",
               "EditorCaption": ""
@@ -109,6 +96,19 @@
             {
               "$type": "Document",
               "DocumentIndex": 3,
+              "Title": "DBManagerScript.cs",
+              "DocumentMoniker": "C:\\Uni stuff\\Year 3\\Comp 3000\\Comp-3000-Project\\Code\\GameFiles\\Assets\\Scripts\\DBManagerScript.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\DBManagerScript.cs",
+              "ToolTip": "C:\\Uni stuff\\Year 3\\Comp 3000\\Comp-3000-Project\\Code\\GameFiles\\Assets\\Scripts\\DBManagerScript.cs",
+              "RelativeToolTip": "Assets\\Scripts\\DBManagerScript.cs",
+              "ViewState": "AgIAAB4AAAAAAAAAAAAAACsAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-19T22:10:06.222Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
               "Title": "NPC handler.cs",
               "DocumentMoniker": "C:\\Uni stuff\\Year 3\\Comp 3000\\Comp-3000-Project\\Code\\GameFiles\\Assets\\Scripts\\NPC handler.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\NPC handler.cs",
@@ -240,8 +240,8 @@
           ]
         },
         {
-          "DockedWidth": 124,
-          "SelectedChildIndex": 0,
+          "DockedWidth": 1247,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Document",
@@ -251,22 +251,23 @@
               "RelativeDocumentMoniker": "Assets\\Scripts\\DbModels\\SaveFileModel.cs",
               "ToolTip": "C:\\Uni stuff\\Year 3\\Comp 3000\\Comp-3000-Project\\Code\\GameFiles\\Assets\\Scripts\\DbModels\\SaveFileModel.cs",
               "RelativeToolTip": "Assets\\Scripts\\DbModels\\SaveFileModel.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAOAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-01-30T21:22:07.326Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 0,
               "Title": "GridCreator.cs",
               "DocumentMoniker": "C:\\Uni stuff\\Year 3\\Comp 3000\\Comp-3000-Project\\Code\\GameFiles\\Assets\\Scripts\\GridCreator.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\GridCreator.cs",
               "ToolTip": "C:\\Uni stuff\\Year 3\\Comp 3000\\Comp-3000-Project\\Code\\GameFiles\\Assets\\Scripts\\GridCreator.cs",
               "RelativeToolTip": "Assets\\Scripts\\GridCreator.cs",
-              "ViewState": "AgIAAAACAAAAAAAAAAAswD4CAAAuAAAAAAAAAA==",
+              "ViewState": "AgIAAD4CAAAAAAAAAAAAAFACAAAnAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-30T23:03:10.313Z"
+              "WhenOpened": "2025-12-30T23:03:10.313Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
