@@ -39,6 +39,7 @@ public class GridCreator : MonoBehaviour
     public GameObject HospitalPrefab;
     public GameObject ShopPrefab;
     public GameObject TownHallPrefab;
+    public GameObject WindFarmPrefab;
 
     public static List<Vector3> RoadPositions=new List<Vector3>();
 
@@ -488,8 +489,23 @@ public class GridCreator : MonoBehaviour
                                 {
                                     Vector3 AdjustedStartPos = CurrentPos + new Vector3(-0.5f,-0.5f, 0);
                                     NewSprite = Instantiate(TownHallPrefab, AdjustedStartPos, Quaternion.identity);
-                                } 
-
+                                }
+                            }
+                            else if (BuildingsListManager.BuildingCurrentlySelected == 5)
+                            {
+                                if (BuildingsListManager.Buildings[BuildingsListManager.BuildingCurrentlySelected].Shape[Y, X] == 0)
+                                {
+                                    Vector3 AdjustedStartPos = CurrentPos + new Vector3(-0.5f, -0.5f, 0);
+                                    NewSprite = Instantiate(WindFarmPrefab, AdjustedStartPos, Quaternion.identity);
+                                }
+                            }
+                            else if (BuildingsListManager.BuildingCurrentlySelected == 6)
+                            {
+                                if (BuildingsListManager.Buildings[BuildingsListManager.BuildingCurrentlySelected].Shape[Y, X] == 0)
+                                {
+                                    Vector3 AdjustedStartPos = CurrentPos + new Vector3(-0.5f, -0.5f, 0);
+                                    NewSprite = Instantiate(WindFarmPrefab, AdjustedStartPos, Quaternion.identity);
+                                }
                             }
 
                         }

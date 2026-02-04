@@ -4,7 +4,8 @@ using UnityEngine;
 public class PowerHandlerScript : MonoBehaviour
 {
     [SerializeField] GridCreator gridCreator;
-    int FrequencyOfPowerUpdate = 10000;
+    [SerializeField] TextMeshProUGUI DisplayText;
+    int FrequencyOfPowerUpdate = 100;
     int FrequencyCounter = 0;
 
     [SerializeField] int PowerReserves = 10000;
@@ -28,6 +29,18 @@ public class PowerHandlerScript : MonoBehaviour
     {
         int PowerGeneration = GridCreator.GetPowerGeneration();
         int PowerUsage=GridCreator.GetPowerUsage();
+        PowerReserves += PowerGeneration-PowerUsage;
+        Debug.Log("Power genersted:" + PowerGeneration);
+        Debug.Log("Usage:" + PowerUsage);
+        Debug.Log("Reserves after change:" + PowerReserves);
+        if (PowerReserves < 0)
+        {
+            PowerReserves= 0;
+        }
+
+        DisplayText.text = PowerReserves.ToString();
+
+
 
 
         
