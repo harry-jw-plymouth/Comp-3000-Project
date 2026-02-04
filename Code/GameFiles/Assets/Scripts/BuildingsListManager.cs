@@ -26,15 +26,19 @@ public class BuildingsListManager : MonoBehaviour
         Buildings = new Building[]
         {
             new Home("Small House"," A small house", new int[1,1]{{0}} ,new int[]{0,0},
-            false ,100, 1000,false,0,3),
+            false ,100, 1000,false,0,10,10,3),
             new Home("Medium House", " A medium house for a bigger family",new int[1,2]{{0,1}}  , new int[] {0,0 },
-            false,100,1000,false,1,5),
+            false,100,1000,false,1,15,15,5),
             new Building("Convenience shop", " a little shop, a bit overpriced",new int[1,2]{{0,1}}, new int[] { 0, 0 },
-            true,100,300,false,2),
+            true,100,300,false,2,10,10),
             new Building("Hospital","A hospital",new int[2,2]{{1,1},{0,1} } ,new int[]{1,0},
-            false,100,300,true,3),
-            new Building("Town Hall", "The core building for your city",new int[3,3]{{1,1,1},{ 1, 1, 1 }, { 0,1,1}},new int[] { 2,0 }, 
-            false,100,500,false,4)
+            false,100,300,true,3,100,80),
+            new Building("Town Hall", "The core building for your city",new int[3,3]{{1,1,1},{ 1, 1, 1 }, { 0,1,1}},new int[] { 2,0 },
+            false,100,500,false,4,50,30),
+            new PowerPlant("Coal Power plant", "A non renewable power plant ,efficient but bad for the environment",new int [3,3]{{1,1,1},{ 1, 1, 1 }, { 0,1,1}},new int[] { 2,0 },
+            false,200,600,false,5,0,400,800),
+            new PowerPlant("Wind Power farm", "A renewable power plant ,not super efficient but much better for the environment",new int [3,3]{{1,1,1},{ 1, 1, 1 }, { 0,1,1}},new int[] { 2,0 },
+            false,200,600,false,5,0,20,600)
         };
     }
 

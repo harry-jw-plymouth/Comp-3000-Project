@@ -76,6 +76,7 @@
     <Compile Include="Assets\Scripts\UIHandlerScript.cs" />
     <Compile Include="Assets\Scripts\SaveItemScript.cs" />
     <Compile Include="Assets\Scripts\DbModels\SaveFileModel.cs" />
+    <Compile Include="Assets\Scripts\Classes\PowerPlant.cs" />
     <Compile Include="Assets\Scripts\TransportPlacementScript.cs" />
     <Compile Include="Assets\Scripts\Classes\Square.cs" />
     <Compile Include="Assets\Scripts\SoundManagerScript.cs" />

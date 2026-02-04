@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using NUnit.Framework;
 using UnityEngine;
 
@@ -7,13 +8,16 @@ public class Building
     public string Description;
     public int[,] Shape;
     public int[] Origin;
+    public int PowerUsage;
     public bool IsShop;
     public bool IsHome=false;
     public bool IsHospital = false;
     public int LowerTimeInBuilding,UpperTimeInBuilding;
     public int TypeIndex;
+    public int EnviromentalEffect;
+    public bool IsPowerPlant = false;
 
-    public Building(string name, string description, int[,] shape, int[] origin, bool Shop ,int LB,int UB,bool hospital,int typeIndex)
+    public Building(string name, string description, int[,] shape, int[] origin, bool Shop ,int LB,int UB,bool hospital,int typeIndex,int Usage,int EF)
     {
         Name = name;
         Description = description;
@@ -28,6 +32,8 @@ public class Building
         UpperTimeInBuilding = UB;
         IsHospital= hospital;
         TypeIndex = typeIndex;
+        PowerUsage = Usage;
+        EnviromentalEffect = EF;
     }
     public int[,] GetShape()
     {
@@ -49,6 +55,10 @@ public class Building
     {
         return IsHome; 
     }
+    public bool GetIfIsPowerPlant()
+    {
+        return IsPowerPlant;
+    }
     public int GetLowerBound()
     {
         return LowerTimeInBuilding;
@@ -59,7 +69,7 @@ public class Building
     }
     public virtual Building GetInstance()
     {
-        return new Building(Name, Description, Shape, Origin,IsShop,LowerTimeInBuilding,UpperTimeInBuilding,IsHospital,TypeIndex);
+        return new Building(Name, Description, Shape, Origin,IsShop,LowerTimeInBuilding,UpperTimeInBuilding,IsHospital,TypeIndex,PowerUsage);
     }
 
 }
