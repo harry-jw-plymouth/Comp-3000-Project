@@ -35,6 +35,10 @@ public class Building
         PowerUsage = Usage;
         EnviromentalEffect = EF;
     }
+    public bool GetIfPowerPlant()
+    {
+        return IsPowerPlant;
+    }
     public int[,] GetShape()
     {
         return Shape;
@@ -69,7 +73,7 @@ public class Building
     }
     public virtual Building GetInstance()
     {
-        return new Building(Name, Description, Shape, Origin,IsShop,LowerTimeInBuilding,UpperTimeInBuilding,IsHospital,TypeIndex,PowerUsage);
+        return new Building(Name, Description, Shape, Origin,IsShop,LowerTimeInBuilding,UpperTimeInBuilding,IsHospital,TypeIndex,PowerUsage,EnviromentalEffect);
     }
 
 }

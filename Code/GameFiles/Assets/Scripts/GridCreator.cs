@@ -112,6 +112,27 @@ public class GridCreator : MonoBehaviour
     {
         return PlacedBuildings.Count;
     }
+    public static int GetPowerGeneration()
+    {
+        int Total = 0;
+        foreach (PlacedBuilding building in PlacedBuildings)
+        {
+            if(building.buildingType is PowerPlant Powerplant)
+            {
+                Total += Powerplant.GetPowerGeneration();
+            }
+        }
+        return Total;
+    }
+    public static int GetPowerUsage()
+    {
+        int total = 0;
+        for (int i = 0; i < PlacedBuildings.Count; i++)
+        {
+            total += PlacedBuildings[i].GetType().PowerUsage;
+        }
+        return total;
+    }
     public int GetNumberOfRoads()
     {
         return NumberOfRoads;

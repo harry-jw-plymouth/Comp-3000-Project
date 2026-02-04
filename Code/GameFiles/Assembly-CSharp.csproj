@@ -83,6 +83,7 @@
     <Compile Include="Assets\Scripts\GameStatusScript.cs" />
     <Compile Include="Assets\Scripts\InputHandlerScript.cs" />
     <Compile Include="Assets\Scripts\Classes\Building.cs" />
+    <Compile Include="Assets\Scripts\PowerHandlerScript.cs" />
     <Compile Include="Assets\Scripts\CameraController.cs" />
   </ItemGroup>
   <ItemGroup>
