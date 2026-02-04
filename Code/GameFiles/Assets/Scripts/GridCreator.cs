@@ -772,8 +772,10 @@ public class GridCreator : MonoBehaviour
                         }
                         if (GameGrid[x, y].Contains == 2)
                         {
-                         //   GameMap.SetTile(CurrentPosition, GameTile);
-                          //  TransportPlacementScript.PlaceRail(CurrentPosition);
+                            GameMap.SetTile(CurrentPosition, GameTile);
+
+                            //   GameMap.SetTile(CurrentPosition, GameTile);
+                            //  TransportPlacementScript.PlaceRail(CurrentPosition);
                         }
                         
 
