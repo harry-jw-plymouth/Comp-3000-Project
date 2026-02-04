@@ -296,6 +296,8 @@ MonoBehaviour:
   HospitalPrefab: {fileID: 1523579773146520067, guid: 6ebbc2865a0d4e54ab56088738f8bafb, type: 3}
   ShopPrefab: {fileID: 8584031067253484874, guid: 63cff120ceefec4489b1670207c80d0c, type: 3}
   TownHallPrefab: {fileID: 8032346269742479764, guid: af213f2145add674ca0c4a759c136563, type: 3}
+  PowerPlantPrefab: {fileID: 3510485596384159867, guid: 5ee9fed237235aa4cb7041a897868258, type: 3}
+  WindFarmPrefab: {fileID: 5017083642667601427, guid: 3c9b57547762e47479bca9a65c3d54b8, type: 3}
 --- !u!156049354 &94827940
 Grid:
   m_ObjectHideFlags: 0

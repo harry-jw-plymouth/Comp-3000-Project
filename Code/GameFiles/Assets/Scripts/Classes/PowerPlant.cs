@@ -15,4 +15,8 @@ public class PowerPlant : Building
     {
         return PowerGeneration;
     }
+    public override Building GetInstance()
+    {
+        return new PowerPlant(Name, Description, Shape, Origin, IsShop, LowerTimeInBuilding, UpperTimeInBuilding, IsHospital, TypeIndex, PowerUsage,EnviromentalEffect,PowerGeneration);
+    }
 }

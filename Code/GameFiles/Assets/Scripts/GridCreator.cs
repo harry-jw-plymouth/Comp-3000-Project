@@ -39,6 +39,7 @@ public class GridCreator : MonoBehaviour
     public GameObject HospitalPrefab;
     public GameObject ShopPrefab;
     public GameObject TownHallPrefab;
+    public GameObject PowerPlantPrefab;
     public GameObject WindFarmPrefab;
 
     public static List<Vector3> RoadPositions=new List<Vector3>();
@@ -64,15 +65,15 @@ public class GridCreator : MonoBehaviour
     }
     bool CheckIfBuildingCanBeplaced(int x, int y,Building building)
     {
-        Debug.Log("New Y: " + (y + building.Shape.GetLength(0)));
+        //Debug.Log("New Y: " + (y + building.Shape.GetLength(0)));
         if (x + building.Shape.GetLength(1) > WIDTH )
         {
-            Debug.Log("Building cant be placed");
+          //  Debug.Log("Building cant be placed");
             return false;
         }
         else if (y + building.Shape.GetLength(0) >= HEIGHT+1)
         {
-            Debug.Log("Building cant be placed, final Y pos:"+ (y + building.Shape.GetLength(0)));
+          //  Debug.Log("Building cant be placed, final Y pos:"+ (y + building.Shape.GetLength(0)));
             return false;
 
         }
@@ -120,6 +121,7 @@ public class GridCreator : MonoBehaviour
         {
             if(building.buildingType is PowerPlant Powerplant)
             {
+                Debug.Log("Power plant found:" + Powerplant.PowerGeneration);
                 Total += Powerplant.GetPowerGeneration();
             }
         }
@@ -298,7 +300,7 @@ public class GridCreator : MonoBehaviour
                     Vector3Int CurrentPos = GetPositionForSquare(new Vector3Int(Currentbuilding.OriginPos[0], Currentbuilding.OriginPos[1],0), Currentbuilding.buildingType.Shape, X, Y, Currentbuilding.buildingType.Origin);
                     if(CurrentPos == MousePos)
                     {
-                        Debug.Log("Item found at" + CurrentPos);
+            //            Debug.Log("Item found at" + CurrentPos);
                         return i;
                     }
                 }
@@ -496,7 +498,7 @@ public class GridCreator : MonoBehaviour
                                 if (BuildingsListManager.Buildings[BuildingsListManager.BuildingCurrentlySelected].Shape[Y, X] == 0)
                                 {
                                     Vector3 AdjustedStartPos = CurrentPos + new Vector3(-0.5f, -0.5f, 0);
-                                    NewSprite = Instantiate(WindFarmPrefab, AdjustedStartPos, Quaternion.identity);
+                                    NewSprite = Instantiate(PowerPlantPrefab, AdjustedStartPos, Quaternion.identity);
                                 }
                             }
                             else if (BuildingsListManager.BuildingCurrentlySelected == 6)
@@ -562,15 +564,15 @@ public class GridCreator : MonoBehaviour
     }
     void RemoveBuildings(Vector3Int CellClickedPos)
     {
-        Debug.Log("Removing Building");
+       // Debug.Log("Removing Building");
         //building removing check
         if (GameGrid[CellClickedPos.x, CellClickedPos.y].Contains == 2)
         {
             int BuildingPos = GetBuildingClicked(CellClickedPos);
-            Debug.Log("Building found at poaition");
+           // Debug.Log("Building found at poaition");
             if (BuildingPos != -1)
             {
-                Debug.Log("Removing building " + BuildingPos);
+         //       Debug.Log("Removing building " + BuildingPos);
                 RemoveSelectedBuilding(PlacedBuildings[BuildingPos].buildingType,
                     new Vector3Int(PlacedBuildings[BuildingPos].OriginPos[0], PlacedBuildings[BuildingPos].OriginPos[1], 0));
                 if (PlacedBuildings[BuildingPos] != null)
@@ -672,17 +674,17 @@ public class GridCreator : MonoBehaviour
     }
     GameObject GetSriteForBuilding(SaveBuildingModel Save)
     {
-        Debug.Log("GetSprite function");
+     //   Debug.Log("GetSprite function");
         // create sprite by instantiating then return so it can be saved
         GameObject NewSprite = new GameObject();
         Vector3Int NewPos= new Vector3Int(Save.OriginX,Save.OriginY,0);
-        Debug.Log("New Pos:"+NewPos.ToString());
+    //    Debug.Log("New Pos:"+NewPos.ToString());
         bool SpriteMade = false;
         for (int Y = 0; Y < BuildingsListManager.Buildings[Save.TypeIndex].Shape.GetLength(0); Y++)
         {
             for (int X = 0; X < BuildingsListManager.Buildings[Save.TypeIndex].Shape.GetLength(1); X++)
             {
-                Debug.Log("Shape"+Y+","+X+" :" + BuildingsListManager.Buildings[Save.TypeIndex].Shape[Y, X]);
+      //          Debug.Log("Shape"+Y+","+X+" :" + BuildingsListManager.Buildings[Save.TypeIndex].Shape[Y, X]);
                 if (BuildingsListManager.Buildings[Save.TypeIndex].Shape[Y, X] != -1)
                 {
                     Vector3Int CurrentPos = GetPositionForSquare(NewPos, BuildingsListManager.Buildings[Save.TypeIndex].Shape, X, Y, BuildingsListManager.Buildings[Save.TypeIndex].Origin);
@@ -726,13 +728,29 @@ public class GridCreator : MonoBehaviour
                         {
                             if (BuildingsListManager.Buildings[Save.TypeIndex].Shape[Y, X] == 0)
                             {
-                                Debug.Log("Instantiating town hall");
+         //                       Debug.Log("Instantiating town hall");
                                 Vector3 AdjustedStartPos = CurrentPos + new Vector3(-0.5f, -0.5f, 0);
   
                                 NewSprite = Instantiate(TownHallPrefab, AdjustedStartPos, Quaternion.identity);
                                 SpriteMade = true;
                             }
                             
+                        }
+                        else if (Save.TypeIndex == 5)
+                        {
+                            if (BuildingsListManager.Buildings[Save.TypeIndex].Shape[Y, X] == 0)
+                            {
+                                Vector3 AdjustedStartPos = CurrentPos + new Vector3(-0.5f, -0.5f, 0);
+                                NewSprite = Instantiate(PowerPlantPrefab, AdjustedStartPos, Quaternion.identity);
+                            }
+                        }
+                        else if (Save.TypeIndex == 6)
+                        {
+                            if (BuildingsListManager.Buildings[Save.TypeIndex].Shape[Y, X] == 0)
+                            {
+                                Vector3 AdjustedStartPos = CurrentPos + new Vector3(-0.5f, -0.5f, 0);
+                                NewSprite = Instantiate(WindFarmPrefab, AdjustedStartPos, Quaternion.identity);
+                            }
                         }
                     }
                    
@@ -759,7 +777,7 @@ public class GridCreator : MonoBehaviour
             if (MainMenu.NewFileCreated == true)
             {
                 //Create new
-                Debug.Log("Creating new");
+           //     Debug.Log("Creating new");
                 
                 for (int x = 0; x < WIDTH; x++)
                 {
@@ -777,13 +795,13 @@ public class GridCreator : MonoBehaviour
             }
             else
             {
-                Debug.Log("Loading map from db");
-                Debug.Log("SaveID" + MainMenu.GetCurrentSaveID());
+             //   Debug.Log("Loading map from db");
+            //    Debug.Log("SaveID" + MainMenu.GetCurrentSaveID());
                 //Get from db and set up
                 SaveMapModel CurrentSaveMap = DBManager.GetSpecificMap(MainMenu.GetCurrentSaveID());
                 List<SaveBuildingModel> BuildingsFromDb=DBManager.GetAllBuildingsForSave(MainMenu.GetCurrentSaveID());
-                Debug.Log("CurrentID:" + CurrentSaveMap.AssociatedSaveID);
-                Debug.Log("Map size" + CurrentSaveMap.GridData.Length);
+           //     Debug.Log("CurrentID:" + CurrentSaveMap.AssociatedSaveID);
+           //     Debug.Log("Map size" + CurrentSaveMap.GridData.Length);
                 byte[] UnconvertedMap = CurrentSaveMap.GridData;
                 for(int i=0;i< UnconvertedMap.Length; i++)
                 {
@@ -803,7 +821,7 @@ public class GridCreator : MonoBehaviour
                         if (GameGrid[x, y].Contains == 1)
                         {
                             GameMap.SetTile(CurrentPosition, RoadTile);
-                            Debug.Log("Placing road tile");
+                     //       Debug.Log("Placing road tile");
                             RoadPositions.Add(CurrentPosition);
                             NumberOfRoads++;
                         }
@@ -819,7 +837,7 @@ public class GridCreator : MonoBehaviour
                     }
                 }
                 Building[] BaseBuildingTypes = BuildingsListManager.GetBuildings();
-                Debug.Log("Number of buildings from db:"+BuildingsFromDb.Count);
+            //    Debug.Log("Number of buildings from db:"+BuildingsFromDb.Count);
                 for (int i = 0; i < BuildingsFromDb.Count; i++) {
                     PlacedBuilding New = new PlacedBuilding(BaseBuildingTypes[BuildingsFromDb[i].TypeIndex], new int[] { BuildingsFromDb[i].OriginX, BuildingsFromDb[i].OriginY, }, GetSriteForBuilding(BuildingsFromDb[i]));
                     New.SetBuildingPos(new Vector3(BuildingsFromDb[i].Xpos, BuildingsFromDb[i].Ypos, 0));
