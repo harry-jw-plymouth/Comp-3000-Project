@@ -29,6 +29,10 @@ public class Building
         IsHospital= hospital;
         TypeIndex = typeIndex;
     }
+    public int[,] GetShape()
+    {
+        return Shape;
+    }
     public int GetTypeIndex()
     {
         return TypeIndex;

@@ -461,6 +461,15 @@ public class GridCreator : MonoBehaviour
                                 NewSprite = Instantiate(SmallHousePreFab, AdjustedStartPos, Quaternion.identity);
 
                             }
+                            else if (BuildingsListManager.BuildingCurrentlySelected == 4)
+                            {
+                                if (BuildingsListManager.Buildings[BuildingsListManager.BuildingCurrentlySelected].Shape[Y, X] == 0)
+                                {
+                                    Vector3 AdjustedStartPos = CurrentPos + new Vector3(-0.5f,-0.5f, 0);
+                                    NewSprite = Instantiate(TownHallPrefab, AdjustedStartPos, Quaternion.identity);
+                                } 
+
+                            }
 
                         }
 
@@ -604,27 +613,107 @@ public class GridCreator : MonoBehaviour
 
 
         }
-        Vector3 BuildingStart = GameMap.CellToWorld(MapCenter);
+        Vector3Int BuildingStart = new Vector3Int( (int)MapCenter.x,MapCenter.y+2,0);
+        BuildingsListManager.BuildingCurrentlySelected = 4;
+
         GameObject NewSprite = new GameObject();
-        GameGrid[WIDTH/2,HEIGHT/2].Contains = 2;
-        Vector3 AdjustedStartPos = MapCenter + new Vector3(-0.5f, 3.5f, 0);
-        NewSprite = Instantiate( TownHallPrefab, AdjustedStartPos, Quaternion.identity);
-        PlacedBuildings.Add(new PlacedBuilding(BuildingsListManager.Buildings[4]
-            , new int[] { MapCenter.x,MapCenter.y },
-            NewSprite));
-        for(int x = 0; x < 3; x++)
-        {
-            for (int y = 0; y < 3; y++) {
-                GameGrid[MapCenter.x+ x,MapCenter.y+ y+3].Contains = 2;
-            }
-        }
+        PlaceBuilding(BuildingStart);
+   
+        //Vector3 AdjustedStartPos = MapCenter + new Vector3(-0.5f, -0.5f, 0);
+        //NewSprite = Instantiate( TownHallPrefab, AdjustedStartPos, Quaternion.identity);
+        //PlacedBuildings.Add(new PlacedBuilding(BuildingsListManager.Buildings[4]
+        //    , new int[] { (int)AdjustedStartPos.x,(int)AdjustedStartPos.y },
+          //  NewSprite));
+        //for(int x = 0; x < 3; x++)
+       // {
+           // for (int y = 0; y < 3; y++) {
+         //       GameGrid[(int)AdjustedStartPos.x+ x, (int)AdjustedStartPos.y + y+3].Contains = 2;
+          //  }
+        //}
         npcHandler.SetHomes();
 
     }
     GameObject GetSriteForBuilding(SaveBuildingModel Save)
     {
+        Debug.Log("GetSprite function");
         // create sprite by instantiating then return so it can be saved
-        return null;
+        GameObject NewSprite = new GameObject();
+        Vector3Int NewPos= new Vector3Int(Save.OriginX,Save.OriginY,0);
+        Debug.Log("New Pos:"+NewPos.ToString());
+        bool SpriteMade = false;
+        for (int Y = 0; Y < BuildingsListManager.Buildings[Save.TypeIndex].Shape.GetLength(0); Y++)
+        {
+            for (int X = 0; X < BuildingsListManager.Buildings[Save.TypeIndex].Shape.GetLength(1); X++)
+            {
+                Debug.Log("Shape"+Y+","+X+" :" + BuildingsListManager.Buildings[Save.TypeIndex].Shape[Y, X]);
+                if (BuildingsListManager.Buildings[Save.TypeIndex].Shape[Y, X] != -1)
+                {
+                    Vector3Int CurrentPos = GetPositionForSquare(NewPos, BuildingsListManager.Buildings[Save.TypeIndex].Shape, X, Y, BuildingsListManager.Buildings[Save.TypeIndex].Origin);
+                    GameGrid[CurrentPos.x, CurrentPos.y].Contains = 2;
+                    if (!SpriteMade)
+                    {
+                        if (Save.TypeIndex == 1)
+                        {
+                            if (BuildingsListManager.Buildings[Save.TypeIndex].Shape[Y, X] == 0)
+                            {
+                                Vector3 AdjustedStartPos = CurrentPos + new Vector3(1, 0.5f, 0);
+                                NewSprite = Instantiate(MediumHousePreFab, AdjustedStartPos, Quaternion.identity);
+                                SpriteMade = true;
+                            }
+                        }
+                        else if (Save.TypeIndex == 2)
+                        {
+                            if (BuildingsListManager.Buildings[Save.TypeIndex].Shape[Y, X] == 0)
+                            {
+                                Vector3 AdjustedStartPos = CurrentPos + new Vector3(1, 0.5f, 0);
+                                NewSprite = Instantiate(ShopPrefab, AdjustedStartPos, Quaternion.identity);
+                                SpriteMade = true;
+                            }
+                        }
+                        else if (Save.TypeIndex == 3)
+                        {
+                            if (BuildingsListManager.Buildings[Save.TypeIndex].Shape[Y, X] == 0)
+                            {
+                                Vector3 AdjustedStartPos = CurrentPos + new Vector3(0, 0, 0);
+                                NewSprite = Instantiate(HospitalPrefab, AdjustedStartPos, Quaternion.identity);
+                                SpriteMade = true;
+                            }
+                        }
+                        else if (Save.TypeIndex == 0)
+                        {
+                            Vector3 AdjustedStartPos = CurrentPos + new Vector3(0, 0, 0);
+                            NewSprite = Instantiate(SmallHousePreFab, AdjustedStartPos, Quaternion.identity);
+                            SpriteMade = true;
+                        }
+                        else if(Save.TypeIndex == 4)
+                        {
+                            if (BuildingsListManager.Buildings[Save.TypeIndex].Shape[Y, X] == 0)
+                            {
+                                Debug.Log("Instantiating town hall");
+                                Vector3 AdjustedStartPos = CurrentPos + new Vector3(-0.5f, -0.5f, 0);
+  
+                                NewSprite = Instantiate(TownHallPrefab, AdjustedStartPos, Quaternion.identity);
+                                SpriteMade = true;
+                            }
+                            
+                        }
+                    }
+                   
+
+                 }
+               // RevertPreviousBuildingHightlight();
+              //  PlacedBuilding New = new PlacedBuilding(BuildingsListManager.Buildings[Save.TypeIndex].GetInstance(), new int[] { NewPos.x, NewPos.y }, NewSprite);
+             //   New.SetBuildingPos(NewPos);
+              //  PlacedBuildings.Add(New);
+                //     Debug.Log("New buildings count"+PlacedBuildings.Count);
+             //   if (New.GetType().GetIfIsHome())
+               // {
+                 //   npcHandler.SetHomes();
+                //}
+            }
+        }
+        return NewSprite;
+
     }
     void CreateGrid()
     {
@@ -661,7 +750,7 @@ public class GridCreator : MonoBehaviour
                 byte[] UnconvertedMap = CurrentSaveMap.GridData;
                 for(int i=0;i< UnconvertedMap.Length; i++)
                 {
-                    Debug.Log(UnconvertedMap[i]);
+             //       Debug.Log(UnconvertedMap[i]);
                 }
                 for (int x = 0; x < CurrentSaveMap.GridWidth; x++)
                 {
@@ -691,6 +780,7 @@ public class GridCreator : MonoBehaviour
                     }
                 }
                 Building[] BaseBuildingTypes = BuildingsListManager.GetBuildings();
+                Debug.Log("Number of buildings from db:"+BuildingsFromDb.Count);
                 for (int i = 0; i < BuildingsFromDb.Count; i++) {
                     PlacedBuilding New = new PlacedBuilding(BaseBuildingTypes[BuildingsFromDb[i].TypeIndex], new int[] { BuildingsFromDb[i].OriginX, BuildingsFromDb[i].OriginY, }, GetSriteForBuilding(BuildingsFromDb[i]));
                     New.SetBuildingPos(new Vector3(BuildingsFromDb[i].Xpos, BuildingsFromDb[i].Ypos, 0));
@@ -698,6 +788,8 @@ public class GridCreator : MonoBehaviour
                    
 
                 }
+                npcHandler.SetHomes();
+                
             }
         }
         catch (Exception e){

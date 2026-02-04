@@ -32,6 +32,7 @@ public class DBManager : MonoBehaviour
         db = new SQLiteConnection(DBPath, SQLiteOpenFlags.ReadWrite | SQLiteOpenFlags.Create);
         db.CreateTable<SaveFileModel>();
         db.CreateTable<SaveMapModel>();
+        db.CreateTable<SaveBuildingModel>();
         Debug.Log("Database loaded");
     }
     public static byte[] GetMapForDB(Square[,] Grid, int Height, int Width)
@@ -136,6 +137,8 @@ public class DBManager : MonoBehaviour
     public static void ClearDB()
     {
         db.DeleteAll<SaveFileModel>();
+        db.DeleteAll<SaveBuildingModel>();
+        db.DeleteAll<SaveMapModel>();
     }
     public static void ResetSaves()
     {
