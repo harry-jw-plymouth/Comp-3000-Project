@@ -11,6 +11,7 @@ public class RatingInfo
     int ShopRating = 0;
     int HospitalRating = 0;
     int RoadRating = 0;
+    int PowerRating = 0;
     public void SetHomeLessPercentage(float New){
         HomeLessPercentage = New;
         if(HomeLessPercentage > 60)
@@ -155,9 +156,51 @@ public class RatingInfo
             AddReport("A good amount of shops");
         }
     }
+    public void SetPowerRating(int PowerGeneration,int PowerUsage)
+    {
+        if ((PowerGeneration == 0))
+        {
+            PowerRating = 0;
+            AddReport("Build a power plant as soon as possible");
+        }
+        else
+        {
+            if (PowerGeneration < PowerUsage / 3)
+            {
+                PowerRating = 10;
+                AddReport("Build a power plant as soon as possible");
+            }
+            else if (PowerGeneration > PowerUsage / 3 && PowerGeneration <= PowerUsage / 2) {
+                PowerRating = 25;
+                AddReport("Build a power plant as soon as possible");
+            }
+            else if (PowerGeneration > PowerUsage / 2 && (double)PowerGeneration <= (double)PowerUsage / 1.3)
+            {
+                PowerRating = 45;
+                AddReport("Build a power plant soon");
+            }
+            else if ((double)PowerGeneration > (double)PowerUsage / 1.3 && PowerGeneration<=PowerUsage)
+            {
+                PowerRating = 65;
+                AddReport("More power needed");
+            }
+            else if (PowerGeneration> PowerUsage && (double)PowerGeneration <= (double)PowerUsage*1.33)
+            {
+                PowerRating = 85;
+                AddReport("A good amount of power");
+            }
+            else
+            {
+                PowerRating = 100;
+                AddReport("A good amount of power");
+            }
+        }
+
+
+    }
     public void CalulcateRating()
     {
-        Rating=((int)(100-HomeLessPercentage)+ShopRating+HospitalRating+RoadRating)/4;
+        Rating=((int)(100-HomeLessPercentage)+ShopRating+HospitalRating+RoadRating+PowerRating)/5;
     }
     public void AddReport(string Report) {  
         ReportList.Add(Report); 
