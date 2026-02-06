@@ -16,8 +16,10 @@ public class Building
     public int TypeIndex;
     public int EnviromentalEffect;
     public bool IsPowerPlant = false;
+    public bool IsEntertaiment = false;
+    public int EntertainmentValue;
 
-    public Building(string name, string description, int[,] shape, int[] origin, bool Shop ,int LB,int UB,bool hospital,int typeIndex,int Usage,int EF)
+    public Building(string name, string description, int[,] shape, int[] origin, bool Shop ,int LB,int UB,bool hospital,int typeIndex,int Usage,int EF,bool Entertainment, int EV)
     {
         Name = name;
         Description = description;
@@ -34,6 +36,16 @@ public class Building
         TypeIndex = typeIndex;
         PowerUsage = Usage;
         EnviromentalEffect = EF;
+        IsEntertaiment = Entertainment;
+        EntertainmentValue = EV;
+    }
+    public int GetEntertainmentValue()
+    {
+        return EntertainmentValue;
+    }
+    public bool GetIfEntertainment()
+    {
+        return IsEntertaiment;
     }
     public bool GetIfPowerPlant()
     {
@@ -73,7 +85,7 @@ public class Building
     }
     public virtual Building GetInstance()
     {
-        return new Building(Name, Description, Shape, Origin,IsShop,LowerTimeInBuilding,UpperTimeInBuilding,IsHospital,TypeIndex,PowerUsage,EnviromentalEffect);
+        return new Building(Name, Description, Shape, Origin,IsShop,LowerTimeInBuilding,UpperTimeInBuilding,IsHospital,TypeIndex,PowerUsage,EnviromentalEffect,IsEntertaiment,EntertainmentValue);
     }
 
 }

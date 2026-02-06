@@ -265,7 +265,7 @@ public class NPChandler : MonoBehaviour
             }
             else if (RandomValue >= ShopChance + HomeChance+HospitalChance && RandomValue < ShopChance + HomeChance + HospitalChance+EntertainmentChance)
             {
-                //go to some kind of entertainment
+                //go to some kind of entertainme
                
             }
             else

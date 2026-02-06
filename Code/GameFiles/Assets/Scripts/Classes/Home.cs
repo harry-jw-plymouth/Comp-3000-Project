@@ -5,8 +5,8 @@ public class Home : Building
     public int MaximumNumberOfReisdents;
     public int CurrentResidents=0;
 
-    public Home(string name, string description, int[,] shape, int[] origin, bool Shop, int LB, int UB,bool hospital,int typeIndex,int Usage,int EF, int MaxResidents)
-        : base(name, description, shape, origin, false, LB, UB,hospital,typeIndex,Usage,EF)
+    public Home(string name, string description, int[,] shape, int[] origin, bool Shop, int LB, int UB,bool hospital,int typeIndex,int Usage,int EF, bool Entertainment, int EV, int MaxResidents)
+        : base(name, description, shape, origin, false, LB, UB,hospital,typeIndex,Usage,EF, Entertainment, EV)
     {
         MaximumNumberOfReisdents = MaxResidents;
         IsHome = true;
@@ -37,6 +37,6 @@ public class Home : Building
     }
     public override Building GetInstance()
     {
-        return new Home(Name, Description, Shape, Origin, IsShop, LowerTimeInBuilding, UpperTimeInBuilding,IsHospital,TypeIndex,PowerUsage, MaximumNumberOfReisdents,EnviromentalEffect);
+        return new Home(Name, Description, Shape, Origin, IsShop, LowerTimeInBuilding, UpperTimeInBuilding,IsHospital,TypeIndex,PowerUsage,EnviromentalEffect,IsEntertaiment,EntertainmentValue, MaximumNumberOfReisdents);
     }
 }

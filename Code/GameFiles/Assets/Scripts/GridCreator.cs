@@ -43,6 +43,7 @@ public class GridCreator : MonoBehaviour
     public GameObject TownHallPrefab;
     public GameObject PowerPlantPrefab;
     public GameObject WindFarmPrefab;
+    public GameObject ShoppingCenterPrefab;
 
     public static List<Vector3> RoadPositions=new List<Vector3>();
 
@@ -537,6 +538,14 @@ public class GridCreator : MonoBehaviour
                                     NewSprite = Instantiate(WindFarmPrefab, AdjustedStartPos, Quaternion.identity);
                                 }
                             }
+                            else if (BuildingsListManager.BuildingCurrentlySelected == 7)
+                            {
+                                if (BuildingsListManager.Buildings[BuildingsListManager.BuildingCurrentlySelected].Shape[Y, X] == 0)
+                                {
+                                    Vector3 AdjustedStartPos = CurrentPos + new Vector3(0.0f, 0.0f, 0);
+                                    NewSprite = Instantiate(ShoppingCenterPrefab, AdjustedStartPos, Quaternion.identity);
+                                }
+                            }
 
                         }
 
@@ -804,6 +813,15 @@ public class GridCreator : MonoBehaviour
                                 NewSprite = Instantiate(WindFarmPrefab, AdjustedStartPos, Quaternion.identity);
                             }
                         }
+                        else if (Save.TypeIndex == 7)
+                        {
+                            if (BuildingsListManager.Buildings[Save.TypeIndex].Shape[Y, X] == 0)
+                            {
+                                Vector3 AdjustedStartPos = CurrentPos + new Vector3(0.0f, 0.0f, 0);
+                                NewSprite = Instantiate(ShoppingCenterPrefab, AdjustedStartPos, Quaternion.identity);
+                            }
+                        }
+
                     }
                    
 
