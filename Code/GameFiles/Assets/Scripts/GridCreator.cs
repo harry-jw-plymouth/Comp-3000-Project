@@ -249,6 +249,32 @@ public class GridCreator : MonoBehaviour
         }
         return CurrentClosest;
     }
+    public static Vector3 GetPosOfNearestEntertainment(Vector3 CurrentPos)
+    {
+        Vector3 CurrentClosest = new Vector3(0, 0, 0);
+        bool EntFound = false;
+        int CurrentMinDistance = 100000;
+        for (int i = 0; i < PlacedBuildings.Count; i++)
+        {
+            if (PlacedBuildings[i].GetType().GetIfEntertainment())
+            {
+                int Distance = GetDistanceBetweenPostions(GameMap.WorldToCell(PlacedBuildings[i].GetBuildingPos()), GameMap.WorldToCell(CurrentPos));
+                if (Distance < CurrentMinDistance)
+                {
+                    RecentlySelectedBuilding = PlacedBuildings[i].buildingType;
+                    EntFound = true;
+                    CurrentMinDistance = Distance;
+                    CurrentClosest = PlacedBuildings[i].GetBuildingPos();
+                }
+            }
+        }
+
+        if (!EntFound)
+        {
+            return new Vector3(-1, -1, -1);
+        }
+        return CurrentClosest;
+    }
     public static Vector3 GetPosOfNearestHospital(Vector3 CurrentPos)
     {
         Vector3 CurrentClosest = new Vector3(0, 0, 0);
@@ -657,6 +683,18 @@ public class GridCreator : MonoBehaviour
             return RoadPositions[RandomValue];
         }
         else return new Vector3(-1, -1, -1);
+    }
+    public static int GetNumberOfEntertainment()
+    {
+        int Number = 0;
+        for (int i = 0; i < PlacedBuildings.Count; i++)
+        {
+            if (PlacedBuildings[i].GetType().GetIfEntertainment())
+            {
+                Number++;
+            }
+        }
+        return Number;
     }
     public int EnterBuildingForNPC(Vector3 Pos, int NPCIndex)
     {

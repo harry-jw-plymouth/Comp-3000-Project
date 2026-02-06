@@ -266,6 +266,17 @@ public class NPChandler : MonoBehaviour
             else if (RandomValue >= ShopChance + HomeChance+HospitalChance && RandomValue < ShopChance + HomeChance + HospitalChance+EntertainmentChance)
             {
                 //go to some kind of entertainme
+                if (GridCreator.GetNumberOfEntertainment()!=0)//check hospitals exist
+                {
+                    Vector3 EntertainmentPos = GridCreator.GetPosOfNearestEntertainment(NPCList[NPCIndex].GetPosition());
+                    if(EntertainmentPos.x != -1)
+                    {
+                        NPCList[NPCIndex].SetCurrentAction(0);
+                        NPCList[NPCIndex].SetMovementTarget(EntertainmentPos);
+                        NPCList[NPCIndex].SetIfTargetIsBuilding(true);
+                        NPCList[NPCIndex].SetTargetBuilding(GridCreator.GetSelectedBuilding());
+                    }
+                }
                
             }
             else
