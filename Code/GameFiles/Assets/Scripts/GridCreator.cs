@@ -481,7 +481,7 @@ public class GridCreator : MonoBehaviour
                             }
                             else if (BuildingsListManager.BuildingCurrentlySelected == 0)
                             {
-                                Vector3 AdjustedStartPos = CurrentPos + new Vector3(0, 0, 0);
+                                Vector3 AdjustedStartPos = CurrentPos + new Vector3(0.5f,0.5f, 0);
                                 NewSprite = Instantiate(SmallHousePreFab, AdjustedStartPos, Quaternion.identity);
 
                             }
