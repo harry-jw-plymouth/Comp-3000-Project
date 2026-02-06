@@ -188,6 +188,7 @@ public class NPChandler : MonoBehaviour
         int ShopChance = 5;
         int HomeChance = 15 + ((NPCList[NPCIndex].GetTiredNess()/50));
         int WanderChance = 80;
+        int EntertainmentChance = 5 + ((NPCList[NPCIndex].GetBoredom() / 50));
         int HospitalChance = 0 + (NPCList[NPCIndex].GetSickness() / 100);
         int RandomValue = UnityEngine.Random.Range(0, ShopChance+HomeChance+WanderChance);
 
@@ -261,6 +262,11 @@ public class NPChandler : MonoBehaviour
 
                    
                 }
+            }
+            else if (RandomValue >= ShopChance + HomeChance+HospitalChance && RandomValue < ShopChance + HomeChance + HospitalChance+EntertainmentChance)
+            {
+                //go to some kind of entertainment
+               
             }
             else
             {

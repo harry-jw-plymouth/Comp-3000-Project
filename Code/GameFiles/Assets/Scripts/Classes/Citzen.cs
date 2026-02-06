@@ -29,12 +29,25 @@ public class Citzen
 
     int TiredNess = 0;
     int Sickness = 0;
+    int Boredom = 0;
 
     public Citzen(Vector3 Pos,GameObject sprite)
     {
         NPCSprite = sprite;
         Position= Pos;
         UpdateNeeded = true;
+    }
+    public void AdjustBoredom(int Adjustment)
+    {
+        Boredom += Adjustment;
+    }
+    public int GetBoredom()
+    {
+        return Boredom;
+    } 
+    public void IncreaseBoredom(int Max)
+    {
+        Boredom += (int)Random.Range(0, Max);
     }
     public bool GetIfJusteEnteredBuilding()
     {
@@ -167,6 +180,7 @@ public class Citzen
     }
     public void SpendTImeAtHome()
     {
+        IncreaseBoredom(1);
         Sickness--;
        // Debug.Log("NPC at home");
         InBuilding--;
@@ -185,6 +199,7 @@ public class Citzen
     }
     public void SpendTImeAtHospital()
     {
+        IncreaseBoredom(2);
         Sickness-=2;
         // Debug.Log("NPC at home");
         InBuilding--;
@@ -211,6 +226,7 @@ public class Citzen
     }
     public void MovetowardsTarget()
     {
+        IncreaseBoredom(1);
         IncreaseSickness(2);
         IncreaseTiredNess();
      //   Debug.Log("Moving");
