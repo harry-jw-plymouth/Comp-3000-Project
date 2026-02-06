@@ -53,7 +53,7 @@ public class BuildingsListManager : MonoBehaviour
     }
     void DisplayBuildings()
     {
-        UnityEngine.Debug.Log(" Number of buildings: " + Buildings.Length);
+      //  UnityEngine.Debug.Log(" Number of buildings: " + Buildings.Length);
         for (int i = 0; i < Buildings.Length; i++) {
             
             GameObject New = Instantiate(BuildingObject, BuildingsView,false);
@@ -75,7 +75,7 @@ public class BuildingsListManager : MonoBehaviour
            //     BuildingButton.onClick.AddListener(() => OnBuildingClicked(i));
            // }
 
-            UnityEngine.Debug.Log("Building added: " + Buildings[i].Name);
+            //UnityEngine.Debug.Log("Building added: " + Buildings[i].Name);
 
 
         }
@@ -83,7 +83,7 @@ public class BuildingsListManager : MonoBehaviour
     }
     void OnBuildingClicked(int BuildingPos)
     {
-        UnityEngine.Debug.Log("Clicked " + Buildings[BuildingPos].Name);
+       // UnityEngine.Debug.Log("Clicked " + Buildings[BuildingPos].Name);
         BuildingCurrentlySelected = BuildingPos;
 
 

@@ -5,11 +5,12 @@ using System.Collections.Generic;
 
 public class GameStatusScript : MonoBehaviour
 {
+    public static float CurrentRating = 0;
     [SerializeField] NPChandler npcHandler;
     [SerializeField] GridCreator gridCreator;
     [SerializeField] TextMeshProUGUI DisplayText;
     int FrequencyOfRatingUpdate = 1000;
-    int FrequencyCounter = 0;
+    float FrequencyCounter = 0;
     [SerializeField] static RatingInfo CurrentInfo = new RatingInfo();
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -50,7 +51,11 @@ public class GameStatusScript : MonoBehaviour
         float Rating = CurrentInfo.GetRating();
         //display rating
         DisplayText.text = Rating.ToString();
+        CurrentRating = Rating;
 
     }
-    
+    public static int GetRating()
+    {
+        return (int)CurrentRating;
+    }
 }

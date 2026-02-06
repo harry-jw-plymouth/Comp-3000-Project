@@ -30,9 +30,9 @@ public class PowerHandlerScript : MonoBehaviour
         int PowerGeneration = GridCreator.GetPowerGeneration();
         int PowerUsage=GridCreator.GetPowerUsage();
         PowerReserves += PowerGeneration-PowerUsage;
-        Debug.Log("Power genersted:" + PowerGeneration);
-        Debug.Log("Usage:" + PowerUsage);
-        Debug.Log("Reserves after change:" + PowerReserves);
+    //    Debug.Log("Power genersted:" + PowerGeneration);
+    //    Debug.Log("Usage:" + PowerUsage);
+    //    Debug.Log("Reserves after change:" + PowerReserves);
         if (PowerReserves < 0)
         {
             PowerReserves= 0;

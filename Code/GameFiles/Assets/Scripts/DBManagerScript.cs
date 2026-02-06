@@ -101,7 +101,7 @@ public class DBManager : MonoBehaviour
         if (SaveFiles[0].IsEmpty)
         {
             Debug.Log("Saving to save file 1");
-            if(UpdateForNewFile(Name, Mode, SaveFiles[0])){
+            if(UpdateForNewFile(Name, Mode, SaveFiles[0],0)){
                 return 0;
             }
             return -1;
@@ -109,14 +109,14 @@ public class DBManager : MonoBehaviour
         else if (SaveFiles[1].IsEmpty)
         {
             Debug.Log("Saving to save file 2");
-            if(UpdateForNewFile(Name, Mode, SaveFiles[1])){
+            if(UpdateForNewFile(Name, Mode, SaveFiles[1],1)){
                 return 1;
             }
             return -1;
         }
         else if (SaveFiles[2].IsEmpty){
             Debug.Log("Saving to save file 3");
-            if(UpdateForNewFile(Name, Mode, SaveFiles[2])){
+            if(UpdateForNewFile(Name, Mode, SaveFiles[2],2)){
                 return 2;
             }
             return -1;
@@ -124,13 +124,14 @@ public class DBManager : MonoBehaviour
         Debug.Log("Error, no save slot available");
         return -1;
     }
-    static bool UpdateForNewFile(string Name, string Mode, SaveFileModel Current) {
+    static bool UpdateForNewFile(string Name, string Mode, SaveFileModel Current,int associationID) {
         var SaveFile=db.Table<SaveFileModel>().Where(x=>x.Id==Current.Id).FirstOrDefault();
 
         if (SaveFile == null) {
             Debug.Log("Error updating save file");
             return false;
         }
+        SaveFile.IDToAssociate = associationID;
         SaveFile.Name = Name;
         SaveFile.Type= Mode;
         SaveFile.IsEmpty = false;
@@ -161,7 +162,7 @@ public class DBManager : MonoBehaviour
     }
     public static bool UpdateSave( int NPCAmount,int CurrentID)
     {
-        var SaveFile = db.Table<SaveFileModel>().Where(x => x.Id == CurrentID).FirstOrDefault();
+        var SaveFile = db.Table<SaveFileModel>().Where(x => x.IDToAssociate == CurrentID).FirstOrDefault();
 
         if (SaveFile == null)
         {

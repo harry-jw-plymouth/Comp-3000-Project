@@ -4,6 +4,7 @@ using UnityEngine;
 public class NPChandler : MonoBehaviour
 {
     int MovementCounter = 0; int frameToMoveOn = 10;
+    int AmountCheckCounter = 0;int CheckFrame = 1000;
     int BuildingFrame = 20 ;
    [SerializeField]  List<Citzen> NPCList=new List<Citzen>();
     [SerializeField] int NumberOfNpcs;
@@ -28,6 +29,7 @@ public class NPChandler : MonoBehaviour
         }
         //else get NPC amounf from save file
         SaveFileModel Save= DBManager.GetSaveFiles()[MainMenu.GetCurrentSaveID()];
+        Debug.Log("Number of npcs from save:" + Save.NumberOfNPCs);
          return Save.NumberOfNPCs;   
     }
     public int GetCurrentNumberOfNPCs()
@@ -114,6 +116,25 @@ public class NPChandler : MonoBehaviour
     void Update()
     {
         UpdateNPCs();
+        AmountCheckCounter++;
+        if (AmountCheckCounter >= CheckFrame)
+        {
+            AmountCheckCounter = 0;
+            CheckForNewNPCs();
+        }
+    //    Debug.Log("Number of NPCS:" + NumberOfNpcs);
+
+    }
+    void CheckForNewNPCs()
+    {
+        float value = Random.Range(0, 100);
+        if (value < GameStatusScript.GetRating())
+        {
+            Vector3 worldPosition = new Vector3(Random.Range(0,GridCreator.WIDTH),Random.Range(0,GridCreator.HEIGHT),0);
+            NumberOfNpcs++;
+            GameObject Current = Instantiate(NPCPrefab, worldPosition, Quaternion.identity);
+            NPCList.Add(new Citzen(worldPosition, Current));
+        }
     }
     bool CheckIfOnRoad(Vector3 Position)
     {
