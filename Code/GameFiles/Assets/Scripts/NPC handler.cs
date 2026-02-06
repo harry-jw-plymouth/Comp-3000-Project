@@ -27,6 +27,15 @@ public class NPChandler : MonoBehaviour
             NPCList[Indexes[i]].ForceLeaveBuidlingOnBuildingRemoval();
         }
     }
+    public void UpdateHomesForNPCsAfterBuildingRemoval(List<int>Indexes)
+    {
+        for (int i = 0; i < Indexes.Count; i++) {
+            NPCList[Indexes[i]].UpdateHomeStatus(true);
+            NPCList[Indexes[i]].RemoveHomeData();
+        }
+        SetHomes();
+
+    }
     int GetNumberOfNPCs()
     {
         //New save
@@ -80,6 +89,7 @@ public class NPChandler : MonoBehaviour
                         {
                             if (home.AdjustResidents(1))
                             {
+                                building.AddInhabitantIndex(i);
                                 HomeFound = true;
 
                                 NPCList[i].SetHome(home);

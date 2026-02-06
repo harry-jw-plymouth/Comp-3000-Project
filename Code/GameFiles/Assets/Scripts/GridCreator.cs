@@ -607,7 +607,9 @@ public class GridCreator : MonoBehaviour
                     Destroy(PlacedBuildings[BuildingPos].Sprite);
                 }
                 npcHandler.RemoveAllNPCsFromBuilding(PlacedBuildings[BuildingPos].GetNPCsInBuilding());
+                List<int> Indexes = PlacedBuildings[BuildingPos].GetInhabitants();
                 PlacedBuildings.RemoveAt(BuildingPos);
+                npcHandler.UpdateHomesForNPCsAfterBuildingRemoval(Indexes);
 
             }
         }
@@ -770,7 +772,7 @@ public class GridCreator : MonoBehaviour
                         }
                         else if (Save.TypeIndex == 0)
                         {
-                            Vector3 AdjustedStartPos = CurrentPos + new Vector3(0, 0, 0);
+                            Vector3 AdjustedStartPos = CurrentPos + new Vector3(0.5f, 0.5f, 0); 
                             NewSprite = Instantiate(SmallHousePreFab, AdjustedStartPos, Quaternion.identity);
                             SpriteMade = true;
                         }

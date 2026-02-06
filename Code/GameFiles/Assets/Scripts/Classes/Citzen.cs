@@ -76,6 +76,11 @@ public class Citzen
     {
         IsHomeLess = NewStatus;
     }
+    public void RemoveHomeData()
+    {
+        Home = null;
+        HomePosition = new Vector3(-1, -1, -1);
+    }
     public bool GetIfHomeless()
     {
         return IsHomeLess;

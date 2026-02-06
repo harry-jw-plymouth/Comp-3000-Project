@@ -9,6 +9,7 @@ public class PlacedBuilding
     public GameObject Sprite;
     Vector3 BuildingPos;
     List<int> NPCsInBuildingIndexes=new List<int>();
+    List<int>Inhabitants=new List<int>();
     public PlacedBuilding(Building buildingType, int[] originPos, GameObject sprite)
     {
         this.buildingType = buildingType;
@@ -16,6 +17,18 @@ public class PlacedBuilding
         Sprite = sprite;
         
         //BuildingPos = new Vector3( originPos[0],originPos[1],0);
+    }
+    public List<int> GetInhabitants()
+    {
+        return Inhabitants;
+    }
+    public void AddInhabitantIndex(int Index)
+    {
+        Inhabitants.Add(Index);
+    }
+    public void RemoveSpecificInhabitantIndex(int Index)
+    {
+        Inhabitants.Remove(Index);
     }
     public List<int> GetNPCsInBuilding()
     {
