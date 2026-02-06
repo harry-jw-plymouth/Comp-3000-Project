@@ -193,7 +193,7 @@ public class MainMenu : MonoBehaviour
 
         if (GameSaveID == -1)
         {
-            DBManager.CreateNewFile("New File","",false);
+            DBManager.CreateNewFile("New File","",false,10);
      
         }
         SceneManager.LoadScene("GameScene");

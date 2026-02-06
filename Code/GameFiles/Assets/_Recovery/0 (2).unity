@@ -5019,7 +5019,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72515590464936d429a87db8bfaf619e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UIHandlerScript
-  NpcHandler: {fileID: 1443401069}
   ReportText: {fileID: 1075356047}
   ReportDisplay: {fileID: 106236966}
   RatingDisplay: {fileID: 2077381815}

@@ -22,12 +22,13 @@ public class NPChandler : MonoBehaviour
     {
         //New save
         // if new save ID create new npcs
-        if (MainMenu.GameSaveID == -1)
+        if (MainMenu.GetIfNewFileCreated() )
         {
             return 10;
         }
         //else get NPC amounf from save file
-         return 10;   
+        SaveFileModel Save= DBManager.GetSaveFiles()[MainMenu.GetCurrentSaveID()];
+         return Save.NumberOfNPCs;   
     }
     public int GetCurrentNumberOfNPCs()
     {

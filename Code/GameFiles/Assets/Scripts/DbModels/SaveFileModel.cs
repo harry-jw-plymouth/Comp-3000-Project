@@ -11,4 +11,5 @@ public class SaveFileModel
     //"SandBox" for free mode, "Standard" for mode with money
     public string Type { get; set; }
     public bool IsEmpty {  get; set; }
+    public int NumberOfNPCs {  get; set; }
 }

@@ -33,6 +33,7 @@ public class DBManager : MonoBehaviour
         db.CreateTable<SaveFileModel>();
         db.CreateTable<SaveMapModel>();
         db.CreateTable<SaveBuildingModel>();
+        db.CreateTable<SaveNPCInfoModel>();
         Debug.Log("Database loaded");
     }
     public static byte[] GetMapForDB(Square[,] Grid, int Height, int Width)
@@ -84,7 +85,16 @@ public class DBManager : MonoBehaviour
   //      SaveMapModel Map = GetSpecificMap(AssociatedId);
    //     return Map
 
-//    }
+//    }  
+    public static void AddNewNPCInfo(int AssociatedId,int Amount)
+    {
+        SaveNPCInfoModel New = new SaveNPCInfoModel
+        {
+            AssociatedSaveID = AssociatedId,
+            NumberOfNPCs = Amount
+        };
+        db.Insert(New);
+    }
     public static int AttemptToCreateNewFile(string Name, string Mode)
     {
         List<SaveFileModel> SaveFiles = GetSaveFiles();
@@ -124,6 +134,7 @@ public class DBManager : MonoBehaviour
         SaveFile.Name = Name;
         SaveFile.Type= Mode;
         SaveFile.IsEmpty = false;
+        SaveFile.NumberOfNPCs = Current.NumberOfNPCs;
 
         db.Update(SaveFile);
         return true;
@@ -139,18 +150,33 @@ public class DBManager : MonoBehaviour
         db.DeleteAll<SaveFileModel>();
         db.DeleteAll<SaveBuildingModel>();
         db.DeleteAll<SaveMapModel>();
+        db.DeleteAll<SaveNPCInfoModel>();
     }
     public static void ResetSaves()
     {
         ClearDB();
-        CreateNewFile("", "", true);
-        CreateNewFile("", "", true);
-        CreateNewFile("", "", true);
+        CreateNewFile("", "", true,10);
+        CreateNewFile("", "", true,10);
+        CreateNewFile("", "", true,10);
+    }
+    public static bool UpdateSave( int NPCAmount,int CurrentID)
+    {
+        var SaveFile = db.Table<SaveFileModel>().Where(x => x.Id == CurrentID).FirstOrDefault();
+
+        if (SaveFile == null)
+        {
+            Debug.Log("Error updating save file");
+            return false;
+        }
+        SaveFile.NumberOfNPCs = NPCAmount;
+
+        db.Update(SaveFile);
+        return true;
 
     }
-    public static void CreateNewFile(string FileName,string FileType, bool FileIsEmpty)
+    public static void CreateNewFile(string FileName,string FileType, bool FileIsEmpty,int NPCAmount)
     {
-        SaveFileModel Save = new SaveFileModel { Name=FileName,Type=FileType,IsEmpty=FileIsEmpty};
+        SaveFileModel Save = new SaveFileModel { Name=FileName,Type=FileType,IsEmpty=FileIsEmpty,NumberOfNPCs=NPCAmount};
         db.Insert(Save);
     }
     public void DisplaySaveFiles()
