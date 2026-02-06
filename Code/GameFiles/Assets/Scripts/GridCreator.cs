@@ -256,7 +256,7 @@ public class GridCreator : MonoBehaviour
         {
             for (int X = 0; X < RemovedBuilding.Shape.GetLength(1); X++)
             {
-                if (RemovedBuilding.Shape[X, Y] != -1)
+                if (RemovedBuilding.Shape[Y, X] != -1)
                 {
                     Vector3Int CurrentPos = GetPositionForSquare(Origin, RemovedBuilding.Shape, X, Y, RemovedBuilding.Origin);
                     GameMap.SetColor(CurrentPos, new Color(1f, 1f, 1f, 0.5f));
