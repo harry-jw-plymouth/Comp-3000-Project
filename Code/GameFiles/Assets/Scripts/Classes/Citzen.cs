@@ -9,6 +9,7 @@ public class Citzen
     // 0 Moving
     //1 InBuilding
     //2 at home
+    //3 in hospital
     int InBuilding = 0;
     bool TargetIsbuilding=false;
     Building BuildingCurrentlyTargetting;
@@ -22,13 +23,21 @@ public class Citzen
 
 
     int TiredNess = 0;
+    int Sickness = 0;
 
     public Citzen(Vector3 Pos,GameObject sprite)
     {
         NPCSprite = sprite;
         Position= Pos;
         UpdateNeeded = true;
-
+    }
+    public void IncreaseSickness(int Max)
+    {
+        Sickness += Random.Range(0, Max);
+    }
+    public int GetSickness()
+    {
+        return Sickness;
     }
     public void IncreaseTiredNess()
     {
@@ -100,6 +109,7 @@ public class Citzen
     }
     public void SpendTImeInBuilding()
     {
+        IncreaseSickness(3);
         InBuilding--;
         if (InBuilding == 0)
         {
@@ -119,6 +129,7 @@ public class Citzen
     }
     public void SpendTImeAtHome()
     {
+        Sickness--;
        // Debug.Log("NPC at home");
         InBuilding--;
         TiredNess--;
@@ -134,12 +145,35 @@ public class Citzen
 
         }
     }
+    public void SpendTImeAtHospital()
+    {
+        Sickness-=2;
+        // Debug.Log("NPC at home");
+        InBuilding--;
+        TiredNess--;
+        if (InBuilding == 0)
+        {
+            NPCSprite.GetComponent<SpriteRenderer>().enabled = true;
+            BuildingCurrentlyTargetting = null;
+            SetCurrentAction(-1);
+            if (TiredNess < 0)
+            {
+                TiredNess = 0;
+            }
+            if (Sickness < 0)
+            {
+                Sickness = 0;
+            }
+
+        }
+    }
     public int GetTimeInBuilding(int LowerBound,int UpperBound)
     {
         return UnityEngine.Random.Range(LowerBound, UpperBound); 
     }
     public void MovetowardsTarget()
     {
+        IncreaseSickness(2);
         IncreaseTiredNess();
      //   Debug.Log("Moving");
         if (Position.y > MovementTarget.y)
@@ -167,11 +201,15 @@ public class Citzen
             {
                 SetCurrentAction(1);
                 TargetIsbuilding = false;
-                InBuilding = GetTimeInBuilding(BuildingCurrentlyTargetting.GetLowerBound(),BuildingCurrentlyTargetting.GetUpperBound());
+                InBuilding = GetTimeInBuilding(BuildingCurrentlyTargetting.GetLowerBound(), BuildingCurrentlyTargetting.GetUpperBound());
                 NPCSprite.GetComponent<SpriteRenderer>().enabled = false;
                 if (BuildingCurrentlyTargetting.IsHome)
                 {
                     SetCurrentAction(2);
+                }
+                else if (BuildingCurrentlyTargetting.GetIfIsHospital())
+                {
+                    SetCurrentAction(3);
                 }
             }
             else

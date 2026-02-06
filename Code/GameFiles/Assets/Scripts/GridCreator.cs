@@ -145,7 +145,7 @@ public class GridCreator : MonoBehaviour
         int Number = 0;
         for (int i = 0; i < PlacedBuildings.Count; i++)
         {
-            if (PlacedBuildings[i].GetIfIsShop())
+            if (PlacedBuildings[i].GetIfIsHospital())
             {
                 Number++;
             }
@@ -243,6 +243,32 @@ public class GridCreator : MonoBehaviour
         if (!ShopFound)
         {
             return new Vector3(-1,-1,-1);
+        }
+        return CurrentClosest;
+    }
+    public static Vector3 GetPosOfNearestHospital(Vector3 CurrentPos)
+    {
+        Vector3 CurrentClosest = new Vector3(0, 0, 0);
+        bool HospitalFound = false;
+        int CurrentMinDistance = 100000;
+        for (int i = 0; i < PlacedBuildings.Count; i++)
+        {
+            if (PlacedBuildings[i].GetIfIsHospital())
+            {
+                int Distance = GetDistanceBetweenPostions(GameMap.WorldToCell(PlacedBuildings[i].GetBuildingPos()), GameMap.WorldToCell(CurrentPos));
+                if (Distance < CurrentMinDistance)
+                {
+                    RecentlySelectedBuilding = PlacedBuildings[i].buildingType;
+                    HospitalFound= true;
+                    CurrentMinDistance = Distance;
+                    CurrentClosest = PlacedBuildings[i].GetBuildingPos();
+                }
+            }
+        }
+
+        if (!HospitalFound)
+        {
+            return new Vector3(-1, -1, -1);
         }
         return CurrentClosest;
     }
