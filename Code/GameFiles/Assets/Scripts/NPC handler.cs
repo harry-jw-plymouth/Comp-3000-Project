@@ -167,7 +167,12 @@ public class NPChandler : MonoBehaviour
     }
     void SelectNewAction(int NPCIndex)
     {
-        int RandomValue = UnityEngine.Random.Range(0, 100);
+        int ShopChance = 5;
+        int HomeChance = 15 + ((NPCList[NPCIndex].GetTiredNess()/50));
+        int WanderChance = 80;
+        int RandomValue = UnityEngine.Random.Range(0, ShopChance+HomeChance+WanderChance);
+
+     //   Debug.Log("TiredNess:" + NPCList[NPCIndex].GetTiredNess());
         if (!CheckIfOnRoad(NPCList[NPCIndex].GetPosition())){
             //Debug.Log("Not on road");
             if (GridCreator.GetIfRoadExists())
@@ -184,8 +189,9 @@ public class NPChandler : MonoBehaviour
         else
         {
            // Debug.Log("Already on road");
-            if (RandomValue < 5)
+            if (RandomValue < ShopChance)
             {
+                // go to the shop
                 Vector3 ShopPos = GridCreator.GetPosOfNearestShop(NPCList[NPCIndex].GetPosition());
                 if (ShopPos.x != -1)
                 {
@@ -207,7 +213,7 @@ public class NPChandler : MonoBehaviour
 
                 
             }
-            else if(RandomValue>=5 && RandomValue < 20)
+            else if(RandomValue>=ShopChance && RandomValue < ShopChance+HomeChance)
             {
                 //go home
                 Vector3 HomePos = NPCList[NPCIndex].GetHomePos();

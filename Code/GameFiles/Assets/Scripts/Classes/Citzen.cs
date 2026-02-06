@@ -30,6 +30,10 @@ public class Citzen
         UpdateNeeded = true;
 
     }
+    public void IncreaseTiredNess()
+    {
+        TiredNess += (int)Random.Range(0, 2);
+    }
     public void SetHome(Building home)
     {
         Home =home;
@@ -136,7 +140,7 @@ public class Citzen
     }
     public void MovetowardsTarget()
     {
-        TiredNess++;
+        IncreaseTiredNess();
      //   Debug.Log("Moving");
         if (Position.y > MovementTarget.y)
         {
