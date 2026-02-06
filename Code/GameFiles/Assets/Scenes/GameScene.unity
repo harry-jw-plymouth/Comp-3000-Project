@@ -359,7 +359,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &106236967
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3612,7 +3612,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1075356046
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3629,7 +3629,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -1.8161, y: 1.9317}
+  m_AnchoredPosition: {x: 4, y: -10}
   m_SizeDelta: {x: 378.3678, y: 378.1365}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1075356047
@@ -3679,8 +3679,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 18
-  m_fontSizeBase: 18
+  m_fontSize: 25
+  m_fontSizeBase: 25
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -3691,7 +3691,7 @@ MonoBehaviour:
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
-  m_lineSpacing: 0
+  m_lineSpacing: 5
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
@@ -5028,6 +5028,7 @@ MonoBehaviour:
   TransportButton: {fileID: 307932087}
   TransportBuilderPopUp: {fileID: 131143195}
   PauseCanvas: {fileID: 771648299}
+  UpdatesButton: {fileID: 1124787293}
   PauseMenuActive: 0
 --- !u!4 &1831244043
 Transform:

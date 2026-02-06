@@ -11,6 +11,7 @@ public class GameStatusScript : MonoBehaviour
     [SerializeField] TextMeshProUGUI DisplayText;
     int FrequencyOfRatingUpdate = 1000;
     float FrequencyCounter = 0;
+    public static List<string> Info = new List<string>();
     [SerializeField] static RatingInfo CurrentInfo = new RatingInfo();
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -19,8 +20,6 @@ public class GameStatusScript : MonoBehaviour
     }
     public static List<string> GetReport()
     {
-        List<string> Info=CurrentInfo.GetReport();
-        CurrentInfo.ClearReports();
         return Info;
     }
 
@@ -32,6 +31,8 @@ public class GameStatusScript : MonoBehaviour
         {
             FrequencyCounter = 0;
             CalculateCityRating();
+            Info = new List<string>(CurrentInfo.GetReport());
+            CurrentInfo.ClearReports();
 
         }
     }

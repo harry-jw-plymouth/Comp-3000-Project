@@ -17,6 +17,7 @@ public class UIHandlerScript : MonoBehaviour
     public GameObject TransportButton;
     public GameObject TransportBuilderPopUp;
     public GameObject PauseCanvas;
+    public GameObject UpdatesButton;
     public static bool TileEditorOn;
     public static bool TransportPlacementOn=false;
     public static bool BuildingRemoverOn = false;
@@ -75,10 +76,13 @@ public class UIHandlerScript : MonoBehaviour
     {
         Debug.Log(" rating section clicked");
         ReportDisplay.SetActive(true);
+        UpdatesButton.SetActive(false);
         List<string> Updates = GameStatusScript.GetReport();
         string Info = "";
+        Debug.Log("Number of updates:"+Updates.Count);
         for(int i = 0; i < Updates.Count; i++)
         {
+            Debug.Log("Update[" + i + "]:" + Updates[i]);
             Info += Updates[i] + "\n";
         }
         ReportText.text = Info;
@@ -86,6 +90,7 @@ public class UIHandlerScript : MonoBehaviour
     }
     public void OnReportClicked()
     {
+        UpdatesButton.SetActive(true);
         Debug.Log(" report section clicked");
         ReportDisplay.SetActive(false);
     }

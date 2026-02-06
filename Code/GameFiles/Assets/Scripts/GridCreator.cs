@@ -121,7 +121,7 @@ public class GridCreator : MonoBehaviour
         {
             if(building.buildingType is PowerPlant Powerplant)
             {
-                Debug.Log("Power plant found:" + Powerplant.PowerGeneration);
+              //  Debug.Log("Power plant found:" + Powerplant.PowerGeneration);
                 Total += Powerplant.GetPowerGeneration();
             }
         }
