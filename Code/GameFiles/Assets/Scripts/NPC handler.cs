@@ -3,12 +3,14 @@ using UnityEngine;
 
 public class NPChandler : MonoBehaviour
 {
+    [SerializeField] GridCreator gridCreator;
     int MovementCounter = 0; int frameToMoveOn = 10;
     int AmountCheckCounter = 0;int CheckFrame = 1000;
     int BuildingFrame = 20 ;
    [SerializeField]  List<Citzen> NPCList=new List<Citzen>();
     [SerializeField] int NumberOfNpcs;
     public GameObject NPCPrefab;
+    
 
 
     Vector3Int MapCenter = new Vector3Int(GridCreator.WIDTH / 2, GridCreator.HEIGHT / 2, 0);
@@ -18,6 +20,12 @@ public class NPChandler : MonoBehaviour
         NumberOfNpcs = GetNumberOfNPCs();
         LoadNPCs();
         SetHomes();
+    }
+    public  void RemoveAllNPCsFromBuilding(List<int>Indexes)
+    {
+        for (int i = 0; i < Indexes.Count; i++) {
+            NPCList[Indexes[i]].ForceLeaveBuidlingOnBuildingRemoval();
+        }
     }
     int GetNumberOfNPCs()
     {
@@ -259,6 +267,24 @@ public class NPChandler : MonoBehaviour
         MovementCounter++;
         // check for updates to each NPC
         for (int i = 0; i < NumberOfNpcs; i++) {
+            if (NPCList[i].GetIfJusteEnteredBuilding())
+            {
+                int BuildingIndex=gridCreator.EnterBuildingForNPC(NPCList[i].GetPosition(),i);
+                if (BuildingIndex != -1)
+                {
+                    NPCList[i].buldingInsideIndex=BuildingIndex; 
+                }
+                NPCList[i].JustEnteredBuilding = false;
+
+            }
+            if (NPCList[i].JustLeftBuilding && NPCList[i].buldingInsideIndex != -1)
+            {
+                if (NPCList[i].buldingInsideIndex < GridCreator.PlacedBuildings.Count) {
+                    GridCreator.PlacedBuildings[NPCList[i].buldingInsideIndex].RemoveSpecificIndex(i);
+                }
+                
+                NPCList[i].ResetBuildingData();
+            }
             //New action
             if (NPCList[i].GetCurrentAction() == -1)
             {

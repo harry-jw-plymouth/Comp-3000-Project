@@ -18,6 +18,11 @@ public class Citzen
     public bool UpdateNeeded;
     GameObject NPCSprite;
     bool IsHomeLess = true;
+    public bool JustEnteredBuilding = false;
+    public bool JustLeftBuilding=false;
+    Vector3 BuildingInsidePos = new Vector3(-1, -1, -1);
+    public int buldingInsideIndex = -1;
+
     Building Home;
     Vector3 HomePosition=new Vector3(-1,-1,-1);
 
@@ -30,6 +35,14 @@ public class Citzen
         NPCSprite = sprite;
         Position= Pos;
         UpdateNeeded = true;
+    }
+    public bool GetIfJusteEnteredBuilding()
+    {
+        return JustEnteredBuilding;
+    }
+    public Vector3 GetPosOfBuildingToEnter()
+    {
+        return BuildingInsidePos;
     }
     public void IncreaseSickness(int Max)
     {
@@ -107,6 +120,18 @@ public class Citzen
     {
         return TargetIsbuilding;
     }
+    public void ForceLeaveBuidlingOnBuildingRemoval()
+    {
+        NPCSprite.GetComponent<SpriteRenderer>().enabled = true;
+        BuildingCurrentlyTargetting = null;
+        SetCurrentAction(-1);
+        InBuilding = 0;
+        buldingInsideIndex = -1;
+        JustLeftBuilding = false;
+        JustEnteredBuilding = false;
+
+     //   ResetBuildingData();
+    }
     public void SpendTImeInBuilding()
     {
         IncreaseSickness(3);
@@ -116,8 +141,16 @@ public class Citzen
             NPCSprite.GetComponent<SpriteRenderer>().enabled = true;
             BuildingCurrentlyTargetting = null;
             SetCurrentAction(-1);
+            JustLeftBuilding = true;
 
         }
+    }
+    public void ResetBuildingData()
+    {
+        buldingInsideIndex = -1;
+        JustLeftBuilding = false;
+        BuildingInsidePos = new Vector3(-1, -1, -1);
+
     }
     public void AdjustTiredness(int Change)
     {
@@ -199,6 +232,7 @@ public class Citzen
             MovementTarget = new Vector3();
             if (TargetIsbuilding)
             {
+                JustEnteredBuilding = true;
                 SetCurrentAction(1);
                 TargetIsbuilding = false;
                 InBuilding = GetTimeInBuilding(BuildingCurrentlyTargetting.GetLowerBound(), BuildingCurrentlyTargetting.GetUpperBound());

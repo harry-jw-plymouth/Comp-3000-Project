@@ -1,3 +1,5 @@
+using NUnit.Framework;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class PlacedBuilding
@@ -6,6 +8,7 @@ public class PlacedBuilding
     public int[] OriginPos;
     public GameObject Sprite;
     Vector3 BuildingPos;
+    List<int> NPCsInBuildingIndexes=new List<int>();
     public PlacedBuilding(Building buildingType, int[] originPos, GameObject sprite)
     {
         this.buildingType = buildingType;
@@ -13,6 +16,18 @@ public class PlacedBuilding
         Sprite = sprite;
         
         //BuildingPos = new Vector3( originPos[0],originPos[1],0);
+    }
+    public List<int> GetNPCsInBuilding()
+    {
+        return NPCsInBuildingIndexes;
+    }
+    public void AddNPCIndex(int Index)
+    {
+        NPCsInBuildingIndexes.Add(Index);
+    }
+    public void RemoveSpecificIndex(int Index)
+    {
+        NPCsInBuildingIndexes.Remove(Index);
     }
     public int GetTypeIndex()
     {

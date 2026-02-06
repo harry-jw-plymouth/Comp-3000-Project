@@ -2,8 +2,10 @@ using System;
 using System.Collections.Generic;
 using Unity.Mathematics.Geometry;
 using UnityEngine;
+using UnityEngine.Rendering;
 using UnityEngine.Tilemaps;
 using UnityEngine.UIElements;
+using static UnityEditor.PlayerSettings;
 public class GridCreator : MonoBehaviour
 {
     [SerializeField] NPChandler npcHandler;
@@ -598,19 +600,14 @@ public class GridCreator : MonoBehaviour
            // Debug.Log("Building found at poaition");
             if (BuildingPos != -1)
             {
-         //       Debug.Log("Removing building " + BuildingPos);
                 RemoveSelectedBuilding(PlacedBuildings[BuildingPos].buildingType,
                     new Vector3Int(PlacedBuildings[BuildingPos].OriginPos[0], PlacedBuildings[BuildingPos].OriginPos[1], 0));
                 if (PlacedBuildings[BuildingPos] != null)
                 {
                     Destroy(PlacedBuildings[BuildingPos].Sprite);
                 }
+                npcHandler.RemoveAllNPCsFromBuilding(PlacedBuildings[BuildingPos].GetNPCsInBuilding());
                 PlacedBuildings.RemoveAt(BuildingPos);
-
-                //  if (Sprites[BuildingPos] != null)
-                //  {
-
-                // }
 
             }
         }
@@ -649,6 +646,33 @@ public class GridCreator : MonoBehaviour
             return RoadPositions[RandomValue];
         }
         else return new Vector3(-1, -1, -1);
+    }
+    public int EnterBuildingForNPC(Vector3 Pos, int NPCIndex)
+    {
+        Vector3Int cell = GameMap.WorldToCell(Pos);
+        int BuildingPos = -1;
+        for (int i = 0; PlacedBuildings.Count > i; i++)
+        {
+            PlacedBuilding Currentbuilding = PlacedBuildings[i];
+            for (int Y = 0; Y < Currentbuilding.buildingType.Shape.GetLength(0); Y++)
+            {
+                for (int X = 0; X < Currentbuilding.buildingType.Shape.GetLength(1); X++)
+                {
+
+                    Vector3Int CurrentPos = GetPositionForSquare(new Vector3Int(Currentbuilding.OriginPos[0], Currentbuilding.OriginPos[1], 0), Currentbuilding.buildingType.Shape, X, Y, Currentbuilding.buildingType.Origin);
+                    if (CurrentPos == cell)
+                    {
+                        //            Debug.Log("Item found at" + CurrentPos);
+                        PlacedBuildings[i].AddNPCIndex(NPCIndex);
+                        return i;
+                    }
+                }
+            }
+        }
+
+        return -1;
+        
+
     }
 
 

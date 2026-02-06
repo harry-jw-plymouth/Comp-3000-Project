@@ -4477,6 +4477,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f66b41e353babdb4e95c289d598ffc77, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NPChandler
+  gridCreator: {fileID: 94827939}
   NumberOfNpcs: 0
   NPCPrefab: {fileID: 8474580357229362486, guid: b48bc3c5a502118498b1b57baf876fcd, type: 3}
 --- !u!4 &1443401070
