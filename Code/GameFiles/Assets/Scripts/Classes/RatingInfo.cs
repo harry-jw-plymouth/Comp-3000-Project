@@ -13,6 +13,7 @@ public class RatingInfo
     int RoadRating = 0;
     int PowerRating = 0;
     int EntertainmentRating = 0;
+    int EnviromentRating = 0;
     public void SetHomeLessPercentage(float New){
         HomeLessPercentage = New;
         if(HomeLessPercentage > 60)
@@ -234,9 +235,44 @@ public class RatingInfo
 
 
     }
+    public void SetEnviromentalEffectRating(int Ef, int NumberOfNPCs)
+    {
+        float EFPerPerson = (float)Ef / (float)NumberOfNPCs;
+        if(EFPerPerson >300 )
+        {
+            EntertainmentRating = 0;
+            ReportList.Add("Extremely high enviromnetal effects");
+        }
+        else if (EFPerPerson > 250)
+        {
+            EntertainmentRating = 20;
+            ReportList.Add("high enviromnetal effects");
+        }
+        else if (EFPerPerson > 200)
+        {
+            EntertainmentRating = 35;
+            ReportList.Add("Moderate enviromnetal effects");
+        }
+        else if (EFPerPerson > 150)
+        {
+            EntertainmentRating = 55;
+            ReportList.Add("Alright enviromnetal effects");
+        }
+        else if (EFPerPerson > 100)
+        {
+            EntertainmentRating = 75;
+            ReportList.Add("Alright enviromnetal effects");
+        }
+        else
+        {
+            EntertainmentRating = 100;
+            ReportList.Add("good enviromnetal effects");
+        }
+
+    }
     public void CalulcateRating()
     {
-        Rating=((int)(100-HomeLessPercentage)+ShopRating+HospitalRating+RoadRating+PowerRating+EntertainmentRating)/6;
+        Rating=((int)(100-HomeLessPercentage)+ShopRating+HospitalRating+RoadRating+PowerRating+EntertainmentRating+EntertainmentRating)/7;
     }
     public void AddReport(string Report) {  
         ReportList.Add(Report); 

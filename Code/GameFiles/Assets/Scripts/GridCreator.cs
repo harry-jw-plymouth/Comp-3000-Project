@@ -249,6 +249,15 @@ public class GridCreator : MonoBehaviour
         }
         return CurrentClosest;
     }
+    public static int GetTotalEnviormentalEffects()
+    {
+        int EnviromentalEffects = 0;
+        for(int i = 0; i < PlacedBuildings.Count; i++)
+        {
+            EnviromentalEffects += PlacedBuildings[i].GetEnviromentalValue();
+        }
+        return EnviromentalEffects;
+    }
     public static Vector3 GetPosOfNearestEntertainment(Vector3 CurrentPos)
     {
         Vector3 CurrentClosest = new Vector3(0, 0, 0);

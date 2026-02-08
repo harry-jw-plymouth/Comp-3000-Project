@@ -18,6 +18,10 @@ public class PlacedBuilding
         
         //BuildingPos = new Vector3( originPos[0],originPos[1],0);
     }
+    public int GetEnviromentalValue()
+    {
+        return buildingType.GetEntertainmentValue();
+    }
     public List<int> GetInhabitants()
     {
         return Inhabitants;
