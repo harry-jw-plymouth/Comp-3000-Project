@@ -12,6 +12,7 @@ public class RatingInfo
     int HospitalRating = 0;
     int RoadRating = 0;
     int PowerRating = 0;
+    int EntertainmentRating = 0;
     public void SetHomeLessPercentage(float New){
         HomeLessPercentage = New;
         if(HomeLessPercentage > 60)
@@ -156,35 +157,70 @@ public class RatingInfo
             AddReport("A good amount of shops");
         }
     }
+    public void SetEntertainmentRating(int NumberOfNPCs,int NumberrOfEntertainment)
+    {
+        if (NumberrOfEntertainment == 0)
+        {
+            //No shops
+            AddReport("No entertainment, build one as soon as possible");
+            EntertainmentRating = 0;
+        }
+        else if ((float)(NumberOfNPCs / 80) >= NumberrOfEntertainment && (float)(NumberOfNPCs / 60) < NumberrOfEntertainment)
+        {
+            //one venue per 80-60 people
+            ShopRating = 30;
+            AddReport("More Entertainment needed soon");
+        }
+        else if ((float)(NumberOfNPCs / 60) >= NumberrOfEntertainment && (float)(NumberOfNPCs / 40) < NumberrOfEntertainment)
+        {
+            //one venue per 60-40 people
+            EntertainmentRating = 60;
+            AddReport("More Entertainment needed soon");
+        }
+        else if ((float)(NumberOfNPCs / 40) >= NumberrOfEntertainment && (float)(NumberOfNPCs / 30) < NumberrOfEntertainment)
+        {
+            //one venue per 40-20 people
+            EntertainmentRating = 60;
+            AddReport("A good amount of entertainment");
+        }
+        else
+        {
+            //one venue per 30 people or more
+            EntertainmentRating = 100;
+            AddReport("A good amount of Entertainment");
+        }
+    }
     public void SetPowerRating(int PowerGeneration,int PowerUsage)
     {
-        if ((PowerGeneration == 0))
+        double Generation = PowerGeneration;
+        double Usage = PowerUsage;
+        if ((Generation == 0))
         {
             PowerRating = 0;
             AddReport("Build a power plant as soon as possible");
         }
         else
         {
-            if (PowerGeneration < PowerUsage / 3)
+            if (Generation < Usage / 3.0)
             {
                 PowerRating = 10;
                 AddReport("Build a power plant as soon as possible");
             }
-            else if (PowerGeneration > PowerUsage / 3 && PowerGeneration <= PowerUsage / 2) {
+            else if (Generation <= Usage / 2.0) {
                 PowerRating = 25;
                 AddReport("Build a power plant as soon as possible");
             }
-            else if (PowerGeneration > PowerUsage / 2 && (double)PowerGeneration <= (double)PowerUsage / 1.3)
+            else if (Generation <= Usage / 1.3)
             {
                 PowerRating = 45;
                 AddReport("Build a power plant soon");
             }
-            else if ((double)PowerGeneration > (double)PowerUsage / 1.3 && PowerGeneration<=PowerUsage)
+            else if (Generation<=Usage)
             {
                 PowerRating = 65;
                 AddReport("More power needed");
             }
-            else if (PowerGeneration> PowerUsage && (double)PowerGeneration <= (double)PowerUsage*1.33)
+            else if (Generation <= Usage*1.33)
             {
                 PowerRating = 85;
                 AddReport("A good amount of power");
@@ -200,7 +236,7 @@ public class RatingInfo
     }
     public void CalulcateRating()
     {
-        Rating=((int)(100-HomeLessPercentage)+ShopRating+HospitalRating+RoadRating+PowerRating)/5;
+        Rating=((int)(100-HomeLessPercentage)+ShopRating+HospitalRating+RoadRating+PowerRating+EntertainmentRating)/6;
     }
     public void AddReport(string Report) {  
         ReportList.Add(Report); 

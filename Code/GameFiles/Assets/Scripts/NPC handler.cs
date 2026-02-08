@@ -145,7 +145,7 @@ public class NPChandler : MonoBehaviour
     }
     void CheckForNewNPCs()
     {
-        float value = Random.Range(0, 100);
+        float value = Random.Range(30, 200);
         if (value < GameStatusScript.GetRating())
         {
             Vector3 worldPosition = new Vector3(Random.Range(0,GridCreator.WIDTH),Random.Range(0,GridCreator.HEIGHT),0);

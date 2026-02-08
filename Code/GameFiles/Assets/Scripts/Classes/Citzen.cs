@@ -30,12 +30,31 @@ public class Citzen
     int TiredNess = 0;
     int Sickness = 0;
     int Boredom = 0;
+    //happiness rated out of 100
+    int Happiness = 0;
 
     public Citzen(Vector3 Pos,GameObject sprite)
     {
         NPCSprite = sprite;
         Position= Pos;
         UpdateNeeded = true;
+    }
+    public void CalculateHappiness()
+    {
+        int Happiness = 100;
+        Happiness -= TiredNess / 100;
+        Happiness -= Sickness / 100;
+        Happiness-=Boredom / 100;
+
+        if (IsHomeLess)
+        {
+            Happiness = Happiness / 2;
+        }
+    }
+        
+    public int GetHappiness()
+    {
+        return Happiness;
     }
     public void AdjustBoredom(int Adjustment)
     {
