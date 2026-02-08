@@ -68,4 +68,8 @@ public class PlacedBuilding
     {
         return buildingType.GetIfIsHospital();
     }
+    public bool GetIfBuildingIsEntertainment()
+    {
+        return buildingType.GetIfEntertainment();
+    }
 }

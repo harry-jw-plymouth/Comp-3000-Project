@@ -315,12 +315,14 @@ public class NPChandler : MonoBehaviour
             //New action
             if (NPCList[i].GetCurrentAction() == -1)
             {
+                // No action selected ,select new action
                // Debug.Log("Selecting new action");
                 SelectNewAction(i);
             }
             //NPc moving
             else if (NPCList[i].GetCurrentAction() == 0 )
             {
+                //moving
                 if (NPCList[i].GetMoveCounter() == frameToMoveOn)
                 {
                     NPCList[i].ResetCounter();
@@ -334,6 +336,7 @@ public class NPChandler : MonoBehaviour
             }
             else if (NPCList[i].GetCurrentAction() == 1)
             {
+                // In building
                 if (NPCList[i].GetMoveCounter() == BuildingFrame)
                 {
                     NPCList[i].ResetCounter();
@@ -346,6 +349,7 @@ public class NPChandler : MonoBehaviour
             }
             else if (NPCList[i].GetCurrentAction() == 2)
             {
+                // at home
                 if (NPCList[i].GetMoveCounter() == BuildingFrame)
                 {
                     NPCList[i].ResetCounter();
@@ -358,11 +362,24 @@ public class NPChandler : MonoBehaviour
             }
             else if (NPCList[i].GetCurrentAction() == 3)
             {
-
+                // in hospital
                 if (NPCList[i].GetMoveCounter() == BuildingFrame)
                 {
                     NPCList[i].ResetCounter();
                     NPCList[i].SpendTImeAtHospital();
+                }
+                else
+                {
+                    NPCList[i].UpdateCounter();
+                }
+            }
+            else if (NPCList[i].GetCurrentAction() == 4)
+            {
+                // partaking in entertainment
+                if(NPCList[i].GetMoveCounter() == BuildingFrame)
+                {
+                    NPCList[i].ResetCounter();
+                    NPCList[i].PartakeInEnterainment();
                 }
                 else
                 {

@@ -220,6 +220,31 @@ public class Citzen
 
         }
     }
+    public void PartakeInEnterainment()
+    {
+      //  Debug.Log("Partaking in entertainment");
+        AdjustBoredom(-1);
+        IncreaseSickness(3);
+        IncreaseTiredNess();
+
+        // Debug.Log("NPC at home");
+        InBuilding--;
+        if (InBuilding == 0)
+        {
+            NPCSprite.GetComponent<SpriteRenderer>().enabled = true;
+            BuildingCurrentlyTargetting = null;
+            SetCurrentAction(-1);
+            if (Boredom < 0)
+            {
+                Boredom = 0;
+            }
+            if (Boredom < 0)
+            {
+                Boredom = 0;
+            }
+
+        }
+    }
     public int GetTimeInBuilding(int LowerBound,int UpperBound)
     {
         return UnityEngine.Random.Range(LowerBound, UpperBound); 
@@ -265,6 +290,10 @@ public class Citzen
                 else if (BuildingCurrentlyTargetting.GetIfIsHospital())
                 {
                     SetCurrentAction(3);
+                }
+                else if (BuildingCurrentlyTargetting.GetIfEntertainment())
+                {
+                    SetCurrentAction(4);
                 }
             }
             else
