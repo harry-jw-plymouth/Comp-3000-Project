@@ -272,7 +272,7 @@ public class RatingInfo
     }
     public void CalulcateRating()
     {
-        Rating=((int)(100-HomeLessPercentage)+ShopRating+HospitalRating+RoadRating+PowerRating+EntertainmentRating+EntertainmentRating)/7;
+        Rating=((int)(100-HomeLessPercentage)+ShopRating+HospitalRating+RoadRating+PowerRating+EntertainmentRating+EnviromentRating)/7;
     }
     public void AddReport(string Report) {  
         ReportList.Add(Report); 

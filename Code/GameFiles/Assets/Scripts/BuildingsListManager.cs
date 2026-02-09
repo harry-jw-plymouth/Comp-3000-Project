@@ -25,23 +25,23 @@ public class BuildingsListManager : MonoBehaviour
         //temporarily hard coded, in future will pull more dynamically
         Buildings = new Building[]
         {
-            new Home("Small House"," A small house", new int[1,1]{{0}} ,new int[]{0,0},
+            new Home("Small House",200,2," A small house", new int[1,1]{{0}} ,new int[]{0,0},
             false ,100, 1000,false,0,10,10,false,0,3),
-            new Home("Medium House", " A medium house for a bigger family",new int[1,2]{{0,1}}  , new int[] {0,0 },
+            new Home("Medium House",350,4, " A medium house for a bigger family",new int[1,2]{{0,1}}  , new int[] {0,0 },
             false,100,1000,false,1,15,15,false,0,5),
-            new Building("Convenience shop", " a little shop, a bit overpriced",new int[1,2]{{0,1}}, new int[] { 0, 0 },
+            new Building("Convenience shop",400,6, " a little shop, a bit overpriced",new int[1,2]{{0,1}}, new int[] { 0, 0 },
             true,100,300,false,2,10,10,false,0),
-            new Building("Hospital","A hospital",new int[2,2]{{1,1},{0,1} } ,new int[]{1,0},
+            new Building("Hospital",1000,-10,"A hospital",new int[2,2]{{1,1},{0,1} } ,new int[]{1,0},
             false,100,300,true,3,100,80,false,0),
-            new Building("Town Hall", "The core building for your city",new int[3,3]{{1,1,1},{ 1, 1, 1 }, { 0,1,1}},new int[] { 2,0 },
+            new Building("Town Hall",800,-5, "The core building for your city",new int[3,3]{{1,1,1},{ 1, 1, 1 }, { 0,1,1}},new int[] { 2,0 },
             false,100,500,false,4,50,30,false,0),
-            new PowerPlant("Coal Power plant", "A non renewable power plant ,efficient but bad for the environment",new int [3,3]{{1,1,1},{ 1, 1, 1 }, { 0,1,1}},new int[] { 2,0 },
+            new PowerPlant("Coal Power plant",1200,-15, "A non renewable power plant ,efficient but bad for the environment",new int [3,3]{{1,1,1},{ 1, 1, 1 }, { 0,1,1}},new int[] { 2,0 },
             false,200,600,false,5,0,400,false,0,500),
-            new PowerPlant("Wind Power farm", "A renewable power plant ,not super efficient but much better for the environment",new int [3,3]{{1,1,1},{ 1, 1, 1 }, { 0,1,1}},new int[] { 2,0 },
+            new PowerPlant("Wind Power farm",1400,-20, "A renewable power plant ,not super efficient but much better for the environment",new int [3,3]{{1,1,1},{ 1, 1, 1 }, { 0,1,1}},new int[] { 2,0 },
             false,200,600,false,6,0,20,false,0,400),
-            new Building("Shopping center", " a shopping centre full of shops and entertainment",new int[2,2]{{1,1},{0,1 } },new int[]{1,0 },true
-            ,300,1000,false,7,100,150,true,50)
-
+            new Building("Shopping center",700,30, " a shopping centre full of shops and entertainment",new int[2,2]{{1,1},{0,1 } },new int[]{1,0 },true
+            ,300,1000,false,7,100,150,true,40)
+            
         };
     }
 
