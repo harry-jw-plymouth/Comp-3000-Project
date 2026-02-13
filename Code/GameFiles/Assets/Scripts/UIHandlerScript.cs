@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using NUnit.Framework;
 using System.Collections.Generic;
 using System.Globalization;
@@ -21,7 +22,15 @@ public class UIHandlerScript : MonoBehaviour
     public GameObject TradeCanvas;
     public GameObject UpdatesButton;
     public Button TradeButton;
-    
+
+
+    public TMP_Dropdown TradeItems;
+    public TMP_Dropdown Action;
+    public TextMeshProUGUI CostConversionText;
+    public TextMeshProUGUI FinalCost;
+    public TMP_InputField AmountToBuy;
+    public Button TradeConfirm;
+
 
     public GameObject AlertpopUp;
     public TextMeshProUGUI AlertText;
@@ -56,6 +65,20 @@ public class UIHandlerScript : MonoBehaviour
             PauseCanvas.SetActive(true);
         }
     }
+    public void OnEditMadeToNumberToTrade()
+    {
+        Debug.Log("Edit made");
+    }
+    public void SetTradeInfo()
+    {
+        string MaterialSelectedToBuy = TradeItems.options[TradeItems.value].text;
+        //0=buy, 1=sell
+        int action = Action.value;
+        // set trade cost
+        CostConversionText.text = "Money cost per " + MaterialSelectedToBuy + " : " + 1.5f;
+        
+
+    }
     public void OnTradeButtonClicked()
     {
         Debug.Log("TradeButton cliecked");
@@ -68,6 +91,7 @@ public class UIHandlerScript : MonoBehaviour
         {
             TradeMenuActive = true;
             TradeCanvas.SetActive(true);
+            SetTradeInfo();
         }
     }
     public  void ShowAlertPopUp(string Alert)
