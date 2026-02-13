@@ -53,7 +53,7 @@ public class GameStatusScript : MonoBehaviour
         int Change=GetChangeInMoney(Buildings);
         PlayerMoneyCount += Change;
 
-        MoneyDisplayText.text = PlayerMoneyCount.ToString();
+        DisplayMoney();
     }
     public void CheckForMoneyCheck()
     {
@@ -82,6 +82,15 @@ public class GameStatusScript : MonoBehaviour
             Info = new List<string>(CurrentInfo.GetReport());
             CurrentInfo.ClearReports();
         }
+    }
+    public void DisplayMoney()
+    {
+        MoneyDisplayText.text = PlayerMoneyCount.ToString();
+    }
+    public void DoPlaceBuildingCosts(Building buildingPlaced)
+    {
+        PlayerMoneyCount -= buildingPlaced.CostToBuild;
+        DisplayMoney();
     }
     void CalculateCityRating()
     {

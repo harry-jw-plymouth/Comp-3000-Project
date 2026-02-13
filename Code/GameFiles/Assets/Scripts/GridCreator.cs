@@ -44,6 +44,7 @@ public class GridCreator : MonoBehaviour
     public GameObject PowerPlantPrefab;
     public GameObject WindFarmPrefab;
     public GameObject ShoppingCenterPrefab;
+    public GameStatusScript GameStatusScript;
 
     public static List<Vector3> RoadPositions=new List<Vector3>();
 
@@ -598,6 +599,10 @@ public class GridCreator : MonoBehaviour
                 if (New.GetType().GetIfIsHome())
                 {
                     npcHandler.SetHomes();
+                }
+                if (MainMenu.GetCurrentGameMode() != 0)
+                {
+                    GameStatusScript.DoPlaceBuildingCosts(BuildingsListManager.Buildings[BuildingsListManager.BuildingCurrentlySelected]);
                 }
             }
         }
