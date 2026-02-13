@@ -33,6 +33,8 @@ public class MainMenu : MonoBehaviour
     public TMP_Text SaveText2;
     public TMP_Text SaveText3;
 
+    public DBManager dbmanager;
+
 
 
 
@@ -83,6 +85,7 @@ public class MainMenu : MonoBehaviour
     {
         NewFileCreated = false;
         CurrentSaveID = Save;
+        CurrentGameMode=dbmanager.GetSaveTypeForID(Save);
         SceneManager.LoadScene("GameScene");
     }
     public void OnSave1Click()

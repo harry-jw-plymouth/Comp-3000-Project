@@ -190,6 +190,19 @@ public class DBManager : MonoBehaviour
             Debug.Log("Type:" + SaveFile.Type);
         }
     }
+    public int GetSaveTypeForID(int Associatedid)
+    {
+        List<SaveFileModel> Saves = GetSaveFiles();
+        if (Saves[Associatedid].Type == "Standard")
+        {
+            return 1;
+        }
+        else
+        {
+            return 0;
+        }
+        
+    }
     public static List<SaveFileModel> GetSaveFiles()
     {
         return db.Table<SaveFileModel>().ToList();

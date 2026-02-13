@@ -545,7 +545,7 @@ GameObject:
   - component: {fileID: 114556520}
   - component: {fileID: 114556519}
   m_Layer: 5
-  m_Name: GameObject
+  m_Name: MoneyDisplay
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4755,6 +4755,7 @@ MonoBehaviour:
   npcHandler: {fileID: 1443401069}
   gridCreator: {fileID: 94827939}
   DisplayText: {fileID: 372028361}
+  MoneyDisplayText: {fileID: 734371911}
 --- !u!1 &1578450398
 GameObject:
   m_ObjectHideFlags: 0
