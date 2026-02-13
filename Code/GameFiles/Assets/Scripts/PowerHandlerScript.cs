@@ -1,6 +1,7 @@
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class PowerHandlerScript : MonoBehaviour
 {
@@ -8,8 +9,13 @@ public class PowerHandlerScript : MonoBehaviour
     [SerializeField] TextMeshProUGUI DisplayText;
     int FrequencyOfPowerUpdate = 100;
     int FrequencyCounter = 0;
+    int WarningCounter = 0;
+    int WarningLimit = 50;
 
+    public UIHandlerScript uiHandler;
     int BasePowerCap = 25000;
+
+    bool EmptyWarningDone = false;
 
     [SerializeField] int PowerReserves = 10000;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -30,7 +36,18 @@ public class PowerHandlerScript : MonoBehaviour
     }
     void DoPowerEmpty()
     {
-
+        if (!EmptyWarningDone)
+        {
+            EmptyWarningDone = true;
+            uiHandler.ShowAlertPopUp("Power reserves are empty, buy some power and get some power generators going");
+        }
+        WarningCounter++;
+        Debug.Log("Warning counter" + WarningCounter);
+        if (WarningCounter == WarningLimit) {
+            // Complete power failure 
+            Debug.Log("Critical power failure");
+            uiHandler.ShowAlertPopUp("Your city is without power");
+        }
     }
     int GetPowerCap()
     {
@@ -56,10 +73,15 @@ public class PowerHandlerScript : MonoBehaviour
     //    Debug.Log("Power genersted:" + PowerGeneration);
     //    Debug.Log("Usage:" + PowerUsage);
     //    Debug.Log("Reserves after change:" + PowerReserves);
-        if (PowerReserves < 0)
+        if (PowerReserves < 0||PowerReserves==0)
         {
             PowerReserves= 0;
             DoPowerEmpty();
+        }
+        else
+        {
+            WarningCounter = 0;
+            EmptyWarningDone = false;
         }
         if (PowerReserves > GetPowerCap())
         {

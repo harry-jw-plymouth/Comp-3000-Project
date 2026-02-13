@@ -2420,8 +2420,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 320, y: -32}
-  m_SizeDelta: {x: 200, y: 50}
+  m_AnchoredPosition: {x: 243.9118, y: -107.5}
+  m_SizeDelta: {x: 357.8236, y: 89}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &376057507
 MonoBehaviour:
@@ -2470,8 +2470,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
-  m_fontSizeBase: 36
+  m_fontSize: 20
+  m_fontSizeBase: 20
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -5128,7 +5128,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 242.17, y: -119}
+  m_AnchoredPosition: {x: 260, y: -167}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &804846510
@@ -5174,7 +5174,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 804846511}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1831244042}
+        m_TargetAssemblyTypeName: UIHandlerScript, Assembly-CSharp
+        m_MethodName: OnConfirmTradeButtonClicked
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &804846511
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8208,6 +8220,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   gridCreator: {fileID: 94827939}
   DisplayText: {fileID: 1056728941}
+  uiHandler: {fileID: 1831244042}
   PowerReserves: 10000
 --- !u!4 &1586839705
 Transform:
@@ -8466,8 +8479,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 331, y: 26.381}
-  m_SizeDelta: {x: 153.2724, y: 41.2385}
+  m_AnchoredPosition: {x: 321, y: 20.762}
+  m_SizeDelta: {x: 183.46, y: 41.238}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1677154275
 MonoBehaviour:
@@ -8516,8 +8529,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 15
-  m_fontSizeBase: 15
+  m_fontSize: 20
+  m_fontSizeBase: 20
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -8655,14 +8668,14 @@ MonoBehaviour:
   m_VerticalScrollbarEventHandler: {fileID: 0}
   m_LayoutGroup: {fileID: 0}
   m_ScrollSensitivity: 1
-  m_ContentType: 0
+  m_ContentType: 2
   m_InputType: 0
   m_AsteriskChar: 42
-  m_KeyboardType: 0
+  m_KeyboardType: 2
   m_LineType: 0
   m_HideMobileInput: 0
   m_HideSoftKeyboard: 0
-  m_CharacterValidation: 0
+  m_CharacterValidation: 2
   m_RegexValue: 
   m_GlobalPointSize: 14
   m_CharacterLimit: 0
@@ -8977,10 +8990,10 @@ RectTransform:
   - {fileID: 1124787294}
   - {fileID: 1771471548}
   - {fileID: 114556518}
-  - {fileID: 416345906}
   - {fileID: 1197306417}
   - {fileID: 1660644199}
   - {fileID: 116338032}
+  - {fileID: 416345906}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -9168,6 +9181,8 @@ MonoBehaviour:
   FinalCost: {fileID: 376057507}
   AmountToBuy: {fileID: 1684820694}
   TradeConfirm: {fileID: 804846510}
+  gameHandler: {fileID: 1453347093}
+  powerHandler: {fileID: 1586839704}
   AlertpopUp: {fileID: 416345905}
   AlertText: {fileID: 453934387}
   TradeMenuActive: 0
