@@ -18,7 +18,10 @@ public class UIHandlerScript : MonoBehaviour
     public GameObject TransportButton;
     public GameObject TransportBuilderPopUp;
     public GameObject PauseCanvas;
+    public GameObject TradeCanvas;
     public GameObject UpdatesButton;
+    public Button TradeButton;
+    
 
     public GameObject AlertpopUp;
     public TextMeshProUGUI AlertText;
@@ -26,6 +29,7 @@ public class UIHandlerScript : MonoBehaviour
     public static bool TileEditorOn;
     public static bool TransportPlacementOn=false;
     public static bool BuildingRemoverOn = false;
+    public bool TradeMenuActive=false;
     public bool PauseMenuActive = false;
     //  public Square[,] GameGrid;
     private void Start()
@@ -50,6 +54,20 @@ public class UIHandlerScript : MonoBehaviour
         {
             PauseMenuActive = true;
             PauseCanvas.SetActive(true);
+        }
+    }
+    public void OnTradeButtonClicked()
+    {
+        Debug.Log("TradeButton cliecked");
+        if (TradeMenuActive)
+        {
+            TradeMenuActive = false;
+            TradeCanvas.SetActive(false);
+        }
+        else
+        {
+            TradeMenuActive = true;
+            TradeCanvas.SetActive(true);
         }
     }
     public  void ShowAlertPopUp(string Alert)
