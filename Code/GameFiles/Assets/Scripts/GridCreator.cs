@@ -66,6 +66,10 @@ public class GridCreator : MonoBehaviour
         Vector3 CenterPos = GameMap.CellToWorld(new Vector3Int(WIDTH / 2, HEIGHT / 2, 0));
         MainCamera.transform.position = new Vector3(CenterPos.x, CenterPos.y, MainCamera.transform.position.z);
     }
+    public static List<PlacedBuilding> GetAllBuildings()
+    {
+        return PlacedBuildings;
+    }
     bool CheckIfBuildingCanBeplaced(int x, int y,Building building)
     {
         //Debug.Log("New Y: " + (y + building.Shape.GetLength(0)));

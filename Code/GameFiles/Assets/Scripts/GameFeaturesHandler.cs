@@ -9,6 +9,7 @@ public class GameStatusScript : MonoBehaviour
     [SerializeField] NPChandler npcHandler;
     [SerializeField] GridCreator gridCreator;
     [SerializeField] TextMeshProUGUI DisplayText;
+    [SerializeField] TextMeshProUGUI MoneyDisplayText;
     int FrequencyOfRatingUpdate = 1000;
     int FrequencyOfTaxUpdate=1000;
     int MoneyCounter = 500;
@@ -23,6 +24,7 @@ public class GameStatusScript : MonoBehaviour
     void Start()
     {
         CurrentGameMode=MainMenu.GetCurrentGameMode();
+        PlayerMoneyCount = GetPlayerStartingMoney();
 
     }
     public int GetPlayerStartingMoney()
@@ -37,9 +39,21 @@ public class GameStatusScript : MonoBehaviour
     {
         return Info;
     }
+    public int GetChangeInMoney(List<PlacedBuilding>Buildings)
+    {
+        int TotalChange = 0;
+        for (int i = 0; i < Buildings.Count; i++) {
+            TotalChange += Buildings[i].GetType().GetTaxGeneration();
+        }
+        return TotalChange;
+    }
     public void DoMoney()
     {
+        List<PlacedBuilding>Buildings=GridCreator.GetAllBuildings();
+        int Change=GetChangeInMoney(Buildings);
+        PlayerMoneyCount += Change;
 
+        MoneyDisplayText.text = PlayerMoneyCount.ToString();
     }
     public void CheckForMoneyCheck()
     {
