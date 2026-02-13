@@ -1,4 +1,5 @@
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PowerHandlerScript : MonoBehaviour
@@ -8,11 +9,13 @@ public class PowerHandlerScript : MonoBehaviour
     int FrequencyOfPowerUpdate = 100;
     int FrequencyCounter = 0;
 
+    int BasePowerCap = 25000;
+
     [SerializeField] int PowerReserves = 10000;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+        UpdatePowerDisplay();
     }
     // Update is called once per frame
     void Update()
@@ -25,6 +28,17 @@ public class PowerHandlerScript : MonoBehaviour
 
         }
     }
+    void DoPowerEmpty()
+    {
+
+    }
+    int GetPowerCap()
+    {
+        return BasePowerCap;
+    }
+    private void UpdatePowerDisplay() {
+        DisplayText.text = PowerReserves.ToString() + "/" + GetPowerCap();
+    }
     void ConsumePower()
     {
         int PowerGeneration = GridCreator.GetPowerGeneration();
@@ -36,9 +50,14 @@ public class PowerHandlerScript : MonoBehaviour
         if (PowerReserves < 0)
         {
             PowerReserves= 0;
+            DoPowerEmpty();
         }
-
-        DisplayText.text = PowerReserves.ToString();
+        if (PowerReserves > GetPowerCap())
+        {
+            PowerReserves = GetPowerCap();
+        }
+        UpdatePowerDisplay();
+        
 
 
 
