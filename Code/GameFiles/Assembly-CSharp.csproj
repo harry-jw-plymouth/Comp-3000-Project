@@ -81,7 +81,7 @@
     <Compile Include="Assets\Scripts\TransportPlacementScript.cs" />
     <Compile Include="Assets\Scripts\Classes\Square.cs" />
     <Compile Include="Assets\Scripts\SoundManagerScript.cs" />
-    <Compile Include="Assets\Scripts\GameStatusScript.cs" />
+    <Compile Include="Assets\Scripts\GameFeaturesHandler.cs" />
     <Compile Include="Assets\Scripts\InputHandlerScript.cs" />
     <Compile Include="Assets\Scripts\Classes\Building.cs" />
     <Compile Include="Assets\Scripts\PowerHandlerScript.cs" />

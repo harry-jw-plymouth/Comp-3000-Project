@@ -10,22 +10,56 @@ public class GameStatusScript : MonoBehaviour
     [SerializeField] GridCreator gridCreator;
     [SerializeField] TextMeshProUGUI DisplayText;
     int FrequencyOfRatingUpdate = 1000;
+    int FrequencyOfTaxUpdate=1000;
+    int MoneyCounter = 500;
+
+    int PlayerMoneyCount;
     float FrequencyCounter = 0;
     public static List<string> Info = new List<string>();
     [SerializeField] static RatingInfo CurrentInfo = new RatingInfo();
+
+    public static int CurrentGameMode;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+        CurrentGameMode=MainMenu.GetCurrentGameMode();
+
+    }
+    public int GetPlayerStartingMoney()
+    {
+        if (MainMenu.GetCurrentSaveID() == -1)
+        {
+
+        }
+        return 10000;
     }
     public static List<string> GetReport()
     {
         return Info;
     }
+    public void DoMoney()
+    {
+
+    }
+    public void CheckForMoneyCheck()
+    {
+        MoneyCounter++;
+        if (MoneyCounter ==FrequencyOfTaxUpdate)
+        {
+            MoneyCounter = 0;
+            DoMoney();
+        }
+    }
 
     // Update is called once per frame
     void Update()
     {
+        //check game mode is not sandbox /free mode 
+        if (CurrentGameMode != 0)
+        {
+            CheckForMoneyCheck();
+        }
+  
         FrequencyCounter++;
         if(FrequencyCounter == FrequencyOfRatingUpdate)
         {
@@ -33,7 +67,6 @@ public class GameStatusScript : MonoBehaviour
             CalculateCityRating();
             Info = new List<string>(CurrentInfo.GetReport());
             CurrentInfo.ClearReports();
-
         }
     }
     void CalculateCityRating()

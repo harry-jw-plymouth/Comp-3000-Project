@@ -36,9 +36,11 @@ public class MainMenu : MonoBehaviour
 
 
 
-
     public static bool NewFileCreated = false;
     public static int CurrentSaveID = -1;
+    public static int CurrentGameMode = -1;
+    //0 is Sand box 
+    //1 is Simulation
     int CurrentScene = 0;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -140,6 +142,10 @@ public class MainMenu : MonoBehaviour
             SaveObjectButton3.SetActive(true);
         }
     }
+    public static int GetCurrentGameMode()
+    {
+        return CurrentGameMode;
+    }
     public void OnNewFileCreateButtonClicked()
     {
         Debug.Log("Creating new save");
@@ -148,6 +154,7 @@ public class MainMenu : MonoBehaviour
         Debug.Log("FileName:" +FileName);
         Debug.Log("Game mode:" +GameModeSelected);
 
+        CurrentGameMode = GameModeSelection.value;
         if (FileName == "")
         {
             Debug.Log("Empty field");
