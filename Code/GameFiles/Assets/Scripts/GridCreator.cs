@@ -510,9 +510,10 @@ public class GridCreator : MonoBehaviour
     {
         //Place building
         GameObject NewSprite = new GameObject();
-        if (GameGrid[CellClickedPos.x, CellClickedPos.y].Contains == 0)
-        {
-            if (CheckIfBuildingCanBeplaced(CellClickedPos.x, CellClickedPos.y, BuildingsListManager.Buildings[BuildingsListManager.BuildingCurrentlySelected]))
+        Building CurrentlySelected = BuildingsListManager.Buildings[BuildingsListManager.BuildingCurrentlySelected];
+        if (GameGrid[CellClickedPos.x, CellClickedPos.y].Contains == 0 && GameStatusScript.CheckIfBuildingAffordable(CurrentlySelected.CostToBuild))
+        { 
+            if (CheckIfBuildingCanBeplaced(CellClickedPos.x, CellClickedPos.y, CurrentlySelected))
             {
             //    Debug.Log("Shape Y: " + BuildingsListManager.Buildings[BuildingsListManager.BuildingCurrentlySelected].Shape.GetLength(0));
               //  Debug.Log("Shape X: " + BuildingsListManager.Buildings[BuildingsListManager.BuildingCurrentlySelected].Shape.GetLength(1));

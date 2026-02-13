@@ -33,11 +33,15 @@ public class GameStatusScript : MonoBehaviour
         {
 
         }
-        return 10000;
+        return 1000;
     }
     public static List<string> GetReport()
     {
         return Info;
+    }
+    public bool CheckIfBuildingAffordable(int Cost)
+    {
+        return Cost <=PlayerMoneyCount;
     }
     public int GetChangeInMoney(List<PlacedBuilding>Buildings)
     {
