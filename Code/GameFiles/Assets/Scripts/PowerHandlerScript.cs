@@ -36,6 +36,15 @@ public class PowerHandlerScript : MonoBehaviour
     {
         return BasePowerCap;
     }
+    public void AdjustPower(int power)
+    {
+        PowerReserves+=power;
+        UpdatePowerDisplay();
+    }
+    public bool GetIfEnoughPowerForSell(int AmountToSell)
+    {
+        return AmountToSell <= PowerReserves;
+    }
     private void UpdatePowerDisplay() {
         DisplayText.text = PowerReserves.ToString() + "/" + GetPowerCap();
     }

@@ -39,7 +39,7 @@ public class GameStatusScript : MonoBehaviour
     {
         return Info;
     }
-    public bool CheckIfBuildingAffordable(int Cost)
+    public bool CheckIfPurchaseAffordable(int Cost)
     {
         return Cost <=PlayerMoneyCount;
     }
@@ -57,6 +57,11 @@ public class GameStatusScript : MonoBehaviour
         int Change=GetChangeInMoney(Buildings);
         PlayerMoneyCount += Change;
 
+        DisplayMoney();
+    }
+    public void AdjustMoney(int Amount)
+    {
+        PlayerMoneyCount += Amount;
         DisplayMoney();
     }
     public void CheckForMoneyCheck()

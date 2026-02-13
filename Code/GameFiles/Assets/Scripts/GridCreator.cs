@@ -512,7 +512,7 @@ public class GridCreator : MonoBehaviour
         //Place building
         GameObject NewSprite = new GameObject();
         Building CurrentlySelected = BuildingsListManager.Buildings[BuildingsListManager.BuildingCurrentlySelected];
-        if(!GameStatusScript.CheckIfBuildingAffordable(CurrentlySelected.CostToBuild))
+        if(!GameStatusScript.CheckIfPurchaseAffordable(CurrentlySelected.CostToBuild))
         {
             uiHandler.ShowAlertPopUp("Not enough money to build");
         }

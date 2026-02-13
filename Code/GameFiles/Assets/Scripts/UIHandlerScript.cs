@@ -31,6 +31,9 @@ public class UIHandlerScript : MonoBehaviour
     public TMP_InputField AmountToBuy;
     public Button TradeConfirm;
 
+    public GameStatusScript gameHandler;
+    public PowerHandlerScript powerHandler;
+
 
     public GameObject AlertpopUp;
     public TextMeshProUGUI AlertText;
@@ -65,9 +68,27 @@ public class UIHandlerScript : MonoBehaviour
             PauseCanvas.SetActive(true);
         }
     }
+    double ElectricityPrice=1.5;
+    int PurchaseAmount = -1;
     public void OnEditMadeToNumberToTrade()
-    {
+    {      
         Debug.Log("Edit made");
+       
+        if (AmountToBuy.text != "")
+        {
+            int TradeType = Action.value;
+            PurchaseAmount = int.Parse(AmountToBuy.text);
+            if (TradeType == 0)
+            {
+                FinalCost.text = "Final cost:" + PurchaseAmount * ElectricityPrice;
+            }
+            else
+            {
+                FinalCost.text = "Money gained from selling: " + PurchaseAmount / ElectricityPrice;
+            }
+        }
+       
+       
     }
     public void SetTradeInfo()
     {
@@ -79,9 +100,53 @@ public class UIHandlerScript : MonoBehaviour
         
 
     }
+    public void OnConfirmTradeButtonClicked()
+    {
+        int action = Action.value;
+        if (AmountToBuy.text != "")
+        {
+            PurchaseAmount = int.Parse(AmountToBuy.text);
+            if (action == 0)
+            {
+                //buying 
+                int FinalCost = (int)(PurchaseAmount * ElectricityPrice);
+                if (gameHandler.CheckIfPurchaseAffordable(FinalCost)){
+                    gameHandler.AdjustMoney(-(FinalCost));
+                    powerHandler.AdjustPower(PurchaseAmount);
+                    ShowAlertPopUp("purhased "+FinalCost+" for "+PurchaseAmount+" electricity");
+                    AmountToBuy.text = "";
+                }
+                else
+                {
+                    ShowAlertPopUp("Not enough money");
+                }
+                
+            }
+            else
+            {
+                //selling
+                int FinalElectricityCost = (int)(PurchaseAmount / ElectricityPrice);
+                if (powerHandler.GetIfEnoughPowerForSell(FinalElectricityCost))
+                {
+                    powerHandler.AdjustPower(-(FinalElectricityCost));
+                    gameHandler.AdjustMoney(PurchaseAmount);
+                    AmountToBuy.text = "";
+                    ShowAlertPopUp("sold " + FinalElectricityCost + " for " + PurchaseAmount + " money");
+                }
+                else
+                {
+                    ShowAlertPopUp("Not enough power");
+                }
+            }
+        }
+        else
+        {
+            ShowAlertPopUp("Please enter a value ");
+        }
+    }
     public void OnTradeButtonClicked()
     {
-        Debug.Log("TradeButton cliecked");
+        Debug.Log("TradeButton clicked");
         if (TradeMenuActive)
         {
             TradeMenuActive = false;
