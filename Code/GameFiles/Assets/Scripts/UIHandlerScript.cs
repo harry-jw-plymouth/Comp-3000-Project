@@ -5,6 +5,7 @@ using TMPro;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class UIHandlerScript : MonoBehaviour
 {
@@ -18,6 +19,10 @@ public class UIHandlerScript : MonoBehaviour
     public GameObject TransportBuilderPopUp;
     public GameObject PauseCanvas;
     public GameObject UpdatesButton;
+
+    public GameObject AlertpopUp;
+    public TextMeshProUGUI AlertText;
+    
     public static bool TileEditorOn;
     public static bool TransportPlacementOn=false;
     public static bool BuildingRemoverOn = false;
@@ -46,6 +51,15 @@ public class UIHandlerScript : MonoBehaviour
             PauseMenuActive = true;
             PauseCanvas.SetActive(true);
         }
+    }
+    public  void ShowAlertPopUp(string Alert)
+    {
+        AlertpopUp.SetActive(true);
+        AlertText.text = Alert;
+    }
+    public void OnAlertPopupButtonClicked()
+    {
+        AlertpopUp.SetActive(false);
     }
     public void OnSaveButtonClicked()
     {

@@ -14,6 +14,7 @@ public class GridCreator : MonoBehaviour
     public const int HEIGHT = 100;
     [SerializeField] private Tilemap GameMapReference;
     public static Tilemap GameMap;
+    public UIHandlerScript uiHandler;
     public int NumberOfRoads = 0;
 
     public Camera MainCamera;
@@ -511,102 +512,109 @@ public class GridCreator : MonoBehaviour
         //Place building
         GameObject NewSprite = new GameObject();
         Building CurrentlySelected = BuildingsListManager.Buildings[BuildingsListManager.BuildingCurrentlySelected];
-        if (GameGrid[CellClickedPos.x, CellClickedPos.y].Contains == 0 && GameStatusScript.CheckIfBuildingAffordable(CurrentlySelected.CostToBuild))
-        { 
-            if (CheckIfBuildingCanBeplaced(CellClickedPos.x, CellClickedPos.y, CurrentlySelected))
+        if(!GameStatusScript.CheckIfBuildingAffordable(CurrentlySelected.CostToBuild))
+        {
+            uiHandler.ShowAlertPopUp("Not enough money to build");
+        }
+        else
+        {
+            if (GameGrid[CellClickedPos.x, CellClickedPos.y].Contains == 0)
             {
-            //    Debug.Log("Shape Y: " + BuildingsListManager.Buildings[BuildingsListManager.BuildingCurrentlySelected].Shape.GetLength(0));
-              //  Debug.Log("Shape X: " + BuildingsListManager.Buildings[BuildingsListManager.BuildingCurrentlySelected].Shape.GetLength(1));
-                for (int Y = 0; Y < BuildingsListManager.Buildings[BuildingsListManager.BuildingCurrentlySelected].Shape.GetLength(0); Y++)
+                if (CheckIfBuildingCanBeplaced(CellClickedPos.x, CellClickedPos.y, CurrentlySelected))
                 {
-                    for (int X = 0; X < BuildingsListManager.Buildings[BuildingsListManager.BuildingCurrentlySelected].Shape.GetLength(1); X++)
+                    //    Debug.Log("Shape Y: " + BuildingsListManager.Buildings[BuildingsListManager.BuildingCurrentlySelected].Shape.GetLength(0));
+                    //  Debug.Log("Shape X: " + BuildingsListManager.Buildings[BuildingsListManager.BuildingCurrentlySelected].Shape.GetLength(1));
+                    for (int Y = 0; Y < BuildingsListManager.Buildings[BuildingsListManager.BuildingCurrentlySelected].Shape.GetLength(0); Y++)
                     {
-                        if (BuildingsListManager.Buildings[BuildingsListManager.BuildingCurrentlySelected].Shape[Y, X] != -1)
+                        for (int X = 0; X < BuildingsListManager.Buildings[BuildingsListManager.BuildingCurrentlySelected].Shape.GetLength(1); X++)
                         {
-                            Vector3Int CurrentPos = GetPositionForSquare(CellClickedPos, BuildingsListManager.Buildings[BuildingsListManager.BuildingCurrentlySelected].Shape, X, Y, BuildingsListManager.Buildings[BuildingsListManager.BuildingCurrentlySelected].Origin);
-                            GameGrid[CurrentPos.x, CurrentPos.y].Contains = 2;
-                            if (BuildingsListManager.BuildingCurrentlySelected == 1)
+                            if (BuildingsListManager.Buildings[BuildingsListManager.BuildingCurrentlySelected].Shape[Y, X] != -1)
                             {
-                                if (BuildingsListManager.Buildings[BuildingsListManager.BuildingCurrentlySelected].Shape[Y, X] == 0)
+                                Vector3Int CurrentPos = GetPositionForSquare(CellClickedPos, BuildingsListManager.Buildings[BuildingsListManager.BuildingCurrentlySelected].Shape, X, Y, BuildingsListManager.Buildings[BuildingsListManager.BuildingCurrentlySelected].Origin);
+                                GameGrid[CurrentPos.x, CurrentPos.y].Contains = 2;
+                                if (BuildingsListManager.BuildingCurrentlySelected == 1)
                                 {
-                                    Vector3 AdjustedStartPos = CurrentPos + new Vector3(1, 0.5f, 0);
-                                    NewSprite = Instantiate(MediumHousePreFab, AdjustedStartPos, Quaternion.identity);
+                                    if (BuildingsListManager.Buildings[BuildingsListManager.BuildingCurrentlySelected].Shape[Y, X] == 0)
+                                    {
+                                        Vector3 AdjustedStartPos = CurrentPos + new Vector3(1, 0.5f, 0);
+                                        NewSprite = Instantiate(MediumHousePreFab, AdjustedStartPos, Quaternion.identity);
+                                    }
                                 }
-                            }
-                            else if (BuildingsListManager.BuildingCurrentlySelected == 2)
-                            {
-                                if (BuildingsListManager.Buildings[BuildingsListManager.BuildingCurrentlySelected].Shape[Y, X] == 0)
+                                else if (BuildingsListManager.BuildingCurrentlySelected == 2)
                                 {
-                                    Vector3 AdjustedStartPos = CurrentPos + new Vector3(1, 0.5f, 0);
-                                    NewSprite = Instantiate(ShopPrefab, AdjustedStartPos, Quaternion.identity);
+                                    if (BuildingsListManager.Buildings[BuildingsListManager.BuildingCurrentlySelected].Shape[Y, X] == 0)
+                                    {
+                                        Vector3 AdjustedStartPos = CurrentPos + new Vector3(1, 0.5f, 0);
+                                        NewSprite = Instantiate(ShopPrefab, AdjustedStartPos, Quaternion.identity);
+                                    }
                                 }
-                            }
-                            else if (BuildingsListManager.BuildingCurrentlySelected == 3)
-                            {
-                                if (BuildingsListManager.Buildings[BuildingsListManager.BuildingCurrentlySelected].Shape[Y, X] == 0)
+                                else if (BuildingsListManager.BuildingCurrentlySelected == 3)
                                 {
-                                    Vector3 AdjustedStartPos = CurrentPos + new Vector3(0, 0, 0);
-                                    NewSprite = Instantiate(HospitalPrefab, AdjustedStartPos, Quaternion.identity);
+                                    if (BuildingsListManager.Buildings[BuildingsListManager.BuildingCurrentlySelected].Shape[Y, X] == 0)
+                                    {
+                                        Vector3 AdjustedStartPos = CurrentPos + new Vector3(0, 0, 0);
+                                        NewSprite = Instantiate(HospitalPrefab, AdjustedStartPos, Quaternion.identity);
+                                    }
                                 }
-                            }
-                            else if (BuildingsListManager.BuildingCurrentlySelected == 0)
-                            {
-                                Vector3 AdjustedStartPos = CurrentPos + new Vector3(0.5f,0.5f, 0);
-                                NewSprite = Instantiate(SmallHousePreFab, AdjustedStartPos, Quaternion.identity);
+                                else if (BuildingsListManager.BuildingCurrentlySelected == 0)
+                                {
+                                    Vector3 AdjustedStartPos = CurrentPos + new Vector3(0.5f, 0.5f, 0);
+                                    NewSprite = Instantiate(SmallHousePreFab, AdjustedStartPos, Quaternion.identity);
 
-                            }
-                            else if (BuildingsListManager.BuildingCurrentlySelected == 4)
-                            {
-                                if (BuildingsListManager.Buildings[BuildingsListManager.BuildingCurrentlySelected].Shape[Y, X] == 0)
-                                {
-                                    Vector3 AdjustedStartPos = CurrentPos + new Vector3(-0.5f,-0.5f, 0);
-                                    NewSprite = Instantiate(TownHallPrefab, AdjustedStartPos, Quaternion.identity);
                                 }
-                            }
-                            else if (BuildingsListManager.BuildingCurrentlySelected == 5)
-                            {
-                                if (BuildingsListManager.Buildings[BuildingsListManager.BuildingCurrentlySelected].Shape[Y, X] == 0)
+                                else if (BuildingsListManager.BuildingCurrentlySelected == 4)
                                 {
-                                    Vector3 AdjustedStartPos = CurrentPos + new Vector3(-0.5f, -0.5f, 0);
-                                    NewSprite = Instantiate(PowerPlantPrefab, AdjustedStartPos, Quaternion.identity);
+                                    if (BuildingsListManager.Buildings[BuildingsListManager.BuildingCurrentlySelected].Shape[Y, X] == 0)
+                                    {
+                                        Vector3 AdjustedStartPos = CurrentPos + new Vector3(-0.5f, -0.5f, 0);
+                                        NewSprite = Instantiate(TownHallPrefab, AdjustedStartPos, Quaternion.identity);
+                                    }
                                 }
-                            }
-                            else if (BuildingsListManager.BuildingCurrentlySelected == 6)
-                            {
-                                if (BuildingsListManager.Buildings[BuildingsListManager.BuildingCurrentlySelected].Shape[Y, X] == 0)
+                                else if (BuildingsListManager.BuildingCurrentlySelected == 5)
                                 {
-                                    Vector3 AdjustedStartPos = CurrentPos + new Vector3(-0.5f, -0.5f, 0);
-                                    NewSprite = Instantiate(WindFarmPrefab, AdjustedStartPos, Quaternion.identity);
+                                    if (BuildingsListManager.Buildings[BuildingsListManager.BuildingCurrentlySelected].Shape[Y, X] == 0)
+                                    {
+                                        Vector3 AdjustedStartPos = CurrentPos + new Vector3(-0.5f, -0.5f, 0);
+                                        NewSprite = Instantiate(PowerPlantPrefab, AdjustedStartPos, Quaternion.identity);
+                                    }
                                 }
-                            }
-                            else if (BuildingsListManager.BuildingCurrentlySelected == 7)
-                            {
-                                if (BuildingsListManager.Buildings[BuildingsListManager.BuildingCurrentlySelected].Shape[Y, X] == 0)
+                                else if (BuildingsListManager.BuildingCurrentlySelected == 6)
                                 {
-                                    Vector3 AdjustedStartPos = CurrentPos + new Vector3(0.0f, 0.0f, 0);
-                                    NewSprite = Instantiate(ShoppingCenterPrefab, AdjustedStartPos, Quaternion.identity);
+                                    if (BuildingsListManager.Buildings[BuildingsListManager.BuildingCurrentlySelected].Shape[Y, X] == 0)
+                                    {
+                                        Vector3 AdjustedStartPos = CurrentPos + new Vector3(-0.5f, -0.5f, 0);
+                                        NewSprite = Instantiate(WindFarmPrefab, AdjustedStartPos, Quaternion.identity);
+                                    }
                                 }
+                                else if (BuildingsListManager.BuildingCurrentlySelected == 7)
+                                {
+                                    if (BuildingsListManager.Buildings[BuildingsListManager.BuildingCurrentlySelected].Shape[Y, X] == 0)
+                                    {
+                                        Vector3 AdjustedStartPos = CurrentPos + new Vector3(0.0f, 0.0f, 0);
+                                        NewSprite = Instantiate(ShoppingCenterPrefab, AdjustedStartPos, Quaternion.identity);
+                                    }
+                                }
+
                             }
 
                         }
-
+                    }
+                    RevertPreviousBuildingHightlight();
+                    PlacedBuilding New = new PlacedBuilding(BuildingsListManager.Buildings[BuildingsListManager.BuildingCurrentlySelected].GetInstance(), new int[] { CellClickedPos.x, CellClickedPos.y }, NewSprite);
+                    New.SetBuildingPos(CellClickedPos);
+                    PlacedBuildings.Add(New);
+                    //     Debug.Log("New buildings count"+PlacedBuildings.Count);
+                    if (New.GetType().GetIfIsHome())
+                    {
+                        npcHandler.SetHomes();
+                    }
+                    if (MainMenu.GetCurrentGameMode() != 0)
+                    {
+                        GameStatusScript.DoPlaceBuildingCosts(BuildingsListManager.Buildings[BuildingsListManager.BuildingCurrentlySelected]);
                     }
                 }
-                RevertPreviousBuildingHightlight();
-                PlacedBuilding New = new PlacedBuilding(BuildingsListManager.Buildings[BuildingsListManager.BuildingCurrentlySelected].GetInstance(), new int[] { CellClickedPos.x, CellClickedPos.y }, NewSprite);
-                New.SetBuildingPos(CellClickedPos);
-                PlacedBuildings.Add(New);
-           //     Debug.Log("New buildings count"+PlacedBuildings.Count);
-                if (New.GetType().GetIfIsHome())
-                {
-                    npcHandler.SetHomes();
-                }
-                if (MainMenu.GetCurrentGameMode() != 0)
-                {
-                    GameStatusScript.DoPlaceBuildingCosts(BuildingsListManager.Buildings[BuildingsListManager.BuildingCurrentlySelected]);
-                }
             }
-        }
+        } 
         RevertPreviousBuildingHightlight();
 
         BuildingsListManager.BuildingCurrentlySelected = -1;

@@ -33,7 +33,7 @@ public class GameStatusScript : MonoBehaviour
         {
 
         }
-        return 1000;
+        return 10000;
     }
     public static List<string> GetReport()
     {
