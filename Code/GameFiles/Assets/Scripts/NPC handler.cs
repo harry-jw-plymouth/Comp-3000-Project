@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class NPChandler : MonoBehaviour
@@ -10,6 +11,7 @@ public class NPChandler : MonoBehaviour
    [SerializeField]  List<Citzen> NPCList=new List<Citzen>();
     [SerializeField] int NumberOfNpcs;
     public GameObject NPCPrefab;
+    public TextMeshProUGUI PopulationCountDisplay;
     
 
 
@@ -20,6 +22,12 @@ public class NPChandler : MonoBehaviour
         NumberOfNpcs = GetNumberOfNPCs();
         LoadNPCs();
         SetHomes();
+        UpdatePopulationDisplay();
+
+    }
+    void UpdatePopulationDisplay()
+    {
+        PopulationCountDisplay.text = NumberOfNpcs.ToString();
     }
     public  void RemoveAllNPCsFromBuilding(List<int>Indexes)
     {
@@ -139,6 +147,7 @@ public class NPChandler : MonoBehaviour
         {
             AmountCheckCounter = 0;
             CheckForNewNPCs();
+            UpdatePopulationDisplay();
         }
     //    Debug.Log("Number of NPCS:" + NumberOfNpcs);
 
