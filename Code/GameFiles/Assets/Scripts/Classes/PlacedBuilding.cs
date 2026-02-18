@@ -10,17 +10,23 @@ public class PlacedBuilding
     Vector3 BuildingPos;
     List<int> NPCsInBuildingIndexes=new List<int>();
     List<int>Inhabitants=new List<int>();
+    bool CurrentlyInRangeOfPower;
     public PlacedBuilding(Building buildingType, int[] originPos, GameObject sprite)
     {
         this.buildingType = buildingType;
         OriginPos = originPos;
         Sprite = sprite;
-        
+        CurrentlyInRangeOfPower= false;
+       
         //BuildingPos = new Vector3( originPos[0],originPos[1],0);
     }
     public int GetEnviromentalValue()
     {
         return buildingType.GetEntertainmentValue();
+    }
+    public void  SetInRangeOfPowerPlant(bool InRange)
+    {
+        CurrentlyInRangeOfPower= InRange;
     }
     public List<int> GetInhabitants()
     {
@@ -61,6 +67,11 @@ public class PlacedBuilding
     public Building GetType()
     {
         return buildingType;
+    }
+
+    public bool GetIfIsPowerPlant()
+    {
+        return buildingType.GetIfIsPowerPlant();
     }
     
 

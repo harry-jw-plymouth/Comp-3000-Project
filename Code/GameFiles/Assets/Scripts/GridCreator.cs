@@ -750,7 +750,49 @@ public class GridCreator : MonoBehaviour
         
 
     }
+    public static int NearestPowerPlantIndex = -1;
+    public static Vector3 GetPosOfNearestPowerPlant(Vector3 CurrentPos)
+    {
+        Vector3 CurrentClosest = new Vector3(-1, -1, -1);
+        bool PowerPlantFound = false;
+        int CurrentMinDistance = 100000;
+        for (int i = 0; i < PlacedBuildings.Count; i++)
+        {
+            if (PlacedBuildings[i].GetIfIsPowerPlant())
+            {
+                int Distance = GetDistanceBetweenPostions(GameMap.WorldToCell(PlacedBuildings[i].GetBuildingPos()), GameMap.WorldToCell(CurrentPos));
+                if (Distance < CurrentMinDistance)
+                {
+                    NearestPowerPlantIndex = i;
+                    RecentlySelectedBuilding = PlacedBuildings[i].buildingType;
+                    PowerPlantFound = true;
+                    CurrentMinDistance = Distance;
+                    CurrentClosest = PlacedBuildings[i].GetBuildingPos();
+                }
+            }
+        }
+        return CurrentClosest;
+    }
 
+    void UpdateStatusOfBuildingsInRangeOfPower()
+    {
+        for (int i = 0; PlacedBuildings.Count > i; i++) {
+            PlacedBuildings[i].SetInRangeOfPowerPlant(false);
+            Vector3 NearestPowerPlant = GetPosOfNearestPowerPlant(PlacedBuildings[i].GetBuildingPos());
+            if (NearestPowerPlant.x != -1)
+            {
+                int DistanceToPowerPlant = GetDistanceBetweenPostions( GameMap.WorldToCell( NearestPowerPlant), GameMap.WorldToCell( PlacedBuildings[i].GetBuildingPos()));
+                if (PlacedBuildings[NearestPowerPlantIndex].buildingType is PowerPlant powerplant)
+                {
+                    if (DistanceToPowerPlant <= powerplant.GetRange())
+                    {
+                        PlacedBuildings[i].SetInRangeOfPowerPlant(true);
+                    }
+                }
+                
+            }
+        }
+    }
 
 
     // Update is called once per frame
@@ -758,6 +800,7 @@ public class GridCreator : MonoBehaviour
     {
         CheckForMouseHover();
         CheckForMouseClicK();
+        
     }
     void CreateStartingArea()
     {

@@ -17,6 +17,10 @@ public class PowerPlant : Building
     {
         return PowerGeneration;
     }
+    public int GetRange()
+    {
+        return Range;
+    }
     public override Building GetInstance()
     {
         return new PowerPlant(Name,CostToBuild,TaxGeneration, Description, Shape, Origin, IsShop, LowerTimeInBuilding, UpperTimeInBuilding, IsHospital, TypeIndex, PowerUsage,EnviromentalEffect,IsEntertaiment,EntertainmentValue,PowerGeneration,Range);
