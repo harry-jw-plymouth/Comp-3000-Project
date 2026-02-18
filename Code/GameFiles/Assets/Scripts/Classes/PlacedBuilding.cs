@@ -29,6 +29,15 @@ public class PlacedBuilding
     public void DisplayWarning(bool status)
     {
         PowerWarning.GetComponent<SpriteRenderer>().enabled = status;
+        if (buildingType.GetIfIsPowerPlant())
+        {
+            PowerWarning.GetComponent<SpriteRenderer>().enabled = false;
+
+        }
+    }
+    public void DestroyWarning()
+    {
+        Object.Destroy(PowerWarning);
     }
     public int GetEnviromentalValue()
     {

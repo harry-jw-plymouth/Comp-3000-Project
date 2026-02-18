@@ -695,6 +695,7 @@ public class GridCreator : MonoBehaviour
                 {
                     Destroy(PlacedBuildings[BuildingPos].Sprite);
                 }
+                PlacedBuildings[BuildingPos].DestroyWarning();
                 npcHandler.RemoveAllNPCsFromBuilding(PlacedBuildings[BuildingPos].GetNPCsInBuilding());
                 List<int> Indexes = PlacedBuildings[BuildingPos].GetInhabitants();
                 PlacedBuildings.RemoveAt(BuildingPos);
@@ -1062,6 +1063,8 @@ public class GridCreator : MonoBehaviour
 
                 }
                 npcHandler.SetHomes();
+                UpdateStatusOfBuildingsInRangeOfPower();
+                DisplayPowerAvailabilityOnBuilding();
                 
             }
         }

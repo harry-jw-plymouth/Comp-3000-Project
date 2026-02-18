@@ -118,8 +118,7 @@
               "RelativeToolTip": "Assets\\Scripts\\Classes\\Building.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAADQAAAAFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-28T13:53:20.953Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-01-28T13:53:20.953Z"
             },
             {
               "$type": "Document",
@@ -129,7 +128,7 @@
               "RelativeDocumentMoniker": "Assets\\Scripts\\Classes\\PlacedBuilding.cs",
               "ToolTip": "C:\\Uni stuff\\Year 3\\Comp 3000\\Comp-3000-Project\\Code\\GameFiles\\Assets\\Scripts\\Classes\\PlacedBuilding.cs",
               "RelativeToolTip": "Assets\\Scripts\\Classes\\PlacedBuilding.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAApAAAAAAAAAA==",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAAC0AAAA1AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-01-28T13:58:15.903Z",
               "EditorCaption": ""
@@ -144,8 +143,7 @@
               "RelativeToolTip": "Assets\\Scripts\\NPC handler.cs",
               "ViewState": "AgIAAGAAAAAAAAAAAADwv0UBAABuAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-27T12:48:44.227Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-01-27T12:48:44.227Z"
             },
             {
               "$type": "Document",
@@ -157,8 +155,7 @@
               "RelativeToolTip": "Assets\\Scripts\\Classes\\Citzen.cs",
               "ViewState": "AgIAAKUAAAAAAAAAAAAAAMwAAAAUAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-11T16:07:19.508Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-12-11T16:07:19.508Z"
             },
             {
               "$type": "Document",
@@ -308,8 +305,7 @@
               "RelativeToolTip": "Assets\\Scripts\\BuildingsListManager.cs",
               "ViewState": "AgIAABsAAAAAAAAAAAAAACgAAAA1AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-28T14:46:27.718Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-01-28T14:46:27.718Z"
             },
             {
               "$type": "Document",
@@ -319,7 +315,7 @@
               "RelativeDocumentMoniker": "Assets\\Scripts\\GridCreator.cs",
               "ToolTip": "C:\\Uni stuff\\Year 3\\Comp 3000\\Comp-3000-Project\\Code\\GameFiles\\Assets\\Scripts\\GridCreator.cs",
               "RelativeToolTip": "Assets\\Scripts\\GridCreator.cs",
-              "ViewState": "AgIAAKUCAAAAAAAAAAAAAMACAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAPgDAAAAAAAAAAAAACoEAAA1AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-02-04T14:21:31.854Z",
               "EditorCaption": ""
