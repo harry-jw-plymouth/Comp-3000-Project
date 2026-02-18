@@ -147,10 +147,24 @@ public class NPChandler : MonoBehaviour
         {
             AmountCheckCounter = 0;
             CheckForNewNPCs();
+            CheckForLeavingNPCs();
             UpdatePopulationDisplay();
         }
     //    Debug.Log("Number of NPCS:" + NumberOfNpcs);
 
+    }
+    void CheckForLeavingNPCs()
+    {
+        int RandomNpcIndex = Random.Range(0, NPCList.Count);
+        int Happiness=NPCList[RandomNpcIndex].CalculateHappiness();
+        int RandomLeaveChance = Random.Range(0, 100);
+        if (RandomLeaveChance > Happiness) {
+            if (NPCList[RandomNpcIndex].GetIfInBuilding())
+            {
+                NPCList[RandomNpcIndex].ForceLeaveBuidlingOnBuildingRemoval();
+            }
+            NPCList[RandomNpcIndex].SetCurrentAction(5);
+        }
     }
     void CheckForNewNPCs()
     {
@@ -298,8 +312,19 @@ public class NPChandler : MonoBehaviour
             }
         }
     }
+    void RemoveNPCs(List<int> Indexes)
+    {
+        for(int i = Indexes.Count-1; i >= 0; i--)
+        {
+            NPCList[Indexes[i]].RemoveNPCSprite();
+            NPCList.RemoveAt(Indexes[i]);
+            NumberOfNpcs--;
+            Debug.Log("Npc left");
+        }
+    }
     void UpdateNPCs()
     {
+        List<int> NPCsToRemove=new List<int>();
         MovementCounter++;
         // check for updates to each NPC
         for (int i = 0; i < NumberOfNpcs; i++) {
@@ -395,9 +420,22 @@ public class NPChandler : MonoBehaviour
                     NPCList[i].UpdateCounter();
                 }
             }
+            else if (NPCList[i].GetCurrentAction() == 5)
+            {
+                //Leave the city
+                NPCsToRemove.Add(i);
+
+            }
             
         }
-
+        if(NPCList.Count!= 0)
+        {
+            RemoveNPCs(NPCsToRemove);
+            UpdatePopulationDisplay();
+            NPCsToRemove.Clear();
+            
+        }
+        
     }
 
 }

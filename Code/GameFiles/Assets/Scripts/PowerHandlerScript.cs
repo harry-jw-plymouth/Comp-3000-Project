@@ -29,8 +29,11 @@ public class PowerHandlerScript : MonoBehaviour
         FrequencyCounter++;
         if (FrequencyCounter == FrequencyOfPowerUpdate)
         {
-            FrequencyCounter = 0;
-            ConsumePower();
+            if (MainMenu.GetCurrentGameMode() != 0)
+            {
+                FrequencyCounter = 0;
+                ConsumePower();
+            }
 
         }
     }

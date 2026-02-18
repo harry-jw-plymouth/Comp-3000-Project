@@ -39,17 +39,35 @@ public class Citzen
         Position= Pos;
         UpdateNeeded = true;
     }
-    public void CalculateHappiness()
+    public void RemoveNPCSprite()
+    {
+        Object.Destroy(NPCSprite);
+    }
+    public bool GetIfInBuilding()
+    {
+        if (InBuilding >= 0)
+        {
+            return true;
+        }
+        return false;
+    }
+    public int CalculateHappiness()
     {
         int Happiness = 100;
         Happiness -= TiredNess / 100;
         Happiness -= Sickness / 100;
         Happiness-=Boredom / 100;
 
+        if (Happiness < 0)
+        { 
+            Happiness = 0;
+        }
+
         if (IsHomeLess)
         {
             Happiness = Happiness / 2;
         }
+        return Happiness;
     }
         
     public int GetHappiness()
