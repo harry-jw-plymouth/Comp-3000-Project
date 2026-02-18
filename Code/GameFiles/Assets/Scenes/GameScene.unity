@@ -512,6 +512,8 @@ MonoBehaviour:
   WindFarmPrefab: {fileID: 5017083642667601427, guid: 3c9b57547762e47479bca9a65c3d54b8, type: 3}
   ShoppingCenterPrefab: {fileID: 1723635326680007876, guid: a117091a506c3a74b9720c7dccd91c2d, type: 3}
   GameStatusScript: {fileID: 1453347093}
+  NoPowerForBuildingWarning: {fileID: 4836441252777522745, guid: cc542b047d2fbb24299bb4a52430b027, type: 3}
+  PowerIcons: []
 --- !u!156049354 &94827940
 Grid:
   m_ObjectHideFlags: 0

@@ -7,6 +7,7 @@ public class PlacedBuilding
    public  Building buildingType;
     public int[] OriginPos;
     public GameObject Sprite;
+    public GameObject PowerWarning;
     Vector3 BuildingPos;
     List<int> NPCsInBuildingIndexes=new List<int>();
     List<int>Inhabitants=new List<int>();
@@ -20,6 +21,21 @@ public class PlacedBuilding
        
         //BuildingPos = new Vector3( originPos[0],originPos[1],0);
     }
+    public void SetWarningSprite(GameObject sprite)
+    {
+        PowerWarning = Sprite;
+    }
+    public void DisplayWarning(bool status)
+    {
+        if (status)
+        {
+            PowerWarning.SetActive(true);
+        }
+        else
+        {
+            PowerWarning.SetActive(false);
+        }
+    }
     public int GetEnviromentalValue()
     {
         return buildingType.GetEntertainmentValue();
@@ -27,6 +43,10 @@ public class PlacedBuilding
     public void  SetInRangeOfPowerPlant(bool InRange)
     {
         CurrentlyInRangeOfPower= InRange;
+    }
+    public bool GetIfInRangeOfPowerPlant()
+    {
+        return CurrentlyInRangeOfPower;
     }
     public List<int> GetInhabitants()
     {

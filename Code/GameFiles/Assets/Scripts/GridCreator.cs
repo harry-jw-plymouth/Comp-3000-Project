@@ -47,7 +47,10 @@ public class GridCreator : MonoBehaviour
     public GameObject ShoppingCenterPrefab;
     public GameStatusScript GameStatusScript;
 
+    public GameObject NoPowerForBuildingWarning;
+
     public static List<Vector3> RoadPositions=new List<Vector3>();
+    public List<GameObject> PowerIcons=new List<GameObject>();
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -128,13 +131,30 @@ public class GridCreator : MonoBehaviour
         int Total = 0;
         foreach (PlacedBuilding building in PlacedBuildings)
         {
-            if(building.buildingType is PowerPlant Powerplant)
+            // && building.GetIfInRangeOfPowerPlant()
+            if (building.buildingType is PowerPlant Powerplant)
             {
               //  Debug.Log("Power plant found:" + Powerplant.PowerGeneration);
                 Total += Powerplant.GetPowerGeneration();
             }
         }
         return Total;
+    }
+    public void DisplayPowerAvailabilityOnBuilding()
+    {
+        for (int i = 0; i < PlacedBuildings.Count; ++i)
+        {
+            if (!PlacedBuildings[i].GetIfInRangeOfPowerPlant())
+            {
+                PlacedBuildings[i].DisplayWarning(true);
+               
+            }
+            else
+            {
+                PlacedBuildings[i].DisplayWarning(false);
+               
+            }
+        }
     }
     public static int GetPowerUsage()
     {
@@ -331,6 +351,7 @@ public class GridCreator : MonoBehaviour
                     Vector3Int CurrentPos = GetPositionForSquare(Origin, RemovedBuilding.Shape, X, Y, RemovedBuilding.Origin);
                     GameMap.SetColor(CurrentPos, new Color(1f, 1f, 1f, 0.5f));
                     GameMap.SetTile(CurrentPos, GameTile);
+                    
                 }
 
             }
@@ -601,9 +622,11 @@ public class GridCreator : MonoBehaviour
                     }
                     RevertPreviousBuildingHightlight();
                     PlacedBuilding New = new PlacedBuilding(BuildingsListManager.Buildings[BuildingsListManager.BuildingCurrentlySelected].GetInstance(), new int[] { CellClickedPos.x, CellClickedPos.y }, NewSprite);
+                    New.SetWarningSprite(NoPowerForBuildingWarning);
                     New.SetBuildingPos(CellClickedPos);
                     PlacedBuildings.Add(New);
                     //     Debug.Log("New buildings count"+PlacedBuildings.Count);
+                    
                     if (New.GetType().GetIfIsHome())
                     {
                         npcHandler.SetHomes();
@@ -614,7 +637,10 @@ public class GridCreator : MonoBehaviour
                     }
                 }
             }
-        } 
+            
+        }
+
+        UpdateStatusOfBuildingsInRangeOfPower();
         RevertPreviousBuildingHightlight();
 
         BuildingsListManager.BuildingCurrentlySelected = -1;
@@ -672,6 +698,9 @@ public class GridCreator : MonoBehaviour
                 List<int> Indexes = PlacedBuildings[BuildingPos].GetInhabitants();
                 PlacedBuildings.RemoveAt(BuildingPos);
                 npcHandler.UpdateHomesForNPCsAfterBuildingRemoval(Indexes);
+
+                UnityEngine.Object.Destroy(PowerIcons[BuildingPos]);
+                PowerIcons.RemoveAt(BuildingPos);
 
             }
         }
@@ -800,7 +829,8 @@ public class GridCreator : MonoBehaviour
     {
         CheckForMouseHover();
         CheckForMouseClicK();
-        
+
+        DisplayPowerAvailabilityOnBuilding();
     }
     void CreateStartingArea()
     {
@@ -945,6 +975,7 @@ public class GridCreator : MonoBehaviour
                 //}
             }
         }
+        PowerIcons.Add(null);
         return NewSprite;
 
     }
@@ -1019,8 +1050,11 @@ public class GridCreator : MonoBehaviour
                 for (int i = 0; i < BuildingsFromDb.Count; i++) {
                     PlacedBuilding New = new PlacedBuilding(BaseBuildingTypes[BuildingsFromDb[i].TypeIndex], new int[] { BuildingsFromDb[i].OriginX, BuildingsFromDb[i].OriginY, }, GetSriteForBuilding(BuildingsFromDb[i]));
                     New.SetBuildingPos(new Vector3(BuildingsFromDb[i].Xpos, BuildingsFromDb[i].Ypos, 0));
+                    New.SetWarningSprite(NoPowerForBuildingWarning);
                     PlacedBuildings.Add(New);
-                   
+                    
+
+
 
                 }
                 npcHandler.SetHomes();
