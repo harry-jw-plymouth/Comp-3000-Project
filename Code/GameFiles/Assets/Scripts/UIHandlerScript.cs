@@ -1,6 +1,7 @@
 using JetBrains.Annotations;
 using NUnit.Framework;
 using System.Collections.Generic;
+using System.ComponentModel.Design;
 using System.Globalization;
 using TMPro;
 using UnityEditor;
@@ -50,6 +51,8 @@ public class UIHandlerScript : MonoBehaviour
     public TextMeshProUGUI BuildingPowerText;
     public TextMeshProUGUI BuildingSpeificText;
     public TextMeshProUGUI BuildingIsPoweredText;
+    public TextMeshProUGUI BuildingEnviromentalValue;
+    public bool BuildingInfoShowing = false;
     //  public Square[,] GameGrid;
     private void Start()
     {
@@ -62,6 +65,44 @@ public class UIHandlerScript : MonoBehaviour
     {
         
     }
+    public void DisplayBuildingInfo(PlacedBuilding BuildingToDisplay)
+    {
+        BuildingInfoBox.SetActive(true);
+        BuildingInfoShowing = true;
+        BuildingTypeText.text = BuildingToDisplay.buildingType.Name;
+        BuildingMoneyText.text=BuildingToDisplay.buildingType.TaxGeneration.ToString()+" money per cycle";
+        BuildingPowerText.text = BuildingToDisplay.buildingType.PowerUsage.ToString() + " power per cycle";
+        BuildingEnviromentalValue.text="Environment value:"+BuildingToDisplay.GetEnviromentalValue().ToString();
+        if (BuildingToDisplay.GetIfInRangeOfPowerPlant())
+        {
+            BuildingIsPoweredText.text = "Powered";
+        }
+        else
+        {
+            BuildingIsPoweredText.text = " Not powered";
+        }
+        if(BuildingToDisplay.buildingType is PowerPlant powerPlant)
+        {
+            BuildingSpeificText.text = "Generating " + powerPlant.GetPowerGeneration() + " power";
+        }
+        else if (BuildingToDisplay.buildingType is Home home)
+        {
+            BuildingSpeificText.text = "Home to " + home.CurrentResidents + " people";
+        }
+        else
+        {
+            BuildingSpeificText.text = " building is a " + BuildingToDisplay.GetType();
+        }
+
+
+    }
+    public void HideBuildingInfo()
+    {
+        BuildingInfoShowing = false;
+        BuildingInfoBox.SetActive(false);
+        
+    }
+
     public void OpenPauseMenu()
     {
         if (PauseMenuActive)

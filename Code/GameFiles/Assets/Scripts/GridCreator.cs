@@ -719,6 +719,7 @@ public class GridCreator : MonoBehaviour
     {
         Debug.Log("Displaying building info");
         Debug.Log("Displaying:" + PlacedBuildings[BuildingIndex].buildingType);
+        uiHandler.DisplayBuildingInfo(PlacedBuildings[BuildingIndex]);
 
     }
     void CheckForMouseClicK() {
