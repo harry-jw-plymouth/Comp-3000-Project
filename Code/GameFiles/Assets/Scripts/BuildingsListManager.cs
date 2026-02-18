@@ -36,9 +36,9 @@ public class BuildingsListManager : MonoBehaviour
             new Building("Town Hall",800,-5, "The core building for your city",new int[3,3]{{1,1,1},{ 1, 1, 1 }, { 0,1,1}},new int[] { 2,0 },
             false,100,500,false,4,50,30,false,0),
             new PowerPlant("Coal Power plant",1200,-15, "A non renewable power plant ,efficient but bad for the environment",new int [3,3]{{1,1,1},{ 1, 1, 1 }, { 0,1,1}},new int[] { 2,0 },
-            false,200,600,false,5,0,400,false,0,500),
+            false,200,600,false,5,0,400,false,0,500,40),
             new PowerPlant("Wind Power farm",1400,-20, "A renewable power plant ,not super efficient but much better for the environment",new int [3,3]{{1,1,1},{ 1, 1, 1 }, { 0,1,1}},new int[] { 2,0 },
-            false,200,600,false,6,0,20,false,0,400),
+            false,200,600,false,6,0,20,false,0,400,30),
             new Building("Shopping center",700,30, " a shopping centre full of shops and entertainment",new int[2,2]{{1,1},{0,1 } },new int[]{1,0 },true
             ,300,1000,false,7,100,150,true,40)
             

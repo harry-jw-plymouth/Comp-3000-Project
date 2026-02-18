@@ -38,6 +38,7 @@ public class NPChandler : MonoBehaviour
     public void UpdateHomesForNPCsAfterBuildingRemoval(List<int>Indexes)
     {
         for (int i = 0; i < Indexes.Count; i++) {
+            NPCList[Indexes[i]].SetHomeIndex(-1);
             NPCList[Indexes[i]].UpdateHomeStatus(true);
             NPCList[Indexes[i]].RemoveHomeData();
         }
@@ -79,17 +80,19 @@ public class NPChandler : MonoBehaviour
     public void SetHomes()
     {
         int TotalSet=0; int TotalNotSet = 0;
-   //     Debug.Log("Setting homes");
+        int HomeIndex = 0;
+   //     Debug.Log("Setting homes"
      //   Debug.Log("Number of buildings in NPC handler:" + GridCreator.PlacedBuildings.Count);
         bool HomeFound=false;
         for (int i = 0; i < NumberOfNpcs; i++) {
             HomeFound = false;
             if (NPCList[i].GetIfHomeless())
             {
-       //         Debug.Log("Npc:" + i);
-                
+                //         Debug.Log("Npc:" + i);
+                HomeIndex = 0;
                 foreach (PlacedBuilding building in GridCreator.PlacedBuildings)
                 {
+                    HomeIndex++;
          //           Debug.Log("Building type: " + building.buildingType.GetType());
                     if (building.buildingType is Home home)
                     {
@@ -101,6 +104,7 @@ public class NPChandler : MonoBehaviour
                                 HomeFound = true;
 
                                 NPCList[i].SetHome(home);
+                                NPCList[i].SetHomeIndex(HomeIndex--);
                                 NPCList[i].UpdateHomeStatus(false);
                                 NPCList[i].SetHomePos(building.GetBuildingPos());
                                 TotalSet++;
@@ -162,6 +166,7 @@ public class NPChandler : MonoBehaviour
             if (NPCList[RandomNpcIndex].GetIfInBuilding())
             {
                 NPCList[RandomNpcIndex].ForceLeaveBuidlingOnBuildingRemoval();
+                
             }
             NPCList[RandomNpcIndex].SetCurrentAction(5);
         }

@@ -3,13 +3,15 @@ using UnityEngine;
 public class PowerPlant : Building
 {
     public int PowerGeneration;
+    public int Range;
  
 
-    public PowerPlant(string name,int Cost,int Tax, string description, int[,] shape, int[] origin, bool Shop, int LB, int UB, bool hospital, int typeIndex, int Usage,int EF,bool Entertainment,int EV , int PowerGen)
+    public PowerPlant(string name,int Cost,int Tax, string description, int[,] shape, int[] origin, bool Shop, int LB, int UB, bool hospital, int typeIndex, int Usage,int EF,bool Entertainment,int EV , int PowerGen,int range)
         : base(name,Cost,Tax, description, shape, origin, false, LB, UB, hospital, typeIndex,Usage,EF,Entertainment,EV)
     {
         PowerGeneration =PowerGen;
         IsPowerPlant = true;
+        Range = range;
     }
     public int GetPowerGeneration()
     {
@@ -17,6 +19,6 @@ public class PowerPlant : Building
     }
     public override Building GetInstance()
     {
-        return new PowerPlant(Name,CostToBuild,TaxGeneration, Description, Shape, Origin, IsShop, LowerTimeInBuilding, UpperTimeInBuilding, IsHospital, TypeIndex, PowerUsage,EnviromentalEffect,IsEntertaiment,EntertainmentValue,PowerGeneration);
+        return new PowerPlant(Name,CostToBuild,TaxGeneration, Description, Shape, Origin, IsShop, LowerTimeInBuilding, UpperTimeInBuilding, IsHospital, TypeIndex, PowerUsage,EnviromentalEffect,IsEntertaiment,EntertainmentValue,PowerGeneration,Range);
     }
 }
