@@ -354,7 +354,10 @@ public class GridCreator : MonoBehaviour
 
                     GameMap.SetColor(CurrentPos, new Color(1f, 1f, 1f, 0.5f));
                     GameMap.SetTile(CurrentPos, GameTile);
-                    
+
+                    GameMap.SetTileFlags(CurrentPos, TileFlags.None);
+                    GameMap.SetColor(CurrentPos, Color.white);
+
                 }
 
             }
