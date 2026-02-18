@@ -316,6 +316,14 @@ public class NPChandler : MonoBehaviour
     {
         for(int i = Indexes.Count-1; i >= 0; i--)
         {
+            if (NPCList[Indexes[i]].GetHomeIndex() != -1)
+            {
+                if (GridCreator.PlacedBuildings[NPCList[Indexes[i]].GetHomeIndex()].buildingType is Home home)
+                {
+                    home.AdjustResidents(-1);
+                }
+                
+            }
             NPCList[Indexes[i]].RemoveNPCSprite();
             NPCList.RemoveAt(Indexes[i]);
             NumberOfNpcs--;
@@ -433,6 +441,7 @@ public class NPChandler : MonoBehaviour
             RemoveNPCs(NPCsToRemove);
             UpdatePopulationDisplay();
             NPCsToRemove.Clear();
+            SetHomes();
             
         }
         

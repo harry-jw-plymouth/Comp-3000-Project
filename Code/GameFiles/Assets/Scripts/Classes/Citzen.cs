@@ -24,6 +24,7 @@ public class Citzen
     public int buldingInsideIndex = -1;
 
     Building Home;
+    int HomeIndex = -1;
     Vector3 HomePosition=new Vector3(-1,-1,-1);
 
 
@@ -42,6 +43,14 @@ public class Citzen
     public void RemoveNPCSprite()
     {
         Object.Destroy(NPCSprite);
+    }
+    public void SetHomeIndex(int Index)
+    {
+        HomeIndex = Index;
+    }
+    public int GetHomeIndex()
+    {
+        return HomeIndex;
     }
     public bool GetIfInBuilding()
     {
