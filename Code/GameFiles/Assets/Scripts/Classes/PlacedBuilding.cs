@@ -12,6 +12,7 @@ public class PlacedBuilding
     List<int> NPCsInBuildingIndexes=new List<int>();
     List<int>Inhabitants=new List<int>();
     bool CurrentlyInRangeOfPower;
+    int TimeWithoutPower = 0;
     public PlacedBuilding(Building buildingType, int[] originPos, GameObject sprite)
     {
         this.buildingType = buildingType;
@@ -28,12 +29,46 @@ public class PlacedBuilding
     }
     public void DisplayWarning(bool status)
     {
+        if (status)
+        {
+            if (TimeWithoutPower < 5)
+            {
+                TimeWithoutPower++;
+            }
+        }
+        else
+        {
+            TimeWithoutPower = 0;
+        }
         PowerWarning.GetComponent<SpriteRenderer>().enabled = status;
         if (buildingType.GetIfIsPowerPlant())
         {
             PowerWarning.GetComponent<SpriteRenderer>().enabled = false;
 
         }
+    }
+    public int GetMoneyGeneration()
+    {
+        int Base = buildingType.GetTaxGeneration();
+        int FinalAmount = 0;
+        if (CurrentlyInRangeOfPower)
+        {
+            return Base;
+        }
+        else
+        {
+            if (Base > 0)
+            {
+                FinalAmount = Base / 2;
+                FinalAmount -= TimeWithoutPower;
+            }
+            else
+            {
+                FinalAmount = Base * 2;
+                FinalAmount -= TimeWithoutPower;
+            }
+        }
+        return FinalAmount;
     }
     public void DestroyWarning()
     {

@@ -47,7 +47,7 @@ public class GameStatusScript : MonoBehaviour
     {
         int TotalChange = 0;
         for (int i = 0; i < Buildings.Count; i++) {
-            TotalChange += Buildings[i].GetType().GetTaxGeneration();
+            TotalChange += Buildings[i].GetMoneyGeneration() ;
         }
         return TotalChange;
     }
