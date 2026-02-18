@@ -14,6 +14,7 @@ public class RatingInfo
     int PowerRating = 0;
     int EntertainmentRating = 0;
     int EnviromentRating = 0;
+    int PowerReachRating = 0;
     public void SetHomeLessPercentage(float New){
         HomeLessPercentage = New;
         if(HomeLessPercentage > 60)
@@ -270,9 +271,56 @@ public class RatingInfo
         }
 
     }
+    public void SetPowerReachRating(List<PlacedBuilding> Buildings)
+    {
+        int total = 0;
+        for (int i = 0; i < Buildings.Count; i++)
+        {
+            if (Buildings[i].GetIfInRangeOfPowerPlant())
+            {
+                total++;
+            }
+        }
+        float Percentage = ((float)total /( float)(Buildings.Count)) * 100;
+        if(Percentage < 10)
+        {
+            PowerReachRating = 0;
+            ReportList.Add("Very bad power reach, build a power plant close to other buildings as soon as possible");
+        }
+        else if (Percentage < 25)
+        {
+            PowerReachRating = 15;
+            ReportList.Add("Very bad power reach, build a power plant close to other buildings when you can");
+        }
+        else if (Percentage < 40)
+        {
+            PowerReachRating = 35;
+            ReportList.Add("bad power reach, build a power plant close to other buildings soon");
+        }
+        else  if (Percentage < 50)
+        {
+            PowerReachRating = 55;
+            ReportList.Add("okay power reach, build a power plant close to other buildings soon");
+        }
+        else if (Percentage < 70)
+        {
+            PowerReachRating = 70;
+            ReportList.Add("good power reach");
+        }
+        else if (Percentage < 90)
+        {
+            PowerReachRating = 85;
+            ReportList.Add("Very good power reach");
+        }
+        else if (Percentage >= 90)
+        {
+            PowerReachRating = 100;
+            ReportList.Add("Amazing power reach");
+        }
+    }
     public void CalulcateRating()
     {
-        Rating=((int)(100-HomeLessPercentage)+ShopRating+HospitalRating+RoadRating+PowerRating+EntertainmentRating+EnviromentRating)/7;
+        Rating=((int)(100-HomeLessPercentage)+ShopRating+HospitalRating+RoadRating+PowerRating+EntertainmentRating+EnviromentRating+PowerReachRating)/8;
     }
     public void AddReport(string Report) {  
         ReportList.Add(Report); 

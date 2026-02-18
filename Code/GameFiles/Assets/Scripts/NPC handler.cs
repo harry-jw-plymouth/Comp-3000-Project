@@ -159,7 +159,7 @@ public class NPChandler : MonoBehaviour
     }
     void CheckForLeavingNPCs()
     {
-        int RandomNpcIndex = Random.Range(0, NPCList.Count);
+        int RandomNpcIndex = Random.Range(0, NPCList.Count-1);
         int Happiness=NPCList[RandomNpcIndex].CalculateHappiness();
         int RandomLeaveChance = Random.Range(0, 100);
         if (RandomLeaveChance > Happiness) {
@@ -293,7 +293,7 @@ public class NPChandler : MonoBehaviour
             }
             else if (RandomValue >= ShopChance + HomeChance+HospitalChance && RandomValue < ShopChance + HomeChance + HospitalChance+EntertainmentChance)
             {
-                //go to some kind of entertainme
+                //go to some kind of entertainment
                 if (GridCreator.GetNumberOfEntertainment()!=0)//check hospitals exist
                 {
                     Vector3 EntertainmentPos = GridCreator.GetPosOfNearestEntertainment(NPCList[NPCIndex].GetPosition());
