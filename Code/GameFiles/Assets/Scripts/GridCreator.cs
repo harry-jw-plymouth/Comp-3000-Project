@@ -715,6 +715,12 @@ public class GridCreator : MonoBehaviour
         UpdateStatusOfBuildingsInRangeOfPower();
         DisplayPowerAvailabilityOnBuilding();
     }
+    void DisplayBuildingInfo(int BuildingIndex)
+    {
+        Debug.Log("Displaying building info");
+        Debug.Log("Displaying:" + PlacedBuildings[BuildingIndex].buildingType);
+
+    }
     void CheckForMouseClicK() {
         if (Input.GetMouseButtonDown(0))
         {
@@ -737,6 +743,15 @@ public class GridCreator : MonoBehaviour
             else if (UIHandlerScript.TransportPlacementOn)
             {
                 TransportPlacementScript.PlaceRail(CellClickedPos);
+            }
+            else
+            {
+                int BuildingPos = GetBuildingClicked(CellClickedPos);
+                if (BuildingPos != -1)
+                {
+                    DisplayBuildingInfo(BuildingPos);
+                }
+
             }
 
         }

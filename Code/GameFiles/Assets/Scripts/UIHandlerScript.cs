@@ -43,6 +43,13 @@ public class UIHandlerScript : MonoBehaviour
     public static bool BuildingRemoverOn = false;
     public bool TradeMenuActive=false;
     public bool PauseMenuActive = false;
+
+    public GameObject BuildingInfoBox;
+    public TextMeshProUGUI BuildingTypeText;
+    public TextMeshProUGUI BuildingMoneyText;
+    public TextMeshProUGUI BuildingPowerText;
+    public TextMeshProUGUI BuildingSpeificText;
+    public TextMeshProUGUI BuildingIsPoweredText;
     //  public Square[,] GameGrid;
     private void Start()
     {
