@@ -26,7 +26,7 @@ public class BuildingsListManager : MonoBehaviour
         Buildings = new Building[]
         {
             new Home("Small House",200,2," A small house", new int[1,1]{{0}} ,new int[]{0,0},
-            false ,100, 1000,false,0,10,10,false,0,3),
+            false,100, 1000,false,0,10,10,false,0,3),
             new Home("Medium House",350,4, " A medium house for a bigger family",new int[1,2]{{0,1}}  , new int[] {0,0 },
             false,100,1000,false,1,15,15,false,0,5),
             new Building("Convenience shop",400,6, " a little shop, a bit overpriced",new int[1,2]{{0,1}}, new int[] { 0, 0 },

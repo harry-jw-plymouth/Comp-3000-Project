@@ -43,6 +43,10 @@ public class Building
         CostToBuild = Cost;
         TaxGeneration= Tax;
     }
+    public int GetEnviromentalValue()
+    {
+        return EnviromentalEffect;
+    }
     public int GetCostToBuild()
     {
         return CostToBuild;

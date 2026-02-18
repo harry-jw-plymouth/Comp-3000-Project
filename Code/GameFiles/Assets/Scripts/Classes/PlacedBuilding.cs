@@ -76,7 +76,7 @@ public class PlacedBuilding
     }
     public int GetEnviromentalValue()
     {
-        return buildingType.GetEntertainmentValue();
+        return buildingType.GetEnviromentalValue();
     }
     public void  SetInRangeOfPowerPlant(bool InRange)
     {
