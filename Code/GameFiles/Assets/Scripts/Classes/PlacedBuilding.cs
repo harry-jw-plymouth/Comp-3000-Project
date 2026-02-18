@@ -23,18 +23,12 @@ public class PlacedBuilding
     }
     public void SetWarningSprite(GameObject sprite)
     {
-        PowerWarning = Sprite;
+        PowerWarning =  sprite;
+        PowerWarning.GetComponent<SpriteRenderer>().enabled = false;
     }
     public void DisplayWarning(bool status)
     {
-        if (status)
-        {
-            PowerWarning.SetActive(true);
-        }
-        else
-        {
-            PowerWarning.SetActive(false);
-        }
+        PowerWarning.GetComponent<SpriteRenderer>().enabled = status;
     }
     public int GetEnviromentalValue()
     {

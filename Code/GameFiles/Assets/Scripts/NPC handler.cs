@@ -84,7 +84,7 @@ public class NPChandler : MonoBehaviour
    //     Debug.Log("Setting homes"
      //   Debug.Log("Number of buildings in NPC handler:" + GridCreator.PlacedBuildings.Count);
         bool HomeFound=false;
-        for (int i = 0; i < NumberOfNpcs; i++) {
+        for (int i = 0; i < NPCList.Count; i++) {
             HomeFound = false;
             if (NPCList[i].GetIfHomeless())
             {
@@ -340,7 +340,7 @@ public class NPChandler : MonoBehaviour
         List<int> NPCsToRemove=new List<int>();
         MovementCounter++;
         // check for updates to each NPC
-        for (int i = 0; i < NumberOfNpcs; i++) {
+        for (int i = 0; i < NPCList.Count; i++) {
             if (NPCList[i].GetIfJusteEnteredBuilding())
             {
                 int BuildingIndex=gridCreator.EnterBuildingForNPC(NPCList[i].GetPosition(),i);

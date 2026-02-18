@@ -622,11 +622,12 @@ public class GridCreator : MonoBehaviour
                     }
                     RevertPreviousBuildingHightlight();
                     PlacedBuilding New = new PlacedBuilding(BuildingsListManager.Buildings[BuildingsListManager.BuildingCurrentlySelected].GetInstance(), new int[] { CellClickedPos.x, CellClickedPos.y }, NewSprite);
-                    New.SetWarningSprite(NoPowerForBuildingWarning);
+                    New.SetWarningSprite(Instantiate(NoPowerForBuildingWarning,GameMap.CellToWorld( CellClickedPos),Quaternion.identity) );
                     New.SetBuildingPos(CellClickedPos);
                     PlacedBuildings.Add(New);
                     //     Debug.Log("New buildings count"+PlacedBuildings.Count);
                     
+
                     if (New.GetType().GetIfIsHome())
                     {
                         npcHandler.SetHomes();
@@ -699,11 +700,13 @@ public class GridCreator : MonoBehaviour
                 PlacedBuildings.RemoveAt(BuildingPos);
                 npcHandler.UpdateHomesForNPCsAfterBuildingRemoval(Indexes);
 
-                UnityEngine.Object.Destroy(PowerIcons[BuildingPos]);
-                PowerIcons.RemoveAt(BuildingPos);
+         
+        
 
             }
         }
+        UpdateStatusOfBuildingsInRangeOfPower();
+        DisplayPowerAvailabilityOnBuilding();
     }
     void CheckForMouseClicK() {
         if (Input.GetMouseButtonDown(0))
@@ -1051,6 +1054,7 @@ public class GridCreator : MonoBehaviour
                     PlacedBuilding New = new PlacedBuilding(BaseBuildingTypes[BuildingsFromDb[i].TypeIndex], new int[] { BuildingsFromDb[i].OriginX, BuildingsFromDb[i].OriginY, }, GetSriteForBuilding(BuildingsFromDb[i]));
                     New.SetBuildingPos(new Vector3(BuildingsFromDb[i].Xpos, BuildingsFromDb[i].Ypos, 0));
                     New.SetWarningSprite(NoPowerForBuildingWarning);
+                    New.SetWarningSprite(Instantiate(NoPowerForBuildingWarning, new Vector3(BuildingsFromDb[i].Xpos, BuildingsFromDb[i].Ypos, 0), Quaternion.identity));
                     PlacedBuildings.Add(New);
                     
 
