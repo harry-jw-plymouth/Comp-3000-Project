@@ -349,6 +349,9 @@ public class GridCreator : MonoBehaviour
                 if (RemovedBuilding.Shape[Y, X] != -1)
                 {
                     Vector3Int CurrentPos = GetPositionForSquare(Origin, RemovedBuilding.Shape, X, Y, RemovedBuilding.Origin);
+
+                    GameGrid[CurrentPos.x, CurrentPos.y].Contains = 0;
+
                     GameMap.SetColor(CurrentPos, new Color(1f, 1f, 1f, 0.5f));
                     GameMap.SetTile(CurrentPos, GameTile);
                     
