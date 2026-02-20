@@ -8,6 +8,7 @@ public class TransportPlacementScript : MonoBehaviour
     public static  RuleTile TrackTile;
     [SerializeField] private RuleTile TrackTileReference;
 
+    public int RailOption = -1;
     //-1 is not active, 0 is rail, 1 is underground 2 i bus
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -108,7 +109,7 @@ public class TransportPlacementScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        CheckForMouseClick();
+      //  CheckForMouseClick();
     }
 
 }

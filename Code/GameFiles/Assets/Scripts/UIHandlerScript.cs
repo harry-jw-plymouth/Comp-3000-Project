@@ -44,6 +44,7 @@ public class UIHandlerScript : MonoBehaviour
     public static bool BuildingRemoverOn = false;
     public bool TradeMenuActive=false;
     public bool PauseMenuActive = false;
+    public bool RailMenuActive = false;
 
     public GameObject BuildingInfoBox;
     public TextMeshProUGUI BuildingTypeText;
@@ -52,6 +53,9 @@ public class UIHandlerScript : MonoBehaviour
     public TextMeshProUGUI BuildingSpeificText;
     public TextMeshProUGUI BuildingIsPoweredText;
     public TextMeshProUGUI BuildingEnviromentalValue;
+
+   // public Button PlaceRailButton;
+    public GameObject RailCanvas;
     public bool BuildingInfoShowing = false;
     //  public Square[,] GameGrid;
     private void Start()
@@ -288,6 +292,21 @@ public class UIHandlerScript : MonoBehaviour
         {
             TransportPlacementOn = true;
             TransportBuilderPopUp.SetActive(true);
+        }
+    }
+    public void OnRailButtonClicked()
+    {
+        if (RailMenuActive)
+        {
+            RailMenuActive = false;
+            RailCanvas.SetActive(false);
+            TransportBuilderPopUp.SetActive(true);
+        }
+        else
+        {
+            RailMenuActive = true;
+            RailCanvas.SetActive(true);
+            TransportBuilderPopUp.SetActive(false);
         }
     }
     public void OnBuildingsButtonClick()
