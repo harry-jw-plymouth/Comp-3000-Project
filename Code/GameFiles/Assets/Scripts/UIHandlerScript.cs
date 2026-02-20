@@ -46,6 +46,7 @@ public class UIHandlerScript : MonoBehaviour
     public bool TradeMenuActive=false;
     public bool PauseMenuActive = false;
     public bool RailMenuActive = false;
+    public bool RouteMenuActive = false;
 
     public GameObject BuildingInfoBox;
     public TextMeshProUGUI BuildingTypeText;
@@ -57,6 +58,7 @@ public class UIHandlerScript : MonoBehaviour
 
    // public Button PlaceRailButton;
     public GameObject RailCanvas;
+    public GameObject RouteSetCanvas;
     public bool BuildingInfoShowing = false;
     //  public Square[,] GameGrid;
     private void Start()
@@ -69,6 +71,20 @@ public class UIHandlerScript : MonoBehaviour
     void Update()
     {
         
+    }
+    public void OnRouteMenuCloseButtonClicked()
+    {
+        RouteSetCanvas.SetActive(false);
+        RouteMenuActive = false ;
+    }
+    public void OnTrainRouteButtonClicked()
+    {
+        OpenRouteCanvas();
+    }
+    public void OpenRouteCanvas()
+    {
+        RouteMenuActive= true ;
+        RouteSetCanvas.SetActive(true);
     }
     public void DisplayBuildingInfo(PlacedBuilding BuildingToDisplay)
     {
