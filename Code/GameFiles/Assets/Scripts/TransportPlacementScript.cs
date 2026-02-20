@@ -8,7 +8,7 @@ public class TransportPlacementScript : MonoBehaviour
     public static  RuleTile TrackTile;
     [SerializeField] private RuleTile TrackTileReference;
 
-    //-1 is not active, 0 is rail
+    //-1 is not active, 0 is rail, 1 is underground 2 i bus
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -28,16 +28,45 @@ public class TransportPlacementScript : MonoBehaviour
     {
         //Set transport selection to rail
         Debug.Log("Rail selected");
-        TransportModeSelected = 0; 
+        TransportModeSelected = 0;
+    }
+    public void OnUnderGroundButtonClicked()
+    {
+        //Set transport selection to Underground
+        Debug.Log("Underground selected");
+        TransportModeSelected = 1; 
+    }
+    public void OnbusButtonClicked()
+    {
+        //Set transport selection to Bus
+        Debug.Log("Bus selected");
+        TransportModeSelected = 2;
+    }
+    public void DoBusClickHandling(Vector3Int CellClickedPos)
+    {
+        Debug.Log("Attempting to place bus route");
+    }
+    public void DoUnderGroundClickHandling(Vector3Int CellClickedPos)
+    {
+        Debug.Log("Attempting to place underground");
     }
     public void DoTransportPlacement(Vector3Int CellClickedPos)
     {
         Debug.Log("attempting to build mode " + TransportModeSelected);
-        if (TransportModeSelected == -1) {
+        if (TransportModeSelected == -1)
+        {
             Debug.Log("No transport mode selected");
         }
-        else if (TransportModeSelected == 0) {
+        else if (TransportModeSelected == 0)
+        {
             PlaceRail(CellClickedPos);
+        }
+        else if (TransportModeSelected == 1)
+        {
+            DoUnderGroundClickHandling(CellClickedPos);
+        }
+        else if (TransportModeSelected == 2) {
+            DoBusClickHandling(CellClickedPos);
         }
     }
     public static void PlaceRail(Vector3Int CellClickedPos)

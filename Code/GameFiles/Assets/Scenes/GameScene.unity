@@ -8527,7 +8527,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1428842824}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1113947654}
+        m_TargetAssemblyTypeName: TransportPlacementScript, Assembly-CSharp
+        m_MethodName: OnbusButtonClicked
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1428842824
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8880,7 +8892,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1472764863}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1113947654}
+        m_TargetAssemblyTypeName: TransportPlacementScript, Assembly-CSharp
+        m_MethodName: OnUnderGroundButtonClicked
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1472764863
 MonoBehaviour:
   m_ObjectHideFlags: 0
