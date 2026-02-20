@@ -34,6 +34,7 @@ public class UIHandlerScript : MonoBehaviour
 
     public GameStatusScript gameHandler;
     public PowerHandlerScript powerHandler;
+    public TransportPlacementScript TransportHandler;
 
 
     public GameObject AlertpopUp;
@@ -284,9 +285,12 @@ public class UIHandlerScript : MonoBehaviour
     {
         Debug.Log("Transport button clicked");
         SetUIInactive();
+        RailCanvas.SetActive(false);
         if (TransportPlacementOn)
         {
             TransportPlacementOn = false;
+            TransportBuilderPopUp.SetActive(false);
+            
         }
         else
         {
@@ -304,6 +308,7 @@ public class UIHandlerScript : MonoBehaviour
         }
         else
         {
+            
             RailMenuActive = true;
             RailCanvas.SetActive(true);
             TransportBuilderPopUp.SetActive(false);

@@ -8,7 +8,10 @@ public class TransportPlacementScript : MonoBehaviour
     public static  RuleTile TrackTile;
     [SerializeField] private RuleTile TrackTileReference;
 
-    public int RailOption = -1;
+    public static int RailMode = -1;
+    //0 is rail, 1 is rail
+    
+    public int TransportOption = -1;
     //-1 is not active, 0 is rail, 1 is underground 2 i bus
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -30,6 +33,17 @@ public class TransportPlacementScript : MonoBehaviour
         //Set transport selection to rail
         Debug.Log("Rail selected");
         TransportModeSelected = 0;
+    }
+    public void OnRailPlacementButtonClicked()
+    {
+        Debug.Log("Rail mode set to 0");
+        RailMode = 0;
+        TransportModeSelected = 0;
+    }
+    public void OnStationPlacementButtonClicked()
+    {
+        Debug.Log("Rail mode set to 1");
+        RailMode = 1;
     }
     public void OnUnderGroundButtonClicked()
     {
@@ -53,12 +67,10 @@ public class TransportPlacementScript : MonoBehaviour
     }
     public void DoTransportPlacement(Vector3Int CellClickedPos)
     {
+        
         Debug.Log("attempting to build mode " + TransportModeSelected);
-        if (TransportModeSelected == -1)
-        {
-            Debug.Log("No transport mode selected");
-        }
-        else if (TransportModeSelected == 0)
+        
+        if (TransportModeSelected == 0)
         {
             PlaceRail(CellClickedPos);
         }
@@ -69,25 +81,45 @@ public class TransportPlacementScript : MonoBehaviour
         else if (TransportModeSelected == 2) {
             DoBusClickHandling(CellClickedPos);
         }
+        else
+        {
+            Debug.Log("No transport mode selected");
+        }
     }
     public static void PlaceRail(Vector3Int CellClickedPos)
     {
         Debug.Log("Attempting to place rail at "+ CellClickedPos.x +", "+CellClickedPos.y);
-
-        //Place rail tiles 
-        try
+        Debug.Log("RailMode:" + RailMode);
+        if (RailMode != -1)
         {
-            if (GridCreator.GameGrid[CellClickedPos.x, CellClickedPos.y].Contains == 0)
+            if (RailMode == 0)
             {
-                GridCreator.GameGrid[CellClickedPos.x, CellClickedPos.y].Contains = 2;
-                GridCreator.GameMap.SetTile(CellClickedPos, TrackTile);
+                //place rail
+                try
+                {
+                    if (GridCreator.GameGrid[CellClickedPos.x, CellClickedPos.y].Contains == 0)
+                    {
+                        GridCreator.GameGrid[CellClickedPos.x, CellClickedPos.y].Contains = 2;
+                        GridCreator.GameMap.SetTile(CellClickedPos, TrackTile);
+                    }
+                }
+                catch
+                {
+                    Debug.Log("Click not in grid square");
+
+                }
+
+            }
+            else if(RailMode == 1)
+            {
+                //place stations
             }
         }
-        catch
+        else
         {
-            Debug.Log("Click not in grid square");
-
+            Debug.Log("No rail option selected");
         }
+        
     }
     void CheckForMouseClick()
     {
