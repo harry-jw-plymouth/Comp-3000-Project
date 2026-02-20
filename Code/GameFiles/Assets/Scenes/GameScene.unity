@@ -512,6 +512,7 @@ MonoBehaviour:
   PowerPlantPrefab: {fileID: 3510485596384159867, guid: 5ee9fed237235aa4cb7041a897868258, type: 3}
   WindFarmPrefab: {fileID: 5017083642667601427, guid: 3c9b57547762e47479bca9a65c3d54b8, type: 3}
   ShoppingCenterPrefab: {fileID: 1723635326680007876, guid: a117091a506c3a74b9720c7dccd91c2d, type: 3}
+  TrainStationPrefab: {fileID: 6340389181725529429, guid: 317ec66078f129e46965b7b504d35ac1, type: 3}
   GameStatusScript: {fileID: 1453347093}
   NoPowerForBuildingWarning: {fileID: 4836441252777522745, guid: cc542b047d2fbb24299bb4a52430b027, type: 3}
   PowerIcons: []
