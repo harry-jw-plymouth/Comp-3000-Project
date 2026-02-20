@@ -760,7 +760,15 @@ public class GridCreator : MonoBehaviour
             }
             else if (UIHandlerScript.TransportPlacementOn)
             {
-                TransportHandler.DoTransportPlacement(CellClickedPos);
+                if (BuildingsListManager.BuildingCurrentlySelected == 8)
+                {
+                    PlaceBuilding(CellClickedPos);
+                }
+                else
+                {
+                    TransportHandler.DoTransportPlacement(CellClickedPos);
+                }
+                    
             }
             else
             {

@@ -6,6 +6,8 @@ public class TransportPlacementScript : MonoBehaviour
 {
     public int TransportModeSelected = -1;
     public static  RuleTile TrackTile;
+    public GridCreator GridHandler;
+    public UIHandlerScript uiHandler;
     [SerializeField] private RuleTile TrackTileReference;
 
     public static int RailMode = -1;
@@ -44,6 +46,7 @@ public class TransportPlacementScript : MonoBehaviour
     {
         Debug.Log("Rail mode set to 1");
         RailMode = 1;
+        BuildingsListManager.BuildingCurrentlySelected = 8;
     }
     public void OnUnderGroundButtonClicked()
     {
@@ -86,11 +89,14 @@ public class TransportPlacementScript : MonoBehaviour
             Debug.Log("No transport mode selected");
         }
     }
-    public static void PlaceStation(Vector3Int CellClickedPos)
+    public void PlaceStation(Vector3Int CellClickedPos)
     {
         Debug.Log("PlacingStations");
+        
+        
+        
     }
-    public static void PlaceRail(Vector3Int CellClickedPos)
+    public void PlaceRail(Vector3Int CellClickedPos)
     {
         Debug.Log("Attempting to place rail at "+ CellClickedPos.x +", "+CellClickedPos.y);
         Debug.Log("RailMode:" + RailMode);
