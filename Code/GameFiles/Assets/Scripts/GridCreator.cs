@@ -46,7 +46,10 @@ public class GridCreator : MonoBehaviour
     public GameObject PowerPlantPrefab;
     public GameObject WindFarmPrefab;
     public GameObject ShoppingCenterPrefab;
+    public GameObject TrainStationPrefab;
+
     public GameStatusScript GameStatusScript;
+
 
     public GameObject NoPowerForBuildingWarning;
 
