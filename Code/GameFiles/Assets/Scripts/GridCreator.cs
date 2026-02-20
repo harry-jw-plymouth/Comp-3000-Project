@@ -212,6 +212,17 @@ public class GridCreator : MonoBehaviour
         }
         return false;
     }
+    public static bool GetIfTrainStationExists()
+    {
+        for(int i = 0; i < PlacedBuildings.Count; i++)
+        {
+            if (PlacedBuildings[i].GetIfTrainStation())
+            {
+                return true;
+            }
+        }
+        return false;
+    }
     static int GetDistanceBetweenPostions(Vector3Int Pos1, Vector3Int Pos2)
     {
         int XDiff=0, YDiff=0;

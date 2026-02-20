@@ -72,6 +72,31 @@ public class UIHandlerScript : MonoBehaviour
     {
         
     }
+    public void OnRouteStartButtonClick()
+    {
+        Debug.Log("Selecting route start");
+        if (GridCreator.GetIfTrainStationExists())
+        {
+            Debug.Log("Selecting start");
+        }
+        else
+        {
+            ShowAlertPopUp("No train stations for route");
+        }
+    }
+    public void OnRouteEndButtonClicked()
+    {
+        Debug.Log("Selecting route end");
+        if (GridCreator.GetIfTrainStationExists())
+        {
+            Debug.Log("Selecting end");
+        }
+        else
+        {
+            ShowAlertPopUp("No train stations for route");
+        }
+    }
+
     public void OnRouteMenuCloseButtonClicked()
     {
         RouteSetCanvas.SetActive(false);
