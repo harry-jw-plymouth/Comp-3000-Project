@@ -1,6 +1,9 @@
+using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Tilemaps;
+using System.Collections.Generic;
+using UnityEditor.PackageManager;
 
 public class TransportPlacementScript : MonoBehaviour
 {
@@ -96,6 +99,37 @@ public class TransportPlacementScript : MonoBehaviour
         
         
     }
+    public List<Vector3Int>GetSurroundingTiles(Vector3Int CellClickedPos)
+    {
+        List<Vector3Int> Tiles = new List<Vector3Int> ();
+        Tiles.Add(new Vector3Int(CellClickedPos.x+1, CellClickedPos.y , 0));
+        Tiles.Add(new Vector3Int(CellClickedPos.x-1, CellClickedPos.y , 0));
+        Tiles.Add(new Vector3Int(CellClickedPos.x, CellClickedPos.y + 1, 0));
+        Tiles.Add (new Vector3Int(CellClickedPos.x, CellClickedPos.y-1,0));
+        return Tiles;
+
+
+    }
+    public bool GetIfRailCanBePlaced(Vector3Int CellClickedPos)
+    {
+        List<Vector3Int> Tiles = GetSurroundingTiles(CellClickedPos);
+        for(int i = 0; i < Tiles.Count; i++)
+        {
+            if (GridCreator.GameGrid[Tiles[i].x,Tiles[i].y].Contains == 4)
+            {
+                return true;
+            }else if (GridCreator.GameGrid[Tiles[i].x, Tiles[i].y].Contains == 2)
+            {
+                int BuildPos = GridHandler.GetBuildingClicked(Tiles[i]);
+                if (BuildPos!=-1 ||GridCreator.PlacedBuildings[BuildPos].GetIfTrainStation())
+                {
+                    return true;
+                }
+            }
+        }
+        
+        return false;
+    }
     public void PlaceRail(Vector3Int CellClickedPos)
     {
         Debug.Log("Attempting to place rail at "+ CellClickedPos.x +", "+CellClickedPos.y);
@@ -107,15 +141,25 @@ public class TransportPlacementScript : MonoBehaviour
                 //place rail
                 try
                 {
-                    if (GridCreator.GameGrid[CellClickedPos.x, CellClickedPos.y].Contains == 0)
+                    if (GetIfRailCanBePlaced(CellClickedPos))
                     {
-                        GridCreator.GameGrid[CellClickedPos.x, CellClickedPos.y].Contains = 2;
-                        GridCreator.GameMap.SetTile(CellClickedPos, TrackTile);
+                        if (GridCreator.GameGrid[CellClickedPos.x, CellClickedPos.y].Contains == 0)
+                        {
+                            GridCreator.GameGrid[CellClickedPos.x, CellClickedPos.y].Contains = 4;
+                            GridCreator.GameMap.SetTile(CellClickedPos, TrackTile);
+                        }
                     }
+                    else
+                    {
+                        Debug.Log("Rail could not be placed");
+                    }
+                    
                 }
-                catch
+                catch(System.Exception error)
                 {
-                    Debug.Log("Click not in grid square");
+
+                    
+                    Debug.Log("Click not in grid square: "+error);
 
                 }
 

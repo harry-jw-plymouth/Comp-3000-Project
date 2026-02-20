@@ -388,7 +388,7 @@ public class GridCreator : MonoBehaviour
         PreviousBuildingHighlight = PreviousBuildingHighlight = new List<Vector3Int>();
 
     }
-    int GetBuildingClicked(Vector3Int MousePos)
+    public int GetBuildingClicked(Vector3Int MousePos)
     {
         for (int i = 0; PlacedBuildings.Count > i; i++)
         {

@@ -22,6 +22,10 @@ public class PlacedBuilding
        
         //BuildingPos = new Vector3( originPos[0],originPos[1],0);
     }
+    public bool GetIfTrainStation()
+    {
+        return buildingType.IsTrainStation;
+    }
     public void SetWarningSprite(GameObject sprite)
     {
         PowerWarning =  sprite;

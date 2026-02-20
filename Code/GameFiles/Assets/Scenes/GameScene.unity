@@ -7216,6 +7216,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TransportPlacementScript
   TransportModeSelected: -1
+  GridHandler: {fileID: 94827939}
+  uiHandler: {fileID: 1831244042}
   TrackTileReference: {fileID: 11400000, guid: c10fb5d797e02324badac4dad8a98979, type: 2}
   TransportOption: -1
 --- !u!4 &1113947655
