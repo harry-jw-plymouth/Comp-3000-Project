@@ -86,6 +86,10 @@ public class TransportPlacementScript : MonoBehaviour
             Debug.Log("No transport mode selected");
         }
     }
+    public static void PlaceStation(Vector3Int CellClickedPos)
+    {
+        Debug.Log("PlacingStations");
+    }
     public static void PlaceRail(Vector3Int CellClickedPos)
     {
         Debug.Log("Attempting to place rail at "+ CellClickedPos.x +", "+CellClickedPos.y);
@@ -113,6 +117,7 @@ public class TransportPlacementScript : MonoBehaviour
             else if(RailMode == 1)
             {
                 //place stations
+                PlaceStation(CellClickedPos);
             }
         }
         else
