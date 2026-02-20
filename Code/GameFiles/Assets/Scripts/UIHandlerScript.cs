@@ -81,7 +81,9 @@ public class UIHandlerScript : MonoBehaviour
         }
         else
         {
+            Debug.Log("No train station found");
             ShowAlertPopUp("No train stations for route");
+       
         }
     }
     public void OnRouteEndButtonClicked()
