@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 3d2bbd71796930f4b94e91bf406db6e1
+guid: a99b57d8207171d4e8cb8a861d8a274a
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -4908078673539967543
-    second: Railway Bottom Buffers-1.png_0
+      213: 1886002867535269822
+    second: Railway right buffers_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,7 +100,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Railway Bottom Buffers-1.png_0
+      name: Railway right buffers_0
       rect:
         serializedVersion: 2
         x: 0
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 9c5daf5537003ebb0800000000000000
-      internalID: -4908078673539967543
+      spriteID: ebfcec49d9d6c2a10800000000000000
+      internalID: 1886002867535269822
       vertices: []
       indices: 
       edges: []
@@ -135,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Railway Bottom Buffers-1.png_0: -4908078673539967543
+      Railway right buffers_0: 1886002867535269822
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
