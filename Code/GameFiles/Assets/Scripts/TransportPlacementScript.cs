@@ -30,6 +30,16 @@ public class TransportPlacementScript : MonoBehaviour
         Debug.Log("Rail selected");
         TransportModeSelected = 0; 
     }
+    public void DoTransportPlacement(Vector3Int CellClickedPos)
+    {
+        Debug.Log("attempting to build mode " + TransportModeSelected);
+        if (TransportModeSelected == -1) {
+            Debug.Log("No transport mode selected");
+        }
+        else if (TransportModeSelected == 0) {
+            PlaceRail(CellClickedPos);
+        }
+    }
     public static void PlaceRail(Vector3Int CellClickedPos)
     {
         Debug.Log("Attempting to place rail at "+ CellClickedPos.x +", "+CellClickedPos.y);

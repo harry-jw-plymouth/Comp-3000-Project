@@ -9,6 +9,7 @@ using static UnityEditor.PlayerSettings;
 public class GridCreator : MonoBehaviour
 {
     [SerializeField] NPChandler npcHandler;
+    [SerializeField] TransportPlacementScript TransportHandler;
     public static Square[,]GameGrid = new Square[GridCreator.WIDTH, GridCreator.HEIGHT];
     public const int WIDTH = 100;
     public const int HEIGHT = 100;
@@ -722,6 +723,11 @@ public class GridCreator : MonoBehaviour
         uiHandler.DisplayBuildingInfo(PlacedBuildings[BuildingIndex]);
 
     }
+    public void OnPowerWarningClicked()
+    {
+        Debug.Log("Power warning clicked");
+    }
+
     void CheckForMouseClicK() {
         if (Input.GetMouseButtonDown(0))
         {
@@ -743,7 +749,7 @@ public class GridCreator : MonoBehaviour
             }
             else if (UIHandlerScript.TransportPlacementOn)
             {
-                TransportPlacementScript.PlaceRail(CellClickedPos);
+                TransportHandler.DoTransportPlacement(CellClickedPos);
             }
             else
             {
