@@ -8470,7 +8470,7 @@ MonoBehaviour:
   GridHandler: {fileID: 94827939}
   uiHandler: {fileID: 1831244042}
   TrackTileReference: {fileID: 11400000, guid: c10fb5d797e02324badac4dad8a98979, type: 2}
-  RedModernTrainFront: {fileID: 0}
+  RedModernTrainFront: {fileID: 2384667250436792547, guid: e8c4d4154919ec840afe2831edd025a2, type: 3}
   TransportOption: -1
 --- !u!4 &1113947655
 Transform:

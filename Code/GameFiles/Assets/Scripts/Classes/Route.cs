@@ -30,7 +30,8 @@ public class Route
     {
     
         HasBeenActivated= true;
-        Train New = new Train(RoutePositions[0],  SpriteForTrains);
+        GameObject Obj = Object.Instantiate(SpriteForTrains, (Vector3)RoutePositions[0], Quaternion.identity);
+        Train New = new Train(RoutePositions[0], Obj);
         TrainsOnRoute.Add(New);
 
     }
