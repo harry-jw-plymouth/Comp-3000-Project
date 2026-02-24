@@ -15,7 +15,7 @@ public class Train
     {
         CreatedSprite = Sprite;
         CreatedSprite.GetComponent<SpriteRenderer>().enabled = true;
-        CurrentPosition = StartTile;
+        CurrentPosition = CreatedSprite.transform.position;
       //  InstantiateSprite();
         //TrainSpritePrefab = Sprite;
 

@@ -118,24 +118,37 @@ public class Route
                 //Move
                 float MoveSpeed = 0.25f;
                 Vector3 Movement = new Vector3(0.0f, 0.0f, 0.0f);
+                Vector3 CurrentPosition= TrainsOnRoute[i].GetPosition();
                 Vector3 CurrentTarget = RoutePositions[TrainsOnRoute[i].CurrentlyTargetting];
-                if (TrainsOnRoute[i].XCurrentlyIncreasing)
+
+                float XChange = CurrentTarget.x - CurrentPosition.y;
+                float YChange= CurrentTarget.y - CurrentPosition.z;
+
+                if (Mathf.Abs(XChange) > 0.01f)
                 {
-                    Movement.x = MoveSpeed;
-                    
+                    Movement.x=Mathf.Sign(XChange)*MoveSpeed;
                 }
-                else
+                else if (Mathf.Abs(YChange) > 0.01f)
                 {
-                    Movement.x = -MoveSpeed;
+                    Movement.y=Mathf.Sign(YChange)*MoveSpeed;
                 }
-                if (TrainsOnRoute[i].YCurrentlyIncreasing)
-                {
-                    Movement.y = MoveSpeed;
-                }
-                else
-                {
-                    Movement.y = -MoveSpeed;
-                }
+                    //if (TrainsOnRoute[i].XCurrentlyIncreasing)
+                    // {
+                    //   Movement.x = MoveSpeed;
+                    //     
+                    //   }
+                    //     else
+                    //       {
+                    //             Movement.x = -MoveSpeed;
+                    // }
+                    //   if (TrainsOnRoute[i].YCurrentlyIncreasing)
+                    //     {
+                    //        Movement.y = MoveSpeed;
+                    //    }
+                    //  else
+                    // {
+                    //       Movement.y = -MoveSpeed;
+                    //     }
                 Movement *= Time.deltaTime;
                 TrainsOnRoute[i].AdjustPosition(Movement);
                 TrainsOnRoute[i].CreatedSprite.transform.position = TrainsOnRoute[i].GetPosition();
