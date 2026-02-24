@@ -21,8 +21,11 @@ public class UIHandlerScript : MonoBehaviour
     public GameObject TransportBuilderPopUp;
     public GameObject PauseCanvas;
     public GameObject TradeCanvas;
+    public GameObject MainUICanvas;
+    public GameObject StationSelectCanvas;
     public GameObject UpdatesButton;
     public Button TradeButton;
+    
 
 
     public TMP_Dropdown TradeItems;
@@ -73,6 +76,12 @@ public class UIHandlerScript : MonoBehaviour
     {
         
     }
+    public void OnStationSelectorBackButtonClicked() {
+        MainUICanvas.SetActive(true);
+        StationSelectCanvas.SetActive(false);
+        SelectingRouteLocation=false;
+        RouteSetCanvas.SetActive(true) ;
+    }
     public void OnRouteStartButtonClick()
     {
         Debug.Log("Selecting route start");
@@ -80,6 +89,9 @@ public class UIHandlerScript : MonoBehaviour
         {
             Debug.Log("Selecting start");
             RouteSetCanvas.SetActive(false);
+            MainUICanvas.SetActive(false);
+            RailCanvas.SetActive(false);
+            StationSelectCanvas.SetActive(true);
             SelectingRouteLocation = true;
 
         }
