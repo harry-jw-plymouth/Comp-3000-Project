@@ -64,6 +64,7 @@
     <Compile Include="Assets\Scripts\GridCreator.cs" />
     <Compile Include="Assets\Scripts\DbModels\SaveBuildingModel.cs" />
     <Compile Include="Assets\Scripts\NPC handler.cs" />
+    <Compile Include="Assets\Scripts\Classes\Train.cs" />
     <Compile Include="Assets\Scripts\Classes\RatingInfo.cs" />
     <Compile Include="Assets\Scripts\Classes\PlacedBuilding.cs" />
     <Compile Include="Assets\Scripts\BuildingsListManager.cs" />

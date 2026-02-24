@@ -4,6 +4,7 @@ using UnityEngine.InputSystem;
 using UnityEngine.Tilemaps;
 using System.Collections.Generic;
 using UnityEditor.PackageManager;
+using Unity.VisualScripting;
 
 public class TransportPlacementScript : MonoBehaviour
 {
@@ -324,9 +325,20 @@ public class TransportPlacementScript : MonoBehaviour
             }
         }
     }
+    void CheckForNewRoutes()
+    {
+        for(int i = 0; i < TrainRoutes.Count; i++)
+        {
+            if (!TrainRoutes[i].GetIfActivated())
+            {
+                TrainRoutes[i].Activate();
+            }
+        }
+    }
     // Update is called once per frame
     void Update()
     {
+        CheckForNewRoutes();
       //  CheckForMouseClick();
     }
 

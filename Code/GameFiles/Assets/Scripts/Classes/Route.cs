@@ -8,10 +8,21 @@ public class Route
     List<Vector3Int> StopsPositions=new List<Vector3Int>();
     List<Vector3Int> RoutePositions=new List<Vector3Int>();
     public PlacedBuilding StartStation, EndStation;
+    public bool HasBeenActivated = false;
+    
+    
 
     public Route(PlacedBuilding Start,PlacedBuilding End)
     {
         StartStation= Start;EndStation= End;
+    }
+    public bool GetIfActivated()
+    {
+        return HasBeenActivated;
+    }
+    public void Activate()
+    {
+        HasBeenActivated= true;
     }
     public List<Vector3Int> GetRailsTouchingStation(PlacedBuilding Current)
     {
