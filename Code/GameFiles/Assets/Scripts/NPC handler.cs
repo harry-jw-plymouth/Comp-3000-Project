@@ -160,7 +160,17 @@ public class NPChandler : MonoBehaviour
     void CheckForLeavingNPCs()
     {
         int RandomNpcIndex = Random.Range(0, NPCList.Count-1);
-        int Happiness=NPCList[RandomNpcIndex].CalculateHappiness();
+        int Happiness = 50;
+        try
+        {
+            Happiness = NPCList[RandomNpcIndex].CalculateHappiness();
+        }
+        catch {
+            Happiness = NPCList[RandomNpcIndex/2].CalculateHappiness();
+        }
+        ;
+
+        
         int RandomLeaveChance = Random.Range(0, 100);
         if (RandomLeaveChance > Happiness) {
             if (NPCList[RandomNpcIndex].GetIfInBuilding())

@@ -16,11 +16,11 @@ public class Route
     public List<Vector3Int> GetRailsTouchingStation(PlacedBuilding Current)
     {
         List<Vector3Int>Positions=new List<Vector3Int>();
-        for (int y = 0; y < StartStation.GetShape().GetLength(0); y++)
+        for (int y = 0; y < Current.GetShape().GetLength(0); y++)
         {
-            for (int x = 0; x < StartStation.GetShape().GetLength(1); x++)
+            for (int x = 0; x < Current.GetShape().GetLength(1); x++)
             {
-                Vector3Int CurrentPos = StartStation.GetBuildingPosAsInt() + new Vector3Int(x, y, 0);
+                Vector3Int CurrentPos = Current.GetBuildingPosAsInt() + new Vector3Int(x, y, 0);
                 if (GridCreator.GameGrid[CurrentPos.x + 1, CurrentPos.y].Contains == 4)
                 {
                     Positions.Add(new Vector3Int(CurrentPos.x + 1, CurrentPos.y, 0));
@@ -75,6 +75,10 @@ public class Route
         return false;
     }
 
+    public List<Vector3Int> GetCurrentRoute()
+    {
+        return RoutePositions;
+    }
     public void SetRoute(Square[,]GameGrid)
     {
         Queue<Vector3Int> ToCheck = new Queue<Vector3Int>();
@@ -136,7 +140,7 @@ public class Route
             }
             for (int i = 0; i < NewChecks.Count; i++)
             {
-                if (AlreadyVisited.Contains(NewChecks[i]))
+                if (!AlreadyVisited.Contains(NewChecks[i]))
                 {
                     ToCheck.Enqueue(NewChecks[i]);
                     AlreadyVisited.Add(NewChecks[i]);

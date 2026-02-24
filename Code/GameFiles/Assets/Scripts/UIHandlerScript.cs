@@ -91,6 +91,14 @@ public class UIHandlerScript : MonoBehaviour
         {
             Debug.Log("Making new route");
             Route NewRoute = new Route(GridCreator.PlacedBuildings[StartRouteStationBuilding], GridCreator.PlacedBuildings[EndRouteStationBuilding]);
+            NewRoute.SetRoute(GridCreator.GameGrid);
+            List<Vector3Int> test = NewRoute.GetCurrentRoute();
+            Debug.Log("Route made");
+            Debug.Log("Route length: " + test.Count);
+            for(int i=0; i<test.Count; i++)
+            {
+                Debug.Log("X:" + test[i].x + ", Y:"+ test[i].y);
+            }
         }
         else
         {
@@ -135,6 +143,7 @@ public class UIHandlerScript : MonoBehaviour
             OnStationSelectorBackButtonClicked();
             RouteStartInfo.text = "Station at " + CellPos.x + "," + CellPos.y;
             StartRouteStationBuilding = BuildingPos;
+            Debug.Log("Start route:" + StartRouteStationBuilding);
         }
         else if (RouteStationPos == 1)
         {
@@ -144,6 +153,7 @@ public class UIHandlerScript : MonoBehaviour
                 OnStationSelectorBackButtonClicked();
                 RouteEndInfo.text = "Station at " + CellPos.x + "," + CellPos.y;
                 EndRouteStationBuilding = BuildingPos;
+                Debug.Log("End route:" + EndRouteStationBuilding);
             }
         }
     }
