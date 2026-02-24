@@ -31,6 +31,14 @@ public class PlacedBuilding
         PowerWarning =  sprite;
         PowerWarning.GetComponent<SpriteRenderer>().enabled = false;
     }
+    public int[,] GetShape()
+    {
+        return buildingType.GetShape();
+    }
+    public Vector3Int GetBuildingPosAsInt()
+    {
+        return new Vector3Int((int)BuildingPos.x,(int)BuildingPos.y,(int)BuildingPos.z);
+    }
     public void DisplayWarning(bool status)
     {
         if (status)

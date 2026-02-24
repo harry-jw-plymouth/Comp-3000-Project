@@ -27,15 +27,131 @@ public class TransportPlacementScript : MonoBehaviour
     {
         TrackTile = TrackTileReference;
     }
+
+    public bool GetIfSquareIsPartOfTargetStation(Vector3Int Current, PlacedBuilding Target)
+    {
+        for (int y = 0; y < Target.GetShape().GetLength(0); y++)
+        {
+            for (int x = 0; x < Target.GetShape().GetLength(1); x++)
+            {
+                if (Current == Target.GetBuildingPosAsInt() + new Vector3Int(x, y, 0))
+                {
+                    return true;
+                }
+            }
+                
+        }
+        return false;
+    }
+    bool getIfIsNextToTargetStation(Vector3Int pos, PlacedBuilding target)
+    {
+        if (GetIfSquareIsPartOfTargetStation(pos + Vector3Int.right, target)) return true;
+        if (GetIfSquareIsPartOfTargetStation(pos + Vector3Int.left, target)) return true;
+        if (GetIfSquareIsPartOfTargetStation(pos + Vector3Int.up, target)) return true;
+        if (GetIfSquareIsPartOfTargetStation(pos + Vector3Int.down, target)) return true;
+
+        return false;
+    }
+    public bool GetIfAlreadyadded(Vector3Int Current, List<Vector3Int> Checked)
+    {
+        if (Checked.Contains(Current))
+        {
+            return true;
+        }
+        return false;
+    }
+
     public bool GetIfLinkBetweenStations(int StartBuilding,int EndBuilding)
     {
-        List<Vector3>PositionsToCheck = new List<Vector3>();
+        List<Vector3Int>PositionsToCheck = new List<Vector3Int>();
+        List<Vector3Int> AlreadyAdded = new List<Vector3Int>();
+        List<Vector3Int>ToCheck= new List<Vector3Int>();
         PlacedBuilding StartStation=GridCreator.PlacedBuildings[StartBuilding];
         PlacedBuilding EndStation = GridCreator.PlacedBuildings[EndBuilding];
 
-        //for(int i =0;i<StartStation.)
+        for(int y = 0; y < StartStation.GetShape().GetLength(0); y++)
+        {
+            for(int x = 0; x<StartStation.GetShape().GetLength(1); x++)
+            {
+                Vector3Int CurrentPos= StartStation.GetBuildingPosAsInt()+new Vector3Int(x,y,0);
+                if (GridCreator.GameGrid[CurrentPos.x + 1, CurrentPos.y].Contains == 4)
+                {
+                    PositionsToCheck.Add(new Vector3Int(CurrentPos.x+1,CurrentPos.y,0));
+                    AlreadyAdded.Add(new Vector3Int(CurrentPos.x + 1, CurrentPos.y, 0));
+                }
+                if (GridCreator.GameGrid[CurrentPos.x - 1, CurrentPos.y].Contains == 4)
+                {
+                    PositionsToCheck.Add(new Vector3Int(CurrentPos.x - 1, CurrentPos.y, 0));
+                    AlreadyAdded.Add(new Vector3Int(CurrentPos.x -1, CurrentPos.y, 0));
+                }
+                if (GridCreator.GameGrid[CurrentPos.x , CurrentPos.y+1].Contains == 4)
+                {
+                    PositionsToCheck.Add(new Vector3Int(CurrentPos.x, CurrentPos.y+1, 0));
+                    AlreadyAdded.Add(new Vector3Int(CurrentPos.x, CurrentPos.y + 1, 0));
+                }
+                if (GridCreator.GameGrid[CurrentPos.x , CurrentPos.y-1].Contains == 4)
+                {
+                    PositionsToCheck.Add(new Vector3Int(CurrentPos.x , CurrentPos.y-1, 0));
+                    AlreadyAdded.Add(new Vector3Int(CurrentPos.x, CurrentPos.y - 1, 0));
 
-        return true;
+                }
+            }
+        }
+        bool found = false;
+        while (!found && PositionsToCheck.Count > 0) {
+            Vector3Int CurrentPos = PositionsToCheck[0];
+           // Vector3Int New;
+            PositionsToCheck.RemoveAt(0);
+            if (getIfIsNextToTargetStation(CurrentPos,EndStation))
+            {
+                Debug.Log("Link found");
+                found = true;
+                //Connected station found
+            }
+            else
+            {
+                //check if rail
+                if (GridCreator.GameGrid[CurrentPos.x, (int)CurrentPos.y].Contains == 4)
+                {
+                    Vector3Int New = new Vector3Int() ;
+                    //add surrounding tiles
+                    if (GridCreator.GameGrid[CurrentPos.x + 1, CurrentPos.y].Contains == 4)
+                    {
+                        ToCheck.Add(new Vector3Int(CurrentPos.x + 1, CurrentPos.y, 0));
+                        // PositionsToCheck.Add(new Vector3Int(CurrentPos.x + 1, CurrentPos.y, 0));
+                        // AlreadyAdded.Add(new Vector3Int(CurrentPos.x + 1, CurrentPos.y, 0));
+                    }
+                    if (GridCreator.GameGrid[CurrentPos.x - 1, CurrentPos.y].Contains == 4)
+                    {
+                        ToCheck.Add(new Vector3Int(CurrentPos.x - 1, CurrentPos.y, 0));
+                      // AlreadyAdded.Add(new Vector3Int(CurrentPos.x - 1, CurrentPos.y, 0));
+                    }
+                    if (GridCreator.GameGrid[CurrentPos.x, CurrentPos.y + 1].Contains == 4)
+                    {
+                        ToCheck.Add(new Vector3Int(CurrentPos.x, CurrentPos.y + 1, 0));
+                       // AlreadyAdded.Add(new Vector3Int(CurrentPos.x, CurrentPos.y + 1, 0));
+                    }
+                    if (GridCreator.GameGrid[CurrentPos.x, CurrentPos.y - 1].Contains == 4)
+                    {
+                        ToCheck.Add(new Vector3Int(CurrentPos.x, CurrentPos.y - 1, 0));
+                      //  AlreadyAdded.Add(new Vector3Int(CurrentPos.x, CurrentPos.y - 1, 0));
+                    }
+                    for (int i = 0; i < ToCheck.Count; i++) {
+                        if (!GetIfAlreadyadded(ToCheck[i], AlreadyAdded)){
+                            PositionsToCheck.Add(ToCheck[i]);
+                            AlreadyAdded.Add(ToCheck[i]);
+                        }
+                    }
+                    ToCheck=new List<Vector3Int>();
+                }
+            }
+            
+        }
+        if (!found)
+        {
+            Debug.Log("No station connected");
+        }
+        return found;
     }
     public void CancelSelection()
     {
