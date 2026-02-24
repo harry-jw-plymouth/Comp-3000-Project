@@ -33,6 +33,13 @@ public class Route
         GameObject Obj = Object.Instantiate(SpriteForTrains, (Vector3)(RoutePositions[0])+new Vector3(0.25f,0.75f,0), Quaternion.identity);
         Train New = new Train(RoutePositions[0], Obj);
         TrainsOnRoute.Add(New);
+        New.CurrentlyTargetting = 1;
+        New.SetNewTarget(RoutePositions[1]);
+
+        Vector3 start = RoutePositions[0];
+        Vector3 target = RoutePositions[1];
+
+        New.SetDirections(target.x > start.x, target.y > start.y);
 
     }
     public List<Vector3Int> GetRailsTouchingStation(PlacedBuilding Current)
@@ -62,6 +69,78 @@ public class Route
             }
         }
         return Positions;
+    }
+    public void DoMovement()
+    {
+        for (int i = 0; i < TrainsOnRoute.Count; i++)
+        {
+            if (TrainsOnRoute[i].GetIfTargetReached())
+            {
+                int CurrentPos = TrainsOnRoute[i].CurrentlyTargetting;
+                if (CurrentPos == RoutePositions.Count-1)
+                {
+                    //End of route
+                }
+                else
+                {
+                    if (TrainsOnRoute[i].CurrentlyAscendingRoute)
+                    {
+                        Vector3 OldTarget = TrainsOnRoute[i].CurrentTarget;
+                        TrainsOnRoute[i].CurrentlyTargetting++;
+
+                        TrainsOnRoute[i].SetNewTarget(RoutePositions[TrainsOnRoute[i].CurrentlyTargetting]);
+                        Vector3 NewTarget = TrainsOnRoute[i].CurrentTarget;
+                        bool x = false;bool y = false;
+                        if (NewTarget.x > OldTarget.x)
+                        {
+                            x = true;
+                        }
+                        if(NewTarget.y > OldTarget.y)
+                        {
+                            y= true;
+                        }
+                        TrainsOnRoute[i].SetDirections(x, y);
+                        
+
+
+
+
+
+                    }
+                    else
+                    {
+                        TrainsOnRoute[i].CurrentlyTargetting--;
+                    }
+                }
+            }
+            else
+            {
+                //Move
+                float MoveSpeed = 0.25f;
+                Vector3 Movement = new Vector3(0.0f, 0.0f, 0.0f);
+                Vector3 CurrentTarget = RoutePositions[TrainsOnRoute[i].CurrentlyTargetting];
+                if (TrainsOnRoute[i].XCurrentlyIncreasing)
+                {
+                    Movement.x = MoveSpeed;
+                    
+                }
+                else
+                {
+                    Movement.x = -MoveSpeed;
+                }
+                if (TrainsOnRoute[i].YCurrentlyIncreasing)
+                {
+                    Movement.y = MoveSpeed;
+                }
+                else
+                {
+                    Movement.y = -MoveSpeed;
+                }
+                Movement *= Time.deltaTime;
+                TrainsOnRoute[i].AdjustPosition(Movement);
+                TrainsOnRoute[i].CreatedSprite.transform.position = TrainsOnRoute[i].GetPosition();
+            }
+        }
     }
 
     public bool GetIfSquareIsPartOfTargetStation(Vector3Int Current, PlacedBuilding Target)

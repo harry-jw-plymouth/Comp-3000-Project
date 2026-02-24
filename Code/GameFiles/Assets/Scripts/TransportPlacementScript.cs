@@ -5,15 +5,19 @@ using UnityEngine.Tilemaps;
 using System.Collections.Generic;
 using UnityEditor.PackageManager;
 using Unity.VisualScripting;
+using NUnit.Framework.Constraints;
+using UnityEditor.Build;
 
 public class TransportPlacementScript : MonoBehaviour
 {
+    int AmountCheckCounter = 0; int CheckFrame = 10;
     public int TransportModeSelected = -1;
     public static  RuleTile TrackTile;
     public GridCreator GridHandler;
     public UIHandlerScript uiHandler;
     [SerializeField] private RuleTile TrackTileReference;
 
+    
     public static List<Route> TrainRoutes=new List<Route>();
 
     public GameObject RedModernTrainFront;
@@ -52,6 +56,7 @@ public class TransportPlacementScript : MonoBehaviour
         }
         return false;
     }
+    
     bool getIfIsNextToTargetStation(Vector3Int pos, PlacedBuilding target)
     {
         if (GetIfSquareIsPartOfTargetStation(pos + Vector3Int.right, target)) return true;
@@ -337,15 +342,34 @@ public class TransportPlacementScript : MonoBehaviour
                 GameObject NewSprite = Instantiate(RedModernTrainFront, TrainRoutes[i].GetCurrentRoute()[0],Quaternion.identity);
                 TrainRoutes[i].SetSpriteForTrainOnRoute(NewSprite);
                 TrainRoutes[i].Activate();
-                NewSprite.GetComponent<SpriteRenderer>().enabled = false;
+                NewSprite.GetComponent<SpriteRenderer>().enabled = true;
 
             }
         }
     }
+    void DoMovement()
+    {
+        for (int i = 0; i < TrainRoutes.Count; i++) {
+            if (TrainRoutes[i].GetIfActivated())
+            {
+                TrainRoutes[i].DoMovement();
+            }
+        }
+
+    }
     // Update is called once per frame
     void Update()
     {
-        CheckForNewRoutes();
+        AmountCheckCounter++;
+        if (AmountCheckCounter >= CheckFrame)
+        {
+            AmountCheckCounter = 0;
+            CheckForNewRoutes();
+            DoMovement();
+
+        }
+
+        
       //  CheckForMouseClick();
     }
 
