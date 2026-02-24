@@ -9,12 +9,18 @@ public class Route
     List<Vector3Int> RoutePositions=new List<Vector3Int>();
     public PlacedBuilding StartStation, EndStation;
     public bool HasBeenActivated = false;
+    List<Train> TrainsOnRoute = new List<Train>();
+    GameObject SpriteForTrains;
     
     
 
     public Route(PlacedBuilding Start,PlacedBuilding End)
     {
         StartStation= Start;EndStation= End;
+    }
+    public void SetSpriteForTrainOnRoute(GameObject Sprite)
+    {
+        SpriteForTrains= Sprite;
     }
     public bool GetIfActivated()
     {
@@ -23,6 +29,8 @@ public class Route
     public void Activate()
     {
         HasBeenActivated= true;
+        Train New = new Train(RoutePositions[0], SpriteForTrains);
+        TrainsOnRoute.Add(New);
     }
     public List<Vector3Int> GetRailsTouchingStation(PlacedBuilding Current)
     {
