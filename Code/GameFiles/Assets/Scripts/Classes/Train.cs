@@ -9,6 +9,7 @@ public class Train
     public Train(Vector3Int StartTile,GameObject Sprite)
     {
         CreatedSprite = Sprite;
+        CreatedSprite.GetComponent<SpriteRenderer>().enabled = true;
         CurrentPosition = StartTile;
       //  InstantiateSprite();
         //TrainSpritePrefab = Sprite;

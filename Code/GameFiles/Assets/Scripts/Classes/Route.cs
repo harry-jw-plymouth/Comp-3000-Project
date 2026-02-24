@@ -30,7 +30,7 @@ public class Route
     {
     
         HasBeenActivated= true;
-        GameObject Obj = Object.Instantiate(SpriteForTrains, (Vector3)RoutePositions[0], Quaternion.identity);
+        GameObject Obj = Object.Instantiate(SpriteForTrains, (Vector3)(RoutePositions[0])+new Vector3(0.25f,0.75f,0), Quaternion.identity);
         Train New = new Train(RoutePositions[0], Obj);
         TrainsOnRoute.Add(New);
 
