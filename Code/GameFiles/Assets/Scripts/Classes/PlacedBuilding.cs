@@ -24,7 +24,7 @@ public class PlacedBuilding
     }
     public bool GetIfTrainStation()
     {
-        return buildingType.IsTrainStation;
+        return buildingType.GetIfIsTrainStation();
     }
     public void SetWarningSprite(GameObject sprite)
     {

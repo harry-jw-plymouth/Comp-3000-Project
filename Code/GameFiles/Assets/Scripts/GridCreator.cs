@@ -756,40 +756,48 @@ public class GridCreator : MonoBehaviour
             Vector3 ClickPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             Vector3Int CellClickedPos = GameMap.WorldToCell(ClickPos);
             // Debug.Log("Click at: " + ClickPos);
-          //  Debug.Log("Click at: " + CellClickedPos);
-            if (UIHandlerScript.TileEditorOn == true)
+            //  Debug.Log("Click at: " + CellClickedPos);
+            if (uiHandler.SelectingRouteLocation)
             {
-                PlaceTiles(CellClickedPos);
-            }
-            else if (BuildingsListManager.BuildingCurrentlySelected != -1)
-            {
-                PlaceBuilding(CellClickedPos);
-            }
-            else if (UIHandlerScript.BuildingRemoverOn)
-            {
-                RemoveBuildings(CellClickedPos);
-            }
-            else if (UIHandlerScript.TransportPlacementOn)
-            {
-                if (BuildingsListManager.BuildingCurrentlySelected == 8)
-                {
-                    PlaceBuilding(CellClickedPos);
-                }
-                else
-                {
-                    TransportHandler.DoTransportPlacement(CellClickedPos);
-                }
-                    
+
             }
             else
             {
-                int BuildingPos = GetBuildingClicked(CellClickedPos);
-                if (BuildingPos != -1)
+                if (UIHandlerScript.TileEditorOn == true)
                 {
-                    DisplayBuildingInfo(BuildingPos);
+                    PlaceTiles(CellClickedPos);
                 }
+                else if (BuildingsListManager.BuildingCurrentlySelected != -1)
+                {
+                    PlaceBuilding(CellClickedPos);
+                }
+                else if (UIHandlerScript.BuildingRemoverOn)
+                {
+                    RemoveBuildings(CellClickedPos);
+                }
+                else if (UIHandlerScript.TransportPlacementOn)
+                {
+                    if (BuildingsListManager.BuildingCurrentlySelected == 8)
+                    {
+                        PlaceBuilding(CellClickedPos);
+                    }
+                    else
+                    {
+                        TransportHandler.DoTransportPlacement(CellClickedPos);
+                    }
 
+                }
+                else
+                {
+                    int BuildingPos = GetBuildingClicked(CellClickedPos);
+                    if (BuildingPos != -1)
+                    {
+                        DisplayBuildingInfo(BuildingPos);
+                    }
+
+                }
             }
+            
 
         }
     }

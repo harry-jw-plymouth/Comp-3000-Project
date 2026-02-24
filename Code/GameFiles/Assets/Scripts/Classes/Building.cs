@@ -22,7 +22,7 @@ public class Building
     public int TaxGeneration;
     public bool IsTrainStation = false;
 
-    public Building(string name,int Cost,int Tax, string description, int[,] shape, int[] origin, bool Shop ,int LB,int UB,bool hospital,int typeIndex,int Usage,int EF,bool Entertainment, int EV)
+    public Building(string name,int Cost,int Tax, string description, int[,] shape, int[] origin, bool Shop ,int LB,int UB,bool hospital,int typeIndex,int Usage,int EF,bool Entertainment, int EV,bool isStation)
     {
         Name = name;
         Description = description;
@@ -43,6 +43,7 @@ public class Building
         EntertainmentValue = EV;
         CostToBuild = Cost;
         TaxGeneration= Tax;
+        IsTrainStation = isStation;
     }
     public void SetIsTrainStation(bool New)
     {
@@ -110,7 +111,7 @@ public class Building
     }
     public virtual Building GetInstance()
     {
-        return new Building(Name,CostToBuild,TaxGeneration, Description, Shape, Origin,IsShop,LowerTimeInBuilding,UpperTimeInBuilding,IsHospital,TypeIndex,PowerUsage,EnviromentalEffect,IsEntertaiment,EntertainmentValue);
+        return new Building(Name,CostToBuild,TaxGeneration, Description, Shape, Origin,IsShop,LowerTimeInBuilding,UpperTimeInBuilding,IsHospital,TypeIndex,PowerUsage,EnviromentalEffect,IsEntertaiment,EntertainmentValue,IsTrainStation);
     }
 
 }

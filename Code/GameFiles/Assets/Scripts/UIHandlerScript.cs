@@ -60,6 +60,7 @@ public class UIHandlerScript : MonoBehaviour
     public GameObject RailCanvas;
     public GameObject RouteSetCanvas;
     public bool BuildingInfoShowing = false;
+    public bool SelectingRouteLocation = false;
     //  public Square[,] GameGrid;
     private void Start()
     {
@@ -78,6 +79,9 @@ public class UIHandlerScript : MonoBehaviour
         if (GridCreator.GetIfTrainStationExists())
         {
             Debug.Log("Selecting start");
+            RouteSetCanvas.SetActive(false);
+            SelectingRouteLocation = true;
+
         }
         else
         {
