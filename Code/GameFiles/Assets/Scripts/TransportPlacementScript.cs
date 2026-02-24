@@ -16,6 +16,8 @@ public class TransportPlacementScript : MonoBehaviour
 
     public static List<Route> TrainRoutes=new List<Route>();
 
+    public GameObject RedModernTrainFront;
+
     public static int RailMode = -1;
     //0 is rail, 1 is rail
     
@@ -331,7 +333,11 @@ public class TransportPlacementScript : MonoBehaviour
         {
             if (!TrainRoutes[i].GetIfActivated())
             {
+                
+                GameObject NewSprite = Instantiate(RedModernTrainFront, TrainRoutes[i].GetCurrentRoute()[0],Quaternion.identity);
+                TrainRoutes[i].SetSpriteForTrainOnRoute(NewSprite);
                 TrainRoutes[i].Activate();
+                
             }
         }
     }

@@ -28,9 +28,11 @@ public class Route
     }
     public void Activate()
     {
+    
         HasBeenActivated= true;
-        Train New = new Train(RoutePositions[0], SpriteForTrains);
+        Train New = new Train(RoutePositions[0],  SpriteForTrains);
         TrainsOnRoute.Add(New);
+
     }
     public List<Vector3Int> GetRailsTouchingStation(PlacedBuilding Current)
     {
