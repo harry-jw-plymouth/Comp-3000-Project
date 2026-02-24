@@ -13,6 +13,8 @@ public class TransportPlacementScript : MonoBehaviour
     public UIHandlerScript uiHandler;
     [SerializeField] private RuleTile TrackTileReference;
 
+    public static List<Route> TrainRoutes=new List<Route>();
+
     public static int RailMode = -1;
     //0 is rail, 1 is rail
     
@@ -22,6 +24,10 @@ public class TransportPlacementScript : MonoBehaviour
     void Start()
     {
         
+    }
+    public static void AddRoute(Route New)
+    {
+        TrainRoutes.Add(New);
     }
     private void Awake()
     {

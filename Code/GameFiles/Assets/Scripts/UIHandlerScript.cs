@@ -99,6 +99,8 @@ public class UIHandlerScript : MonoBehaviour
             {
                 Debug.Log("X:" + test[i].x + ", Y:"+ test[i].y);
             }
+            TransportPlacementScript.AddRoute(NewRoute);
+
         }
         else
         {
