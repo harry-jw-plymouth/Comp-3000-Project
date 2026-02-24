@@ -749,6 +749,18 @@ public class GridCreator : MonoBehaviour
     {
         Debug.Log("Power warning clicked");
     }
+    void CheckForStationClicked(Vector3Int CellClickedPos)
+    {
+        int BuildingPos = GetBuildingClicked(CellClickedPos);
+        if (BuildingPos != -1)
+        {
+            if (PlacedBuildings[BuildingPos].GetIfTrainStation())
+            {
+                Debug.Log("Train station clicked");
+                uiHandler.OnTrainStationClicked(CellClickedPos,BuildingPos);
+            }
+        }
+    }
 
     void CheckForMouseClicK() {
         if (Input.GetMouseButtonDown(0))
@@ -759,7 +771,7 @@ public class GridCreator : MonoBehaviour
             //  Debug.Log("Click at: " + CellClickedPos);
             if (uiHandler.SelectingRouteLocation)
             {
-
+                CheckForStationClicked(CellClickedPos);
             }
             else
             {

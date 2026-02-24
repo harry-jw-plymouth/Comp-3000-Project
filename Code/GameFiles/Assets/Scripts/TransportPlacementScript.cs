@@ -27,7 +27,16 @@ public class TransportPlacementScript : MonoBehaviour
     {
         TrackTile = TrackTileReference;
     }
+    public bool GetIfLinkBetweenStations(int StartBuilding,int EndBuilding)
+    {
+        List<Vector3>PositionsToCheck = new List<Vector3>();
+        PlacedBuilding StartStation=GridCreator.PlacedBuildings[StartBuilding];
+        PlacedBuilding EndStation = GridCreator.PlacedBuildings[EndBuilding];
 
+        //for(int i =0;i<StartStation.)
+
+        return true;
+    }
     public void CancelSelection()
     {
         //Reset value so check is not done for placement

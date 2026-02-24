@@ -59,11 +59,17 @@ public class UIHandlerScript : MonoBehaviour
     public TextMeshProUGUI BuildingIsPoweredText;
     public TextMeshProUGUI BuildingEnviromentalValue;
 
+
+    public TextMeshProUGUI RouteStartInfo;
+    public TextMeshProUGUI RouteEndInfo;
+
    // public Button PlaceRailButton;
     public GameObject RailCanvas;
     public GameObject RouteSetCanvas;
     public bool BuildingInfoShowing = false;
     public bool SelectingRouteLocation = false;
+
+    int RouteStationPos = -1;
     //  public Square[,] GameGrid;
     private void Start()
     {
@@ -93,6 +99,8 @@ public class UIHandlerScript : MonoBehaviour
             RailCanvas.SetActive(false);
             StationSelectCanvas.SetActive(true);
             SelectingRouteLocation = true;
+            RouteStationPos = 0;
+            //0 = first pos of route
 
         }
         else
@@ -102,12 +110,42 @@ public class UIHandlerScript : MonoBehaviour
        
         }
     }
+    public int StartRouteStationBuilding = -1;
+    public int EndRouteStationBuilding= -1;
+    public void OnTrainStationClicked(Vector3Int CellPos, int BuildingPos)
+    {
+        //Check where on the route this station is
+        if (RouteStationPos == 0)
+        {
+            //re display UI
+            OnStationSelectorBackButtonClicked();
+            RouteStartInfo.text = "Station at " + CellPos.x + "," + CellPos.y;
+            StartRouteStationBuilding = BuildingPos;
+        }
+        else if (RouteStationPos == 1)
+        {
+            if (TransportHandler.GetIfLinkBetweenStations(StartRouteStationBuilding,BuildingPos)&&BuildingPos!=StartRouteStationBuilding)
+            {
+                // re display UI
+                OnStationSelectorBackButtonClicked();
+                RouteEndInfo.text = "Station at " + CellPos.x + "," + CellPos.y;
+                EndRouteStationBuilding = BuildingPos;
+            }
+        }
+    }
     public void OnRouteEndButtonClicked()
     {
         Debug.Log("Selecting route end");
         if (GridCreator.GetIfTrainStationExists())
         {
             Debug.Log("Selecting end");
+            RouteSetCanvas.SetActive(false);
+            MainUICanvas.SetActive(false);
+            RailCanvas.SetActive(false);
+            StationSelectCanvas.SetActive(true);
+            SelectingRouteLocation = true;
+            RouteStationPos = 1;
+            //1 = end pos of route
         }
         else
         {
