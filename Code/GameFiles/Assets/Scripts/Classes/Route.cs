@@ -7,11 +7,11 @@ public class Route
     List<Vector3Int> StopsPositions=new List<Vector3Int>();
     List<Vector3Int> RoutePositions=new List<Vector3Int>();
 
-    public Route(Vector3Int Start,Vector3Int End)
+    public Route(PlacedBuilding Start,PlacedBuilding End)
     {
         SetRoute(Start,End);
     }
-    public void SetRoute(Vector3Int Start,Vector3Int End)
+    public void SetRoute(PlacedBuilding Start,PlacedBuilding End)
     {
 
     }

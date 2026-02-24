@@ -69,6 +69,9 @@ public class UIHandlerScript : MonoBehaviour
     public bool BuildingInfoShowing = false;
     public bool SelectingRouteLocation = false;
 
+    public int StartRouteStationBuilding = -1;
+    public int EndRouteStationBuilding = -1;
+
     int RouteStationPos = -1;
     //  public Square[,] GameGrid;
     private void Start()
@@ -81,6 +84,18 @@ public class UIHandlerScript : MonoBehaviour
     void Update()
     {
         
+    }
+    public void OnRouteConfirmButtonClicked()
+    {
+        if(StartRouteStationBuilding!=-1&& EndRouteStationBuilding != -1)
+        {
+            Debug.Log("Making new route");
+            Route NewRoute = new Route(GridCreator.PlacedBuildings[StartRouteStationBuilding], GridCreator.PlacedBuildings[EndRouteStationBuilding]);
+        }
+        else
+        {
+            Debug.Log("Proper selection not made");
+        }
     }
     public void OnStationSelectorBackButtonClicked() {
         MainUICanvas.SetActive(true);
@@ -110,8 +125,7 @@ public class UIHandlerScript : MonoBehaviour
        
         }
     }
-    public int StartRouteStationBuilding = -1;
-    public int EndRouteStationBuilding= -1;
+   
     public void OnTrainStationClicked(Vector3Int CellPos, int BuildingPos)
     {
         //Check where on the route this station is
