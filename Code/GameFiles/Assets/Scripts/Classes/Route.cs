@@ -80,6 +80,17 @@ public class Route
                 if (CurrentPos == RoutePositions.Count-1)
                 {
                     //End of route
+                    Debug.Log("RouteCompleted");
+                    TrainsOnRoute[i].CurrentlyAscendingRoute = !TrainsOnRoute[i].CurrentlyAscendingRoute;
+                    if (TrainsOnRoute[i].CurrentlyAscendingRoute)
+                    {
+                        TrainsOnRoute[i].CurrentlyTargetting++;
+                    }
+                    else
+                    {
+                        TrainsOnRoute[i].CurrentlyTargetting--;
+                    }
+
                 }
                 else
                 {
@@ -103,16 +114,28 @@ public class Route
                             y= true;
                         }
                         TrainsOnRoute[i].SetDirections(x, y);
-                        
-
-
-
-
-
                     }
                     else
                     {
                         TrainsOnRoute[i].CurrentlyTargetting--;
+                        Debug.Log("Reached new postions on route");
+
+                        Vector3 OldTarget = TrainsOnRoute[i].CurrentTarget;
+                        Debug.Log("Reached : " + OldTarget);
+                        TrainsOnRoute[i].CurrentlyTargetting--;
+
+                        TrainsOnRoute[i].SetNewTarget(RoutePositions[TrainsOnRoute[i].CurrentlyTargetting]);
+                        Vector3 NewTarget = TrainsOnRoute[i].CurrentTarget;
+                        bool x = false; bool y = false;
+                        if (NewTarget.x > OldTarget.x)
+                        {
+                            x = true;
+                        }
+                        if (NewTarget.y > OldTarget.y)
+                        {
+                            y = true;
+                        }
+                        TrainsOnRoute[i].SetDirections(x, y);
                     }
                 }
             }

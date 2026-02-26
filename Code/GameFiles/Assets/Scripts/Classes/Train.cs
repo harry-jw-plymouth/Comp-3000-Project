@@ -28,6 +28,7 @@ public class Train
     {
         return Vector3.Distance(CurrentPosition, CurrentTarget) < 0.05f;
     }
+    // :O
 //    public bool GetIfTargetReached()
   //  {
     //    if (XCurrentlyIncreasing)
