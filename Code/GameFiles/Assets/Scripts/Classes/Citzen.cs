@@ -38,6 +38,7 @@ public class Citzen
     int Happiness = 0;
 
     int PositionOnRoute;
+    int NexPositionOnRoute;
     List<Vector3> RoutePositions=new List<Vector3>();
 
     public Citzen(Vector3 Pos,GameObject sprite)
@@ -396,6 +397,67 @@ public class Citzen
     public int GetTimeInBuilding(int LowerBound,int UpperBound)
     {
         return UnityEngine.Random.Range(LowerBound, UpperBound); 
+    }
+    public void MoveTowardsTargetOnRoute()
+    {
+        IncreaseBoredom(1);
+        IncreaseSickness(2);
+        IncreaseTiredNess();
+        if(Position.y > RoutePositions[NexPositionOnRoute].y)
+        {
+            Position.y = Mathf.Max(Position.y - MovementSpeed, RoutePositions[NexPositionOnRoute].y);
+        }
+        else
+        {
+            Position.y = Mathf.Min(Position.y + MovementSpeed, RoutePositions[NexPositionOnRoute].y);
+        }
+        if (Position.x > RoutePositions[NexPositionOnRoute].x)
+        {
+            Position.x = Mathf.Max(Position.x - MovementSpeed, RoutePositions[NexPositionOnRoute].x);
+        }
+        else
+        {
+            Position.x = Mathf.Min(Position.x + MovementSpeed, RoutePositions[NexPositionOnRoute].x);
+        }
+        NPCSprite.transform.position = Position;
+        if (MovementTarget.x == Position.x && MovementTarget.y == Position.y)
+        {
+            if(NexPositionOnRoute == RoutePositions.Count - 1)
+            {
+                //Final target reached
+                MovementTarget = new Vector3();
+                if (TargetIsbuilding)
+                {
+                    JustEnteredBuilding = true;
+                    SetCurrentAction(1);
+                    TargetIsbuilding = false;
+                    InBuilding = GetTimeInBuilding(BuildingCurrentlyTargetting.GetLowerBound(), BuildingCurrentlyTargetting.GetUpperBound());
+                    NPCSprite.GetComponent<SpriteRenderer>().enabled = false;
+                    if (BuildingCurrentlyTargetting.IsHome)
+                    {
+                        SetCurrentAction(2);
+                    }
+                    else if (BuildingCurrentlyTargetting.GetIfIsHospital())
+                    {
+                        SetCurrentAction(3);
+                    }
+                    else if (BuildingCurrentlyTargetting.GetIfEntertainment())
+                    {
+                        SetCurrentAction(4);
+                    }
+                }
+                else
+                {
+                    SetCurrentAction(-1);
+                }
+
+            }
+            else
+            {
+                //Next target
+                NexPositionOnRoute = NexPositionOnRoute++;
+            }
+        }
     }
     public void MovetowardsTarget()
     {
