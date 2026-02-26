@@ -160,19 +160,23 @@ public class Citzen
     {
         List<Vector3Int> Positions = new List<Vector3Int>();
 
-        if (GridCreator.GameGrid[CurrentPos.x + 1, CurrentPos.y].Contains != 4 && GridCreator.GameGrid[CurrentPos.x + 1, CurrentPos.y].Contains != 2)
+        if (GetIfInBounds(CurrentPos.x+1,CurrentPos.y)&&
+            GridCreator.GameGrid[CurrentPos.x + 1, CurrentPos.y].Contains != 4 && GridCreator.GameGrid[CurrentPos.x + 1, CurrentPos.y].Contains != 2)
         {
             Positions.Add(new Vector3Int(CurrentPos.x + 1, CurrentPos.y, 0));
         }
-        if (GridCreator.GameGrid[CurrentPos.x - 1, CurrentPos.y].Contains != 4 && GridCreator.GameGrid[CurrentPos.x - 1, CurrentPos.y].Contains != 2)
+        if (GetIfInBounds(CurrentPos.x-1, CurrentPos.y) && 
+            GridCreator.GameGrid[CurrentPos.x - 1, CurrentPos.y].Contains != 4 && GridCreator.GameGrid[CurrentPos.x - 1, CurrentPos.y].Contains != 2)
         {
             Positions.Add(new Vector3Int(CurrentPos.x - 1, CurrentPos.y, 0));
         }
-        if (GridCreator.GameGrid[CurrentPos.x, CurrentPos.y + 1].Contains != 4 && GridCreator.GameGrid[CurrentPos.x , CurrentPos.y+1].Contains != 2)
+        if (GetIfInBounds(CurrentPos.x, CurrentPos.y+1) &&
+            GridCreator.GameGrid[CurrentPos.x, CurrentPos.y + 1].Contains != 4 && GridCreator.GameGrid[CurrentPos.x , CurrentPos.y+1].Contains != 2)
         {
             Positions.Add(new Vector3Int(CurrentPos.x, CurrentPos.y + 1, 0));
         }
-        if (GridCreator.GameGrid[CurrentPos.x, CurrentPos.y - 1].Contains != 4 && GridCreator.GameGrid[CurrentPos.x, CurrentPos.y-1].Contains != 2)
+        if (GetIfInBounds(CurrentPos.x, CurrentPos.y-1) &&
+            GridCreator.GameGrid[CurrentPos.x, CurrentPos.y - 1].Contains != 4 && GridCreator.GameGrid[CurrentPos.x, CurrentPos.y-1].Contains != 2)
         {
             Positions.Add(new Vector3Int(CurrentPos.x, CurrentPos.y - 1, 0));
         }
@@ -222,25 +226,28 @@ public class Citzen
 
             Vector3Int New = new Vector3Int();
             List<Vector3Int> NewChecks = new List<Vector3Int>();
-
+            
             //add surrounding tiles
-            if (GridCreator.GameGrid[Current.x + 1, Current.y].Contains != 4 && GridCreator.GameGrid[Current.x + 1, Current.y].Contains != 2) 
+            if (GetIfInBounds(Current.x+1,Current.y) && 
+                GridCreator.GameGrid[Current.x + 1, Current.y].Contains != 4 && GridCreator.GameGrid[Current.x + 1, Current.y].Contains != 2) 
             {
                 NewChecks.Add(new Vector3Int(Current.x + 1, Current.y, 0));
                 // PositionsToCheck.Add(new Vector3Int(CurrentPos.x + 1, CurrentPos.y, 0));
                 // AlreadyAdded.Add(new Vector3Int(CurrentPos.x + 1, CurrentPos.y, 0));
             }
-            if (GridCreator.GameGrid[Current.x - 1, Current.y].Contains != 4 && GridCreator.GameGrid[Current.x - 1, Current.y].Contains != 2)
+            if (GetIfInBounds(Current.x-1,Current.y)&&
+                GridCreator.GameGrid[Current.x - 1, Current.y].Contains != 4 && GridCreator.GameGrid[Current.x - 1, Current.y].Contains != 2)
             {
                 NewChecks.Add(new Vector3Int(Current.x - 1, Current.y, 0));
                 // AlreadyAdded.Add(new Vector3Int(CurrentPos.x - 1, CurrentPos.y, 0));
             }
-            if (GridCreator.GameGrid[Current.x, Current.y + 1].Contains == 4 && GridCreator.GameGrid[Current.x , Current.y+1].Contains != 2)
+            if (GetIfInBounds(Current.x,Current.y+1)&&
+                GridCreator.GameGrid[Current.x, Current.y + 1].Contains == 4 && GridCreator.GameGrid[Current.x , Current.y+1].Contains != 2)
             {
                 NewChecks.Add(new Vector3Int(Current.x, Current.y + 1, 0));
                 // AlreadyAdded.Add(new Vector3Int(CurrentPos.x, CurrentPos.y + 1, 0));
             }
-            if (GridCreator.GameGrid[Current.x, Current.y - 1].Contains == 4 && GridCreator.GameGrid[Current.x , Current.y-1].Contains != 2)
+            if (GetIfInBounds(Current.x,Current.y-1)&&  GridCreator.GameGrid[Current.x, Current.y - 1].Contains == 4 && GridCreator.GameGrid[Current.x , Current.y-1].Contains != 2)
             {
                 NewChecks.Add(new Vector3Int(Current.x, Current.y - 1, 0));
                 //  AlreadyAdded.Add(new Vector3Int(CurrentPos.x, CurrentPos.y - 1, 0));
@@ -407,11 +414,34 @@ public class Citzen
     {
         return UnityEngine.Random.Range(LowerBound, UpperBound); 
     }
+    public bool GetIfInBounds(int XPos,int YPos)
+    {
+        return XPos>=0 && XPos<GridCreator.WIDTH && YPos>=0 && YPos<GridCreator.HEIGHT;
+    }
     public void MoveTowardsTargetOnRoute()
     {
+
         IncreaseBoredom(1);
         IncreaseSickness(2);
         IncreaseTiredNess();
+        if (RoutePositions == null || RoutePositions.Count == 0)
+        {
+            SetCurrentAction(-1);
+            return;
+        }
+
+        if (RoutePositions.Count == 1)
+        {
+            RoutePositions.Clear();
+            SetCurrentAction(-1);
+            return;
+        }
+
+        if (NexPositionOnRoute < 0 || NexPositionOnRoute >= RoutePositions.Count)
+        {
+            SetCurrentAction(-1);
+            return;
+        }
 
         Debug.Log("Nex position:" + NexPositionOnRoute);
         Debug.Log("Route length" + RoutePositions.Count);
