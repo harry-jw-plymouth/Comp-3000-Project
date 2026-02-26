@@ -85,7 +85,10 @@ public class Route
                 {
                     if (TrainsOnRoute[i].CurrentlyAscendingRoute)
                     {
+                        Debug.Log("Reached new postions on route");
+                        
                         Vector3 OldTarget = TrainsOnRoute[i].CurrentTarget;
+                        Debug.Log("Reached : " + OldTarget);
                         TrainsOnRoute[i].CurrentlyTargetting++;
 
                         TrainsOnRoute[i].SetNewTarget(RoutePositions[TrainsOnRoute[i].CurrentlyTargetting]);
@@ -124,33 +127,36 @@ public class Route
                 float XChange = CurrentTarget.x - CurrentPosition.y;
                 float YChange= CurrentTarget.y - CurrentPosition.z;
 
-                if (Mathf.Abs(XChange) > 0.01f)
+           //     if (Mathf.Abs(XChange) > 0.01f)
+             //   {
+               //     Movement.x=Mathf.Sign(XChange)*MoveSpeed;
+               // }
+                //else if (Mathf.Abs(YChange) > 0.01f)
+               // {
+                 //   Movement.y=Mathf.Sign(YChange)*MoveSpeed;
+                //}
+                if (TrainsOnRoute[i].XCurrentlyIncreasing)
                 {
-                    Movement.x=Mathf.Sign(XChange)*MoveSpeed;
+                    Movement.x = MoveSpeed;
+                         
                 }
-                else if (Mathf.Abs(YChange) > 0.01f)
+                else
                 {
-                    Movement.y=Mathf.Sign(YChange)*MoveSpeed;
+                    Movement.x = -MoveSpeed;
                 }
-                    //if (TrainsOnRoute[i].XCurrentlyIncreasing)
-                    // {
-                    //   Movement.x = MoveSpeed;
-                    //     
-                    //   }
-                    //     else
-                    //       {
-                    //             Movement.x = -MoveSpeed;
-                    // }
-                    //   if (TrainsOnRoute[i].YCurrentlyIncreasing)
-                    //     {
-                    //        Movement.y = MoveSpeed;
-                    //    }
-                    //  else
-                    // {
-                    //       Movement.y = -MoveSpeed;
-                    //     }
+                if (TrainsOnRoute[i].YCurrentlyIncreasing)
+                 {
+                    Movement.y = MoveSpeed;
+                 }
+                else
+                {
+                   Movement.y = -MoveSpeed;
+                }
+                Debug.Log("Current target:" + TrainsOnRoute[i].CurrentTarget);
                 Movement *= Time.deltaTime;
+                Debug.Log("Train moving, positon before move:" + TrainsOnRoute[i].CurrentPosition) ;
                 TrainsOnRoute[i].AdjustPosition(Movement);
+                Debug.Log("Train moved, positon after move:" + TrainsOnRoute[i].CurrentPosition);
                 TrainsOnRoute[i].CreatedSprite.transform.position = TrainsOnRoute[i].GetPosition();
             }
         }
