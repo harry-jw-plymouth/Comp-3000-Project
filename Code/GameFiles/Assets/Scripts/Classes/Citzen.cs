@@ -1,4 +1,7 @@
+using NUnit.Framework;
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 public class Citzen
 {
@@ -33,6 +36,9 @@ public class Citzen
     int Boredom = 0;
     //happiness rated out of 100
     int Happiness = 0;
+
+    int PositionOnRoute;
+    List<Vector3> RoutePositions=new List<Vector3>();
 
     public Citzen(Vector3 Pos,GameObject sprite)
     {
@@ -147,6 +153,102 @@ public class Citzen
     public void SetTargetBuilding(Building target)
     {
         BuildingCurrentlyTargetting = target;
+        
+    }
+    public List<Vector3Int> GetRailsTouchingStation(Vector3Int CurrentPos)
+    {
+        List<Vector3Int> Positions = new List<Vector3Int>();
+
+        if (GridCreator.GameGrid[CurrentPos.x + 1, CurrentPos.y].Contains == 4)
+        {
+            Positions.Add(new Vector3Int(CurrentPos.x + 1, CurrentPos.y, 0));
+        }
+        if (GridCreator.GameGrid[CurrentPos.x - 1, CurrentPos.y].Contains == 4)
+        {
+            Positions.Add(new Vector3Int(CurrentPos.x - 1, CurrentPos.y, 0));
+        }
+        if (GridCreator.GameGrid[CurrentPos.x, CurrentPos.y + 1].Contains == 4)
+        {
+            Positions.Add(new Vector3Int(CurrentPos.x, CurrentPos.y + 1, 0));
+        }
+        if (GridCreator.GameGrid[CurrentPos.x, CurrentPos.y - 1].Contains == 4)
+        {
+            Positions.Add(new Vector3Int(CurrentPos.x, CurrentPos.y - 1, 0));
+        }
+        return Positions;
+    }
+    public void SetRoute(Vector3Int Target, Square[,]Grid, Tilemap GameMap)
+    {
+        Queue<Vector3Int> ToCheck = new Queue<Vector3Int>();
+        HashSet<Vector3Int> AlreadyVisited = new HashSet<Vector3Int>();
+
+        Dictionary<Vector3Int, Vector3Int> CameFrom = new Dictionary<Vector3Int, Vector3Int>();
+        List<Vector3Int> TilesAroundStart = GetRailsTouchingStation(GameMap.WorldToCell(Position));
+        for (int i = 0; i < TilesAroundStart.Count; i++)
+        {
+            ToCheck.Enqueue(TilesAroundStart[i]);
+            AlreadyVisited.Add(TilesAroundStart[i]);
+            CameFrom[TilesAroundStart[i]] = TilesAroundStart[i];
+        }
+
+        while (ToCheck.Count > 0)
+        {
+            Vector3Int Current = ToCheck.Dequeue();
+
+            if (GameMap.WorldToCell(Position)==Target)
+            {
+                RoutePositions = new List<Vector3>();
+                Vector3Int CurrentRoutePos = Current;
+                while (CameFrom[CurrentRoutePos] != CurrentRoutePos)
+                {
+                    RoutePositions.Add(CurrentRoutePos);
+                    CurrentRoutePos = CameFrom[CurrentRoutePos];
+                }
+                RoutePositions.Add(CurrentRoutePos);
+                RoutePositions.Reverse();
+
+                return;
+
+
+            }
+
+            Vector3Int New = new Vector3Int();
+            List<Vector3Int> NewChecks = new List<Vector3Int>();
+
+            //add surrounding tiles
+            if (GridCreator.GameGrid[Current.x + 1, Current.y].Contains != 4 && GridCreator.GameGrid[Current.x + 1, Current.y].Contains != 2) 
+            {
+                NewChecks.Add(new Vector3Int(Current.x + 1, Current.y, 0));
+                // PositionsToCheck.Add(new Vector3Int(CurrentPos.x + 1, CurrentPos.y, 0));
+                // AlreadyAdded.Add(new Vector3Int(CurrentPos.x + 1, CurrentPos.y, 0));
+            }
+            if (GridCreator.GameGrid[Current.x - 1, Current.y].Contains == 4)
+            {
+                NewChecks.Add(new Vector3Int(Current.x - 1, Current.y, 0));
+                // AlreadyAdded.Add(new Vector3Int(CurrentPos.x - 1, CurrentPos.y, 0));
+            }
+            if (GridCreator.GameGrid[Current.x, Current.y + 1].Contains == 4)
+            {
+                NewChecks.Add(new Vector3Int(Current.x, Current.y + 1, 0));
+                // AlreadyAdded.Add(new Vector3Int(CurrentPos.x, CurrentPos.y + 1, 0));
+            }
+            if (GridCreator.GameGrid[Current.x, Current.y - 1].Contains == 4)
+            {
+                NewChecks.Add(new Vector3Int(Current.x, Current.y - 1, 0));
+                //  AlreadyAdded.Add(new Vector3Int(CurrentPos.x, CurrentPos.y - 1, 0));
+            }
+            for (int i = 0; i < NewChecks.Count; i++)
+            {
+                if (!AlreadyVisited.Contains(NewChecks[i]))
+                {
+                    ToCheck.Enqueue(NewChecks[i]);
+                    AlreadyVisited.Add(NewChecks[i]);
+                    CameFrom[NewChecks[i]] = Current;
+                }
+            }
+
+
+        }
     }
     public Vector3 GetPosition()
     {
