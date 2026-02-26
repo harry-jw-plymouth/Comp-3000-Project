@@ -117,7 +117,7 @@ public class Route
                     }
                     else
                     {
-                        TrainsOnRoute[i].CurrentlyTargetting--;
+                     //   TrainsOnRoute[i].CurrentlyTargetting--;
                         Debug.Log("Reached new postions on route");
 
                         Vector3 OldTarget = TrainsOnRoute[i].CurrentTarget;
@@ -167,33 +167,7 @@ public class Route
                 {
                     CurrentPosition.x = Mathf.Min(CurrentPosition.x + MoveSpeed, CurrentTarget.x);
                 }
-                
-
-                //     if (Mathf.Abs(XChange) > 0.01f)
-                //   {
-                //     Movement.x=Mathf.Sign(XChange)*MoveSpeed;
-                // }
-                //else if (Mathf.Abs(YChange) > 0.01f)
-                // {
-                //   Movement.y=Mathf.Sign(YChange)*MoveSpeed;
-                //}
-                //  if (TrainsOnRoute[i].XCurrentlyIncreasing)
-                //  {
-                //    Movement.x = MoveSpeed;
-                //               
-                //    }
-                //  else
-                // {
-                //   Movement.x = -MoveSpeed;
-                //   }
-                //  if (TrainsOnRoute[i].YCurrentlyIncreasing)
-                // {
-                //  Movement.y = MoveSpeed;
-                // }
-                //   else
-                // {
-                //  Movement.y = -MoveSpeed;
-                // }
+               
 
 
                 Debug.Log("Current target:" + TrainsOnRoute[i].CurrentTarget);
@@ -207,8 +181,16 @@ public class Route
                 {
                     Debug.Log("Target reached, setting new");
                     //Target reached
-                    TrainsOnRoute[i].CurrentlyTargetting++;
-                    TrainsOnRoute[i].SetNewTarget(RoutePositions[TrainsOnRoute[i].CurrentlyTargetting]);
+                    if (TrainsOnRoute[i].CurrentlyAscendingRoute)
+                    {
+                        TrainsOnRoute[i].CurrentlyTargetting++;
+                    }
+                    else
+                    {
+                        TrainsOnRoute[i].CurrentlyTargetting--;
+                    }
+
+                        TrainsOnRoute[i].SetNewTarget(RoutePositions[TrainsOnRoute[i].CurrentlyTargetting]);
                 }
             }
         }
