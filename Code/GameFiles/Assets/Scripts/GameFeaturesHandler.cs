@@ -114,6 +114,7 @@ public class GameStatusScript : MonoBehaviour
         CurrentInfo.SetEntertainmentRating(npcHandler.GetCurrentNumberOfNPCs(), GridCreator.GetNumberOfEntertainment());
         CurrentInfo.SetEnviromentalEffectRating(GridCreator.GetTotalEnviormentalEffects(), npcHandler.GetCurrentNumberOfNPCs());
         CurrentInfo.SetPowerReachRating(GridCreator.PlacedBuildings);
+        CurrentInfo.SetTrainStationRating(npcHandler.GetCurrentNumberOfNPCs(), GridCreator.GetNumberOfTrainStations());
 
         //Calculate rating
         CurrentInfo.CalulcateRating();

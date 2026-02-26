@@ -197,6 +197,18 @@ public class GridCreator : MonoBehaviour
         }
         return Number;
     }
+    public static int GetNumberOfTrainStations()
+    {
+        int Number = 0;
+        for (int i = 0; i < PlacedBuildings.Count; i++)
+        {
+            if (PlacedBuildings[i].GetIfTrainStation())
+            {
+                Number++;
+            }
+        }
+        return Number;
+    }
     public static bool GetIfRoadExists()
     {
         for(int Y = 0; Y < HEIGHT; Y++)

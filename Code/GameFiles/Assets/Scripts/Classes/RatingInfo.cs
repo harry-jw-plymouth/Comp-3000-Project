@@ -15,6 +15,7 @@ public class RatingInfo
     int EntertainmentRating = 0;
     int EnviromentRating = 0;
     int PowerReachRating = 0;
+    int TrainStationRating = 0;
     public void SetHomeLessPercentage(float New){
         HomeLessPercentage = New;
         if(HomeLessPercentage > 60)
@@ -320,7 +321,40 @@ public class RatingInfo
     }
     public void CalulcateRating()
     {
-        Rating=((int)(100-HomeLessPercentage)+ShopRating+HospitalRating+RoadRating+PowerRating+EntertainmentRating+EnviromentRating+PowerReachRating)/8;
+        Rating=((int)(100-HomeLessPercentage)+ShopRating+HospitalRating+RoadRating+PowerRating+EntertainmentRating+EnviromentRating+PowerReachRating+TrainStationRating)/9;
+    }
+    public void SetTrainStationRating(int NumberOfNPCs, int NumberOfTrainStation)
+    {
+        if (NumberOfTrainStation == 0)
+        {
+            //No stations
+            TrainStationRating = 0;
+            AddReport("No train stations, build one as soon as possible");
+        }
+        else if ((float)(NumberOfNPCs / 200) >= NumberOfTrainStation && (float)(NumberOfNPCs / 150) < NumberOfTrainStation)
+        {
+            //one shop per 40-30 people
+            TrainStationRating = 30;
+            AddReport("Another stations needed very soon");
+        }
+        else if ((float)(NumberOfNPCs / 150) >= NumberOfTrainStation && (float)(NumberOfNPCs / 120) < NumberOfTrainStation)
+        {
+            //one train stations per 150-120 people
+            TrainStationRating = 55;
+            AddReport("More stations needed somewhat soon");
+        }
+        else if ((float)(NumberOfNPCs / 120) >= NumberOfTrainStation && (float)(NumberOfNPCs / 100) < NumberOfTrainStation)
+        {
+            //one Train station per 120-100 people
+            TrainStationRating = 75;
+            AddReport("A good amount of train stations");
+        }
+        else
+        {
+            //one train station per 100 people or more
+            TrainStationRating = 100;
+            AddReport("A very good amount of train stations");
+        }
     }
     public void AddReport(string Report) {  
         ReportList.Add(Report); 
