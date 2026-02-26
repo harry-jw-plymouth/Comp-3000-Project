@@ -156,23 +156,23 @@ public class Citzen
         BuildingCurrentlyTargetting = target;
         
     }
-    public List<Vector3Int> GetRailsTouchingStation(Vector3Int CurrentPos)
+    public List<Vector3Int> GetSurroundingTiles(Vector3Int CurrentPos)
     {
         List<Vector3Int> Positions = new List<Vector3Int>();
 
-        if (GridCreator.GameGrid[CurrentPos.x + 1, CurrentPos.y].Contains == 4)
+        if (GridCreator.GameGrid[CurrentPos.x + 1, CurrentPos.y].Contains != 4 && GridCreator.GameGrid[CurrentPos.x + 1, CurrentPos.y].Contains != 2)
         {
             Positions.Add(new Vector3Int(CurrentPos.x + 1, CurrentPos.y, 0));
         }
-        if (GridCreator.GameGrid[CurrentPos.x - 1, CurrentPos.y].Contains == 4)
+        if (GridCreator.GameGrid[CurrentPos.x - 1, CurrentPos.y].Contains != 4 && GridCreator.GameGrid[CurrentPos.x - 1, CurrentPos.y].Contains != 2)
         {
             Positions.Add(new Vector3Int(CurrentPos.x - 1, CurrentPos.y, 0));
         }
-        if (GridCreator.GameGrid[CurrentPos.x, CurrentPos.y + 1].Contains == 4)
+        if (GridCreator.GameGrid[CurrentPos.x, CurrentPos.y + 1].Contains != 4 && GridCreator.GameGrid[CurrentPos.x , CurrentPos.y+1].Contains != 2)
         {
             Positions.Add(new Vector3Int(CurrentPos.x, CurrentPos.y + 1, 0));
         }
-        if (GridCreator.GameGrid[CurrentPos.x, CurrentPos.y - 1].Contains == 4)
+        if (GridCreator.GameGrid[CurrentPos.x, CurrentPos.y - 1].Contains != 4 && GridCreator.GameGrid[CurrentPos.x, CurrentPos.y-1].Contains != 2)
         {
             Positions.Add(new Vector3Int(CurrentPos.x, CurrentPos.y - 1, 0));
         }
@@ -184,7 +184,7 @@ public class Citzen
         HashSet<Vector3Int> AlreadyVisited = new HashSet<Vector3Int>();
 
         Dictionary<Vector3Int, Vector3Int> CameFrom = new Dictionary<Vector3Int, Vector3Int>();
-        List<Vector3Int> TilesAroundStart = GetRailsTouchingStation(GameMap.WorldToCell(Position));
+        List<Vector3Int> TilesAroundStart = GetSurroundingTiles(GameMap.WorldToCell(Position));
         for (int i = 0; i < TilesAroundStart.Count; i++)
         {
             ToCheck.Enqueue(TilesAroundStart[i]);
@@ -230,17 +230,17 @@ public class Citzen
                 // PositionsToCheck.Add(new Vector3Int(CurrentPos.x + 1, CurrentPos.y, 0));
                 // AlreadyAdded.Add(new Vector3Int(CurrentPos.x + 1, CurrentPos.y, 0));
             }
-            if (GridCreator.GameGrid[Current.x - 1, Current.y].Contains == 4)
+            if (GridCreator.GameGrid[Current.x - 1, Current.y].Contains != 4 && GridCreator.GameGrid[Current.x - 1, Current.y].Contains != 2)
             {
                 NewChecks.Add(new Vector3Int(Current.x - 1, Current.y, 0));
                 // AlreadyAdded.Add(new Vector3Int(CurrentPos.x - 1, CurrentPos.y, 0));
             }
-            if (GridCreator.GameGrid[Current.x, Current.y + 1].Contains == 4)
+            if (GridCreator.GameGrid[Current.x, Current.y + 1].Contains == 4 && GridCreator.GameGrid[Current.x , Current.y+1].Contains != 2)
             {
                 NewChecks.Add(new Vector3Int(Current.x, Current.y + 1, 0));
                 // AlreadyAdded.Add(new Vector3Int(CurrentPos.x, CurrentPos.y + 1, 0));
             }
-            if (GridCreator.GameGrid[Current.x, Current.y - 1].Contains == 4)
+            if (GridCreator.GameGrid[Current.x, Current.y - 1].Contains == 4 && GridCreator.GameGrid[Current.x , Current.y-1].Contains != 2)
             {
                 NewChecks.Add(new Vector3Int(Current.x, Current.y - 1, 0));
                 //  AlreadyAdded.Add(new Vector3Int(CurrentPos.x, CurrentPos.y - 1, 0));
