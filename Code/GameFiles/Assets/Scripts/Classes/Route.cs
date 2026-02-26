@@ -77,7 +77,8 @@ public class Route
             if (TrainsOnRoute[i].GetIfTargetReached())
             {
                 int CurrentPos = TrainsOnRoute[i].CurrentlyTargetting;
-                if (CurrentPos == RoutePositions.Count-1)
+
+                if (CurrentPos == RoutePositions.Count-1 || CurrentPos==0)
                 {
                     //End of route
                     Debug.Log("RouteCompleted");
@@ -90,6 +91,7 @@ public class Route
                     {
                         TrainsOnRoute[i].CurrentlyTargetting--;
                     }
+             
 
                 }
                 else

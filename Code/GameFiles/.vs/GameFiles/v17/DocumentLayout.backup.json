@@ -105,7 +105,7 @@
       "VerticalTabListWidth": 256,
       "DocumentGroups": [
         {
-          "DockedWidth": 180,
+          "DockedWidth": 489,
           "SelectedChildIndex": 1,
           "Children": [
             {
@@ -120,7 +120,7 @@
               "RelativeDocumentMoniker": "Assets\\Scripts\\Classes\\Train.cs",
               "ToolTip": "C:\\Uni stuff\\Year 3\\Comp 3000\\Comp-3000-Project\\Code\\GameFiles\\Assets\\Scripts\\Classes\\Train.cs",
               "RelativeToolTip": "Assets\\Scripts\\Classes\\Train.cs",
-              "ViewState": "AgIAAB4AAAAAAAAAAAAUwBQAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAADEAAAAAAAAAAAAowFIAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-02-24T17:03:44.817Z",
               "IsPinned": true,
@@ -301,7 +301,7 @@
           ]
         },
         {
-          "DockedWidth": 2862,
+          "DockedWidth": 2553,
           "SelectedChildIndex": 0,
           "Children": [
             {
@@ -312,7 +312,7 @@
               "RelativeDocumentMoniker": "Assets\\Scripts\\Classes\\Route.cs",
               "ToolTip": "C:\\Uni stuff\\Year 3\\Comp 3000\\Comp-3000-Project\\Code\\GameFiles\\Assets\\Scripts\\Classes\\Route.cs",
               "RelativeToolTip": "Assets\\Scripts\\Classes\\Route.cs",
-              "ViewState": "AgIAAEIAAAAAAAAAAAAewFMAAAAUAAAAAAAAAA==",
+              "ViewState": "AgIAAEYAAAAAAAAAAIAwwFoAAAAVAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-02-24T14:01:18.646Z",
               "EditorCaption": ""
