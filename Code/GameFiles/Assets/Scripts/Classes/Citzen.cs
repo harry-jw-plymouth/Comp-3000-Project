@@ -178,7 +178,7 @@ public class Citzen
         }
         return Positions;
     }
-    public void SetRoute(Vector3Int Target, Square[,]Grid, Tilemap GameMap)
+    public bool SetRoute(Vector3Int Target, Square[,]Grid, Tilemap GameMap)
     {
         Queue<Vector3Int> ToCheck = new Queue<Vector3Int>();
         HashSet<Vector3Int> AlreadyVisited = new HashSet<Vector3Int>();
@@ -196,8 +196,9 @@ public class Citzen
         {
             Vector3Int Current = ToCheck.Dequeue();
 
-            if (GameMap.WorldToCell(Position)==Target)
+            if (Current==Target)
             {
+                Debug.Log("Route set");
                 RoutePositions = new List<Vector3>();
                 Vector3Int CurrentRoutePos = Current;
                 while (CameFrom[CurrentRoutePos] != CurrentRoutePos)
@@ -207,8 +208,14 @@ public class Citzen
                 }
                 RoutePositions.Add(CurrentRoutePos);
                 RoutePositions.Reverse();
+                NexPositionOnRoute = 1;
+                if (NexPositionOnRoute > RoutePositions.Count)
+                {
+                    
+                    NexPositionOnRoute=RoutePositions.Count-1;
+                }
 
-                return;
+                return true;
 
 
             }
@@ -250,6 +257,8 @@ public class Citzen
 
 
         }
+        Debug.Log("Route could not be set");
+        return false;
     }
     public Vector3 GetPosition()
     {
@@ -403,6 +412,9 @@ public class Citzen
         IncreaseBoredom(1);
         IncreaseSickness(2);
         IncreaseTiredNess();
+
+        Debug.Log("Nex position:" + NexPositionOnRoute);
+        Debug.Log("Route length" + RoutePositions.Count);
         if(Position.y > RoutePositions[NexPositionOnRoute].y)
         {
             Position.y = Mathf.Max(Position.y - MovementSpeed, RoutePositions[NexPositionOnRoute].y);
@@ -420,14 +432,16 @@ public class Citzen
             Position.x = Mathf.Min(Position.x + MovementSpeed, RoutePositions[NexPositionOnRoute].x);
         }
         NPCSprite.transform.position = Position;
-        if (MovementTarget.x == Position.x && MovementTarget.y == Position.y)
+        if (RoutePositions[NexPositionOnRoute].x == Position.x && RoutePositions[NexPositionOnRoute].y == Position.y)
         {
             if(NexPositionOnRoute == RoutePositions.Count - 1)
             {
                 //Final target reached
+                RoutePositions = new List<Vector3>();
                 MovementTarget = new Vector3();
                 if (TargetIsbuilding)
                 {
+                    
                     JustEnteredBuilding = true;
                     SetCurrentAction(1);
                     TargetIsbuilding = false;
@@ -455,7 +469,7 @@ public class Citzen
             else
             {
                 //Next target
-                NexPositionOnRoute = NexPositionOnRoute++;
+                NexPositionOnRoute++;
             }
         }
     }

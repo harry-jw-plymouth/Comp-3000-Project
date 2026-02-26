@@ -236,12 +236,16 @@ public class NPChandler : MonoBehaviour
             if (GridCreator.GetIfRoadExists())
             {
               //  Debug.Log("RoadFound");
-                NPCList[NPCIndex].SetCurrentAction(0) ;
+              //  NPCList[NPCIndex].SetCurrentAction(0) ;
                 //Go to nearest path
                 Vector3 RoadPos= GridCreator.GetPosOfNearestRoad(NPCList[NPCIndex].GetPosition());
                 RoadPos.y += 0.5f;
                 RoadPos.x += 0.5f;
-                NPCList[NPCIndex].SetMovementTarget(RoadPos);
+              //  NPCList[NPCIndex].SetMovementTarget(RoadPos);
+                if(NPCList[NPCIndex].SetRoute(GridCreator.GameMap.WorldToCell(RoadPos), GridCreator.GameGrid, GridCreator.GameMap))
+                {
+                    NPCList[NPCIndex].SetCurrentAction(0);
+                }
             }
         }
         else
@@ -254,19 +258,29 @@ public class NPChandler : MonoBehaviour
                 if (ShopPos.x != -1)
                 {
                     //Go to nearest shop
-                    NPCList[NPCIndex].SetCurrentAction(0);
+                   
 
                     ShopPos.x += 0.5f; ShopPos.y += 0.5f;
-                    NPCList[NPCIndex].SetMovementTarget(ShopPos);
-                    NPCList[NPCIndex].SetIfTargetIsBuilding(true);
-                    NPCList[NPCIndex].SetTargetBuilding(GridCreator.GetSelectedBuilding());
+                  //  NPCList[NPCIndex].SetMovementTarget(ShopPos);
+                   if( NPCList[NPCIndex].SetRoute(GridCreator.GameMap.WorldToCell( ShopPos), GridCreator.GameGrid, GridCreator.GameMap))
+                    {
+                        NPCList[NPCIndex].SetCurrentAction(0);
+                        NPCList[NPCIndex].SetIfTargetIsBuilding(true);
+                        NPCList[NPCIndex].SetTargetBuilding(GridCreator.GetSelectedBuilding());
+                    }
+                    
+
                     
                 }
                 else
                 {
                     //no shop found
-                    NPCList[NPCIndex].SetMovementTarget(GetWanderTarget());
-                    NPCList[NPCIndex].SetCurrentAction(0);
+                    //NPCList[NPCIndex].SetMovementTarget(GetWanderTarget());
+                    if(NPCList[NPCIndex].SetRoute(GridCreator.GameMap.WorldToCell(GetWanderTarget()), GridCreator.GameGrid, GridCreator.GameMap))
+                    {
+                        NPCList[NPCIndex].SetCurrentAction(0);
+                    }
+                   
                 }
 
                 
@@ -276,11 +290,14 @@ public class NPChandler : MonoBehaviour
                 //go home
                 Vector3 HomePos = NPCList[NPCIndex].GetHomePos();
                 if (HomePos.x != -1) {
-               //     Debug.Log("Going home");
-                    NPCList[NPCIndex].SetCurrentAction(0);
-                    NPCList[NPCIndex].SetMovementTarget(HomePos);
-                    NPCList[NPCIndex].SetIfTargetIsBuilding(true);
-                    NPCList[NPCIndex].SetTargetBuilding(NPCList[NPCIndex].GetHome());
+                    if(NPCList[NPCIndex].SetRoute(GridCreator.GameMap.WorldToCell(HomePos), GridCreator.GameGrid, GridCreator.GameMap))
+                    {
+                        NPCList[NPCIndex].SetCurrentAction(0);
+                        //  NPCList[NPCIndex].SetMovementTarget(HomePos);
+
+                        NPCList[NPCIndex].SetIfTargetIsBuilding(true);
+                        NPCList[NPCIndex].SetTargetBuilding(NPCList[NPCIndex].GetHome());
+                    }     
                 }
                 
             }
@@ -292,10 +309,15 @@ public class NPChandler : MonoBehaviour
                     Vector3 HospitalPos = GridCreator.GetPosOfNearestHospital(NPCList[NPCIndex].GetPosition());
                     if (HospitalPos.x != -1)
                     {
-                        NPCList[NPCIndex].SetCurrentAction(0);
-                        NPCList[NPCIndex].SetMovementTarget(HospitalPos);
-                        NPCList[NPCIndex].SetIfTargetIsBuilding(true);
-                        NPCList[NPCIndex].SetTargetBuilding(GridCreator.GetSelectedBuilding());
+                        if(NPCList[NPCIndex].SetRoute(GridCreator.GameMap.WorldToCell(HospitalPos), GridCreator.GameGrid, GridCreator.GameMap))
+                        {
+                            NPCList[NPCIndex].SetCurrentAction(0);
+                            //   NPCList[NPCIndex].SetMovementTarget(HospitalPos);
+
+                            NPCList[NPCIndex].SetIfTargetIsBuilding(true);
+                            NPCList[NPCIndex].SetTargetBuilding(GridCreator.GetSelectedBuilding());
+                        }
+                        
                     }
 
                    
@@ -309,10 +331,16 @@ public class NPChandler : MonoBehaviour
                     Vector3 EntertainmentPos = GridCreator.GetPosOfNearestEntertainment(NPCList[NPCIndex].GetPosition());
                     if(EntertainmentPos.x != -1)
                     {
-                        NPCList[NPCIndex].SetCurrentAction(0);
-                        NPCList[NPCIndex].SetMovementTarget(EntertainmentPos);
-                        NPCList[NPCIndex].SetIfTargetIsBuilding(true);
-                        NPCList[NPCIndex].SetTargetBuilding(GridCreator.GetSelectedBuilding());
+                        if(NPCList[NPCIndex].SetRoute(GridCreator.GameMap.WorldToCell(EntertainmentPos), GridCreator.GameGrid, GridCreator.GameMap))
+                        {
+                            NPCList[NPCIndex].SetCurrentAction(0);
+                            //  NPCList[NPCIndex].SetMovementTarget(EntertainmentPos);
+
+                            NPCList[NPCIndex].SetIfTargetIsBuilding(true);
+                            NPCList[NPCIndex].SetTargetBuilding(GridCreator.GetSelectedBuilding());
+
+                        }
+                       
                     }
                 }
                
@@ -320,9 +348,13 @@ public class NPChandler : MonoBehaviour
             else
             {
                 //Wander
-                NPCList[NPCIndex].SetMovementTarget(GetWanderTarget());
-                NPCList[NPCIndex].SetCurrentAction(0);
-                // NPCList[NPCIndex].SetCurrentAction(0);
+                if( NPCList[NPCIndex].SetRoute(GridCreator.GameMap.WorldToCell(GetWanderTarget()), GridCreator.GameGrid, GridCreator.GameMap))
+                {
+                  //  NPCList[NPCIndex].SetMovementTarget(GetWanderTarget());
+                    NPCList[NPCIndex].SetCurrentAction(0);
+                    // NPCList[NPCIndex].SetCurrentAction(0);
+                }
+
 
             }
         }
@@ -383,8 +415,9 @@ public class NPChandler : MonoBehaviour
                 if (NPCList[i].GetMoveCounter() == frameToMoveOn)
                 {
                     NPCList[i].ResetCounter();
-              //      Debug.Log("Moving towards target");
-                    NPCList[i].MovetowardsTarget();
+                    //      Debug.Log("Moving towards target");
+                    // NPCList[i].MovetowardsTarget();
+                    NPCList[i].MoveTowardsTargetOnRoute();
                 }
                 else
                 {
