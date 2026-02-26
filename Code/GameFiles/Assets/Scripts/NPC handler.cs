@@ -223,6 +223,7 @@ public class NPChandler : MonoBehaviour
     }
     void SelectNewAction(int NPCIndex)
     {
+        
         int ShopChance = 5;
         int HomeChance = 15 + ((NPCList[NPCIndex].GetTiredNess()/50));
         int WanderChance = 80;
@@ -244,6 +245,7 @@ public class NPChandler : MonoBehaviour
               //  NPCList[NPCIndex].SetMovementTarget(RoadPos);
                 if(NPCList[NPCIndex].SetRoute(GridCreator.GameMap.WorldToCell(RoadPos), GridCreator.GameGrid, GridCreator.GameMap))
                 {
+                    Debug.Log("Set action to 0");
                     NPCList[NPCIndex].SetCurrentAction(0);
                 }
             }
@@ -264,6 +266,7 @@ public class NPChandler : MonoBehaviour
                   //  NPCList[NPCIndex].SetMovementTarget(ShopPos);
                    if( NPCList[NPCIndex].SetRoute(GridCreator.GameMap.WorldToCell( ShopPos), GridCreator.GameGrid, GridCreator.GameMap))
                     {
+                        Debug.Log("Set action to 0");
                         NPCList[NPCIndex].SetCurrentAction(0);
                         NPCList[NPCIndex].SetIfTargetIsBuilding(true);
                         NPCList[NPCIndex].SetTargetBuilding(GridCreator.GetSelectedBuilding());
@@ -278,6 +281,7 @@ public class NPChandler : MonoBehaviour
                     //NPCList[NPCIndex].SetMovementTarget(GetWanderTarget());
                     if(NPCList[NPCIndex].SetRoute(GridCreator.GameMap.WorldToCell(GetWanderTarget()), GridCreator.GameGrid, GridCreator.GameMap))
                     {
+                        Debug.Log("Set action to 0");
                         NPCList[NPCIndex].SetCurrentAction(0);
                     }
                    
@@ -292,6 +296,7 @@ public class NPChandler : MonoBehaviour
                 if (HomePos.x != -1) {
                     if(NPCList[NPCIndex].SetRoute(GridCreator.GameMap.WorldToCell(HomePos), GridCreator.GameGrid, GridCreator.GameMap))
                     {
+                        Debug.Log("Set action to 0");
                         NPCList[NPCIndex].SetCurrentAction(0);
                         //  NPCList[NPCIndex].SetMovementTarget(HomePos);
 
@@ -311,6 +316,7 @@ public class NPChandler : MonoBehaviour
                     {
                         if(NPCList[NPCIndex].SetRoute(GridCreator.GameMap.WorldToCell(HospitalPos), GridCreator.GameGrid, GridCreator.GameMap))
                         {
+                            Debug.Log("Set action to 0");
                             NPCList[NPCIndex].SetCurrentAction(0);
                             //   NPCList[NPCIndex].SetMovementTarget(HospitalPos);
 
@@ -333,6 +339,7 @@ public class NPChandler : MonoBehaviour
                     {
                         if(NPCList[NPCIndex].SetRoute(GridCreator.GameMap.WorldToCell(EntertainmentPos), GridCreator.GameGrid, GridCreator.GameMap))
                         {
+                            Debug.Log("Set action to 0");
                             NPCList[NPCIndex].SetCurrentAction(0);
                             //  NPCList[NPCIndex].SetMovementTarget(EntertainmentPos);
 
@@ -350,7 +357,8 @@ public class NPChandler : MonoBehaviour
                 //Wander
                 if( NPCList[NPCIndex].SetRoute(GridCreator.GameMap.WorldToCell(GetWanderTarget()), GridCreator.GameGrid, GridCreator.GameMap))
                 {
-                  //  NPCList[NPCIndex].SetMovementTarget(GetWanderTarget());
+                    Debug.Log("Set action to 0");
+                    //  NPCList[NPCIndex].SetMovementTarget(GetWanderTarget());
                     NPCList[NPCIndex].SetCurrentAction(0);
                     // NPCList[NPCIndex].SetCurrentAction(0);
                 }
@@ -388,15 +396,15 @@ public class NPChandler : MonoBehaviour
                 int BuildingIndex=gridCreator.EnterBuildingForNPC(NPCList[i].GetPosition(),i);
                 if (BuildingIndex != -1)
                 {
-                    NPCList[i].buldingInsideIndex=BuildingIndex; 
+                    NPCList[i].buildingInsideIndex=BuildingIndex; 
                 }
                 NPCList[i].JustEnteredBuilding = false;
 
             }
-            if (NPCList[i].JustLeftBuilding && NPCList[i].buldingInsideIndex != -1)
+            if (NPCList[i].JustLeftBuilding && NPCList[i].buildingInsideIndex != -1)
             {
-                if (NPCList[i].buldingInsideIndex < GridCreator.PlacedBuildings.Count) {
-                    GridCreator.PlacedBuildings[NPCList[i].buldingInsideIndex].RemoveSpecificIndex(i);
+                if (NPCList[i].buildingInsideIndex < GridCreator.PlacedBuildings.Count) {
+                    GridCreator.PlacedBuildings[NPCList[i].buildingInsideIndex].RemoveSpecificIndex(i);
                 }
                 
                 NPCList[i].ResetBuildingData();

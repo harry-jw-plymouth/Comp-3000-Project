@@ -24,7 +24,7 @@ public class Citzen
     public bool JustEnteredBuilding = false;
     public bool JustLeftBuilding=false;
     Vector3 BuildingInsidePos = new Vector3(-1, -1, -1);
-    public int buldingInsideIndex = -1;
+    public int buildingInsideIndex = -1;
 
     Building Home;
     int HomeIndex = -1;
@@ -61,7 +61,7 @@ public class Citzen
     }
     public bool GetIfInBuilding()
     {
-        if (InBuilding >= 0)
+        if (InBuilding > 0)
         {
             return true;
         }
@@ -210,9 +210,9 @@ public class Citzen
                     RoutePositions.Add(CurrentRoutePos);
                     CurrentRoutePos = CameFrom[CurrentRoutePos];
                 }
-                RoutePositions.Add(CurrentRoutePos);
+                RoutePositions.Add(GridCreator.GameMap.CellToWorld( CurrentRoutePos));
                 RoutePositions.Reverse();
-                NexPositionOnRoute = 1;
+                NexPositionOnRoute = 0;
                 if (NexPositionOnRoute > RoutePositions.Count)
                 {
                     
@@ -318,7 +318,7 @@ public class Citzen
         BuildingCurrentlyTargetting = null;
         SetCurrentAction(-1);
         InBuilding = 0;
-        buldingInsideIndex = -1;
+        buildingInsideIndex = -1;
         JustLeftBuilding = false;
         JustEnteredBuilding = false;
 
@@ -334,12 +334,13 @@ public class Citzen
             BuildingCurrentlyTargetting = null;
             SetCurrentAction(-1);
             JustLeftBuilding = true;
+            buildingInsideIndex=-1;
 
         }
     }
     public void ResetBuildingData()
     {
-        buldingInsideIndex = -1;
+        buildingInsideIndex = -1;
         JustLeftBuilding = false;
         BuildingInsidePos = new Vector3(-1, -1, -1);
 
@@ -364,6 +365,7 @@ public class Citzen
             NPCSprite.GetComponent<SpriteRenderer>().enabled = true;
             BuildingCurrentlyTargetting = null;
             SetCurrentAction(-1);
+            buildingInsideIndex = -1;
             if (TiredNess < 0)
             {
                 TiredNess = 0;
@@ -382,6 +384,7 @@ public class Citzen
         {
             NPCSprite.GetComponent<SpriteRenderer>().enabled = true;
             BuildingCurrentlyTargetting = null;
+            buildingInsideIndex = -1;
             SetCurrentAction(-1);
             if (TiredNess < 0)
             {
@@ -408,6 +411,7 @@ public class Citzen
             NPCSprite.GetComponent<SpriteRenderer>().enabled = true;
             BuildingCurrentlyTargetting = null;
             SetCurrentAction(-1);
+            buildingInsideIndex = -1;
             if (Boredom < 0)
             {
                 Boredom = 0;
@@ -439,12 +443,7 @@ public class Citzen
             return;
         }
 
-        if (RoutePositions.Count == 1)
-        {
-            RoutePositions.Clear();
-            SetCurrentAction(-1);
-            return;
-        }
+       
 
         if (NexPositionOnRoute < 0 || NexPositionOnRoute >= RoutePositions.Count)
         {
