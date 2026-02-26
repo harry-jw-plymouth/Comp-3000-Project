@@ -72,7 +72,7 @@ public class Train
     }
     public void AdjustPosition(Vector3 position)
     {
-        CurrentPosition += position;
+        CurrentPosition = position;
     }
     public Vector3 GetPosition()
     {

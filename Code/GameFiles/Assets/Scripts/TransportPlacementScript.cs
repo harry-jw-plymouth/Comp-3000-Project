@@ -10,7 +10,7 @@ using UnityEditor.Build;
 
 public class TransportPlacementScript : MonoBehaviour
 {
-    int AmountCheckCounter = 0; int CheckFrame = 1;
+    int AmountCheckCounter = 0; int CheckFrame = 10;
     public int TransportModeSelected = -1;
     public static  RuleTile TrackTile;
     public GridCreator GridHandler;
