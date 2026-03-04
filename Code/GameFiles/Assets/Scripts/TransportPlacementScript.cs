@@ -357,6 +357,22 @@ public class TransportPlacementScript : MonoBehaviour
         }
 
     }
+    public static List<Route> GetAllTrainRoutes()
+    {
+        return TrainRoutes;
+    }
+    public static List<Route> GetAllTrainRoutesForStation(PlacedBuilding Current)
+    {
+        List<Route> routes = new List<Route>();
+        for (int i=0;i< TrainRoutes.Count; i++)
+        {
+            if (TrainRoutes[i].StartStation == Current || TrainRoutes[i].EndStation == Current)
+            {
+                routes.Add(TrainRoutes[i]);
+            }
+        }
+        return routes;
+    }
     // Update is called once per frame
     void Update()
     {

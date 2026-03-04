@@ -41,6 +41,8 @@ public class Citzen
     int NexPositionOnRoute;
     List<Vector3> RoutePositions=new List<Vector3>();
 
+    GridCreator GridHandler;
+
     public Citzen(Vector3 Pos,GameObject sprite)
     {
         NPCSprite = sprite;
@@ -237,8 +239,30 @@ public class Citzen
                 // PositionsToCheck.Add(new Vector3Int(CurrentPos.x + 1, CurrentPos.y, 0));
                 // AlreadyAdded.Add(new Vector3Int(CurrentPos.x + 1, CurrentPos.y, 0));
             }
-            if ((Target.x == Current.x-1 && Target.y == Current.y) || 
-                GetIfInBounds(Current.x-1,Current.y)&&
+            else if(((Target.x == Current.x + 1 && Target.y == Current.y) ||
+                GetIfInBounds(Current.x + 1, Current.y) &&
+                GridCreator.GameGrid[Current.x + 1, Current.y].Contains == 4)){
+                int CurrentBuildingPos=GridHandler.GetBuildingClicked(Current);
+
+                PlacedBuilding CurrentBuilding = GridCreator.PlacedBuildings[CurrentBuildingPos];
+                if (CurrentBuilding.GetIfTrainStation())
+                {
+                    List<Route>Routes=TransportPlacementScript.GetAllTrainRoutesForStation(CurrentBuilding);
+                    for(int i = 0; i < Routes.Count; i++)
+                    {
+                        if (CurrentBuilding == Routes[i].StartStation)
+                        {
+                            NewChecks.Add(new Vector3Int(Current.x - 1, Current.y, 0));
+                            NewChecks.Add(new Vector3Int((int)Routes[i].EndStation.GetBuildingPos().x, (int)Routes[i].EndStation.GetBuildingPos().y, 0));
+                     
+                        }
+                    }
+                    
+                }
+            }
+
+            if ((Target.x == Current.x - 1 && Target.y == Current.y) ||
+                GetIfInBounds(Current.x - 1, Current.y) &&
                 GridCreator.GameGrid[Current.x - 1, Current.y].Contains != 4 &&
                 GridCreator.GameGrid[Current.x - 1, Current.y].Contains != 2)
             {
