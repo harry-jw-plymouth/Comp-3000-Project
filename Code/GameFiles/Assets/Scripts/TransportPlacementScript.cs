@@ -371,7 +371,8 @@ public class TransportPlacementScript : MonoBehaviour
         List<Route> routes = new List<Route>();
         for (int i=0;i< TrainRoutes.Count; i++)
         {
-            if (TrainRoutes[i].StartStation == Current || TrainRoutes[i].EndStation == Current)
+            if (TrainRoutes[i].StartStation.GetBuildingPosAsInt() == Current.GetBuildingPosAsInt() ||
+                TrainRoutes[i].EndStation.GetBuildingPosAsInt() == Current.GetBuildingPosAsInt())
             {
                 routes.Add(TrainRoutes[i]);
             }
