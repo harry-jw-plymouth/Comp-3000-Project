@@ -5,6 +5,7 @@ using UnityEngine.Tilemaps;
 
 public class Citzen
 {
+    int CitzenID;
     float MovementSpeed = 0.05f;
     int MoveCounter=0;
     int CurrentAction=-1;
@@ -49,7 +50,7 @@ public class Citzen
     PlacedBuilding TargetStation;
 
 
-    public Citzen(Vector3 Pos,GameObject sprite)
+    public Citzen(Vector3 Pos,int CitzenID,GameObject sprite)
     {
         NPCSprite = sprite;
         Position= Pos;
@@ -445,6 +446,7 @@ public class Citzen
         Debug.Log("Route could not be set");
         return false;
     }
+    
     public Vector3 GetPosition()
     {
         return Position;

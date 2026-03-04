@@ -7,7 +7,8 @@ public class NPChandler : MonoBehaviour
     [SerializeField] GridCreator gridCreator;
     int MovementCounter = 0; int frameToMoveOn = 10;
     int AmountCheckCounter = 0;int CheckFrame = 1000;
-    int BuildingFrame = 20 ;
+    public int BuildingFrame = 20 ;
+    int CurrentID = 0;
    [SerializeField]  List<Citzen> NPCList=new List<Citzen>();
     [SerializeField] int NumberOfNpcs;
     public GameObject NPCPrefab;
@@ -137,7 +138,7 @@ public class NPChandler : MonoBehaviour
         for (int i = 0; i < NumberOfNpcs; i++) {
             worldPosition.x++; 
             GameObject Current= Instantiate(NPCPrefab,worldPosition,Quaternion.identity );
-            NPCList.Add(new Citzen(worldPosition,Current));
+            NPCList.Add(new Citzen(worldPosition,CurrentID++,Current));
           //  Debug.Log("placinng NPC");
         }
     }
@@ -186,7 +187,7 @@ public class NPChandler : MonoBehaviour
             Vector3 worldPosition = new Vector3(Random.Range(0,GridCreator.WIDTH),Random.Range(0,GridCreator.HEIGHT),0);
             NumberOfNpcs++;
             GameObject Current = Instantiate(NPCPrefab, worldPosition, Quaternion.identity);
-            NPCList.Add(new Citzen(worldPosition, Current));
+            NPCList.Add(new Citzen(worldPosition,CurrentID++, Current));
         }
     }
     bool CheckIfOnRoad(Vector3 Position)

@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Train
@@ -11,6 +12,8 @@ public class Train
     public Vector3 CurrentTarget;
     public bool XCurrentlyIncreasing, YCurrentlyIncreasing;
     public bool XSame, YSame;
+
+    public bool isCurrentlyMoving = true;
     public Train(Vector3Int StartTile,GameObject Sprite)
     {
         CreatedSprite = Sprite;
@@ -27,6 +30,14 @@ public class Train
     public bool GetIfTargetReached()
     {
         return Vector3.Distance(CurrentPosition, CurrentTarget) < 0.05f;
+    }
+    public bool GetIfCurrentlyMoving()
+    {
+        return isCurrentlyMoving;
+    }
+    public void SetIsCurrentlyMoving(bool New)
+    {
+        isCurrentlyMoving=New;
     }
     // :O
 //    public bool GetIfTargetReached()

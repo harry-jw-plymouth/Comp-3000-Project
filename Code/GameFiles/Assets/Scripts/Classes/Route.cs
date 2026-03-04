@@ -12,7 +12,6 @@ public class Route
     List<Train> TrainsOnRoute = new List<Train>();
     GameObject SpriteForTrains;
 
-    bool CurrentlyMoving = true;
 
     public Route(PlacedBuilding Start,PlacedBuilding End)
     {
@@ -70,18 +69,31 @@ public class Route
         }
         return Positions;
     }
-    public void ReactivateTrain()
+    public void ReactivateTrains()
     {
-        if (!CurrentlyMoving)
+        for (int i = 0; i < TrainsOnRoute.Count; i++)
         {
+            if (!TrainsOnRoute[i].GetIfCurrentlyMoving())
+            {
+                Train CurrentTrain = TrainsOnRoute[i];
+                if (GridCreator.GameMap.WorldToCell( CurrentTrain.GetPosition()) ==  StartStation.GetBuildingPos())
+                {
+                    // Train at start station
+                }
+                else
+                {
+                    //train at end station
 
+                }
+
+            }
         }
     }
     public void DoMovement()
     {
-        if (CurrentlyMoving)
+        for (int i = 0; i < TrainsOnRoute.Count; i++) 
         {
-            for (int i = 0; i < TrainsOnRoute.Count; i++)
+            if (TrainsOnRoute[i].GetIfCurrentlyMoving())
             {
                 if (TrainsOnRoute[i].GetIfTargetReached())
                 {
@@ -100,7 +112,7 @@ public class Route
                         {
                             TrainsOnRoute[i].CurrentlyTargetting--;
                         }
-                        CurrentlyMoving= false;
+                        TrainsOnRoute[i].SetIsCurrentlyMoving(false);
 
 
                     }
