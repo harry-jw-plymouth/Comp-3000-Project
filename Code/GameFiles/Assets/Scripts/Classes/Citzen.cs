@@ -13,6 +13,9 @@ public class Citzen
     //1 InBuilding
     //2 at home
     //3 in hospital
+    //4 enterainment 
+    //5 Leaving
+    // 6 waiting for train
     int InBuilding = 0;
     bool TargetIsbuilding=false;
     Building BuildingCurrentlyTargetting;
@@ -40,6 +43,10 @@ public class Citzen
     int PositionOnRoute;
     int NexPositionOnRoute;
     List<Vector3> RoutePositions=new List<Vector3>();
+    List<Vector3>TrainStationPositionsOnRoute= new List<Vector3>();
+
+    PlacedBuilding CurrentStation;
+    PlacedBuilding TargetStation;
 
 
     public Citzen(Vector3 Pos,GameObject sprite)
@@ -86,7 +93,7 @@ public class Citzen
         }
         return Happiness;
     }
-        
+
     public int GetHappiness()
     {
         return Happiness;
@@ -197,9 +204,13 @@ public class Citzen
                 {
                     if (CurrentBuilding == Routes[i].StartStation)
                     {
-                        NewChecks.Add(new Vector3Int(Current.x +xChange, Current.y+yChange, 0));
+                    //    NewChecks.Add(new Vector3Int(Current.x +xChange, Current.y+yChange, 0));
                         NewChecks.Add(new Vector3Int((int)Routes[i].EndStation.GetBuildingPos().x, (int)Routes[i].EndStation.GetBuildingPos().y, 0));
 
+                    }
+                    else if (CurrentBuilding == Routes[i].EndStation)
+                    {
+                        NewChecks.Add(new Vector3Int((int)Routes[i].StartStation.GetBuildingPos().x, (int)Routes[i].StartStation.GetBuildingPos().y, 0));
                     }
                 }
 
@@ -233,6 +244,7 @@ public class Citzen
                 while (CameFrom[CurrentRoutePos] != CurrentRoutePos)
                 {
                     RoutePositions.Add(CurrentRoutePos);
+                    
                     CurrentRoutePos = CameFrom[CurrentRoutePos];
                 }
                 RoutePositions.Add(GridCreator.GameMap.CellToWorld( CurrentRoutePos));
@@ -253,79 +265,95 @@ public class Citzen
             List<Vector3Int> NewChecks = new List<Vector3Int>();
             
             //add surrounding tiles
-            if ((Target.x == Current.x+1 && Target.y == Current.y) ||
-                GetIfInBounds(Current.x+1,Current.y) && 
-                GridCreator.GameGrid[Current.x + 1, Current.y].Contains != 4 && 
-                GridCreator.GameGrid[Current.x + 1, Current.y].Contains != 2) 
+
+            // check right tile
+            if(GetIfInBounds(Current.x + 1, Current.y))
+            {
+                if (GridCreator.GameGrid[Current.x + 1, Current.y].Contains != 4 &&
+                GridCreator.GameGrid[Current.x + 1, Current.y].Contains != 2)
+                {
+                    NewChecks.Add(new Vector3Int(Current.x + 1, Current.y, 0));
+                }
+                else if (GridCreator.GameGrid[Current.x + 1, Current.y].Contains == 2)
+                {
+                    List<Vector3Int> TrainTiles = CheckForTrainStation(1, 0, GridHandler, Current);
+                    for (int i = 0; i < TrainTiles.Count; i++)
+                    {
+                        NewChecks.Add(TrainTiles[i]);
+                    }
+                }
+            }
+            else if(Target.x == Current.x + 1 && Target.y == Current.y)
             {
                 NewChecks.Add(new Vector3Int(Current.x + 1, Current.y, 0));
-                // PositionsToCheck.Add(new Vector3Int(CurrentPos.x + 1, CurrentPos.y, 0));
-                // AlreadyAdded.Add(new Vector3Int(CurrentPos.x + 1, CurrentPos.y, 0));
-            }
-            else if(((Target.x == Current.x + 1 && Target.y == Current.y) ||
-                GetIfInBounds(Current.x + 1, Current.y) &&
-                GridCreator.GameGrid[Current.x + 1, Current.y].Contains == 2)){
-                List<Vector3Int> TrainTiles = CheckForTrainStation(1, 0, GridHandler, Current);
-                for (int i = 0; i < TrainTiles.Count; i++) {
-                    NewChecks.Add(TrainTiles[i]);
-                }
             }
 
-            if ((Target.x == Current.x - 1 && Target.y == Current.y) ||
-                GetIfInBounds(Current.x - 1, Current.y) &&
-                GridCreator.GameGrid[Current.x - 1, Current.y].Contains != 4 &&
+            //check left tile
+            if (GetIfInBounds(Current.x - 1, Current.y))
+            {
+                if (GridCreator.GameGrid[Current.x - 1, Current.y].Contains != 4 &&
                 GridCreator.GameGrid[Current.x - 1, Current.y].Contains != 2)
+                {
+                    NewChecks.Add(new Vector3Int(Current.x - 1, Current.y, 0));
+                }
+                else if(GridCreator.GameGrid[Current.x - 1, Current.y].Contains == 2)
+                {
+                    List<Vector3Int> TrainTiles = CheckForTrainStation(-1, 0, GridHandler, Current);
+                    for (int i = 0; i < TrainTiles.Count; i++)
+                    {
+                        NewChecks.Add(TrainTiles[i]);
+                    }
+                }
+            }
+            else if (Target.x == Current.x - 1 && Target.y == Current.y)
             {
                 NewChecks.Add(new Vector3Int(Current.x - 1, Current.y, 0));
-                // AlreadyAdded.Add(new Vector3Int(CurrentPos.x - 1, CurrentPos.y, 0));
             }
-            else if (((Target.x == Current.x - 1 && Target.y == Current.y) ||
-               GetIfInBounds(Current.x - 1, Current.y) &&
-               GridCreator.GameGrid[Current.x - 1, Current.y].Contains == 2))
-            {
-                List<Vector3Int> TrainTiles = CheckForTrainStation(-1, 0, GridHandler, Current);
-                for (int i = 0; i < TrainTiles.Count; i++)
-                {
-                    NewChecks.Add(TrainTiles[i]);
-                }
 
-            }
-            if ((Target.x == Current.x && Target.y == Current.y + 1)||
-                GetIfInBounds(Current.x,Current.y+1)&&
-                GridCreator.GameGrid[Current.x, Current.y + 1].Contains != 4 && 
+            //check above tile
+            if (GetIfInBounds(Current.x , Current.y+1))
+            {
+                if (GridCreator.GameGrid[Current.x , Current.y+1].Contains != 4 &&
                 GridCreator.GameGrid[Current.x , Current.y+1].Contains != 2)
-            {
-                NewChecks.Add(new Vector3Int(Current.x, Current.y + 1, 0));
-                // AlreadyAdded.Add(new Vector3Int(CurrentPos.x, CurrentPos.y + 1, 0));
-            }
-            else if (((Target.x == Current.x  && Target.y+1  == Current.y) ||
-               GetIfInBounds(Current.x , Current.y+1) &&
-               GridCreator.GameGrid[Current.x , Current.y+1].Contains == 2))
-            {
-                List<Vector3Int> TrainTiles = CheckForTrainStation(0, 1, GridHandler, Current);
-                for (int i = 0; i < TrainTiles.Count; i++)
                 {
-                    NewChecks.Add(TrainTiles[i]);
+                    NewChecks.Add(new Vector3Int(Current.x , Current.y+1, 0));
+                }
+                else if (GridCreator.GameGrid[Current.x , Current.y+1].Contains == 2)
+                {
+                    List<Vector3Int> TrainTiles = CheckForTrainStation(0, 1, GridHandler, Current);
+                    for (int i = 0; i < TrainTiles.Count; i++)
+                    {
+                        NewChecks.Add(TrainTiles[i]);
+                    }
                 }
             }
-            if ((Target.x==Current.x &&Target.y==Current.y-1 ) || 
-                (GetIfInBounds(Current.x,Current.y-1)&&  
-                GridCreator.GameGrid[Current.x, Current.y - 1].Contains != 4 &&
-                GridCreator.GameGrid[Current.x , Current.y-1].Contains != 2))
+            else if (Target.x == Current.x && Target.y == Current.y+1)
+            {
+                NewChecks.Add(new Vector3Int(Current.x , Current.y+1, 0));
+            }
+
+            //check below tile
+            if (GetIfInBounds(Current.x, Current.y - 1))
+            {
+                if (GridCreator.GameGrid[Current.x, Current.y - 1].Contains != 4 &&
+                GridCreator.GameGrid[Current.x, Current.y - 1].Contains != 2)
+                {
+                    NewChecks.Add(new Vector3Int(Current.x, Current.y - 1, 0));
+                }
+                else if (GridCreator.GameGrid[Current.x, Current.y - 1].Contains == 2)
+                {
+                    List<Vector3Int> TrainTiles = CheckForTrainStation(0, -1, GridHandler, Current);
+                    for (int i = 0; i < TrainTiles.Count; i++)
+                    {
+                        NewChecks.Add(TrainTiles[i]);
+                    }
+                }
+            }
+            else if (Target.x == Current.x && Target.y == Current.y - 1)
             {
                 NewChecks.Add(new Vector3Int(Current.x, Current.y - 1, 0));
-                //  AlreadyAdded.Add(new Vector3Int(CurrentPos.x, CurrentPos.y - 1, 0));
             }
-            else if (((Target.x == Current.x  && Target.y == Current.y-1) ||
-               GetIfInBounds(Current.x , Current.y-1) &&
-               GridCreator.GameGrid[Current.x , Current.y-1].Contains == 2))
-            {
-                List<Vector3Int> TrainTiles = CheckForTrainStation(0, -1, GridHandler, Current);
-                for (int i = 0; i < TrainTiles.Count; i++)
-                {
-                    NewChecks.Add(TrainTiles[i]);
-                }
-            }
+              
             for (int i = 0; i < NewChecks.Count; i++)
             {
                 if (!AlreadyVisited.Contains(NewChecks[i]))
@@ -496,7 +524,7 @@ public class Citzen
     {
         return XPos>=0 && XPos<GridCreator.WIDTH && YPos>=0 && YPos<GridCreator.HEIGHT;
     }
-    public void MoveTowardsTargetOnRoute()
+    public void MoveTowardsTargetOnRoute(GridCreator GridHandler)
     {
 
         IncreaseBoredom(1);
@@ -516,8 +544,8 @@ public class Citzen
             return;
         }
 
-        Debug.Log("Nex position:" + NexPositionOnRoute);
-        Debug.Log("Route length" + RoutePositions.Count);
+     //   Debug.Log("Nex position:" + NexPositionOnRoute);
+      //  Debug.Log("Route length" + RoutePositions.Count);
         if(Position.y > RoutePositions[NexPositionOnRoute].y)
         {
             Position.y = Mathf.Max(Position.y - MovementSpeed, RoutePositions[NexPositionOnRoute].y);
@@ -572,7 +600,35 @@ public class Citzen
             else
             {
                 //Next target
+                int BuildingCheckIndex = GridHandler.GetBuildingClicked(GridCreator.GameMap.WorldToCell( (RoutePositions[NexPositionOnRoute])));
+                if (BuildingCheckIndex != -1)
+                {
+                    PlacedBuilding Station = GridCreator.PlacedBuildings[BuildingCheckIndex];
+                    if (Station.GetIfTrainStation())
+                    { 
+                        Debug.Log("NPC in train station");
+                        int NextBuildingCheckIndex = GridHandler.GetBuildingClicked(GridCreator.GameMap.WorldToCell((RoutePositions[NexPositionOnRoute+1])));
+                        if(NextBuildingCheckIndex != -1)
+                        {
+                            PlacedBuilding NextStation = GridCreator.PlacedBuildings[NextBuildingCheckIndex];
+                            if (NextStation.GetIfTrainStation()) {
+                                if (TransportPlacementScript.CheckIfRouteBetweenStations(Station.GetBuildingPosAsInt(), NextStation.GetBuildingPosAsInt())) {
+                                    Debug.Log("Waiting for train");
+                                    CurrentStation=Station;
+                                    TargetStation = NextStation;
+                                    SetCurrentAction(6);
+                                }
+
+                            }
+                        }
+                       
+                        
+                    }
+                }
+
+
                 NexPositionOnRoute++;
+                
             }
         }
     }

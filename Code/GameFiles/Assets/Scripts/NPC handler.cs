@@ -422,7 +422,7 @@ public class NPChandler : MonoBehaviour
                     NPCList[i].ResetCounter();
                     //      Debug.Log("Moving towards target");
                     // NPCList[i].MovetowardsTarget();
-                    NPCList[i].MoveTowardsTargetOnRoute();
+                    NPCList[i].MoveTowardsTargetOnRoute(gridCreator);
                 }
                 else
                 {
@@ -486,6 +486,10 @@ public class NPChandler : MonoBehaviour
                 //Leave the city
                 NPCsToRemove.Add(i);
 
+            }
+            else if (NPCList[i].GetCurrentAction() == 6)
+            {
+                //Waiting for train
             }
             
         }
