@@ -190,6 +190,7 @@ public class Citzen
         }
         return Positions;
     }
+    /*
     public List<Vector3Int>CheckForTrainStation(int xChange,int yChange,GridCreator GridHandler,Vector3Int Current)
     {
         List<Vector3Int>NewChecks=new List<Vector3Int>();
@@ -218,6 +219,23 @@ public class Citzen
         }
         return NewChecks;
     }
+    */
+    public List<Vector3Int> CheckForTrainStation(int xChange,int yChange,GridCreator GridHandler,Vector3Int Current)
+    {
+        List<Vector3Int> newChecks = new List<Vector3Int>();
+
+        int buildingIndex = GridHandler.GetBuildingClicked(new Vector3Int(Current.x + xChange, Current.y + yChange, 0));
+
+        if (buildingIndex == -1)
+            return newChecks;
+
+        if (!GridCreator.PlacedBuildings[buildingIndex].GetIfTrainStation())
+            return newChecks;
+
+        newChecks.Add(new Vector3Int(Current.x + xChange, Current.y + yChange, 0));
+
+        return newChecks;
+    }
     public bool SetRoute(Vector3Int Target, Square[,]Grid, Tilemap GameMap,GridCreator GridHandler)
     {
         Queue<Vector3Int> ToCheck = new Queue<Vector3Int>();
@@ -236,9 +254,44 @@ public class Citzen
         {
             Vector3Int Current = ToCheck.Dequeue();
 
+            int currentBuildingIndex = GridHandler.GetBuildingClicked(Current);
+
+            if (currentBuildingIndex != -1)
+            {
+                PlacedBuilding currentBuilding =GridCreator.PlacedBuildings[currentBuildingIndex];
+
+                if (currentBuilding.GetIfTrainStation())
+                {
+                    List<Route> RoutesForStation =TransportPlacementScript.GetAllTrainRoutesForStation(currentBuilding);
+                    for (int i = 0; i < RoutesForStation.Count; i++)
+                    {
+                        PlacedBuilding ConnectingStation;
+
+                        if (RoutesForStation[i].StartStation == currentBuilding)
+                        {
+                            ConnectingStation = RoutesForStation[i].EndStation;
+                        }
+                        else
+                        {
+                            ConnectingStation = RoutesForStation[i].StartStation;
+                        }
+
+                        Vector3Int ConnectingStationCellPos = new Vector3Int((int)ConnectingStation.GetBuildingPos().x,(int)ConnectingStation.GetBuildingPos().y,0);
+
+                        if (!AlreadyVisited.Contains(ConnectingStationCellPos))
+                        {
+                            ToCheck.Enqueue(ConnectingStationCellPos);
+                            AlreadyVisited.Add(ConnectingStationCellPos);
+                            CameFrom[ConnectingStationCellPos] = Current;
+                        }
+                    }
+                }
+            }
+
             if (Current==Target)
             {
                 Debug.Log("Route set");
+                /*
                 RoutePositions = new List<Vector3>();
                 Vector3Int CurrentRoutePos = Current;
                 while (CameFrom[CurrentRoutePos] != CurrentRoutePos)
@@ -249,6 +302,29 @@ public class Citzen
                 }
                 RoutePositions.Add(GridCreator.GameMap.CellToWorld( CurrentRoutePos));
                 RoutePositions.Reverse();
+
+                */
+                RoutePositions = new List<Vector3>();
+
+                Vector3Int currentRoutePos = Current;
+
+                while (CameFrom[currentRoutePos] != currentRoutePos)
+                {
+                    RoutePositions.Add(
+                        GridCreator.GameMap.CellToWorld(currentRoutePos)
+                    );
+
+                    currentRoutePos = CameFrom[currentRoutePos];
+                }
+
+                // add the start node
+                RoutePositions.Add(
+                    GridCreator.GameMap.CellToWorld(currentRoutePos)
+                );
+
+                RoutePositions.Reverse();
+
+
                 NexPositionOnRoute = 0;
                 if (NexPositionOnRoute > RoutePositions.Count)
                 {
@@ -534,9 +610,7 @@ public class Citzen
         {
             SetCurrentAction(-1);
             return;
-        }
-
-       
+        }    
 
         if (NexPositionOnRoute < 0 || NexPositionOnRoute >= RoutePositions.Count)
         {
@@ -610,8 +684,10 @@ public class Citzen
                         int NextBuildingCheckIndex = GridHandler.GetBuildingClicked(GridCreator.GameMap.WorldToCell((RoutePositions[NexPositionOnRoute+1])));
                         if(NextBuildingCheckIndex != -1)
                         {
+                            Debug.Log("Building found at next postition");
                             PlacedBuilding NextStation = GridCreator.PlacedBuildings[NextBuildingCheckIndex];
                             if (NextStation.GetIfTrainStation()) {
+                                Debug.Log("Building is train station");
                                 if (TransportPlacementScript.CheckIfRouteBetweenStations(Station.GetBuildingPosAsInt(), NextStation.GetBuildingPosAsInt())) {
                                     Debug.Log("Waiting for train");
                                     CurrentStation=Station;

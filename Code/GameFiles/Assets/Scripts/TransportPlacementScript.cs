@@ -370,7 +370,8 @@ public class TransportPlacementScript : MonoBehaviour
     {
         for(int i = 0;i < TrainRoutes.Count; i++)
         {
-            if (TrainRoutes[i].StartStation.GetBuildingPosAsInt()==StartPos && TrainRoutes[i].EndStation.GetBuildingPosAsInt() == EndPos)
+            if (TrainRoutes[i].StartStation.GetBuildingPosAsInt()==StartPos && TrainRoutes[i].EndStation.GetBuildingPosAsInt() == EndPos
+                || TrainRoutes[i].StartStation.GetBuildingPosAsInt() == EndPos && TrainRoutes[i].EndStation.GetBuildingPosAsInt() == StartPos)
             {
                 return true;
             }
