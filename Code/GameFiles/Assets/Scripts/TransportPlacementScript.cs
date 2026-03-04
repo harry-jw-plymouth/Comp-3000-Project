@@ -391,6 +391,13 @@ public class TransportPlacementScript : MonoBehaviour
         }
         return routes;
     }
+    void CheckForReactivation()
+    {
+        for (int i = 0; i < TrainRoutes.Count; i++)
+        {
+            TrainRoutes[i].ReactivateTrain();
+        }
+    }
     // Update is called once per frame
     void Update()
     {
@@ -399,6 +406,7 @@ public class TransportPlacementScript : MonoBehaviour
         {
             AmountCheckCounter = 0;
             CheckForNewRoutes();
+            CheckForReactivation();
             DoMovement();
 
         }
