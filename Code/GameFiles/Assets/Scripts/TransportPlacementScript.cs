@@ -80,6 +80,11 @@ public class TransportPlacementScript : MonoBehaviour
         List<Vector3Int>PositionsToCheck = new List<Vector3Int>();
         List<Vector3Int> AlreadyAdded = new List<Vector3Int>();
         List<Vector3Int>ToCheck= new List<Vector3Int>();
+        if (StartBuilding == -1 || EndBuilding == -1)
+        {
+            return false;
+        }
+
         PlacedBuilding StartStation=GridCreator.PlacedBuildings[StartBuilding];
         PlacedBuilding EndStation = GridCreator.PlacedBuildings[EndBuilding];
 
