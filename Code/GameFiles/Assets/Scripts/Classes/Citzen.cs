@@ -41,7 +41,6 @@ public class Citzen
     int NexPositionOnRoute;
     List<Vector3> RoutePositions=new List<Vector3>();
 
-    GridCreator GridHandler;
 
     public Citzen(Vector3 Pos,GameObject sprite)
     {
@@ -184,7 +183,7 @@ public class Citzen
         }
         return Positions;
     }
-    public bool SetRoute(Vector3Int Target, Square[,]Grid, Tilemap GameMap)
+    public bool SetRoute(Vector3Int Target, Square[,]Grid, Tilemap GameMap,GridCreator GridHandler)
     {
         Queue<Vector3Int> ToCheck = new Queue<Vector3Int>();
         HashSet<Vector3Int> AlreadyVisited = new HashSet<Vector3Int>();

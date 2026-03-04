@@ -243,7 +243,7 @@ public class NPChandler : MonoBehaviour
                 RoadPos.y += 0.5f;
                 RoadPos.x += 0.5f;
               //  NPCList[NPCIndex].SetMovementTarget(RoadPos);
-                if(NPCList[NPCIndex].SetRoute(GridCreator.GameMap.WorldToCell(RoadPos), GridCreator.GameGrid, GridCreator.GameMap))
+                if(NPCList[NPCIndex].SetRoute(GridCreator.GameMap.WorldToCell(RoadPos), GridCreator.GameGrid, GridCreator.GameMap,gridCreator))
                 {
                     Debug.Log("Set action to 0");
                     NPCList[NPCIndex].SetCurrentAction(0);
@@ -264,7 +264,7 @@ public class NPChandler : MonoBehaviour
 
                     ShopPos.x += 0.5f; ShopPos.y += 0.5f;
                   //  NPCList[NPCIndex].SetMovementTarget(ShopPos);
-                   if( NPCList[NPCIndex].SetRoute(GridCreator.GameMap.WorldToCell( ShopPos), GridCreator.GameGrid, GridCreator.GameMap))
+                   if( NPCList[NPCIndex].SetRoute(GridCreator.GameMap.WorldToCell( ShopPos), GridCreator.GameGrid, GridCreator.GameMap,gridCreator))
                     {
                         Debug.Log("Set action to 0");
                         NPCList[NPCIndex].SetCurrentAction(0);
@@ -279,7 +279,7 @@ public class NPChandler : MonoBehaviour
                 {
                     //no shop found
                     //NPCList[NPCIndex].SetMovementTarget(GetWanderTarget());
-                    if(NPCList[NPCIndex].SetRoute(GridCreator.GameMap.WorldToCell(GetWanderTarget()), GridCreator.GameGrid, GridCreator.GameMap))
+                    if(NPCList[NPCIndex].SetRoute(GridCreator.GameMap.WorldToCell(GetWanderTarget()), GridCreator.GameGrid, GridCreator.GameMap,gridCreator))
                     {
                         Debug.Log("Set action to 0");
                         NPCList[NPCIndex].SetCurrentAction(0);
@@ -294,7 +294,7 @@ public class NPChandler : MonoBehaviour
                 //go home
                 Vector3 HomePos = NPCList[NPCIndex].GetHomePos();
                 if (HomePos.x != -1) {
-                    if(NPCList[NPCIndex].SetRoute(GridCreator.GameMap.WorldToCell(HomePos), GridCreator.GameGrid, GridCreator.GameMap))
+                    if(NPCList[NPCIndex].SetRoute(GridCreator.GameMap.WorldToCell(HomePos), GridCreator.GameGrid, GridCreator.GameMap, gridCreator))
                     {
                         Debug.Log("Set action to 0");
                         NPCList[NPCIndex].SetCurrentAction(0);
@@ -314,7 +314,7 @@ public class NPChandler : MonoBehaviour
                     Vector3 HospitalPos = GridCreator.GetPosOfNearestHospital(NPCList[NPCIndex].GetPosition());
                     if (HospitalPos.x != -1)
                     {
-                        if(NPCList[NPCIndex].SetRoute(GridCreator.GameMap.WorldToCell(HospitalPos), GridCreator.GameGrid, GridCreator.GameMap))
+                        if(NPCList[NPCIndex].SetRoute(GridCreator.GameMap.WorldToCell(HospitalPos), GridCreator.GameGrid, GridCreator.GameMap, gridCreator))
                         {
                             Debug.Log("Set action to 0");
                             NPCList[NPCIndex].SetCurrentAction(0);
@@ -337,7 +337,7 @@ public class NPChandler : MonoBehaviour
                     Vector3 EntertainmentPos = GridCreator.GetPosOfNearestEntertainment(NPCList[NPCIndex].GetPosition());
                     if(EntertainmentPos.x != -1)
                     {
-                        if(NPCList[NPCIndex].SetRoute(GridCreator.GameMap.WorldToCell(EntertainmentPos), GridCreator.GameGrid, GridCreator.GameMap))
+                        if(NPCList[NPCIndex].SetRoute(GridCreator.GameMap.WorldToCell(EntertainmentPos), GridCreator.GameGrid, GridCreator.GameMap, gridCreator))
                         {
                             Debug.Log("Set action to 0");
                             NPCList[NPCIndex].SetCurrentAction(0);
@@ -355,7 +355,7 @@ public class NPChandler : MonoBehaviour
             else
             {
                 //Wander
-                if( NPCList[NPCIndex].SetRoute(GridCreator.GameMap.WorldToCell(GetWanderTarget()), GridCreator.GameGrid, GridCreator.GameMap))
+                if( NPCList[NPCIndex].SetRoute(GridCreator.GameMap.WorldToCell(GetWanderTarget()), GridCreator.GameGrid, GridCreator.GameMap, gridCreator))
                 {
                     Debug.Log("Set action to 0");
                     //  NPCList[NPCIndex].SetMovementTarget(GetWanderTarget());
