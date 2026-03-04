@@ -12,6 +12,8 @@ public class Route
     List<Train> TrainsOnRoute = new List<Train>();
     GameObject SpriteForTrains;
 
+    
+
 
     public Route(PlacedBuilding Start,PlacedBuilding End)
     {
@@ -69,23 +71,26 @@ public class Route
         }
         return Positions;
     }
-    public void ReactivateTrains()
+    public void ReactivateTrains(NPChandler NpcHandler)
     {
         for (int i = 0; i < TrainsOnRoute.Count; i++)
         {
             if (!TrainsOnRoute[i].GetIfCurrentlyMoving())
             {
                 Train CurrentTrain = TrainsOnRoute[i];
+                List<int> IDs=new List<int>();
                 if (GridCreator.GameMap.WorldToCell( CurrentTrain.GetPosition()) ==  StartStation.GetBuildingPos())
                 {
                     // Train at start station
+                    IDs= NpcHandler.GetNPCsIdWaitingForTrain(StartStation, EndStation);                         
                 }
                 else
                 {
                     //train at end station
-
+                    IDs = NpcHandler.GetNPCsIdWaitingForTrain(EndStation,StartStation);
                 }
-
+                TrainsOnRoute[i].SetIDsOnTrain(IDs);
+                TrainsOnRoute[i].SetIsCurrentlyMoving(true);
             }
         }
     }

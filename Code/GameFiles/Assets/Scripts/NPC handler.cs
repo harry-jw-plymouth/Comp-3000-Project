@@ -179,6 +179,19 @@ public class NPChandler : MonoBehaviour
             NPCList[RandomNpcIndex].SetCurrentAction(5);
         }
     }
+    public List<int> GetNPCsIdWaitingForTrain(PlacedBuilding Start,PlacedBuilding End)
+    {
+        List<int> Ids = new List<int>();
+        for(int i = 0; i < NPCList.Count; i++)
+        {
+            if (NPCList[i].CurrentStation.GetBuildingPosAsInt()==Start.GetBuildingPosAsInt()&&
+                NPCList[i].TargetStation.GetBuildingPosAsInt() == End.GetBuildingPosAsInt())
+            {
+                Ids.Add(NPCList[i].GetCitzenID());
+            }
+        }
+        return Ids;
+    }
     void CheckForNewNPCs()
     {
         float value = Random.Range(30, 200);

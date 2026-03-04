@@ -35,6 +35,7 @@ public class Citzen
     Vector3 HomePosition=new Vector3(-1,-1,-1);
 
 
+
     int TiredNess = 0;
     int Sickness = 0;
     int Boredom = 0;
@@ -46,8 +47,8 @@ public class Citzen
     List<Vector3> RoutePositions=new List<Vector3>();
     List<Vector3>TrainStationPositionsOnRoute= new List<Vector3>();
 
-    PlacedBuilding CurrentStation;
-    PlacedBuilding TargetStation;
+    public PlacedBuilding CurrentStation;
+    public PlacedBuilding TargetStation;
 
 
     public Citzen(Vector3 Pos,int CitzenID,GameObject sprite)
@@ -55,6 +56,10 @@ public class Citzen
         NPCSprite = sprite;
         Position= Pos;
         UpdateNeeded = true;
+    }
+    public int GetCitzenID()
+    {
+        return CitzenID;
     }
     public void RemoveNPCSprite()
     {

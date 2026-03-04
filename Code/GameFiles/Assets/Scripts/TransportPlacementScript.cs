@@ -15,6 +15,8 @@ public class TransportPlacementScript : MonoBehaviour
     public static  RuleTile TrackTile;
     public GridCreator GridHandler;
     public UIHandlerScript uiHandler;
+
+    public NPChandler NPChandler;
     [SerializeField] private RuleTile TrackTileReference;
 
     
@@ -395,7 +397,7 @@ public class TransportPlacementScript : MonoBehaviour
     {
         for (int i = 0; i < TrainRoutes.Count; i++)
         {
-            TrainRoutes[i].ReactivateTrains();
+            TrainRoutes[i].ReactivateTrains(NPChandler);
         }
     }
     // Update is called once per frame

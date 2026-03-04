@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -13,6 +14,8 @@ public class Train
     public bool XCurrentlyIncreasing, YCurrentlyIncreasing;
     public bool XSame, YSame;
 
+    public List<int> NPCIdsOnTrain = new List<int>();
+
     public bool isCurrentlyMoving = true;
     public Train(Vector3Int StartTile,GameObject Sprite)
     {
@@ -27,6 +30,10 @@ public class Train
     //  {
     //    .Instantiate()
     //}
+    public void SetIDsOnTrain(List<int> NPCIds)
+    {
+        NPCIdsOnTrain= NPCIds; 
+    }
     public bool GetIfTargetReached()
     {
         return Vector3.Distance(CurrentPosition, CurrentTarget) < 0.05f;
