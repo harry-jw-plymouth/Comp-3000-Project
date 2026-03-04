@@ -280,8 +280,8 @@ public class Citzen
                 // AlreadyAdded.Add(new Vector3Int(CurrentPos.x - 1, CurrentPos.y, 0));
             }
             else if (((Target.x == Current.x - 1 && Target.y == Current.y) ||
-               GetIfInBounds(Current.x + 1, Current.y) &&
-               GridCreator.GameGrid[Current.x + 1, Current.y].Contains == 2))
+               GetIfInBounds(Current.x - 1, Current.y) &&
+               GridCreator.GameGrid[Current.x - 1, Current.y].Contains == 2))
             {
                 List<Vector3Int> TrainTiles = CheckForTrainStation(-1, 0, GridHandler, Current);
                 for (int i = 0; i < TrainTiles.Count; i++)

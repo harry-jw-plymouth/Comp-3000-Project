@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Unity.Mathematics.Geometry;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Tilemaps;
@@ -66,7 +67,7 @@ public class GridCreator : MonoBehaviour
     }
     private void Awake()
     {
-
+        GameGrid = new Square[WIDTH, HEIGHT];
         GameMap = GameMapReference;
     }
     void CenterCamera()
@@ -1192,4 +1193,19 @@ public class GridCreator : MonoBehaviour
 
         
     }
+    private void OnDestroy()
+    {
+        PlacedBuildings.Clear();
+        HomesPlaced.Clear();
+        RoadPositions.Clear();
+        GameMap = null;
+        GameGrid = new Square[WIDTH, HEIGHT];
+        RecentlySelectedBuilding = null;
+        NearestPowerPlantIndex = -1;
+
+        Sprites.Clear();
+        PreviousBuildingHighlight.Clear();
+        PowerIcons.Clear();
+    }
 }
+
