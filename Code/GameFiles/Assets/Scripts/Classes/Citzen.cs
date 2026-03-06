@@ -51,10 +51,11 @@ public class Citzen
     public PlacedBuilding TargetStation;
 
 
-    public Citzen(Vector3 Pos,int CitzenID,GameObject sprite)
+    public Citzen(Vector3 Pos,int ID,GameObject sprite)
     {
         NPCSprite = sprite;
         Position= Pos;
+        CitzenID = ID;
         UpdateNeeded = true;
     }
     public int GetCitzenID()
@@ -71,6 +72,8 @@ public class Citzen
     }
     public void GetOffTrain()
     {
+        Debug.Log("Npc moved to target station at "+ TargetStation.GetBuildingPosAsInt());
+        Debug.Log("Start station was:"+CurrentStation.GetBuildingPosAsInt());
         Position = TargetStation.GetBuildingPos();
         SetCurrentAction(0);
         CurrentStation = null;
@@ -706,16 +709,34 @@ public class Citzen
                             if (NextStation.GetIfTrainStation()) {
                                 Debug.Log("Building is train station");
                                 if (TransportPlacementScript.CheckIfRouteBetweenStations(Station.GetBuildingPosAsInt(), NextStation.GetBuildingPosAsInt())) {
-                                    Debug.Log("Waiting for train");
-                                    CurrentStation=Station;
+                                    Debug.Log("Id: "+CitzenID+" Waiting for train at "+Station.GetBuildingPosAsInt());
+                                    Debug.Log("Id: " + CitzenID + " Waiting to go too " + NextStation.GetBuildingPosAsInt());
+                                    CurrentStation =Station;
                                     TargetStation = NextStation;
                                     SetCurrentAction(6);
+                                    NPCSprite.GetComponent<SpriteRenderer>().enabled = false;
+                                    NexPositionOnRoute++;
+                                    //NexPositionOnRoute++;
+                                }
+                                else
+                                {
+                                    NexPositionOnRoute++; 
                                 }
 
                             }
+                            else {
+                                NexPositionOnRoute++;
+                            }
                         }
-                       
-                        
+                        else
+                        {
+                            NexPositionOnRoute++;
+                        }
+
+                    }
+                    else
+                    {
+                        NexPositionOnRoute++;
                     }
                 }
 

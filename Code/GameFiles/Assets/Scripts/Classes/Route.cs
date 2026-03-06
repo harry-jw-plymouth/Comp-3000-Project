@@ -71,6 +71,7 @@ public class Route
         }
         return Positions;
     }
+    /*
     public void ReactivateTrains(NPChandler NpcHandler)
     {
         for (int i = 0; i < TrainsOnRoute.Count; i++)
@@ -79,7 +80,7 @@ public class Route
             {
                 Train CurrentTrain = TrainsOnRoute[i];
                 List<int> IDs=new List<int>();
-                if (GridCreator.GameMap.WorldToCell( CurrentTrain.GetPosition()) ==  StartStation.GetBuildingPos())
+                if (GridCreator.GameMap.WorldToCell( CurrentTrain.GetCurrentStationPos()) ==  StartStation.GetBuildingPos())
                 {
                     // Train at start station
                     IDs= NpcHandler.GetNPCsIdWaitingForTrain(StartStation, EndStation);                         
@@ -92,6 +93,45 @@ public class Route
                 if (IDs.Count > 0) {
                     Debug.Log("Picked up NPCs");
                 }
+                TrainsOnRoute[i].SetIDsOnTrain(IDs);
+                TrainsOnRoute[i].SetIsCurrentlyMoving(true);
+            }
+        }
+    }
+    */
+    public void ReactivateTrains(NPChandler NpcHandler)
+    {
+        for (int i = 0; i < TrainsOnRoute.Count; i++)
+        {
+            if (!TrainsOnRoute[i].GetIfCurrentlyMoving())
+            {
+                Train CurrentTrain = TrainsOnRoute[i];
+                List<int> IDs = new List<int>();
+
+                Vector3Int trainStationCell = GridCreator.GameMap.WorldToCell(
+                    CurrentTrain.GetCurrentStationPos()
+                );
+                Vector3Int startCell = GridCreator.GameMap.WorldToCell(
+                    StartStation.GetBuildingPos()
+                );
+                Vector3Int endCell = GridCreator.GameMap.WorldToCell(
+                    EndStation.GetBuildingPos()
+                );
+
+                if (trainStationCell == startCell)
+                {
+                    IDs = NpcHandler.GetNPCsIdWaitingForTrain(StartStation, EndStation);
+                }
+                else if (trainStationCell == endCell)
+                {
+                    IDs = NpcHandler.GetNPCsIdWaitingForTrain(EndStation, StartStation);
+                }
+                else
+                {
+                    Debug.LogWarning("Train not at a recognised station: " + trainStationCell);
+                }
+
+                if (IDs.Count > 0) Debug.Log("Picked up NPCs");
                 TrainsOnRoute[i].SetIDsOnTrain(IDs);
                 TrainsOnRoute[i].SetIsCurrentlyMoving(true);
             }
@@ -114,10 +154,12 @@ public class Route
                         TrainsOnRoute[i].CurrentlyAscendingRoute = !TrainsOnRoute[i].CurrentlyAscendingRoute;
                         if (TrainsOnRoute[i].CurrentlyAscendingRoute)
                         {
+                            TrainsOnRoute[i].SetLastStation(EndStation.GetBuildingPosAsInt());
                             TrainsOnRoute[i].CurrentlyTargetting++;
                         }
                         else
                         {
+                            TrainsOnRoute[i].SetLastStation(StartStation.GetBuildingPosAsInt());  
                             TrainsOnRoute[i].CurrentlyTargetting--;
                         }
                         TrainsOnRoute[i].SetIsCurrentlyMoving(false);

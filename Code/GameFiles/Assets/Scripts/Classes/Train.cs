@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Train
 {
+    public Vector3 CurrentOrPreviousStation;
     public Vector3 CurrentPosition;
     public Vector3Int TargetStation;
    // public GameObject TrainSpritePrefab;
@@ -30,9 +31,18 @@ public class Train
     //  {
     //    .Instantiate()
     //}
+    public void SetLastStation(Vector3Int Station)
+    {
+        CurrentOrPreviousStation = Station;
+    }
+    public Vector3 GetCurrentStationPos()
+    {
+        return CurrentOrPreviousStation;
+    }
     public void SetIDsOnTrain(List<int> NPCIds)
     {
-        NPCIdsOnTrain= NPCIds; 
+        NPCIdsOnTrain= NPCIds;
+        Debug.Log("Train picked up " + NPCIds.Count + " people");
     }
     public void ResetIDsOnTrain()
     {

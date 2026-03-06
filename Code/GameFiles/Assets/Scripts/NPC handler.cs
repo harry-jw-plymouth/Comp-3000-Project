@@ -194,11 +194,9 @@ public class NPChandler : MonoBehaviour
                 NPCList[i].TargetStation.GetBuildingPosAsInt() == End.GetBuildingPosAsInt())
                 {
                     Ids.Add(NPCList[i].GetCitzenID());
+                    Debug.Log("NPC getting on train");
                 }
-            }
-
-
-            
+            }          
         }
         return Ids;
     }

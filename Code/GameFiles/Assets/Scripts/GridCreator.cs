@@ -781,8 +781,8 @@ public class GridCreator : MonoBehaviour
         {
             Vector3 ClickPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             Vector3Int CellClickedPos = GameMap.WorldToCell(ClickPos);
-            // Debug.Log("Click at: " + ClickPos);
-            //  Debug.Log("Click at: " + CellClickedPos);
+             Debug.Log("Click at: " + ClickPos);
+              Debug.Log("Click at: " + CellClickedPos);
             if (uiHandler.SelectingRouteLocation)
             {
                 CheckForStationClicked(CellClickedPos);
