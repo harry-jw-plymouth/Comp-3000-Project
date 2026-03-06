@@ -700,17 +700,17 @@ public class Citzen
                     PlacedBuilding Station = GridCreator.PlacedBuildings[BuildingCheckIndex];
                     if (Station.GetIfTrainStation())
                     { 
-                        Debug.Log("NPC in train station");
+                       // Debug.Log("NPC in train station");
                         int NextBuildingCheckIndex = GridHandler.GetBuildingClicked(GridCreator.GameMap.WorldToCell((RoutePositions[NexPositionOnRoute+1])));
                         if(NextBuildingCheckIndex != -1)
                         {
-                            Debug.Log("Building found at next postition");
+                            //Debug.Log("Building found at next postition");
                             PlacedBuilding NextStation = GridCreator.PlacedBuildings[NextBuildingCheckIndex];
                             if (NextStation.GetIfTrainStation()) {
-                                Debug.Log("Building is train station");
+                                //Debug.Log("Building is train station");
                                 if (TransportPlacementScript.CheckIfRouteBetweenStations(Station.GetBuildingPosAsInt(), NextStation.GetBuildingPosAsInt())) {
-                                    Debug.Log("Id: "+CitzenID+" Waiting for train at "+Station.GetBuildingPosAsInt());
-                                    Debug.Log("Id: " + CitzenID + " Waiting to go too " + NextStation.GetBuildingPosAsInt());
+                                   // Debug.Log("Id: "+CitzenID+" Waiting for train at "+Station.GetBuildingPosAsInt());
+                                    //Debug.Log("Id: " + CitzenID + " Waiting to go too " + NextStation.GetBuildingPosAsInt());
                                     CurrentStation =Station;
                                     TargetStation = NextStation;
                                     SetCurrentAction(6);

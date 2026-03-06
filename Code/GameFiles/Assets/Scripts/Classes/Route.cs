@@ -120,9 +120,6 @@ public class Route
                 {
                     IDs = NpcHandler.GetNPCsIdWaitingForTrain(EndStation, StartStation);
                 }
-
-
-                if (IDs.Count > 0) Debug.Log("Picked up NPCs");
                 TrainsOnRoute[i].SetIDsOnTrain(IDs);
                 TrainsOnRoute[i].SetIsCurrentlyMoving(true);
             }
@@ -143,9 +140,7 @@ public class Route
                         // Drop off NPCs at the station we just arrived at
                         if (TrainsOnRoute[i].CurrentlyAscendingRoute)
                         {
-                            NpcHandler.UpdateNPCsAfterTrainJourney(
-                                TrainsOnRoute[i].GetNPCIDsOnTrain()
-                            );
+                            NpcHandler.UpdateNPCsAfterTrainJourney(TrainsOnRoute[i].GetNPCIDsOnTrain());
                         }
                         else
                         {
@@ -153,7 +148,7 @@ public class Route
                         }
                         TrainsOnRoute[i].ResetIDsOnTrain();
 
-                        // Flip direction AFTER dropping off
+                        // Change direction
                         TrainsOnRoute[i].CurrentlyAscendingRoute = !TrainsOnRoute[i].CurrentlyAscendingRoute;
 
                         if (TrainsOnRoute[i].CurrentlyAscendingRoute)
@@ -166,27 +161,6 @@ public class Route
                         }
 
                         TrainsOnRoute[i].SetIsCurrentlyMoving(false);
-                        //End of route
-                        //         Debug.Log("RouteCompleted");
-                        // TrainsOnRoute[i].CurrentlyAscendingRoute = !TrainsOnRoute[i].CurrentlyAscendingRoute;
-                        //  if (TrainsOnRoute[i].CurrentlyAscendingRoute)
-                        //  {
-                        //      TrainsOnRoute[i].SetLastStation(EndStation.GetBuildingPosAsInt());
-                        //      TrainsOnRoute[i].CurrentlyTargetting++;
-                        //  }
-                        //  else
-                        //  {
-                        //      TrainsOnRoute[i].SetLastStation(StartStation.GetBuildingPosAsInt());  
-                        ///       TrainsOnRoute[i].CurrentlyTargetting--;
-                        ///   }
-                        ///   TrainsOnRoute[i].SetIsCurrentlyMoving(false);
-                        //   NpcHandler.UpdateNPCsAfterTrainJourney(TrainsOnRoute[i].GetNPCIDsOnTrain());
-                        //   TrainsOnRoute[i].ResetIDsOnTrain();
-
-
-
-
-
                     }
                     else
                     {
