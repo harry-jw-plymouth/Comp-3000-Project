@@ -411,8 +411,9 @@ public class UIHandlerScript : MonoBehaviour
         RailCanvas.SetActive(false);
         if (TransportPlacementOn)
         {
-            TransportPlacementOn = false;
-            TransportBuilderPopUp.SetActive(false);
+            CloseTransportPopup();
+
+          
             
         }
         else
@@ -437,6 +438,18 @@ public class UIHandlerScript : MonoBehaviour
             TransportBuilderPopUp.SetActive(false);
         }
     }
+    public void CloseTransportPopup()
+    {
+        TransportBuilderPopUp.SetActive(false);
+        StartRouteStationBuilding = -1;
+        EndRouteStationBuilding = -1;
+        TransportPlacementOn = false;
+        CloseRailPopUp();
+    }
+    public void CloseRailPopUp()
+    {
+        RailCanvas.SetActive(false);
+    }
     public void OnBuildingsButtonClick()
     {
         SetUIInactive();
@@ -449,6 +462,7 @@ public class UIHandlerScript : MonoBehaviour
         }
         else
         {
+            CloseTransportPopup();
             BuildingsMenuPopUp.SetActive(true);
             BuildingRemoveButton.SetActive(true);
         }
