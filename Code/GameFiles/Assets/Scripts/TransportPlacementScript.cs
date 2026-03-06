@@ -359,7 +359,7 @@ public class TransportPlacementScript : MonoBehaviour
         for (int i = 0; i < TrainRoutes.Count; i++) {
             if (TrainRoutes[i].GetIfActivated())
             {
-                TrainRoutes[i].DoMovement();
+                TrainRoutes[i].DoMovement(NPChandler);
             }
         }
 

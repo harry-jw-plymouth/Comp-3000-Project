@@ -89,12 +89,15 @@ public class Route
                     //train at end station
                     IDs = NpcHandler.GetNPCsIdWaitingForTrain(EndStation,StartStation);
                 }
+                if (IDs.Count > 0) {
+                    Debug.Log("Picked up NPCs");
+                }
                 TrainsOnRoute[i].SetIDsOnTrain(IDs);
                 TrainsOnRoute[i].SetIsCurrentlyMoving(true);
             }
         }
     }
-    public void DoMovement()
+    public void DoMovement(NPChandler NpcHandler)
     {
         for (int i = 0; i < TrainsOnRoute.Count; i++) 
         {
@@ -118,6 +121,11 @@ public class Route
                             TrainsOnRoute[i].CurrentlyTargetting--;
                         }
                         TrainsOnRoute[i].SetIsCurrentlyMoving(false);
+                        NpcHandler.UpdateNPCsAfterTrainJourney(TrainsOnRoute[i].GetNPCIDsOnTrain());
+                        TrainsOnRoute[i].ResetIDsOnTrain();
+
+
+
 
 
                     }

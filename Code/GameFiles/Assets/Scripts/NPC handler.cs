@@ -222,6 +222,17 @@ public class NPChandler : MonoBehaviour
         }
         return true;
     }
+    public void UpdateNPCsAfterTrainJourney(List<int> NPCIDs)
+    {
+        for (int i = 0; i < NPCList.Count; i++)
+        {
+            if (NPCIDs.Contains(NPCList[i].GetCitzenID())){
+                //npc on train
+                NPCList[i].GetOffTrain();
+            }
+        }
+    }
+ 
     public Vector3 GetWanderTarget()
     {
 

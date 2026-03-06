@@ -69,6 +69,16 @@ public class Citzen
     {
         HomeIndex = Index;
     }
+    public void GetOffTrain()
+    {
+        Position = TargetStation.GetBuildingPos();
+        SetCurrentAction(0);
+        CurrentStation = null;
+        TargetStation= null;
+        NPCSprite.GetComponent<SpriteRenderer>().enabled = true;
+        NPCSprite.transform.position = Position;
+
+    }
     public int GetHomeIndex()
     {
         return HomeIndex;

@@ -34,6 +34,14 @@ public class Train
     {
         NPCIdsOnTrain= NPCIds; 
     }
+    public void ResetIDsOnTrain()
+    {
+        NPCIdsOnTrain.Clear();
+    }
+    public List<int> GetNPCIDsOnTrain()
+    {
+        return NPCIdsOnTrain;
+    }
     public bool GetIfTargetReached()
     {
         return Vector3.Distance(CurrentPosition, CurrentTarget) < 0.05f;
