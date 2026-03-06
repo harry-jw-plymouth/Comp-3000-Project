@@ -184,11 +184,21 @@ public class NPChandler : MonoBehaviour
         List<int> Ids = new List<int>();
         for(int i = 0; i < NPCList.Count; i++)
         {
-            if (NPCList[i].CurrentStation.GetBuildingPosAsInt()==Start.GetBuildingPosAsInt()&&
-                NPCList[i].TargetStation.GetBuildingPosAsInt() == End.GetBuildingPosAsInt())
+            if (NPCList[i].CurrentStation == null || NPCList[i].TargetStation == null)
             {
-                Ids.Add(NPCList[i].GetCitzenID());
+
             }
+            else
+            {
+                if (NPCList[i].CurrentStation.GetBuildingPosAsInt() == Start.GetBuildingPosAsInt() &&
+                NPCList[i].TargetStation.GetBuildingPosAsInt() == End.GetBuildingPosAsInt())
+                {
+                    Ids.Add(NPCList[i].GetCitzenID());
+                }
+            }
+
+
+            
         }
         return Ids;
     }
