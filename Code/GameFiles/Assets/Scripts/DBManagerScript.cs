@@ -34,6 +34,7 @@ public class DBManager : MonoBehaviour
         db.CreateTable<SaveMapModel>();
         db.CreateTable<SaveBuildingModel>();
         db.CreateTable<SaveNPCInfoModel>();
+        db.CreateTable<TrainRouteModel>();
         Debug.Log("Database loaded");
     }
     public static byte[] GetMapForDB(Square[,] Grid, int Height, int Width)
@@ -152,6 +153,7 @@ public class DBManager : MonoBehaviour
         db.DeleteAll<SaveBuildingModel>();
         db.DeleteAll<SaveMapModel>();
         db.DeleteAll<SaveNPCInfoModel>();
+        db.DeleteAll<TrainRouteModel>();
     }
     public static void ResetSaves()
     {
@@ -174,6 +176,27 @@ public class DBManager : MonoBehaviour
         db.Update(SaveFile);
         return true;
 
+    }
+    public static void AddRoute(Vector3Int StartStation, Vector3Int EndStation,int CurrentID)
+    {
+        TrainRouteModel Route = new TrainRouteModel { AssociatedSaveID = CurrentID, StartXpos = StartStation.x, StartYpos = StartStation.y, EndXpos = EndStation.x, EndYpos = EndStation.y };
+        db.Insert(Route);
+    }
+    public static List<TrainRouteModel> GetAllTrainRoutesForID(int ID)
+    {
+        return db.Table<TrainRouteModel>().Where(x => x.AssociatedSaveID == ID).ToList();
+    }
+    public static void ClearTrainRoutesForSave(int ID)
+    {
+        db.Execute("DELETE FROM TrainRoutes WHERE AssociatedSaveID = ?", ID);
+    }
+    public static void UpdateTrainRoutesForSave(int ID,List<Route> routes)
+    {
+        ClearTrainRoutesForSave(ID);
+        for (int i = 0; i < routes.Count; i++)
+        {
+            AddRoute(routes[i].StartStation.GetBuildingPosAsInt(), routes[i].EndStation.GetBuildingPosAsInt(),ID);
+        }
     }
     public static void CreateNewFile(string FileName,string FileType, bool FileIsEmpty,int NPCAmount)
     {
