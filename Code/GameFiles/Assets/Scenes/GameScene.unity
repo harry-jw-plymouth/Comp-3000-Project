@@ -502,6 +502,7 @@ MonoBehaviour:
   MainCamera: {fileID: 519420031}
   GameTile: {fileID: 11400000, guid: adca81024aaf96c46b46fd8a28d66cc9, type: 2}
   RoadTile: {fileID: 11400000, guid: c9dbb6ab2afb73e4ea3a9721e2f2a31d, type: 2}
+  BusStopTile: {fileID: 11400000, guid: 61311ef3eeef2de4187f1de24ea87607, type: 2}
   SmallHouseTile: {fileID: 11400000, guid: 01f1174f0bdc37e4397d2e594b094202, type: 2}
   MediumHouseTile: {fileID: 11400000, guid: ac1cba31994bb6c49a208bf01efba04f, type: 2}
   SmallHousePreFab: {fileID: 7826875583060409410, guid: 1d779554805a36e408b1ea552f527f9c, type: 3}
@@ -8703,7 +8704,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 889526301}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1831244042}
+        m_TargetAssemblyTypeName: UIHandlerScript, Assembly-CSharp
+        m_MethodName: OnBusStopButtonClicked
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &889526301
 MonoBehaviour:
   m_ObjectHideFlags: 0

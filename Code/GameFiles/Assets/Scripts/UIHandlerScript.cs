@@ -45,6 +45,7 @@ public class UIHandlerScript : MonoBehaviour
     public TextMeshProUGUI AlertText;
     
     public static bool TileEditorOn;
+    public static bool BusStopEditorOn;
     public static bool TransportPlacementOn=false;
     public static bool BuildingRemoverOn = false;
     public bool TradeMenuActive=false;
@@ -199,6 +200,20 @@ public class UIHandlerScript : MonoBehaviour
     {
         BusCanvasActive = false;
         BusCanvas.SetActive(false);
+    }
+    public void OnBusStopButtonClicked()
+    {
+        if (BusStopEditorOn)
+        {
+            TileEditorOn = false;
+            BusStopEditorOn = false; 
+        }
+        else
+        {
+            TileEditorOn= true;
+            BusStopEditorOn=true;
+        }
+
     }
     public void OnBusButtonClicked()
     {
@@ -417,6 +432,7 @@ public class UIHandlerScript : MonoBehaviour
     }
     public void OnRoadButtonClicked()
     {
+        BusStopEditorOn = false;
         Debug.Log("Road button clicked");
         SetUIInactive();
         if (TileEditorOn)

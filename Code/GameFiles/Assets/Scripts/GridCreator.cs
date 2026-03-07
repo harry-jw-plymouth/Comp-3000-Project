@@ -35,6 +35,7 @@ public class GridCreator : MonoBehaviour
 
     public RuleTile GameTile;
     public RuleTile RoadTile;
+    public RuleTile BusStopTile;
 
     public RuleTile SmallHouseTile;
     public RuleTile MediumHouseTile;
@@ -217,7 +218,7 @@ public class GridCreator : MonoBehaviour
             for(int X = 0; X < WIDTH; X++)
             {
                // Debug.Log("COntains:"+ GameGrid[X, Y].Contains);
-                if (GameGrid[X, Y].Contains == 1)
+                if (GameGrid[X, Y].Contains == 1 || GameGrid[X,Y].Contains==5)
                 {
                     return true;
                 }
@@ -264,7 +265,7 @@ public class GridCreator : MonoBehaviour
         {
             for (int X = 0; X < WIDTH; X++)
             {
-                if (GameGrid[X, Y].Contains == 1)
+                if (GameGrid[X, Y].Contains == 1 || GameGrid[X,Y].Contains==5)
                 {
                     int Distance = GetDistanceBetweenPostions(GameMap.WorldToCell(new Vector3(X, Y, 0)),GameMap.WorldToCell(CurrentPos));
                     if (Distance < CurrentMinDistance)
@@ -695,24 +696,42 @@ public class GridCreator : MonoBehaviour
         //Place tiles 
         try
         {
-            if (GameGrid[CellClickedPos.x, CellClickedPos.y].Contains == 0)
+            if (UIHandlerScript.BusStopEditorOn)
             {
-                GameGrid[CellClickedPos.x, CellClickedPos.y].Contains = 1;
-                GameMap.SetTile(CellClickedPos, RoadTile);
-                NumberOfRoads++;
-                RoadPositions.Add(CellClickedPos);
+                if (GameGrid[CellClickedPos.x, CellClickedPos.y].Contains == 1)
+                {
+                    GameGrid[CellClickedPos.x, CellClickedPos.y].Contains = 5;
+                    GameMap.SetTile(CellClickedPos, BusStopTile);
+                    Debug.Log("Placing Bus stop");
+                }
+                else if (GameGrid[CellClickedPos.x,CellClickedPos.y].Contains==5)
+                {
+                    GameGrid[CellClickedPos.x, CellClickedPos.y].Contains = 1;
+                    GameMap.SetTile(CellClickedPos, RoadTile);
+                }
             }
             else
             {
-                if(GameGrid[CellClickedPos.x, CellClickedPos.y].Contains == 1)
+                if (GameGrid[CellClickedPos.x, CellClickedPos.y].Contains == 0)
                 {
-                    NumberOfRoads--;
+                    GameGrid[CellClickedPos.x, CellClickedPos.y].Contains = 1;
+                    GameMap.SetTile(CellClickedPos, RoadTile);
+                    NumberOfRoads++;
+                    RoadPositions.Add(CellClickedPos);
                 }
-                GameGrid[CellClickedPos.x, CellClickedPos.y].Contains = 0;
-                GameMap.SetTile(CellClickedPos, GameTile);
-                RoadPositions.Remove(CellClickedPos);
+                else
+                {
+                    if (GameGrid[CellClickedPos.x, CellClickedPos.y].Contains == 1)
+                    {
+                        NumberOfRoads--;
+                    }
+                    GameGrid[CellClickedPos.x, CellClickedPos.y].Contains = 0;
+                    GameMap.SetTile(CellClickedPos, GameTile);
+                    RoadPositions.Remove(CellClickedPos);
 
+                }
             }
+            
             UpdateRoadsAroundEdit(CellClickedPos);
         }
         catch
@@ -1151,7 +1170,16 @@ public class GridCreator : MonoBehaviour
                             GameMap.SetTile(CurrentPosition, GameTile);
                             TransportHandler.PlaceRailOnSaveLoad(CurrentPosition);
                         }
-                        
+                        if (GameGrid[x, y].Contains == 5)
+                        {
+                            //place bus stop
+                            GameMap.SetTile(CurrentPosition, BusStopTile);
+                            //       Debug.Log("Placing road tile");
+                            RoadPositions.Add(CurrentPosition);
+                            NumberOfRoads++;
+
+                        }
+
 
                     }
                 }
