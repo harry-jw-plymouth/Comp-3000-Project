@@ -276,6 +276,11 @@ public class TransportPlacementScript : MonoBehaviour
         
         return false;
     }
+    public void PlaceRailOnSaveLoad(Vector3Int CurrentPos)
+    {
+        GridCreator.GameMap.SetTile(CurrentPos, TrackTile);
+
+    }
     public void PlaceRail(Vector3Int CellClickedPos)
     {
         Debug.Log("Attempting to place rail at "+ CellClickedPos.x +", "+CellClickedPos.y);

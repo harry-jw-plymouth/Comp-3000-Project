@@ -1145,6 +1145,12 @@ public class GridCreator : MonoBehaviour
                             //   GameMap.SetTile(CurrentPosition, GameTile);
                             //  TransportPlacementScript.PlaceRail(CurrentPosition);
                         }
+                        if (GameGrid[x,y].Contains == 4)
+                        {
+                            //place rail 
+                            GameMap.SetTile(CurrentPosition, GameTile);
+                            TransportHandler.PlaceRailOnSaveLoad(CurrentPosition);
+                        }
                         
 
                     }
