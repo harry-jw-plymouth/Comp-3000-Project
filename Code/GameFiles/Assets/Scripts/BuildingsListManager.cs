@@ -58,30 +58,11 @@ public class BuildingsListManager : MonoBehaviour
     }
     void DisplayBuildings()
     {
-      //  UnityEngine.Debug.Log(" Number of buildings: " + Buildings.Length);
         for (int i = 0; i < Buildings.Length; i++) {
             
             GameObject New = Instantiate(BuildingObject, BuildingsView,false);
-            //  Text Building = New.GetComponentInChildren<Text>();
-            //  if (Building != null) { 
-            //    Building.text = Buildings[i].Name;
-            //} 
-            //   New.transform.SetParent(BuildingsView, false);
-            //   New.transform.localScale = Vector3.one;
-            //    New.GetComponentInChildren<Text>().text = Buildings[i].Name;
             int BuildingPos = i;
             New.GetComponent<Button>().onClick.AddListener(() => OnBuildingClicked(BuildingPos));
-            //TextMeshProUGUI BuildingInfo = New.GetComponentInChildren<TextMeshProUGUI>();
-            //BuildingInfo.text = Buildings[i].Name;
-
-         //   Button BuildingButton = New.GetComponent<Button>();
-         //   if (BuildingButton != null)
-           // {
-           //     BuildingButton.onClick.AddListener(() => OnBuildingClicked(i));
-           // }
-
-            //UnityEngine.Debug.Log("Building added: " + Buildings[i].Name);
-
 
         }
         LayoutRebuilder.ForceRebuildLayoutImmediate(BuildingsView);
@@ -90,13 +71,41 @@ public class BuildingsListManager : MonoBehaviour
     {
        // UnityEngine.Debug.Log("Clicked " + Buildings[BuildingPos].Name);
         BuildingCurrentlySelected = BuildingPos;
-
-
-
-
     }
     public void OnSmallHouseClicked()
     {
         BuildingCurrentlySelected =0;
+    }
+    public void OnMediumHouseClicked()
+    {
+        BuildingCurrentlySelected = 1;
+    }
+    public void OnConvenienceShopClicked()
+    {
+        BuildingCurrentlySelected = 2;
+    }
+    public void OnHospitalClicked()
+    {
+        BuildingCurrentlySelected = 3;
+    }
+    public void OnTownHallClicked()
+    {
+        BuildingCurrentlySelected = 4;
+    }
+    public void OnPowerPlantClicked()
+    {
+        BuildingCurrentlySelected = 5;
+    }
+    public void OnWindFarmClicked()
+    {
+        BuildingCurrentlySelected = 6;
+    }
+    public void OnShoppingCentreClicked()
+    {
+        BuildingCurrentlySelected = 7;
+    }
+    public void OnTrainStationClicked()
+    {
+        BuildingCurrentlySelected = 8;
     }
 }
