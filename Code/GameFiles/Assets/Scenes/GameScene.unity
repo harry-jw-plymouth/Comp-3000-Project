@@ -8570,7 +8570,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 845599397}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1831244042}
+        m_TargetAssemblyTypeName: UIHandlerScript, Assembly-CSharp
+        m_MethodName: OnBusButtonClicked
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &845599397
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12576,6 +12588,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1831244042}
+        m_TargetAssemblyTypeName: UIHandlerScript, Assembly-CSharp
+        m_MethodName: OnBusButtonClicked
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1428842824
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15798,6 +15822,7 @@ MonoBehaviour:
   MainUICanvas: {fileID: 1778285397}
   StationSelectCanvas: {fileID: 1627663198}
   UpdatesButton: {fileID: 1124787293}
+  BusCanvas: {fileID: 1543827633}
   TradeButton: {fileID: 1660644200}
   TradeItems: {fileID: 1913237650}
   Action: {fileID: 151595382}
@@ -15827,6 +15852,7 @@ MonoBehaviour:
   RouteSetCanvas: {fileID: 398500211}
   BuildingInfoShowing: 0
   SelectingRouteLocation: 0
+  BusCanvasActive: 0
   StartRouteStationBuilding: -1
   EndRouteStationBuilding: -1
 --- !u!4 &1831244043

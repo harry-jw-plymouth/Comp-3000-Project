@@ -24,6 +24,7 @@ public class UIHandlerScript : MonoBehaviour
     public GameObject MainUICanvas;
     public GameObject StationSelectCanvas;
     public GameObject UpdatesButton;
+    public GameObject BusCanvas;
     public Button TradeButton;
     
 
@@ -68,6 +69,7 @@ public class UIHandlerScript : MonoBehaviour
     public GameObject RouteSetCanvas;
     public bool BuildingInfoShowing = false;
     public bool SelectingRouteLocation = false;
+    public bool BusCanvasActive = false;
 
     public int StartRouteStationBuilding = -1;
     public int EndRouteStationBuilding = -1;
@@ -192,6 +194,27 @@ public class UIHandlerScript : MonoBehaviour
     {
         RouteMenuActive= true ;
         RouteSetCanvas.SetActive(true);
+    }
+    public void CloseBusCanvas()
+    {
+        BusCanvasActive = false;
+        BusCanvas.SetActive(false);
+    }
+    public void OnBusButtonClicked()
+    {
+        if (BusCanvasActive)
+        {
+            CloseBusCanvas();
+            TransportBuilderPopUp.SetActive(true);
+            
+        }
+        else
+        {
+            CloseRailPopUp();
+            BusCanvasActive = true;
+            BusCanvas.SetActive(true);
+            TransportBuilderPopUp.SetActive(false);
+        }
     }
     public void DisplayBuildingInfo(PlacedBuilding BuildingToDisplay)
     {
@@ -401,6 +424,8 @@ public class UIHandlerScript : MonoBehaviour
         }
         else
         {
+            CloseBusCanvas();
+            CloseTransportPopup();
             TileEditorOn= true;
         }
     }
@@ -412,12 +437,11 @@ public class UIHandlerScript : MonoBehaviour
         if (TransportPlacementOn)
         {
             CloseTransportPopup();
-
-          
-            
+            CloseBusCanvas();
         }
         else
         {
+            CloseBusCanvas();
             TransportPlacementOn = true;
             TransportBuilderPopUp.SetActive(true);
         }
@@ -432,7 +456,7 @@ public class UIHandlerScript : MonoBehaviour
         }
         else
         {
-            
+            CloseBusCanvas();
             RailMenuActive = true;
             RailCanvas.SetActive(true);
             TransportBuilderPopUp.SetActive(false);
@@ -462,6 +486,7 @@ public class UIHandlerScript : MonoBehaviour
         }
         else
         {
+            CloseBusCanvas();
             CloseTransportPopup();
             BuildingsMenuPopUp.SetActive(true);
             BuildingRemoveButton.SetActive(true);
