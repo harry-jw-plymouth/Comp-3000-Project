@@ -222,6 +222,13 @@ public class UIHandlerScript : MonoBehaviour
         BusCanvas.SetActive(false);
         BusCanvasActive= false;
     }
+    public void OnBusRouteCanvasCloseButtonClosed()
+    {
+        BusRouteCanvasActive = false;
+        BusRouteSetCanvas.SetActive(false);
+        BusCanvas.SetActive(true);
+        BusCanvasActive = true;
+    }
     public void OnBusButtonClicked()
     {
         if (BusCanvasActive)
