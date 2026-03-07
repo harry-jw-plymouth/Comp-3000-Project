@@ -60,17 +60,17 @@ public class UIHandlerScript : MonoBehaviour
     public TextMeshProUGUI BuildingSpeificText;
     public TextMeshProUGUI BuildingIsPoweredText;
     public TextMeshProUGUI BuildingEnviromentalValue;
-
-
     public TextMeshProUGUI RouteStartInfo;
     public TextMeshProUGUI RouteEndInfo;
 
    // public Button PlaceRailButton;
     public GameObject RailCanvas;
     public GameObject RouteSetCanvas;
+    public GameObject BusRouteSetCanvas;
     public bool BuildingInfoShowing = false;
     public bool SelectingRouteLocation = false;
     public bool BusCanvasActive = false;
+    public bool BusRouteCanvasActive = false;
 
     public int StartRouteStationBuilding = -1;
     public int EndRouteStationBuilding = -1;
@@ -214,6 +214,13 @@ public class UIHandlerScript : MonoBehaviour
             BusStopEditorOn=true;
         }
 
+    }
+    public void OnBusrouteCanvasButtonClicked()
+    {
+        BusRouteCanvasActive = true;
+        BusRouteSetCanvas.SetActive(true);
+        BusCanvas.SetActive(false);
+        BusCanvasActive= false;
     }
     public void OnBusButtonClicked()
     {
