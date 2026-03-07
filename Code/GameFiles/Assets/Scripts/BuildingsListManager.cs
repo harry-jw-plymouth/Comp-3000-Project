@@ -95,4 +95,8 @@ public class BuildingsListManager : MonoBehaviour
 
 
     }
+    public void OnSmallHouseClicked()
+    {
+        BuildingCurrentlySelected =0;
+    }
 }
