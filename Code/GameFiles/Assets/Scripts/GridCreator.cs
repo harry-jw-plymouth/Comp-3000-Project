@@ -1171,6 +1171,8 @@ public class GridCreator : MonoBehaviour
                 npcHandler.SetHomes();
                 UpdateStatusOfBuildingsInRangeOfPower();
                 DisplayPowerAvailabilityOnBuilding();
+
+                TransportPlacementScript.SetupRoutesFromSave(MainMenu.GameSaveID,this,TransportHandler);
                 
             }
         }

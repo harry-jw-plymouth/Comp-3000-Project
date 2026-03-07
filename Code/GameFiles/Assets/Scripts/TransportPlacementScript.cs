@@ -43,6 +43,26 @@ public class TransportPlacementScript : MonoBehaviour
         TrackTile = TrackTileReference;
     }
 
+    public static void SetupRoutesFromSave(int ID,GridCreator GridHandler,TransportPlacementScript TransportHandler)
+    {
+        List<TrainRouteModel>RoutesInDB=DBManager.GetAllTrainRoutesForID(ID);
+        for(int i = 0; i < RoutesInDB.Count; i++)
+        {
+            TrainRouteModel Current = RoutesInDB[i];
+            int StartStationIndex= GridHandler.GetBuildingClicked(new Vector3Int(Current.StartXpos, Current.StartYpos, 0));
+            int EndStationIndex= GridHandler.GetBuildingClicked(new Vector3Int(Current.EndXpos, Current.EndYpos, 0));
+            if (GridCreator.PlacedBuildings[StartStationIndex].GetIfTrainStation()&& GridCreator.PlacedBuildings[EndStationIndex].GetIfTrainStation())
+            {
+                if (TransportHandler.GetIfLinkBetweenStations(StartStationIndex, EndStationIndex))
+                {
+                    Route New=new Route(GridCreator.PlacedBuildings[StartStationIndex],GridCreator.PlacedBuildings[EndStationIndex]);
+                    New.SetRoute(GridCreator.GameGrid);
+                    AddRoute(New);
+                }
+            }
+        }
+    }
+
     public bool GetIfSquareIsPartOfTargetStation(Vector3Int Current, PlacedBuilding Target)
     {
         for (int y = 0; y < Target.GetShape().GetLength(0); y++)
