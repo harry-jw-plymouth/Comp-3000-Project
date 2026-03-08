@@ -67,6 +67,11 @@ public class UIHandlerScript : MonoBehaviour
 
     public TextMeshProUGUI RouteTypeInfo;
 
+    public TextMeshProUGUI StartingBusStopInfo;
+    public TextMeshProUGUI EndBusStopInfo;
+    Vector3Int StartBusStop;
+    Vector3Int EndBusStop;
+
    // public Button PlaceRailButton;
     public GameObject RailCanvas;
     public GameObject RouteSetCanvas;
@@ -191,6 +196,23 @@ public class UIHandlerScript : MonoBehaviour
                 Debug.Log("End route:" + EndRouteStationBuilding);
             }
         }
+    }
+    public void OnBusStopClicked(Vector3Int CellPos)
+    {
+        OnStationSelectorBackButtonClicked();
+        RouteIsForBus = false;
+        if (RouteStationPos == 0)
+        {
+            StartingBusStopInfo.text="Bus stop at " + CellPos.x + "," + CellPos.y;
+            StartBusStop = CellPos;
+
+        }
+        else if(RouteStationPos == 1)
+        {
+            EndBusStopInfo.text = "Bus stop at " + CellPos.x + "," + CellPos.y;
+            EndBusStop = CellPos;
+        }
+
     }
     public void OnRouteEndButtonClicked()
     {

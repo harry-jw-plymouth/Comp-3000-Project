@@ -806,6 +806,13 @@ public class GridCreator : MonoBehaviour
             }
         }
     }
+    void CheckForBusStopClicked(Vector3Int CellClickedPos)
+    {
+        if (GridCreator.GameGrid[CellClickedPos.x, CellClickedPos.y].Contains == 5)
+        {
+            uiHandler.OnBusStopClicked(CellClickedPos);
+        }
+    }
 
     void CheckForMouseClicK() {
         if (Input.GetMouseButtonDown(0))
@@ -816,7 +823,15 @@ public class GridCreator : MonoBehaviour
               Debug.Log("Click at: " + CellClickedPos);
             if (uiHandler.SelectingRouteLocation)
             {
-                CheckForStationClicked(CellClickedPos);
+                if (uiHandler.RouteIsForBus)
+                {
+                    CheckForBusStopClicked(CellClickedPos);
+                }
+                else
+                {
+                    CheckForStationClicked(CellClickedPos);
+                }
+                    
             }
             else
             {

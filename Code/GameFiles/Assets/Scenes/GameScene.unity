@@ -17378,6 +17378,8 @@ MonoBehaviour:
   RouteStartInfo: {fileID: 1620810325}
   RouteEndInfo: {fileID: 260028665}
   RouteTypeInfo: {fileID: 1824086292}
+  StartingBusStopInfo: {fileID: 1368660373}
+  EndBusStopInfo: {fileID: 1933560509}
   RailCanvas: {fileID: 477983842}
   RouteSetCanvas: {fileID: 398500211}
   BusRouteSetCanvas: {fileID: 456200041}
