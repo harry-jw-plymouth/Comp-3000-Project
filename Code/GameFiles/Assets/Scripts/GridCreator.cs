@@ -54,6 +54,7 @@ public class GridCreator : MonoBehaviour
 
 
     public GameObject NoPowerForBuildingWarning;
+    public int NumberOfBusStops = 0;
 
     public static List<Vector3> RoadPositions=new List<Vector3>();
     public List<GameObject> PowerIcons=new List<GameObject>();
@@ -691,9 +692,14 @@ public class GridCreator : MonoBehaviour
         BuildingsListManager.BuildingCurrentlySelected = -1;
 
     }
-    public static bool GetIfBusStopExists()
+    public  bool GetIfBusStopExists()
     {
-        return true;
+        if (NumberOfBusStops > 0)
+        {
+            return true;
+        }
+        return false;
+       
     }
     void PlaceTiles(Vector3Int CellClickedPos)
     {
@@ -706,12 +712,14 @@ public class GridCreator : MonoBehaviour
                 {
                     GameGrid[CellClickedPos.x, CellClickedPos.y].Contains = 5;
                     GameMap.SetTile(CellClickedPos, BusStopTile);
+                    NumberOfBusStops++;
                     Debug.Log("Placing Bus stop");
                 }
                 else if (GameGrid[CellClickedPos.x,CellClickedPos.y].Contains==5)
                 {
                     GameGrid[CellClickedPos.x, CellClickedPos.y].Contains = 1;
                     GameMap.SetTile(CellClickedPos, RoadTile);
+                    NumberOfBusStops--;
                 }
             }
             else
@@ -1181,6 +1189,7 @@ public class GridCreator : MonoBehaviour
                             //       Debug.Log("Placing road tile");
                             RoadPositions.Add(CurrentPosition);
                             NumberOfRoads++;
+                            NumberOfBusStops++;
 
                         }
 

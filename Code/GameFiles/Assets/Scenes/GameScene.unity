@@ -591,6 +591,7 @@ MonoBehaviour:
   TrainStationPrefab: {fileID: 6340389181725529429, guid: 317ec66078f129e46965b7b504d35ac1, type: 3}
   GameStatusScript: {fileID: 1453347093}
   NoPowerForBuildingWarning: {fileID: 4836441252777522745, guid: cc542b047d2fbb24299bb4a52430b027, type: 3}
+  NumberOfBusStops: 0
   PowerIcons: []
 --- !u!156049354 &94827940
 Grid:
@@ -17337,6 +17338,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UIHandlerScript
   NpcHandler: {fileID: 1443401069}
+  GridHandler: {fileID: 94827939}
   ReportText: {fileID: 1075356047}
   ReportDisplay: {fileID: 106236966}
   RatingDisplay: {fileID: 2077381815}

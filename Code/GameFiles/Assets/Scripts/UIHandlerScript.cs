@@ -12,6 +12,8 @@ using UnityEngine.UI;
 public class UIHandlerScript : MonoBehaviour
 {
     public NPChandler NpcHandler;
+    public GridCreator GridHandler;
+
     public TextMeshProUGUI ReportText;
     public GameObject ReportDisplay;
     public GameObject RatingDisplay;
@@ -154,7 +156,7 @@ public class UIHandlerScript : MonoBehaviour
     public void OnBusRouteStartButtonClicked()
     {
         Debug.Log("Selecting route start");
-        if (GridCreator.GetIfBusStopExists())
+        if (GridHandler.GetIfBusStopExists())
         {
             BusRouteSetCanvas.SetActive(false);
             MainUICanvas.SetActive(false);
