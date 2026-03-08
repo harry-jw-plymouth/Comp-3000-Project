@@ -149,6 +149,7 @@ public class UIHandlerScript : MonoBehaviour
             SelectingRouteLocation = true;
             RouteStationPos = 0;
             //0 = first pos of route
+            RouteTypeInfo.text = "Select train station";
 
         }
         else
@@ -172,6 +173,20 @@ public class UIHandlerScript : MonoBehaviour
             RouteTypeInfo.text = "Select bus stop";
         }
 
+    }
+    public void OnBusRouteEndButtonClicked()
+    {
+        Debug.Log("Selecting route start");
+        if (GridHandler.GetIfBusStopExists())
+        {
+            BusRouteSetCanvas.SetActive(false);
+            MainUICanvas.SetActive(false);
+            StationSelectCanvas.SetActive(true);
+            SelectingRouteLocation = true;
+            RouteIsForBus = true;
+            RouteStationPos = 1;
+            RouteTypeInfo.text = "Select bus stop";
+        }
     }
    
     public void OnTrainStationClicked(Vector3Int CellPos, int BuildingPos)
@@ -227,6 +242,7 @@ public class UIHandlerScript : MonoBehaviour
             SelectingRouteLocation = true;
             RouteStationPos = 1;
             //1 = end pos of route
+            RouteTypeInfo.text = "Select train station";
         }
         else
         {
@@ -267,12 +283,19 @@ public class UIHandlerScript : MonoBehaviour
         }
 
     }
+    public void StopEditingBusStops()
+    {
+        TileEditorOn = false;
+        BusStopEditorOn = false;
+    }
     public void OnBusrouteCanvasButtonClicked()
     {
         BusRouteCanvasActive = true;
         BusRouteSetCanvas.SetActive(true);
         BusCanvas.SetActive(false);
         BusCanvasActive= false;
+        StopEditingBusStops();
+
     }
     public void OnBusRouteCanvasCloseButtonClosed()
     {
