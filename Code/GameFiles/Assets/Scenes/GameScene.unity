@@ -11958,7 +11958,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1831244042}
         m_TargetAssemblyTypeName: UIHandlerScript, Assembly-CSharp
-        m_MethodName: OnRouteConfirmButtonClicked
+        m_MethodName: OnBusRouteConfirmButtonClicked
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
