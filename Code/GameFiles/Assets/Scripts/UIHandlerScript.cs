@@ -63,6 +63,8 @@ public class UIHandlerScript : MonoBehaviour
     public TextMeshProUGUI RouteStartInfo;
     public TextMeshProUGUI RouteEndInfo;
 
+    public TextMeshProUGUI RouteTypeInfo;
+
    // public Button PlaceRailButton;
     public GameObject RailCanvas;
     public GameObject RouteSetCanvas;
@@ -71,6 +73,8 @@ public class UIHandlerScript : MonoBehaviour
     public bool SelectingRouteLocation = false;
     public bool BusCanvasActive = false;
     public bool BusRouteCanvasActive = false;
+
+    public bool RouteIsForBus=false;
 
     public int StartRouteStationBuilding = -1;
     public int EndRouteStationBuilding = -1;
@@ -114,7 +118,16 @@ public class UIHandlerScript : MonoBehaviour
         MainUICanvas.SetActive(true);
         StationSelectCanvas.SetActive(false);
         SelectingRouteLocation=false;
-        RouteSetCanvas.SetActive(true) ;
+        if (RouteIsForBus)
+        {
+            BusRouteSetCanvas.SetActive(true);
+            BusRouteCanvasActive = true;
+        }
+        else
+        {
+            RouteSetCanvas.SetActive(true);
+        }
+       
     }
     public void OnRouteStartButtonClick()
     {
@@ -137,6 +150,21 @@ public class UIHandlerScript : MonoBehaviour
             ShowAlertPopUp("No train stations for route");
        
         }
+    }
+    public void OnBusRouteStartButtonClicked()
+    {
+        Debug.Log("Selecting route start");
+        if (GridCreator.GetIfBusStopExists())
+        {
+            BusRouteSetCanvas.SetActive(false);
+            MainUICanvas.SetActive(false);
+            StationSelectCanvas.SetActive(true);
+            SelectingRouteLocation = true;
+            RouteIsForBus=true;
+            RouteStationPos=0;
+            RouteTypeInfo.text = "Select bus stop";
+        }
+
     }
    
     public void OnTrainStationClicked(Vector3Int CellPos, int BuildingPos)

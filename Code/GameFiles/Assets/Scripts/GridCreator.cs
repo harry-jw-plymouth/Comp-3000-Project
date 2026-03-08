@@ -691,6 +691,10 @@ public class GridCreator : MonoBehaviour
         BuildingsListManager.BuildingCurrentlySelected = -1;
 
     }
+    public static bool GetIfBusStopExists()
+    {
+        return true;
+    }
     void PlaceTiles(Vector3Int CellClickedPos)
     {
         //Place tiles 
