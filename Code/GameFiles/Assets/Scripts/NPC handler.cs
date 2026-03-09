@@ -200,6 +200,27 @@ public class NPChandler : MonoBehaviour
         }
         return Ids;
     }
+    public List<int> GetNPCsIdWaitingForBus(Vector3Int Start, Vector3Int End)
+    {
+        List<int> Ids = new List<int>();
+        for (int i = 0; i < NPCList.Count; i++)
+        {
+            if (NPCList[i].GetCurrentBusStop() == null || NPCList[i].GetTargetBusStop() == null)
+            {
+
+            }
+            else
+            {
+                if (NPCList[i].GetCurrentBusStop() == Start &&
+                NPCList[i].GetTargetBusStop() == End)
+                {
+                    Ids.Add(NPCList[i].GetCitzenID());
+                    Debug.Log("NPC getting on bus");
+                }
+            }
+        }
+        return Ids;
+    }
     void CheckForNewNPCs()
     {
         float value = Random.Range(30, 200);
@@ -230,7 +251,18 @@ public class NPChandler : MonoBehaviour
             }
         }
     }
- 
+    public void UpdateNPCsAfterBusJourney(List<int> NPCIDs)
+    {
+        for (int i = 0; i < NPCList.Count; i++)
+        {
+            if (NPCIDs.Contains(NPCList[i].GetCitzenID()))
+            {
+                //npc on train
+                NPCList[i].GetOffBus();
+            }
+        }
+    }
+
     public Vector3 GetWanderTarget()
     {
 

@@ -50,6 +50,9 @@ public class Citzen
     public PlacedBuilding CurrentStation;
     public PlacedBuilding TargetStation;
 
+    public Vector3Int CurrentBusStop;
+    public Vector3Int TargetBusStop;
+
 
     public Citzen(Vector3 Pos,int ID,GameObject sprite)
     {
@@ -78,6 +81,18 @@ public class Citzen
         SetCurrentAction(0);
         CurrentStation = null;
         TargetStation= null;
+        NPCSprite.GetComponent<SpriteRenderer>().enabled = true;
+        NPCSprite.transform.position = Position;
+
+    }
+    public void GetOffBus()
+    {
+        Debug.Log("Npc moved to target stop at " + TargetBusStop);
+        Debug.Log("Start stop was:" + CurrentBusStop);
+        Position = TargetBusStop;
+        SetCurrentAction(0);
+        CurrentBusStop= new Vector3Int(-1, -1, -1);
+        TargetBusStop = new Vector3Int(-1,-1,-1);
         NPCSprite.GetComponent<SpriteRenderer>().enabled = true;
         NPCSprite.transform.position = Position;
 
@@ -463,6 +478,14 @@ public class Citzen
         }
         Debug.Log("Route could not be set");
         return false;
+    }
+    public Vector3Int GetCurrentBusStop()
+    {
+        return CurrentBusStop;
+    }
+    public Vector3Int GetTargetBusStop()
+    {
+        return TargetBusStop;
     }
     
     public Vector3 GetPosition()

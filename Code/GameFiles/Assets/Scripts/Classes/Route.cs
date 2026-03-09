@@ -31,8 +31,8 @@ public class Route
     {
     
         HasBeenActivated= true;
-        GameObject Obj = Object.Instantiate(SpriteForTrains, (Vector3)(RoutePositions[0])+new Vector3(0.25f,0.75f,0), Quaternion.identity);
-        Train New = new Train(RoutePositions[0], Obj);
+        GameObject SpriteToSet = Object.Instantiate(SpriteForTrains, (Vector3)(RoutePositions[0])+new Vector3(0.25f,0.75f,0), Quaternion.identity);
+        Train New = new Train(RoutePositions[0], SpriteToSet);
         TrainsOnRoute.Add(New);
         New.CurrentlyTargetting = 1;
         New.SetNewTarget(RoutePositions[1]);
@@ -284,12 +284,23 @@ public class Route
         }
         return false;
     }
-    public bool GetIfIsNextToTargetStation(Vector3Int pos, PlacedBuilding target)
+    public bool GetIfIsNextToTargetStation(Vector3Int Current, PlacedBuilding target)
     {
-        if (GetIfSquareIsPartOfTargetStation(pos + Vector3Int.right, target)) return true;
-        if (GetIfSquareIsPartOfTargetStation(pos + Vector3Int.left, target)) return true;
-        if (GetIfSquareIsPartOfTargetStation(pos + Vector3Int.up, target)) return true;
-        if (GetIfSquareIsPartOfTargetStation(pos + Vector3Int.down, target)) return true;
+        if (GetIfSquareIsPartOfTargetStation(new Vector3Int(Current.x+1,Current.y,0), target))
+        {
+            return true;
+        }
+        if (GetIfSquareIsPartOfTargetStation(new Vector3Int(Current.x-1,Current.y,0), target)) {
+            return true;
+        }
+        if (GetIfSquareIsPartOfTargetStation(new Vector3Int(Current.x,Current.y+1,0), target))
+        {
+            return true;
+        }
+        if (GetIfSquareIsPartOfTargetStation(new Vector3Int(Current.x,Current.y-1,0), target))
+        {
+            return true;
+        }
 
         return false;
     }
