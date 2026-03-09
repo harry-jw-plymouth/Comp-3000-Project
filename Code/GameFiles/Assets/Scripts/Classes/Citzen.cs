@@ -328,7 +328,30 @@ public class Citzen
             {
                 if(CurrentBusStop!=null && TargetBusStop != null)
                 {
-                   
+                    if (Grid[Current.x, Current.y].Contains == 5)
+                    {
+                        List<BusRoute> RoutesForStop = TransportPlacementScript.GetAllBusRoutesForStop(Current);
+                        for (int i = 0; i < RoutesForStop.Count; i++)
+                        {
+                            Vector3Int ConnectingStop;
+                            if (RoutesForStop[i].StartStop == Current)
+                            {
+                                ConnectingStop = RoutesForStop[i].EndStop;
+                            }
+                            else
+                            {
+                                ConnectingStop=RoutesForStop[i].StartStop;
+                            }
+                            if (!AlreadyVisited.Contains(ConnectingStop))
+                            {
+                                ToCheck.Enqueue(ConnectingStop);
+                                AlreadyVisited.Add(ConnectingStop);
+                                CameFrom[ConnectingStop] = Current;
+                            }
+
+                        }
+                    }
+                    
                 }
             }
 
