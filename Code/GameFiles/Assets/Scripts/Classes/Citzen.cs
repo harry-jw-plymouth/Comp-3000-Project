@@ -17,6 +17,7 @@ public class Citzen
     //4 enterainment 
     //5 Leaving
     // 6 waiting for train
+    // 7 waiting for bus 
     int InBuilding = 0;
     bool TargetIsbuilding=false;
     Building BuildingCurrentlyTargetting;
