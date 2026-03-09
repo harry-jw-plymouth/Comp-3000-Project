@@ -270,6 +270,9 @@ public class Citzen
 
         return newChecks;
     }
+
+
+
     public bool SetRoute(Vector3Int Target, Square[,]Grid, Tilemap GameMap,GridCreator GridHandler)
     {
         Queue<Vector3Int> ToCheck = new Queue<Vector3Int>();
@@ -321,8 +324,15 @@ public class Citzen
                     }
                 }
             }
+            else
+            {
+                if(CurrentBusStop!=null && TargetBusStop != null)
+                {
+                   
+                }
+            }
 
-            if (Current==Target)
+            if (Current == Target)
             {
                 Debug.Log("Route set");
                 /*
@@ -362,8 +372,8 @@ public class Citzen
                 NexPositionOnRoute = 0;
                 if (NexPositionOnRoute > RoutePositions.Count)
                 {
-                    
-                    NexPositionOnRoute=RoutePositions.Count-1;
+
+                    NexPositionOnRoute = RoutePositions.Count - 1;
                 }
 
                 return true;

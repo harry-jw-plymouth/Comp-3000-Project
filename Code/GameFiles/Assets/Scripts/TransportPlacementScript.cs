@@ -449,6 +449,19 @@ public class TransportPlacementScript : MonoBehaviour
         }
         return routes;
     }
+    public static List<BusRoute> GetAllBusRoutesForStop(Vector3Int CurrentStop)
+    {
+        List<BusRoute> Busroutes = new List<BusRoute>();
+        for (int i = 0; i < BusRoutes.Count; i++)
+        {
+            if (BusRoutes[i].StartStop == CurrentStop||
+                BusRoutes[i].EndStop == CurrentStop)
+            {
+                Busroutes.Add(BusRoutes[i]);
+            }
+        }
+        return Busroutes;
+    }
     void CheckForReactivation()
     {
         for (int i = 0; i < TrainRoutes.Count; i++)

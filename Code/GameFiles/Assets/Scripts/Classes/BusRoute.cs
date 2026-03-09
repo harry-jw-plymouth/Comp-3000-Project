@@ -322,8 +322,6 @@ public class BusRoute
                 }
             }
         }
-
-
         return false;
 
     }
