@@ -82,6 +82,7 @@ public class GridCreator : MonoBehaviour
     {
         return PlacedBuildings;
     }
+    
     bool CheckIfBuildingCanBeplaced(int x, int y,Building building)
     {
         //Debug.Log("New Y: " + (y + building.Shape.GetLength(0)));

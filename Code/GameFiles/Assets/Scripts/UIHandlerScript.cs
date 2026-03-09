@@ -107,8 +107,16 @@ public class UIHandlerScript : MonoBehaviour
             {
                 Debug.Log("Making new bus route");
                 BusRoute NewBusRoute = new BusRoute(StartBusStop,EndBusStop);
-                NewBusRoute.SetRoute(GridCreator.GameGrid);
-                TransportPlacementScript.AddBusRoute(NewBusRoute);
+                if (NewBusRoute.GetIfPathBetweenBusStops(StartBusStop, EndBusStop))
+                {
+                    NewBusRoute.SetRoute(GridCreator.GameGrid);
+                    TransportPlacementScript.AddBusRoute(NewBusRoute);
+                }
+                else
+                {
+                    Debug.Log("Couldnt set bus route, no path");
+                }
+               
             }
         }
     }
