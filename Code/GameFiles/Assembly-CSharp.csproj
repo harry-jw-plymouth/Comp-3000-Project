@@ -75,6 +75,7 @@
     <Compile Include="Assets\Scripts\DBManagerScript.cs" />
     <Compile Include="Assets\Scripts\Classes\Citzen.cs" />
     <Compile Include="Assets\Scripts\DbModels\SaveNPCInfoModel.cs" />
+    <Compile Include="Assets\Scripts\Classes\BusRoute.cs" />
     <Compile Include="Assets\Scripts\SQLite.cs" />
     <Compile Include="Assets\Scripts\Classes\Route.cs" />
     <Compile Include="Assets\Scripts\UIHandlerScript.cs" />
@@ -85,6 +86,7 @@
     <Compile Include="Assets\Scripts\Classes\Square.cs" />
     <Compile Include="Assets\Scripts\SoundManagerScript.cs" />
     <Compile Include="Assets\Scripts\GameFeaturesHandler.cs" />
+    <Compile Include="Assets\Scripts\Classes\Bus.cs" />
     <Compile Include="Assets\Scripts\InputHandlerScript.cs" />
     <Compile Include="Assets\Scripts\Classes\Building.cs" />
     <Compile Include="Assets\Scripts\PowerHandlerScript.cs" />
