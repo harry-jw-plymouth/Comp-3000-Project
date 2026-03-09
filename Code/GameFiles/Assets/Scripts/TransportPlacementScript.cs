@@ -384,12 +384,38 @@ public class TransportPlacementScript : MonoBehaviour
             }
         }
     }
+    void CheckForNewBusRoutes()
+    {
+        for (int i = 0; i < BusRoutes.Count; i++)
+        {
+            if (!BusRoutes[i].GetIfActivated())
+            {
+
+                GameObject NewSprite = Instantiate(RedModernTrainFront, BusRoutes[i].GetCurrentRoute()[0], Quaternion.identity);
+                BusRoutes[i].SetSpriteForBusOnRoute(NewSprite);
+                BusRoutes[i].Activate();
+                NewSprite.GetComponent<SpriteRenderer>().enabled = true;
+
+            }
+        }
+    }
     void DoMovement()
     {
         for (int i = 0; i < TrainRoutes.Count; i++) {
             if (TrainRoutes[i].GetIfActivated())
             {
                 TrainRoutes[i].DoMovement(NPChandler);
+            }
+        }
+
+    }
+    void DoBusMovement()
+    {
+        for (int i = 0; i < BusRoutes.Count; i++)
+        {
+            if (BusRoutes[i].GetIfActivated())
+            {
+                BusRoutes[i].DoMovement(NPChandler);
             }
         }
 
@@ -430,6 +456,13 @@ public class TransportPlacementScript : MonoBehaviour
             TrainRoutes[i].ReactivateTrains(NPChandler);
         }
     }
+    void CheckForBusReactivation()
+    {
+        for (int i = 0; i < BusRoutes.Count; i++)
+        {
+            BusRoutes[i].ReactivateBusesOnRoute(NPChandler);
+        }
+    }
     void DoTrainRoutes()
     {
         CheckForNewRoutes();
@@ -438,7 +471,9 @@ public class TransportPlacementScript : MonoBehaviour
     }
     void DoBusRoutes()
     {
-
+        CheckForNewBusRoutes();
+        CheckForBusReactivation();
+        DoBusMovement();
     }
     // Update is called once per frame
     void Update()
