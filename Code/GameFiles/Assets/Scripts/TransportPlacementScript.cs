@@ -21,6 +21,7 @@ public class TransportPlacementScript : MonoBehaviour
 
     
     public static List<Route> TrainRoutes=new List<Route>();
+    public static List<BusRoute> BusRoutes=new List<BusRoute>();
 
     public GameObject RedModernTrainFront;
 
@@ -37,6 +38,10 @@ public class TransportPlacementScript : MonoBehaviour
     public static void AddRoute(Route New)
     {
         TrainRoutes.Add(New);
+    }
+    public static void AddBusRoute(BusRoute New)
+    {
+        BusRoutes.Add(New);
     }
     private void Awake()
     {

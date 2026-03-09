@@ -106,6 +106,9 @@ public class UIHandlerScript : MonoBehaviour
             if (StartBusStop != EndBusStop)
             {
                 Debug.Log("Making new bus route");
+                BusRoute NewBusRoute = new BusRoute(StartBusStop,EndBusStop);
+                NewBusRoute.SetRoute(GridCreator.GameGrid);
+                TransportPlacementScript.AddBusRoute(NewBusRoute);
             }
         }
     }
