@@ -27,10 +27,11 @@ public class Bus
     public Bus(Vector3Int StartTile, GameObject Sprite,GameObject Side)
     {
         CurrentDirection= 0;
-        SideSprite = Sprite;
+        SideSprite = Side;
         CreatedSprite = Sprite;
         CreatedSprite.GetComponent<SpriteRenderer>().enabled = true;
-        
+        SideSprite.GetComponent<SpriteRenderer>().enabled = false;
+
         CurrentPosition = CreatedSprite.transform.position;
     }
     public void MoveSprite()
@@ -96,9 +97,9 @@ public class Bus
         {
             YDiff = New.y - Old.y;
         }
-        else if (New.x < Old.x)
+        else if (New.y < Old.y)
         {
-            XDiff = Old.y - New.y;
+            YDiff = Old.y - New.y;
         }
 
         if (XDiff > YDiff)

@@ -395,6 +395,7 @@ public class TransportPlacementScript : MonoBehaviour
             {
 
                 GameObject NewSprite = Instantiate(RedModernBusFront, BusRoutes[i].GetCurrentRoute()[0], Quaternion.identity);
+                GameObject SideSprite = Instantiate(RedModernBusLeft, BusRoutes[i].GetCurrentRoute()[0], Quaternion.identity);
                 BusRoutes[i].SetSpritesForBusOnRoute(NewSprite,RedModernBusLeft);
                 BusRoutes[i].Activate();
                 NewSprite.GetComponent<SpriteRenderer>().enabled = true;

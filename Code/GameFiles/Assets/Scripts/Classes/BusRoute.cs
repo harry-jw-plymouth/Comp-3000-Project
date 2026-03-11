@@ -32,7 +32,8 @@ public class BusRoute
 
         HasBeenActivated = true;
         GameObject SpriteToSet = Object.Instantiate(SpriteForBuses, (Vector3)(RoutePositions[0]) + new Vector3(0.25f, 0.75f, 0), Quaternion.identity);
-        Bus New = new Bus(RoutePositions[0], SpriteToSet,SideSprite);
+        GameObject SideSpriteToSet = Object.Instantiate(SideSprite, (Vector3)(RoutePositions[0]) + new Vector3(0.25f, 0.75f, 0), Quaternion.identity);
+        Bus New = new Bus(RoutePositions[0], SpriteToSet,SideSpriteToSet);
         BusesOnRoute.Add(New);
         New.CurrentlyTargetting = 1;
         New.SetNewTarget(RoutePositions[1]);
@@ -170,6 +171,7 @@ public class BusRoute
                                 y = true;
                             }
                             BusesOnRoute[i].SetDirections(x, y);
+                            BusesOnRoute[i].UpdateSprite(NewTarget, OldTarget);
                         }
                     }
                 }
@@ -184,7 +186,7 @@ public class BusRoute
                     Vector3 CurrentTarget = RoutePositions[BusesOnRoute[i].CurrentlyTargetting];
 
                     float XChange = CurrentTarget.x - CurrentPosition.y;
-                    float YChange = CurrentTarget.y - CurrentPosition.z;
+                    float YChange = CurrentTarget.y - CurrentPosition.y;
 
                     if (CurrentPosition.y > CurrentTarget.y)
                     {

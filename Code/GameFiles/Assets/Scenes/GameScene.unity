@@ -10697,6 +10697,7 @@ MonoBehaviour:
   TrackTileReference: {fileID: 11400000, guid: c10fb5d797e02324badac4dad8a98979, type: 2}
   RedModernTrainFront: {fileID: 2384667250436792547, guid: e8c4d4154919ec840afe2831edd025a2, type: 3}
   RedModernBusFront: {fileID: 7875353806522141415, guid: 26be2b9f3892948469e6cf29324d1684, type: 3}
+  RedModernBusLeft: {fileID: 3639883500720670775, guid: cd29a15ccdf6e354da2a559e3f1907c6, type: 3}
   TransportOption: -1
 --- !u!4 &1113947655
 Transform:
