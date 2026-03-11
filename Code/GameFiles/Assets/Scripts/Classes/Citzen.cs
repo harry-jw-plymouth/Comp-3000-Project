@@ -752,65 +752,96 @@ public class Citzen
             else
             {
                 //Next target
-                int BuildingCheckIndex = GridHandler.GetBuildingClicked(GridCreator.GameMap.WorldToCell( (RoutePositions[NexPositionOnRoute])));
+
+                int TempCurrentIndex = NexPositionOnRoute;
+
+                // check for train station
+
+                int BuildingCheckIndex = GridHandler.GetBuildingClicked(GridCreator.GameMap.WorldToCell( (RoutePositions[TempCurrentIndex])));
                 if (BuildingCheckIndex != -1)
                 {
                     PlacedBuilding Station = GridCreator.PlacedBuildings[BuildingCheckIndex];
                     if (Station.GetIfTrainStation())
-                    { 
-                       // Debug.Log("NPC in train station");
-                        int NextBuildingCheckIndex = GridHandler.GetBuildingClicked(GridCreator.GameMap.WorldToCell((RoutePositions[NexPositionOnRoute+1])));
-                        if(NextBuildingCheckIndex != -1)
+                    {
+                        if (TempCurrentIndex + 1 < RoutePositions.Count)
                         {
-                            //Debug.Log("Building found at next postition");
-                            PlacedBuilding NextStation = GridCreator.PlacedBuildings[NextBuildingCheckIndex];
-                            if (NextStation.GetIfTrainStation()) {
-                                //Debug.Log("Building is train station");
-                                if (TransportPlacementScript.CheckIfRouteBetweenStations(Station.GetBuildingPosAsInt(), NextStation.GetBuildingPosAsInt())) {
-                                   // Debug.Log("Id: "+CitzenID+" Waiting for train at "+Station.GetBuildingPosAsInt());
-                                    //Debug.Log("Id: " + CitzenID + " Waiting to go too " + NextStation.GetBuildingPosAsInt());
-                                    CurrentStation =Station;
-                                    TargetStation = NextStation;
-                                    SetCurrentAction(6);
-                                    NPCSprite.GetComponent<SpriteRenderer>().enabled = false;
-                                    NexPositionOnRoute++;
-                                    //NexPositionOnRoute++;
+                            // Debug.Log("NPC in train station");
+                            int NextBuildingCheckIndex = GridHandler.GetBuildingClicked(GridCreator.GameMap.WorldToCell((RoutePositions[NexPositionOnRoute + 1])));
+                            if (NextBuildingCheckIndex != -1)
+                            {
+                                //Debug.Log("Building found at next postition");
+                                PlacedBuilding NextStation = GridCreator.PlacedBuildings[NextBuildingCheckIndex];
+                                if (NextStation.GetIfTrainStation())
+                                {
+                                    //Debug.Log("Building is train station");
+                                    if (TransportPlacementScript.CheckIfRouteBetweenStations(Station.GetBuildingPosAsInt(), NextStation.GetBuildingPosAsInt()))
+                                    {
+                                        // Debug.Log("Id: "+CitzenID+" Waiting for train at "+Station.GetBuildingPosAsInt());
+                                        //Debug.Log("Id: " + CitzenID + " Waiting to go too " + NextStation.GetBuildingPosAsInt());
+                                        CurrentStation = Station;
+                                        TargetStation = NextStation;
+                                        SetCurrentAction(6);
+                                        NPCSprite.GetComponent<SpriteRenderer>().enabled = false;
+                                        NexPositionOnRoute++;
+                                        return;
+                                        //NexPositionOnRoute++;
+                                    }
+                                    else
+                                    {
+                                        //      NexPositionOnRoute++; 
+                                    }
+
                                 }
                                 else
                                 {
-                                    NexPositionOnRoute++; 
+                                    //NexPositionOnRoute++;
                                 }
-
                             }
-                            else {
-                                NexPositionOnRoute++;
+                            else
+                            {
+                                // NexPositionOnRoute++;
                             }
                         }
-                        else
-                        {
-                            NexPositionOnRoute++;
-                        }
+                       
 
                     }
                     else
                     {
-                        NexPositionOnRoute++;
+                       // NexPositionOnRoute++;
                     }
                 }
 
-                Vector3Int CurrentPosOnRoute =GridCreator.GameMap.WorldToCell(RoutePositions[NexPositionOnRoute]);
+                Vector3Int CurrentPosOnRoute =GridCreator.GameMap.WorldToCell(RoutePositions[TempCurrentIndex]);
                 if (GridCreator.GameGrid[CurrentPosOnRoute.x, CurrentPosOnRoute.y].Contains == 5)
                 {
-                    Vector3Int NextPosOnRoute= GridCreator.GameMap.WorldToCell(RoutePositions[NexPositionOnRoute + 1]);
-                    if(GridCreator.GameGrid[NextPosOnRoute.x, NextPosOnRoute.y].Contains == 5)
-                    { 
-                        
+                    if (TempCurrentIndex + 1 < RoutePositions.Count)
+                    {
+                        Vector3Int NextPosOnRoute = GridCreator.GameMap.WorldToCell(RoutePositions[TempCurrentIndex + 1]);
+                        if (GridCreator.GameGrid[NextPosOnRoute.x, NextPosOnRoute.y].Contains == 5)
+                        {
+                            if (TransportPlacementScript.CheckIfRouteBetweenBusStops(CurrentPosOnRoute, NextPosOnRoute))
+                            {
+                                CurrentBusStop = CurrentPosOnRoute;
+                                TargetBusStop = NextPosOnRoute;
+                                SetCurrentAction(7);
+                                NexPositionOnRoute++;
+                                return;
+
+                            }
+                            else
+                            {
+                                //       NexPositionOnRoute++;
+                            }
+
+                        }
+                        else
+                        {
+                            //    NexPositionOnRoute++;
+                        }
                     }
-
+                    
                 }
-
-                NexPositionOnRoute++;
-                
+                NexPositionOnRoute++;                    
             }
         }
     }
