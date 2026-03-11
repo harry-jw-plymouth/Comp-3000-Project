@@ -73,6 +73,7 @@
     <Compile Include="Assets\Scripts\Classes\Home.cs" />
     <Compile Include="Assets\Scripts\MainMeniScripts\MainMenu.cs" />
     <Compile Include="Assets\Scripts\DBManagerScript.cs" />
+    <Compile Include="Assets\Scripts\RoadManager.cs" />
     <Compile Include="Assets\Scripts\Classes\Citzen.cs" />
     <Compile Include="Assets\Scripts\DbModels\SaveNPCInfoModel.cs" />
     <Compile Include="Assets\Scripts\Classes\BusRoute.cs" />
@@ -92,6 +93,7 @@
     <Compile Include="Assets\Scripts\PowerHandlerScript.cs" />
     <Compile Include="Assets\Scripts\CameraController.cs" />
     <Compile Include="Assets\Scripts\FontManagerScript.cs" />
+    <Compile Include="Assets\Scripts\Classes\RoadRuleTile.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
