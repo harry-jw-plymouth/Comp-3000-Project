@@ -8,20 +8,23 @@ public class BusRoute
     public Vector3Int StartStop, EndStop;
     public bool HasBeenActivated = false;
     List<Bus> BusesOnRoute = new List<Bus>();
-    GameObject SpriteForBuses;
-    GameObject SideSprite;
 
-
+    GameObject FrontSprite;
+    GameObject LeftSprite;
+    GameObject RightSprite;
+    GameObject BackSprite;
 
 
     public BusRoute(Vector3Int Start, Vector3Int End)
     {
         StartStop = Start; EndStop = End;
     }
-    public void SetSpritesForBusOnRoute(GameObject Sprite, GameObject Side)
+    public void SetSpritesForBusOnRoute(GameObject Front, GameObject Left,GameObject Right,GameObject Back)
     {
-        SpriteForBuses = Sprite;
-        SideSprite = Side;
+        FrontSprite = Front;
+        LeftSprite = Left;
+        RightSprite = Right;
+        BackSprite = Back;
     }
     public bool GetIfActivated()
     {
@@ -31,9 +34,11 @@ public class BusRoute
     {
 
         HasBeenActivated = true;
-        GameObject SpriteToSet = Object.Instantiate(SpriteForBuses, (Vector3)(RoutePositions[0]) + new Vector3(0.25f, 0.75f, 0), Quaternion.identity);
-        GameObject SideSpriteToSet = Object.Instantiate(SideSprite, (Vector3)(RoutePositions[0]) + new Vector3(0.25f, 0.75f, 0), Quaternion.identity);
-        Bus New = new Bus(RoutePositions[0], SpriteToSet,SideSpriteToSet);
+        GameObject FrontSpriteToSet = Object.Instantiate(FrontSprite, (Vector3)(RoutePositions[0]) + new Vector3(0.25f, 0.75f, 0), Quaternion.identity);
+        GameObject LeftSpriteToSet = Object.Instantiate(LeftSprite, (Vector3)(RoutePositions[0]) + new Vector3(0.25f, 0.75f, 0), Quaternion.identity);
+        GameObject RightSideSpriteToSet = Object.Instantiate(RightSprite, (Vector3)(RoutePositions[0]) + new Vector3(0.25f, 0.75f, 0),Quaternion.identity);
+        GameObject BackSideSpriteToSet = Object.Instantiate(BackSprite, (Vector3)(RoutePositions[0]) + new Vector3(0.25f, 0.75f, 0), Quaternion.identity);
+        Bus New = new Bus(RoutePositions[0], FrontSpriteToSet,LeftSpriteToSet,RightSideSpriteToSet,BackSideSpriteToSet);
         BusesOnRoute.Add(New);
         New.CurrentlyTargetting = 1;
         New.SetNewTarget(RoutePositions[1]);

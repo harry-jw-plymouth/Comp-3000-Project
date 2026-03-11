@@ -7,8 +7,11 @@ public class Bus
     public Vector3 CurrentPosition;
     public Vector3Int TargetStop;
     // public GameObject TrainSpritePrefab;
-    public GameObject CreatedSprite;
-    public GameObject SideSprite;
+    public GameObject FrontSprite;
+    public GameObject LeftSprite;
+    public GameObject RightSprite;
+    public GameObject BackSprite;
+
     public bool CurrentlyAscendingRoute = true;
     public int CurrentlyTargetting;
     public Vector3 CurrentTarget;
@@ -23,21 +26,28 @@ public class Bus
     //2 is right
     //3 is up
 
-    
-    public Bus(Vector3Int StartTile, GameObject Sprite,GameObject Side)
+
+    public Bus(Vector3Int StartTile, GameObject Sprite, GameObject Left, GameObject Right, GameObject Back)
     {
         CurrentDirection= 0;
-        SideSprite = Side;
-        CreatedSprite = Sprite;
-        CreatedSprite.GetComponent<SpriteRenderer>().enabled = true;
-        SideSprite.GetComponent<SpriteRenderer>().enabled = false;
+        LeftSprite = Left;
+        FrontSprite = Sprite;
+        RightSprite = Right;
+        BackSprite = Back;
 
-        CurrentPosition = CreatedSprite.transform.position;
+        FrontSprite.GetComponent<SpriteRenderer>().enabled = true;
+        LeftSprite.GetComponent<SpriteRenderer>().enabled = false;
+        RightSprite.GetComponent<SpriteRenderer>().enabled = false;
+        BackSprite.GetComponent<SpriteRenderer>().enabled= false; 
+
+        CurrentPosition = FrontSprite.transform.position;
     }
     public void MoveSprite()
     {
-        CreatedSprite.transform.position = GetPosition();
-        SideSprite.transform.position = GetPosition();
+        FrontSprite.transform.position = GetPosition();
+        LeftSprite.transform.position = GetPosition();
+        RightSprite.transform.position = GetPosition();
+        BackSprite.transform.position = GetPosition();
 
     }
     public void SetLastStop(Vector3Int Stop)
@@ -139,26 +149,34 @@ public class Bus
             if (CurrentDirection == 0)
             {
                 //GoDown
-                CreatedSprite.GetComponent<Renderer>().enabled = true;
-                SideSprite.GetComponent<Renderer>().enabled = false;
+                FrontSprite.GetComponent<Renderer>().enabled = false;
+                LeftSprite.GetComponent<Renderer>().enabled = false;
+                BackSprite.GetComponent<Renderer>().enabled = true;
+                RightSprite.GetComponent<Renderer>().enabled = false;
             }
             else if (CurrentDirection == 1)
             {
                 //Go left
-                CreatedSprite.GetComponent<Renderer>().enabled = false;
-                SideSprite.GetComponent<Renderer>().enabled = true ;
+                FrontSprite.GetComponent<Renderer>().enabled = false;
+                LeftSprite.GetComponent<Renderer>().enabled = true ;
+                BackSprite.GetComponent<Renderer>().enabled = false;
+                RightSprite.GetComponent<Renderer>().enabled = false;
             }
             else if (CurrentDirection == 2)
             {
                 //Go right
-                CreatedSprite.GetComponent<Renderer>().enabled = false;
-                SideSprite.GetComponent<Renderer>().enabled = true;
+                FrontSprite.GetComponent<Renderer>().enabled = false;
+                LeftSprite.GetComponent<Renderer>().enabled = false;
+                BackSprite.GetComponent<Renderer>().enabled = false;
+                RightSprite.GetComponent<Renderer>().enabled = true;
             }
             else if (CurrentDirection == 3)
             {
                 //Go up
-                CreatedSprite.GetComponent<Renderer>().enabled = true;
-                SideSprite.GetComponent<Renderer>().enabled = false ;
+                FrontSprite.GetComponent<Renderer>().enabled = true;
+                LeftSprite.GetComponent<Renderer>().enabled = false ;
+                BackSprite.GetComponent<Renderer>().enabled = false;
+                RightSprite.GetComponent<Renderer>().enabled = false;
             }
         }
     }

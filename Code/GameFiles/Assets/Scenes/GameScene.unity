@@ -10698,6 +10698,8 @@ MonoBehaviour:
   RedModernTrainFront: {fileID: 2384667250436792547, guid: e8c4d4154919ec840afe2831edd025a2, type: 3}
   RedModernBusFront: {fileID: 7875353806522141415, guid: 26be2b9f3892948469e6cf29324d1684, type: 3}
   RedModernBusLeft: {fileID: 3639883500720670775, guid: cd29a15ccdf6e354da2a559e3f1907c6, type: 3}
+  RedModernBusRight: {fileID: 8714870324011160255, guid: 8bf3a5b6ac1398d419000c62a615d75d, type: 3}
+  RedModernBusBack: {fileID: 5417921050092452464, guid: 4f25c6492cab1024b8efffc52b6d772a, type: 3}
   TransportOption: -1
 --- !u!4 &1113947655
 Transform:

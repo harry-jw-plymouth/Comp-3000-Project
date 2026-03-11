@@ -27,6 +27,9 @@ public class TransportPlacementScript : MonoBehaviour
 
     public GameObject RedModernBusFront;
     public GameObject RedModernBusLeft;
+    public GameObject RedModernBusRight;
+    public GameObject RedModernBusBack;
+
 
     public static int RailMode = -1;
     //0 is rail, 1 is rail
@@ -394,11 +397,13 @@ public class TransportPlacementScript : MonoBehaviour
             if (!BusRoutes[i].GetIfActivated())
             {
 
-                GameObject NewSprite = Instantiate(RedModernBusFront, BusRoutes[i].GetCurrentRoute()[0], Quaternion.identity);
-                GameObject SideSprite = Instantiate(RedModernBusLeft, BusRoutes[i].GetCurrentRoute()[0], Quaternion.identity);
-                BusRoutes[i].SetSpritesForBusOnRoute(NewSprite,RedModernBusLeft);
+                GameObject FrontSprite = Instantiate(RedModernBusFront, BusRoutes[i].GetCurrentRoute()[0], Quaternion.identity);
+                GameObject LeftSprite = Instantiate(RedModernBusLeft, BusRoutes[i].GetCurrentRoute()[0], Quaternion.identity);
+                GameObject RightSprite = Instantiate(RedModernBusRight, BusRoutes[i].GetCurrentRoute()[0], Quaternion.identity);
+                GameObject BackSprite = Instantiate(RedModernBusBack, BusRoutes[i].GetCurrentRoute()[0], Quaternion.identity);
+                BusRoutes[i].SetSpritesForBusOnRoute(FrontSprite,LeftSprite,RightSprite,BackSprite);
                 BusRoutes[i].Activate();
-                NewSprite.GetComponent<SpriteRenderer>().enabled = true;
+                //NewSprite.GetComponent<SpriteRenderer>().enabled = true;
 
             }
         }
