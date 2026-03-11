@@ -22,7 +22,7 @@ public class Train
     {
         CreatedSprite = Sprite;
         CreatedSprite.GetComponent<SpriteRenderer>().enabled = true;
-        CurrentPosition = CreatedSprite.transform.position;
+        CurrentPosition = CreatedSprite.transform.position+ new Vector3(0, 0.25f, 0);
       //  InstantiateSprite();
         //TrainSpritePrefab = Sprite;
 

@@ -246,7 +246,7 @@ public class Route
                     //              Debug.Log("Train moving, positon before move:" + TrainsOnRoute[i].CurrentPosition) ;
                     TrainsOnRoute[i].AdjustPosition(CurrentPosition);
                     //            Debug.Log("Train moved, positon after move:" + TrainsOnRoute[i].CurrentPosition);
-                    TrainsOnRoute[i].CreatedSprite.transform.position = TrainsOnRoute[i].GetPosition();
+                    TrainsOnRoute[i].CreatedSprite.transform.position = TrainsOnRoute[i].GetPosition()+new Vector3(0.0f,0.25f,0.0f);
 
                     if (CurrentTarget.x == CurrentPosition.x && CurrentPosition.y == CurrentTarget.y)
                     {
