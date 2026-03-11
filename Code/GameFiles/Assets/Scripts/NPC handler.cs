@@ -205,7 +205,7 @@ public class NPChandler : MonoBehaviour
         List<int> Ids = new List<int>();
         for (int i = 0; i < NPCList.Count; i++)
         {
-            if (NPCList[i].GetCurrentBusStop() == null || NPCList[i].GetTargetBusStop() == null)
+            if (NPCList[i].GetCurrentBusStop().x==-1 || NPCList[i].GetTargetBusStop().x==-1)
             {
 
             }
@@ -555,6 +555,10 @@ public class NPChandler : MonoBehaviour
             else if (NPCList[i].GetCurrentAction() == 6)
             {
                 //Waiting for train
+            }
+            else if (NPCList[i].GetCurrentAction() == 7)
+            {
+                //waiting for bus
             }
             
         }
