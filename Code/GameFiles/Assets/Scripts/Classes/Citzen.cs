@@ -1,5 +1,6 @@
 using NUnit.Framework;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -797,6 +798,16 @@ public class Citzen
                     }
                 }
 
+                Vector3Int CurrentPosOnRoute =GridCreator.GameMap.WorldToCell(RoutePositions[NexPositionOnRoute]);
+                if (GridCreator.GameGrid[CurrentPosOnRoute.x, CurrentPosOnRoute.y].Contains == 5)
+                {
+                    Vector3Int NextPosOnRoute= GridCreator.GameMap.WorldToCell(RoutePositions[NexPositionOnRoute + 1]);
+                    if(GridCreator.GameGrid[NextPosOnRoute.x, NextPosOnRoute.y].Contains == 5)
+                    { 
+                        
+                    }
+
+                }
 
                 NexPositionOnRoute++;
                 

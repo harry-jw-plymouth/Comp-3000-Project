@@ -436,6 +436,18 @@ public class TransportPlacementScript : MonoBehaviour
         }
         return false;
     }
+    public static bool CheckIfRouteBetweenBusStops(Vector3Int StartPos, Vector3Int EndPos)
+    {
+        for (int i = 0; i < BusRoutes.Count; i++)
+        {
+            if (BusRoutes[i].StartStop == StartPos && BusRoutes[i].EndStop == EndPos
+                || BusRoutes[i].StartStop == EndPos && BusRoutes[i].EndStop == StartPos)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
     public static List<Route> GetAllTrainRoutesForStation(PlacedBuilding Current)
     {
         List<Route> routes = new List<Route>();
