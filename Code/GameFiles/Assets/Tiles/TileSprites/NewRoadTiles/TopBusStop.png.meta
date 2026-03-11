@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 8faa8f5a558ad2743a9320cbba56469c
+guid: bac19e53e4bb3c644abfdfbdd4f3d7ae
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -2056154350610201879
-    second: TopBottom-1.png_0
+      213: -5407761374285698760
+    second: TopBusStop_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,7 +100,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: TopBottom-1.png_0
+      name: TopBusStop_0
       rect:
         serializedVersion: 2
         x: 0
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 9e2418813821773e0800000000000000
-      internalID: -2056154350610201879
+      spriteID: 8396f9f7ea5c3f4b0800000000000000
+      internalID: -5407761374285698760
       vertices: []
       indices: 
       edges: []
@@ -135,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      TopBottom-1.png_0: -2056154350610201879
+      TopBusStop_0: -5407761374285698760
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
