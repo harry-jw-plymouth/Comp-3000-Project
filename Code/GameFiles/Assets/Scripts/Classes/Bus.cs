@@ -8,6 +8,7 @@ public class Bus
     public Vector3Int TargetStop;
     // public GameObject TrainSpritePrefab;
     public GameObject CreatedSprite;
+    public GameObject SideSprite;
     public bool CurrentlyAscendingRoute = true;
     public int CurrentlyTargetting;
     public Vector3 CurrentTarget;
@@ -16,11 +17,27 @@ public class Bus
     public List<int> NPCIdsOnBus = new List<int>();
     public bool isCurrentlyMoving = true;
 
-    public Bus(Vector3Int StartTile, GameObject Sprite)
+    public int CurrentDirection;
+    //0 is down
+    //1 is left
+    //2 is right
+    //3 is up
+
+    
+    public Bus(Vector3Int StartTile, GameObject Sprite,GameObject Side)
     {
+        CurrentDirection= 0;
+        SideSprite = Sprite;
         CreatedSprite = Sprite;
         CreatedSprite.GetComponent<SpriteRenderer>().enabled = true;
+        
         CurrentPosition = CreatedSprite.transform.position;
+    }
+    public void MoveSprite()
+    {
+        CreatedSprite.transform.position = GetPosition();
+        SideSprite.transform.position = GetPosition();
+
     }
     public void SetLastStop(Vector3Int Stop)
     {
@@ -62,6 +79,87 @@ public class Bus
     public void SetNewTarget(Vector3 Position)
     {
         CurrentTarget = Position;
+    }
+    public void UpdateSprite(Vector3 New,Vector3 Old)
+    {
+        int NewDirection;
+        float XDiff=0,YDiff=0;
+        if (New.x > Old.x)
+        {
+            XDiff = New.x - Old.x;
+        }
+        else if (New.x < Old.x) { 
+            XDiff = Old.x - New.x;
+        }
+
+        if (New.y > Old.y)
+        {
+            YDiff = New.y - Old.y;
+        }
+        else if (New.x < Old.x)
+        {
+            XDiff = Old.y - New.y;
+        }
+
+        if (XDiff > YDiff)
+        {
+            if (XCurrentlyIncreasing)
+            {
+                //Going right
+                NewDirection = 2;
+            }
+            else
+            {
+                //GoingLeft
+                NewDirection = 1;
+            }
+        }
+        else
+        {
+            if (YCurrentlyIncreasing)
+            {
+                //Going down
+                NewDirection = 0;
+            }
+            else
+            {
+                //Going up
+                NewDirection = 3;
+            }
+        }
+        ChangeSpriteDirection(NewDirection);
+
+    }
+    public void ChangeSpriteDirection(int NewDir)
+    {
+        if (NewDir != CurrentDirection)
+        {
+            CurrentDirection = NewDir;
+            if (CurrentDirection == 0)
+            {
+                //GoDown
+                CreatedSprite.GetComponent<Renderer>().enabled = true;
+                SideSprite.GetComponent<Renderer>().enabled = false;
+            }
+            else if (CurrentDirection == 1)
+            {
+                //Go left
+                CreatedSprite.GetComponent<Renderer>().enabled = false;
+                SideSprite.GetComponent<Renderer>().enabled = true ;
+            }
+            else if (CurrentDirection == 2)
+            {
+                //Go right
+                CreatedSprite.GetComponent<Renderer>().enabled = false;
+                SideSprite.GetComponent<Renderer>().enabled = true;
+            }
+            else if (CurrentDirection == 3)
+            {
+                //Go up
+                CreatedSprite.GetComponent<Renderer>().enabled = true;
+                SideSprite.GetComponent<Renderer>().enabled = false ;
+            }
+        }
     }
     public void AdjustPosition(Vector3 position)
     {

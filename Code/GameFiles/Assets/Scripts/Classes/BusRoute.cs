@@ -9,6 +9,7 @@ public class BusRoute
     public bool HasBeenActivated = false;
     List<Bus> BusesOnRoute = new List<Bus>();
     GameObject SpriteForBuses;
+    GameObject SideSprite;
 
 
 
@@ -17,9 +18,10 @@ public class BusRoute
     {
         StartStop = Start; EndStop = End;
     }
-    public void SetSpriteForBusOnRoute(GameObject Sprite)
+    public void SetSpritesForBusOnRoute(GameObject Sprite, GameObject Side)
     {
         SpriteForBuses = Sprite;
+        SideSprite = Side;
     }
     public bool GetIfActivated()
     {
@@ -30,7 +32,7 @@ public class BusRoute
 
         HasBeenActivated = true;
         GameObject SpriteToSet = Object.Instantiate(SpriteForBuses, (Vector3)(RoutePositions[0]) + new Vector3(0.25f, 0.75f, 0), Quaternion.identity);
-        Bus New = new Bus(RoutePositions[0], SpriteToSet);
+        Bus New = new Bus(RoutePositions[0], SpriteToSet,SideSprite);
         BusesOnRoute.Add(New);
         New.CurrentlyTargetting = 1;
         New.SetNewTarget(RoutePositions[1]);
@@ -128,6 +130,7 @@ public class BusRoute
                         {
                             //     Debug.Log("Reached new postions on route");
 
+
                             Vector3 OldTarget = BusesOnRoute[i].CurrentTarget;
                             //       Debug.Log("Reached : " + OldTarget);
                             BusesOnRoute[i].CurrentlyTargetting++;
@@ -144,6 +147,7 @@ public class BusRoute
                                 y = true;
                             }
                             BusesOnRoute[i].SetDirections(x, y);
+                            BusesOnRoute[i].UpdateSprite(NewTarget,OldTarget);
                         }
                         else
                         {
@@ -205,8 +209,9 @@ public class BusRoute
 
                     //              Debug.Log("Train moving, positon before move:" + TrainsOnRoute[i].CurrentPosition) ;
                     BusesOnRoute[i].AdjustPosition(CurrentPosition);
+                    BusesOnRoute[i].MoveSprite();
                     //            Debug.Log("Train moved, positon after move:" + TrainsOnRoute[i].CurrentPosition);
-                    BusesOnRoute[i].CreatedSprite.transform.position = BusesOnRoute[i].GetPosition();
+               //     BusesOnRoute[i].CreatedSprite.transform.position = BusesOnRoute[i].GetPosition();
 
                     if (CurrentTarget.x == CurrentPosition.x && CurrentPosition.y == CurrentTarget.y)
                     {

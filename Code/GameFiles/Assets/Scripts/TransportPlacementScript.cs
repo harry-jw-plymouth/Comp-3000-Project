@@ -26,6 +26,7 @@ public class TransportPlacementScript : MonoBehaviour
     public GameObject RedModernTrainFront;
 
     public GameObject RedModernBusFront;
+    public GameObject RedModernBusLeft;
 
     public static int RailMode = -1;
     //0 is rail, 1 is rail
@@ -394,7 +395,7 @@ public class TransportPlacementScript : MonoBehaviour
             {
 
                 GameObject NewSprite = Instantiate(RedModernBusFront, BusRoutes[i].GetCurrentRoute()[0], Quaternion.identity);
-                BusRoutes[i].SetSpriteForBusOnRoute(NewSprite);
+                BusRoutes[i].SetSpritesForBusOnRoute(NewSprite,RedModernBusLeft);
                 BusRoutes[i].Activate();
                 NewSprite.GetComponent<SpriteRenderer>().enabled = true;
 
