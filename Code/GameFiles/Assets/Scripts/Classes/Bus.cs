@@ -20,6 +20,9 @@ public class Bus
     public List<int> NPCIdsOnBus = new List<int>();
     public bool isCurrentlyMoving = true;
 
+    public int ReactivateCount = 0;
+    public int ReactivateTime = 100;
+
     public int CurrentDirection;
     //0 is down
     //1 is left
@@ -42,12 +45,28 @@ public class Bus
 
         CurrentPosition = FrontSprite.transform.position;
     }
+    public int GetReactivateCount()
+    {
+        return ReactivateCount;
+    }
+    public void ResetReactivateCount()
+    {
+        ReactivateCount = 0;
+    }
+    public void IncrementReactivateCount()
+    {
+        ReactivateCount++;
+    }
+    public bool GetIfBusCanBeReactivated()
+    {
+        return ReactivateCount >= ReactivateTime;
+    }
     public void MoveSprite()
     {
-        FrontSprite.transform.position = GetPosition();
-        LeftSprite.transform.position = GetPosition();
-        RightSprite.transform.position = GetPosition();
-        BackSprite.transform.position = GetPosition();
+        FrontSprite.transform.position = GetPosition() +new Vector3(0.5f, 0.5f, 0);
+        LeftSprite.transform.position = GetPosition() +new Vector3(0.5f, 0.5f, 0);
+        RightSprite.transform.position = GetPosition() +new Vector3(0.5f, 0.5f, 0);
+        BackSprite.transform.position = GetPosition() +new  Vector3(0.5f,0.5f,0) ;
 
     }
     public void SetLastStop(Vector3Int Stop)

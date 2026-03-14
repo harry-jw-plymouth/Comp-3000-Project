@@ -75,21 +75,30 @@ public class BusRoute
         {
             if (!BusesOnRoute[i].GetIfCurrentlyMoving())
             {
-                Bus CurrentBus = BusesOnRoute[i];
-                List<int> IDs = new List<int>();
-
-                Vector3Int CurrentStopCell = GridCreator.GameMap.WorldToCell(CurrentBus.GetCurrentStopPos());;
-
-                if (BusesOnRoute[i].CurrentlyAscendingRoute)
+                if (BusesOnRoute[i].GetIfBusCanBeReactivated())
                 {
-                    IDs = NpcHandler.GetNPCsIdWaitingForBus(StartStop, EndStop);
+                    Bus CurrentBus = BusesOnRoute[i];
+                    List<int> IDs = new List<int>();
+
+                    Vector3Int CurrentStopCell = GridCreator.GameMap.WorldToCell(CurrentBus.GetCurrentStopPos()); ;
+
+                    if (BusesOnRoute[i].CurrentlyAscendingRoute)
+                    {
+                        IDs = NpcHandler.GetNPCsIdWaitingForBus(StartStop, EndStop);
+                    }
+                    else
+                    {
+                        IDs = NpcHandler.GetNPCsIdWaitingForBus(EndStop, StartStop);
+                    }
+                    BusesOnRoute[i].SetIDsOnBus(IDs);
+                    BusesOnRoute[i].SetIsCurrentlyMoving(true);
+                    BusesOnRoute[i].ResetReactivateCount();
                 }
                 else
                 {
-                    IDs = NpcHandler.GetNPCsIdWaitingForBus(EndStop, StartStop);
+                    BusesOnRoute[i].IncrementReactivateCount();
                 }
-                BusesOnRoute[i].SetIDsOnBus(IDs);
-                BusesOnRoute[i].SetIsCurrentlyMoving(true);
+               
             }
         }
     }
