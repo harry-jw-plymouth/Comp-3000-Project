@@ -105,23 +105,33 @@ public class Route
         {
             if (!TrainsOnRoute[i].GetIfCurrentlyMoving())
             {
-                Train CurrentTrain = TrainsOnRoute[i];
-                List<int> IDs = new List<int>();
-
-                Vector3Int trainStationCell = GridCreator.GameMap.WorldToCell(CurrentTrain.GetCurrentStationPos());
-                Vector3Int startCell = GridCreator.GameMap.WorldToCell(StartStation.GetBuildingPos());
-                Vector3Int endCell = GridCreator.GameMap.WorldToCell(EndStation.GetBuildingPos());
-
-                if (TrainsOnRoute[i].CurrentlyAscendingRoute)
+                if (TrainsOnRoute[i].GetIfTrainCanBeReactivated())
                 {
-                    IDs = NpcHandler.GetNPCsIdWaitingForTrain(StartStation, EndStation);
+                    Train CurrentTrain = TrainsOnRoute[i];
+                    List<int> IDs = new List<int>();
+
+                    Vector3Int trainStationCell = GridCreator.GameMap.WorldToCell(CurrentTrain.GetCurrentStationPos());
+                    Vector3Int startCell = GridCreator.GameMap.WorldToCell(StartStation.GetBuildingPos());
+                    Vector3Int endCell = GridCreator.GameMap.WorldToCell(EndStation.GetBuildingPos());
+
+                    if (TrainsOnRoute[i].CurrentlyAscendingRoute)
+                    {
+                        IDs = NpcHandler.GetNPCsIdWaitingForTrain(StartStation, EndStation);
+                    }
+                    else
+                    {
+                        IDs = NpcHandler.GetNPCsIdWaitingForTrain(EndStation, StartStation);
+                    }
+                    TrainsOnRoute[i].SetIDsOnTrain(IDs);
+                    TrainsOnRoute[i].SetIsCurrentlyMoving(true);
+                    TrainsOnRoute[i].ResetReactivateCount();
+
                 }
                 else
                 {
-                    IDs = NpcHandler.GetNPCsIdWaitingForTrain(EndStation, StartStation);
+                    TrainsOnRoute[i].IncrementReactivateCount();
                 }
-                TrainsOnRoute[i].SetIDsOnTrain(IDs);
-                TrainsOnRoute[i].SetIsCurrentlyMoving(true);
+                
             }
         }
     }

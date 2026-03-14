@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Train
 {
+
     public Vector3 CurrentOrPreviousStation;
     public Vector3 CurrentPosition;
     public Vector3Int TargetStation;
@@ -14,6 +15,9 @@ public class Train
     public Vector3 CurrentTarget;
     public bool XCurrentlyIncreasing, YCurrentlyIncreasing;
     public bool XSame, YSame;
+
+    public int ReactivateCount = 0;
+    public int ReactivateTime = 100;
 
     public List<int> NPCIdsOnTrain = new List<int>();
 
@@ -31,6 +35,22 @@ public class Train
     //  {
     //    .Instantiate()
     //}
+    public int GetReactivateCount()
+    {
+        return ReactivateCount;
+    }
+    public void ResetReactivateCount()
+    {
+        ReactivateCount = 0;
+    }
+    public void IncrementReactivateCount()
+    {
+        ReactivateCount++;
+    }
+    public bool GetIfTrainCanBeReactivated()
+    {
+        return ReactivateCount >= ReactivateTime;
+    }
     public void SetLastStation(Vector3Int Station)
     {
         CurrentOrPreviousStation = Station;
