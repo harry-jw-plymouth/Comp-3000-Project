@@ -89,9 +89,12 @@ public class Citzen
     }
     public void GetOffBus()
     {
-        Debug.Log("Npc moved to target stop at " + TargetBusStop);
-        Debug.Log("Start stop was:" + CurrentBusStop);
-        Position = TargetBusStop;
+        Debug.Log("Get off bus called");
+
+        //Debug.Log("Npc moved to target stop at " + TargetBusStop);
+        //Debug.Log("Start stop was:" + CurrentBusStop);
+        Position = GridCreator.GameMap.CellToWorld( TargetBusStop);
+
         SetCurrentAction(0);
         CurrentBusStop= new Vector3Int(-1, -1, -1);
         TargetBusStop = new Vector3Int(-1,-1,-1);
@@ -328,7 +331,7 @@ public class Citzen
             }
             else
             {
-                if(CurrentBusStop!=null && TargetBusStop != null)
+                if(CurrentBusStop.x!=-1 && TargetBusStop.x!=-1)
                 {
                     if (Grid[Current.x, Current.y].Contains == 5)
                     {
@@ -715,11 +718,12 @@ public class Citzen
             Position.x = Mathf.Min(Position.x + MovementSpeed, RoutePositions[NexPositionOnRoute].x);
         }
         NPCSprite.transform.position = Position;
-        if (RoutePositions[NexPositionOnRoute].x == Position.x && RoutePositions[NexPositionOnRoute].y == Position.y)
+        if (Vector3.Distance(Position, RoutePositions[NexPositionOnRoute]) < 0.01f)
         {
             if(NexPositionOnRoute == RoutePositions.Count - 1)
             {
                 //Final target reached
+                
                 RoutePositions = new List<Vector3>();
                 MovementTarget = new Vector3();
                 if (TargetIsbuilding)
@@ -756,7 +760,6 @@ public class Citzen
                 int TempCurrentIndex = NexPositionOnRoute;
 
                 // check for train station
-
                 int BuildingCheckIndex = GridHandler.GetBuildingClicked(GridCreator.GameMap.WorldToCell( (RoutePositions[TempCurrentIndex])));
                 if (BuildingCheckIndex != -1)
                 {
@@ -811,6 +814,10 @@ public class Citzen
                     }
                 }
 
+                if (TargetBusStop.x != -1)
+                {
+
+                }
                 Vector3Int CurrentPosOnRoute =GridCreator.GameMap.WorldToCell(RoutePositions[TempCurrentIndex]);
                 if (GridCreator.GameGrid[CurrentPosOnRoute.x, CurrentPosOnRoute.y].Contains == 5)
                 {
