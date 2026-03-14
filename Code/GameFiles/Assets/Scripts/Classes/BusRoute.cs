@@ -374,7 +374,9 @@ public class BusRoute
                     CurrentRoutePos = CameFrom[CurrentRoutePos];
                 }
                 RoutePositions.Add(CurrentRoutePos);
+                RoutePositions.Add(StartStop);
                 RoutePositions.Reverse();
+                RoutePositions.Add(EndStop);
 
                 return;
             }
