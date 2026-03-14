@@ -12,6 +12,12 @@ public class RoadRuleTile : RuleTile
         {
             return other is RoadRuleTile;
         }
+        if (neighbor == TilingRule.Neighbor.NotThis)
+        {
+            return !(other is RoadRuleTile);
+        }
+
+
 
         return base.RuleMatch(neighbor, other);
     }
