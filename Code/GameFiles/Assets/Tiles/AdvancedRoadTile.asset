@@ -12,13 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22ef921df17b495428b0a6c293e0efc5, type: 3}
   m_Name: AdvancedRoadTile
   m_EditorClassIdentifier: Assembly-CSharp::RoadRuleTile
-  m_DefaultSprite: {fileID: 3483360546945567320, guid: 0076995aa3db3144ab2f3fba36f3336d, type: 3}
+  m_DefaultSprite: {fileID: 49799395122865322, guid: 1cfcd6fb032356945b363d2c42826064, type: 3}
   m_DefaultGameObject: {fileID: 0}
   m_DefaultColliderType: 1
   m_TilingRules:
   - m_Id: 0
     m_Sprites:
-    - {fileID: 3483360546945567320, guid: 0076995aa3db3144ab2f3fba36f3336d, type: 3}
+    - {fileID: 49799395122865322, guid: 1cfcd6fb032356945b363d2c42826064, type: 3}
     m_GameObject: {fileID: 0}
     m_MinAnimationSpeed: 1
     m_MaxAnimationSpeed: 1
