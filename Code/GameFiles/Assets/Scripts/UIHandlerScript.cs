@@ -123,6 +123,11 @@ public class UIHandlerScript : MonoBehaviour
             EndStationForRoute.text = "End:" + RoutesToDisplay[0].EndStation.GetBuildingPosAsInt();
         }
     }
+    public void OnCancelRouteButtonClick()
+    {
+        CurrentRoutes[RouteDisplayIndex].SetCancelled();
+        ShowAlertPopUp("Route being cancelled. Cancellation will occur at the next station the train stops at");
+    }
     public void OnBusRouteConfirmButtonClicked()
     {
         if (StartBusStop != null && EndBusStop != null)

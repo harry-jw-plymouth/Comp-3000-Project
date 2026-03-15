@@ -12,12 +12,16 @@ public class Route
     List<Train> TrainsOnRoute = new List<Train>();
     GameObject SpriteForTrains;
 
-    
 
-
+    public bool IsCancelled = false;
+    public bool Ended = false;
     public Route(PlacedBuilding Start,PlacedBuilding End)
     {
         StartStation= Start;EndStation= End;
+    }
+    public bool GetIfEnded()
+    {
+        return Ended;   
     }
     public void SetSpriteForTrainOnRoute(GameObject Sprite)
     {
@@ -26,6 +30,14 @@ public class Route
     public bool GetIfActivated()
     {
         return HasBeenActivated;
+    }
+    public void SetCancelled()
+    {
+        IsCancelled = true;
+    }
+    public bool GetIfCancelled()
+    {
+        return IsCancelled;
     }
     public void Activate()
     {
@@ -71,6 +83,13 @@ public class Route
         }
         return Positions;
     }
+    public void DestroyRoute()
+    {
+        Object.Destroy(SpriteForTrains);
+        for (int i = 0; i < TrainsOnRoute.Count; i++) {
+            TrainsOnRoute[i].DestroySprite();
+        }
+    }
     /*
     public void ReactivateTrains(NPChandler NpcHandler)
     {
@@ -101,36 +120,50 @@ public class Route
     */
     public void ReactivateTrains(NPChandler NpcHandler)
     {
+
         for (int i = 0; i < TrainsOnRoute.Count; i++)
         {
             if (!TrainsOnRoute[i].GetIfCurrentlyMoving())
             {
-                if (TrainsOnRoute[i].GetIfTrainCanBeReactivated())
+                if (IsCancelled)
                 {
-                    Train CurrentTrain = TrainsOnRoute[i];
-                    List<int> IDs = new List<int>();
-
-                    Vector3Int trainStationCell = GridCreator.GameMap.WorldToCell(CurrentTrain.GetCurrentStationPos());
-                    Vector3Int startCell = GridCreator.GameMap.WorldToCell(StartStation.GetBuildingPos());
-                    Vector3Int endCell = GridCreator.GameMap.WorldToCell(EndStation.GetBuildingPos());
-
-                    if (TrainsOnRoute[i].CurrentlyAscendingRoute)
-                    {
-                        IDs = NpcHandler.GetNPCsIdWaitingForTrain(StartStation, EndStation);
-                    }
-                    else
-                    {
-                        IDs = NpcHandler.GetNPCsIdWaitingForTrain(EndStation, StartStation);
-                    }
-                    TrainsOnRoute[i].SetIDsOnTrain(IDs);
-                    TrainsOnRoute[i].SetIsCurrentlyMoving(true);
-                    TrainsOnRoute[i].ResetReactivateCount();
-
+                    Ended = true;
                 }
                 else
                 {
-                    TrainsOnRoute[i].IncrementReactivateCount();
+                    if (TrainsOnRoute[i].GetIfTrainCanBeReactivated())
+                    {
+                        if (IsCancelled)
+                        {
+
+                        }
+
+                        Train CurrentTrain = TrainsOnRoute[i];
+                        List<int> IDs = new List<int>();
+
+                        Vector3Int trainStationCell = GridCreator.GameMap.WorldToCell(CurrentTrain.GetCurrentStationPos());
+                        Vector3Int startCell = GridCreator.GameMap.WorldToCell(StartStation.GetBuildingPos());
+                        Vector3Int endCell = GridCreator.GameMap.WorldToCell(EndStation.GetBuildingPos());
+
+                        if (TrainsOnRoute[i].CurrentlyAscendingRoute)
+                        {
+                            IDs = NpcHandler.GetNPCsIdWaitingForTrain(StartStation, EndStation);
+                        }
+                        else
+                        {
+                            IDs = NpcHandler.GetNPCsIdWaitingForTrain(EndStation, StartStation);
+                        }
+                        TrainsOnRoute[i].SetIDsOnTrain(IDs);
+                        TrainsOnRoute[i].SetIsCurrentlyMoving(true);
+                        TrainsOnRoute[i].ResetReactivateCount();
+
+                    }
+                    else
+                    {
+                        TrainsOnRoute[i].IncrementReactivateCount();
+                    }
                 }
+                
                 
             }
         }

@@ -447,6 +447,10 @@ public class NPChandler : MonoBehaviour
             Debug.Log("Npc left");
         }
     }
+    public void UpdateNPCRoutesAfterRoutesRemoval(List<Route> DeletedRoutes)
+    {
+
+    }
     void UpdateNPCs()
     {
         List<int> NPCsToRemove=new List<int>();

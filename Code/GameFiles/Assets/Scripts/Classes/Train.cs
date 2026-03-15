@@ -21,6 +21,8 @@ public class Train
 
     public List<int> NPCIdsOnTrain = new List<int>();
 
+    public bool IsCancelled = false;
+
     public bool isCurrentlyMoving = true;
     public Train(Vector3Int StartTile,GameObject Sprite)
     {
@@ -43,6 +45,11 @@ public class Train
     {
         ReactivateCount = 0;
     }
+    public void DestroySprite()
+    {
+        Object.Destroy(CreatedSprite);
+    }
+   
     public void IncrementReactivateCount()
     {
         ReactivateCount++;

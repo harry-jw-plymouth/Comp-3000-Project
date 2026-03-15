@@ -523,11 +523,31 @@ public class TransportPlacementScript : MonoBehaviour
             BusRoutes[i].ReactivateBusesOnRoute(NPChandler);
         }
     }
+    public void CheckForcancelledTrains()
+    {
+        List<Route>DeletedRoutes=new List<Route>();
+        for(int i = 0; i < TrainRoutes.Count; i++)
+        {
+            if (TrainRoutes[i].GetIfEnded())
+            {
+                TrainRoutes[i].DestroyRoute();
+                TrainRoutes.RemoveAt(i);
+                
+                
+            }
+        }
+        for (int i = 0; i < DeletedRoutes.Count; i++) { 
+            TrainRoutes.Remove(DeletedRoutes[i]);
+        }
+        NPChandler.UpdateNPCRoutesAfterRoutesRemoval(DeletedRoutes);
+
+    }
     void DoTrainRoutes()
     {
         CheckForNewRoutes();
         CheckForReactivation();
         DoMovement();
+        CheckForcancelledTrains();
     }
     void DoBusRoutes()
     {
