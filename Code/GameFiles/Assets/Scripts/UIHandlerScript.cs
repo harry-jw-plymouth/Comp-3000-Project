@@ -74,11 +74,13 @@ public class UIHandlerScript : MonoBehaviour
 
    // public Button PlaceRailButton;
     public GameObject RailCanvas;
+    public GameObject RailDisplayCanvas;
     public GameObject RouteSetCanvas;
     public GameObject BusRouteSetCanvas;
     public bool BuildingInfoShowing = false;
     public bool SelectingRouteLocation = false;
     public bool BusCanvasActive = false;
+    public bool RailRouteDisplayCanvasActive = false;
     public bool BusRouteCanvasActive = false;
 
     public bool RouteIsForBus=false;
@@ -118,6 +120,28 @@ public class UIHandlerScript : MonoBehaviour
                 }
                
             }
+        }
+    }
+    public void OnDisplayRoutesButtonClicked()
+    {
+        if (RailRouteDisplayCanvasActive)
+        {
+            //close
+            RailRouteDisplayCanvasActive= false;
+            RailDisplayCanvas.SetActive(false);
+            MainUICanvas.SetActive(true);
+            RouteSetCanvas.SetActive(true);
+            
+
+        }
+        else
+        {
+            RailRouteDisplayCanvasActive = true;
+            RailDisplayCanvas.SetActive(true);
+            MainUICanvas.SetActive(false);
+            RouteSetCanvas.SetActive(false);
+            RailCanvas.SetActive(false);
+            TransportBuilderPopUp.SetActive(false);
         }
     }
     public void OnRouteConfirmButtonClicked()
