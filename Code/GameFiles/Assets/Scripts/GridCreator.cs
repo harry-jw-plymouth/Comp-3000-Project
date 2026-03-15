@@ -835,7 +835,7 @@ public class GridCreator : MonoBehaviour
         {
             if (TransportPlacementScript.CheckIfRouteExistsUsingTrack(ClickPos)){
                 List<Route> RoutesForPos= TransportPlacementScript.GetAllRoutesUsingTrack(ClickPos);
-
+                uiHandler.DisplayRoutes(RoutesForPos);
             }
         }
     }

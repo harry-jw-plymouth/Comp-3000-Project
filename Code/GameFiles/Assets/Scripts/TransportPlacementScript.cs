@@ -31,6 +31,8 @@ public class TransportPlacementScript : MonoBehaviour
     public GameObject RedModernBusBack;
 
 
+    public List<Route> RoutesCurrentlyDisplayed;
+
     public static int RailMode = -1;
     //0 is rail, 1 is rail
     
@@ -441,6 +443,7 @@ public class TransportPlacementScript : MonoBehaviour
         }
 
     }
+    
     public static List<Route> GetAllTrainRoutes()
     {
         return TrainRoutes;

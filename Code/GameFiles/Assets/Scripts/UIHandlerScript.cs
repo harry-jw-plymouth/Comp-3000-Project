@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel.Design;
 using System.Globalization;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -94,6 +95,9 @@ public class UIHandlerScript : MonoBehaviour
     public int StartRouteStationBuilding = -1;
     public int EndRouteStationBuilding = -1;
 
+    public List<Route> CurrentRoutes=new List<Route>();
+    public int RouteDisplayIndex = -1;
+
     int RouteStationPos = -1;
     //  public Square[,] GameGrid;
     private void Start()
@@ -101,11 +105,23 @@ public class UIHandlerScript : MonoBehaviour
         TileEditorOn = false ;
     //  GameGrid = new Square[GridCreator.WIDTH, GridCreator.HEIGHT];
     //   SetGrid();
+
+
 }
     // Update is called once per frame
     void Update()
     {
         
+    }
+    public void DisplayRoutes(List<Route> RoutesToDisplay)
+    {
+        CurrentRoutes = RoutesToDisplay;
+        if (RoutesToDisplay.Count != 0)
+        {
+            RouteDisplayIndex = 0;
+            StartStationForRoute.text = "Start: "+RoutesToDisplay[0].StartStation.GetBuildingPosAsInt();
+            EndStationForRoute.text = "End:" + RoutesToDisplay[0].EndStation.GetBuildingPosAsInt();
+        }
     }
     public void OnBusRouteConfirmButtonClicked()
     {
