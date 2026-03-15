@@ -732,6 +732,11 @@ public class GridCreator : MonoBehaviour
                     NumberOfRoads++;
                     RoadPositions.Add(CellClickedPos);
                 }
+                else if (GameGrid[CellClickedPos.x, CellClickedPos.y].Contains == 4)
+                {
+                    Debug.Log("Railway clicked");
+
+                }
                 else
                 {
                     if (GameGrid[CellClickedPos.x, CellClickedPos.y].Contains == 1)
