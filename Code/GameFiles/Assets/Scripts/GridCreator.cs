@@ -735,6 +735,15 @@ public class GridCreator : MonoBehaviour
                 else if (GameGrid[CellClickedPos.x, CellClickedPos.y].Contains == 4)
                 {
                     Debug.Log("Railway clicked");
+                    if (TransportPlacementScript.CheckIfRouteExistsUsingTrack(CellClickedPos))
+                    {
+                        Debug.Log("Route uses track");
+                    }
+                    else
+                    {
+                        GameGrid[CellClickedPos.x, CellClickedPos.y].Contains = 0;
+                        GameMap.SetTile(CellClickedPos, GameTile);
+                    }
 
                 }
                 else
