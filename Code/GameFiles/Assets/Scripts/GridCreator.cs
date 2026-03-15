@@ -828,6 +828,17 @@ public class GridCreator : MonoBehaviour
             uiHandler.OnBusStopClicked(CellClickedPos);
         }
     }
+    void DoClickForRouteManager(Vector3Int ClickPos)
+    {
+        //check square is for rail
+        if (GameGrid[ClickPos.x, ClickPos.y].Contains == 4)
+        {
+            if (TransportPlacementScript.CheckIfRouteExistsUsingTrack(ClickPos)){
+                List<Route> RoutesForPos= TransportPlacementScript.GetAllRoutesUsingTrack(ClickPos);
+
+            }
+        }
+    }
 
     void CheckForMouseClicK() {
         if (Input.GetMouseButtonDown(0))
@@ -847,6 +858,10 @@ public class GridCreator : MonoBehaviour
                     CheckForStationClicked(CellClickedPos);
                 }
                     
+            }
+            else if (uiHandler.TrainRouteViewerOn)
+            {
+                DoClickForRouteManager(CellClickedPos);
             }
             else
             {

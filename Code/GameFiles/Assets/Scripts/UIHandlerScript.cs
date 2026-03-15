@@ -55,6 +55,8 @@ public class UIHandlerScript : MonoBehaviour
     public bool RailMenuActive = false;
     public bool RouteMenuActive = false;
 
+    public bool TrainRouteViewerOn = false;
+
     public GameObject BuildingInfoBox;
     public TextMeshProUGUI BuildingTypeText;
     public TextMeshProUGUI BuildingMoneyText;
@@ -64,6 +66,10 @@ public class UIHandlerScript : MonoBehaviour
     public TextMeshProUGUI BuildingEnviromentalValue;
     public TextMeshProUGUI RouteStartInfo;
     public TextMeshProUGUI RouteEndInfo;
+
+    public GameObject RouteSelectedInfo;
+    public TextMeshProUGUI StartStationForRoute;
+    public TextMeshProUGUI EndStationForRoute;
 
     public TextMeshProUGUI RouteTypeInfo;
 
@@ -131,6 +137,8 @@ public class UIHandlerScript : MonoBehaviour
             RailDisplayCanvas.SetActive(false);
             MainUICanvas.SetActive(true);
             RouteSetCanvas.SetActive(true);
+            TrainRouteViewerOn = false;
+            RouteSelectedInfo.SetActive(false);
             
 
         }
@@ -141,9 +149,12 @@ public class UIHandlerScript : MonoBehaviour
             MainUICanvas.SetActive(false);
             RouteSetCanvas.SetActive(false);
             RailCanvas.SetActive(false);
+            RouteSelectedInfo.SetActive(true);
+            TrainRouteViewerOn = true;
             TransportBuilderPopUp.SetActive(false);
         }
     }
+
     public void OnRouteConfirmButtonClicked()
     {
         if(StartRouteStationBuilding!=-1&& EndRouteStationBuilding != -1)

@@ -53,6 +53,18 @@ public class TransportPlacementScript : MonoBehaviour
     {
         TrackTile = TrackTileReference;
     }
+    public static List<Route> GetAllRoutesUsingTrack(Vector3Int TrackPos)
+    {
+        List<Route> routes = new List<Route>();
+        for(int i = 0; i < TrainRoutes.Count; i++)
+        {
+            if (TrainRoutes[i].GetCurrentRoute().Contains(TrackPos))
+            {
+                routes.Add(TrainRoutes[i]);
+            }
+        }
+        return routes;
+    }
 
     public static void SetupRoutesFromSave(int ID,GridCreator GridHandler,TransportPlacementScript TransportHandler)
     {
