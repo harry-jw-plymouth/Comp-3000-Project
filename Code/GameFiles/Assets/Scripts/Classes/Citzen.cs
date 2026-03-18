@@ -366,38 +366,35 @@ public class Citzen
             }
             else
             {
-                if(CurrentBusStop.x!=-1 && TargetBusStop.x!=-1)
+                if (Grid[Current.x, Current.y].Contains == 5)
                 {
-                    if (Grid[Current.x, Current.y].Contains == 5)
+                    List<BusRoute> RoutesForStop = TransportPlacementScript.GetAllBusRoutesForStop(Current);
+                    for (int i = 0; i < RoutesForStop.Count; i++)
                     {
-                        List<BusRoute> RoutesForStop = TransportPlacementScript.GetAllBusRoutesForStop(Current);
-                        for (int i = 0; i < RoutesForStop.Count; i++)
+                        Vector3Int ConnectingStop;
+                        if (RoutesForStop[i].StartStop == Current)
                         {
-                            Vector3Int ConnectingStop;
-                            if (RoutesForStop[i].StartStop == Current)
-                            {
-                                ConnectingStop = RoutesForStop[i].EndStop;
-                            }
-                            else
-                            {
-                                ConnectingStop=RoutesForStop[i].StartStop;
-                            }
-                            if (!AlreadyVisited.Contains(ConnectingStop))
-                            {
-                                ToCheck.Enqueue(ConnectingStop);
-                                AlreadyVisited.Add(ConnectingStop);
-                                CameFrom[ConnectingStop] = Current;
-                            }
-
+                            ConnectingStop = RoutesForStop[i].EndStop;
+                        }
+                        else
+                        {
+                            ConnectingStop = RoutesForStop[i].StartStop;
+                        }
+                        if(!AlreadyVisited.Contains(ConnectingStop))
+                        {
+                            ToCheck.Enqueue(ConnectingStop);
+                            AlreadyVisited.Add(ConnectingStop);
+                            CameFrom[ConnectingStop] = Current;
                         }
                     }
-                    
                 }
+
+
             }
 
             if (Current == Target)
             {
-                Debug.Log("Route set for "+CitzenID);
+                Debug.Log("Route set for " + CitzenID);
                 /*
                 RoutePositions = new List<Vector3>();
                 Vector3Int CurrentRoutePos = Current;
