@@ -14560,6 +14560,14 @@ MonoBehaviour:
   NPCSprites: []
   NPC1Prefab: {fileID: 8474580357229362486, guid: b48bc3c5a502118498b1b57baf876fcd, type: 3}
   NPC2Prefab: {fileID: 8474580357229362486, guid: 2878364e765de754387ad4d61a3ba1bd, type: 3}
+  NPC3Prefab: {fileID: 8474580357229362486, guid: be67dbce0fe6c004d9b03ec082c9d2e8, type: 3}
+  NPC4Prefab: {fileID: 8474580357229362486, guid: 0f857a091be987149a178217330026f6, type: 3}
+  NPC5Prefab: {fileID: 8474580357229362486, guid: d3442887deddaf9498d14978ea66592c, type: 3}
+  NPC6Prefab: {fileID: 8474580357229362486, guid: 4c3439f8af62e5d428875fd2188a20f1, type: 3}
+  NPC7Prefab: {fileID: 8474580357229362486, guid: b2b4b7e1757fe2c4bbd39f4ad9073598, type: 3}
+  NPC8Prefab: {fileID: 8474580357229362486, guid: d49ffff02113c484a8d2504c8962b239, type: 3}
+  NPC9Prefab: {fileID: 8474580357229362486, guid: 8c2c899a72571df45bc318554012a17c, type: 3}
+  NPC10Prefab: {fileID: 0}
   PopulationCountDisplay: {fileID: 2133956224}
 --- !u!4 &1443401070
 Transform:

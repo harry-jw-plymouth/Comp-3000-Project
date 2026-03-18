@@ -18,6 +18,13 @@ public class NPChandler : MonoBehaviour
     public GameObject NPC1Prefab;
     public GameObject NPC2Prefab;
     public GameObject NPC3Prefab;
+    public GameObject NPC4Prefab;
+    public GameObject NPC5Prefab;
+    public GameObject NPC6Prefab;
+    public GameObject NPC7Prefab;
+    public GameObject NPC8Prefab;
+    public GameObject NPC9Prefab;
+    public GameObject NPC10Prefab;
 
 
     public TextMeshProUGUI PopulationCountDisplay;
@@ -33,6 +40,13 @@ public class NPChandler : MonoBehaviour
         NPCSprites.Add(NPC1Prefab);
         NPCSprites.Add(NPC2Prefab);
         NPCSprites.Add(NPC3Prefab);
+        NPCSprites.Add(NPC4Prefab);
+        NPCSprites.Add(NPC5Prefab);
+        NPCSprites.Add(NPC6Prefab);
+        NPCSprites.Add(NPC7Prefab);
+        NPCSprites.Add(NPC8Prefab);
+        NPCSprites.Add(NPC9Prefab);
+        NPCSprites.Add(NPC10Prefab);
 
         NumberOfNpcs = GetNumberOfNPCs();
         LoadNPCs();
