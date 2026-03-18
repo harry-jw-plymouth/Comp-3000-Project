@@ -465,6 +465,21 @@ public class GridCreator : MonoBehaviour
         }
         return false;
     }
+    void DisplayBuildingInfoPopUpAboveBuilding(int BuildingIndex,Vector3Int Pos)
+    {
+        uiHandler.DisplayBuildingInfo(PlacedBuildings[BuildingIndex]);
+    }
+    void CheckForBuildingInfoPopUp(Vector3Int CellHoverPos)
+    {
+        if(GameGrid[CellHoverPos.x, CellHoverPos.y].Contains == 2)
+        {
+            int BuildingPos = GetBuildingClicked(CellHoverPos);
+            if (BuildingPos != -1)
+            {
+                DisplayBuildingInfoPopUpAboveBuilding(BuildingPos,CellHoverPos);
+            }
+        }
+    }
     void CheckForMouseHover()
     {
         Vector3Int MouseHoverPosition =GameMap.WorldToCell(Camera.main.ScreenToWorldPoint(Input.mousePosition));
@@ -497,6 +512,10 @@ public class GridCreator : MonoBehaviour
                     DrawSelectedBuilding(MouseHoverPosition);
                 }
                 PreviousMousePosition = MouseHoverPosition;
+
+                CheckForBuildingInfoPopUp(MouseHoverPosition);
+
+
             }
             catch
             {
