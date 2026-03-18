@@ -16002,7 +16002,7 @@ MonoBehaviour:
   NPC7Prefab: {fileID: 8474580357229362486, guid: b2b4b7e1757fe2c4bbd39f4ad9073598, type: 3}
   NPC8Prefab: {fileID: 8474580357229362486, guid: d49ffff02113c484a8d2504c8962b239, type: 3}
   NPC9Prefab: {fileID: 8474580357229362486, guid: 8c2c899a72571df45bc318554012a17c, type: 3}
-  NPC10Prefab: {fileID: 0}
+  NPC10Prefab: {fileID: 8474580357229362486, guid: 2fd8c2acd0d5d184bb71543e8c91042e, type: 3}
   PopulationCountDisplay: {fileID: 2133956224}
 --- !u!4 &1443401070
 Transform:

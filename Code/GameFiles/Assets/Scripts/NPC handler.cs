@@ -280,7 +280,7 @@ public class NPChandler : MonoBehaviour
     bool CheckIfOnRoad(Vector3 Position)
     {
         Vector3Int GridPosition = GridCreator.GameMap.WorldToCell(Position);
-        if (GridCreator.GameGrid[GridPosition.x, GridPosition.y].Contains != 1)
+        if (GridCreator.GameGrid[GridPosition.x, GridPosition.y].Contains != 1&& GridCreator.GameGrid[GridPosition.x, GridPosition.y].Contains != 5)
         {
             return false;
         }
@@ -338,7 +338,13 @@ public class NPChandler : MonoBehaviour
         int HospitalChance = 0 + (NPCList[NPCIndex].GetSickness() / 100);
         int RandomValue = UnityEngine.Random.Range(0, ShopChance+HomeChance+WanderChance);
 
-     //   Debug.Log("TiredNess:" + NPCList[NPCIndex].GetTiredNess());
+
+        if (NPCList[NPCIndex].GetCurrentAction() == 7)
+        {
+            return; // already waiting for bus
+        }
+            
+                    //   Debug.Log("TiredNess:" + NPCList[NPCIndex].GetTiredNess());
         if (!CheckIfOnRoad(NPCList[NPCIndex].GetPosition())){
             //Debug.Log("Not on road");
             if (GridCreator.GetIfRoadExists())

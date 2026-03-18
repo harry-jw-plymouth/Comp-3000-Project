@@ -65,6 +65,9 @@ public class Citzen
         Position= Pos;
         CitzenID = ID;
         UpdateNeeded = true;
+       
+        CurrentBusStop = new Vector3Int(-1, -1, -1);
+        TargetBusStop = new Vector3Int(-1, -1, -1);
     }
     public List<Vector3> GetRoutePositions()
     {
@@ -784,6 +787,13 @@ public class Citzen
         {
             if(NexPositionOnRoute == RoutePositions.Count - 1)
             {
+                Vector3Int cell = GridCreator.GameMap.WorldToCell(Position);
+                if (GridCreator.GameGrid[cell.x, cell.y].Contains == 5 &&CurrentBusStop.x != -1 &&TargetBusStop.x != -1)
+                {
+                    Debug.Log("NPC " + CitzenID + " reached bus stop and is now waiting for bus");
+                    SetCurrentAction(7); // waiting for bus
+                    return;
+                }
                 //Final target reached
                 Debug.Log("NPC With ID: " + CitzenID + " Finished route at " + RoutePositions[RoutePositions.Count-1]);
                 CurrentBusStop = new Vector3Int(-1, -1, -1);
