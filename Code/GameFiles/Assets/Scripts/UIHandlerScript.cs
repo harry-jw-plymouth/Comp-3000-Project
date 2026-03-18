@@ -431,6 +431,43 @@ public class UIHandlerScript : MonoBehaviour
 
 
     }
+    public void DisplayBuildingInfoAtSpecificPos(PlacedBuilding BuildingToDisplay, Vector3Int PosToShow)
+    {
+        BuildingInfoBox.SetActive(true);
+        BuildingInfoShowing = true;
+        BuildingTypeText.text = BuildingToDisplay.buildingType.Name;
+        BuildingMoneyText.text = BuildingToDisplay.buildingType.TaxGeneration.ToString() + " money per cycle";
+        BuildingPowerText.text = BuildingToDisplay.buildingType.PowerUsage.ToString() + " power per cycle";
+        BuildingEnviromentalValue.text = "Environment value:" + BuildingToDisplay.GetEnviromentalValue().ToString();
+        if (BuildingToDisplay.GetIfInRangeOfPowerPlant())
+        {
+            BuildingIsPoweredText.text = "Powered";
+        }
+        else
+        {
+            BuildingIsPoweredText.text = " Not powered";
+        }
+        if (BuildingToDisplay.buildingType is PowerPlant powerPlant)
+        {
+            BuildingSpeificText.text = "Generating " + powerPlant.GetPowerGeneration() + " power";
+        }
+        else if (BuildingToDisplay.buildingType is Home home)
+        {
+            BuildingSpeificText.text = "Home to " + home.CurrentResidents + " people";
+        }
+        else
+        {
+            BuildingSpeificText.text = " building is a " + BuildingToDisplay.GetType();
+        }
+        var infoRect = BuildingInfoBox.GetComponent<RectTransform>();
+       // infoRect.position=GridCreator.GameMap.CellToWorld(PosToShow)+ new Vector3(0.5f, 0.5f, 0);
+        Vector3 worldPos = GridCreator.GameMap.CellToWorld(PosToShow) + new Vector3(0.5f, 1.5f, 0);
+        Vector3 screenPos = Camera.main.WorldToScreenPoint(worldPos);
+
+        infoRect.position = screenPos;
+
+    }
+
     public void HideBuildingInfo()
     {
         BuildingInfoShowing = false;

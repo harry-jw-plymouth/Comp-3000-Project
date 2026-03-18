@@ -476,7 +476,7 @@ public class GridCreator : MonoBehaviour
             int BuildingPos = GetBuildingClicked(CellHoverPos);
             if (BuildingPos != -1)
             {
-                DisplayBuildingInfoPopUpAboveBuilding(BuildingPos,CellHoverPos);
+                uiHandler.DisplayBuildingInfoAtSpecificPos(PlacedBuildings[BuildingPos], CellHoverPos);
             }
         }
     }
