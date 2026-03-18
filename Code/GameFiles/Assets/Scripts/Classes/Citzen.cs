@@ -295,6 +295,10 @@ public class Citzen
                 
         }
     }
+    public void ReDisplaySprite()
+    {
+        NPCSprite.GetComponent<SpriteRenderer>().enabled = true;
+    }
 
 
 

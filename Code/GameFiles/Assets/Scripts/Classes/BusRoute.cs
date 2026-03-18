@@ -346,6 +346,19 @@ public class BusRoute
         return false;
 
     }
+    public List<int> GetNPCIDs()
+    {
+        List<int> IDs = new List<int>();
+        for (int i = 0; i < BusesOnRoute.Count; i++)
+        {
+            List<int> Current = BusesOnRoute[i].GetNPCIDsOnBus();
+            for (int e = 0; e < Current.Count; e++)
+            {
+                IDs.Add(Current[e]);
+            }
+        }
+        return IDs;
+    }
     public void SetRoute(Square[,] GameGrid)
     {
         Queue<Vector3Int> ToCheck = new Queue<Vector3Int>();

@@ -463,17 +463,42 @@ public class NPChandler : MonoBehaviour
                     {
                         Vector3 TargetPos = (NPCList[x].GetRoutePositions()[NPCList[x].GetRoutePositions().Count - 1]);
                         NPCList[x].SetRoute(GridCreator.GameMap.WorldToCell(TargetPos), GridCreator.GameGrid, GridCreator.GameMap, GridHandler);
-                    }else if (NPCList[x].GetCurrentAction() == 6)
+                    }
+                    else if (NPCList[x].GetCurrentAction() == 6)
                     {
                         for(int e=0; e < TransportPlacementScript.TrainRoutes.Count; e++)
                         {
                             Route Current = TransportPlacementScript.TrainRoutes[e];
-                           // if(Current.GetNP)
+                            if (Current.GetNPCIDs().Contains(NPCList[x].GetCitzenID()))
+                            {
+
+                            }
+                            else
+                            {
+                                NPCList[x].ReDisplaySprite();
+                                NPCList[x].SetCurrentAction(0);
+                                Vector3 TargetPos = (NPCList[x].GetRoutePositions()[NPCList[x].GetRoutePositions().Count - 1]);
+                                NPCList[x].SetRoute(GridCreator.GameMap.WorldToCell(TargetPos), GridCreator.GameGrid, GridCreator.GameMap, GridHandler);
+                            }
                         }
                     }
                     else if (NPCList[x].GetCurrentAction()== 7)
                     {
+                        for (int e = 0; e < TransportPlacementScript.BusRoutes.Count; e++)
+                        {
+                            BusRoute Current = TransportPlacementScript.BusRoutes[e];
+                            if (Current.GetNPCIDs().Contains(NPCList[x].GetCitzenID()))
+                            {
 
+                            }
+                            else
+                            {
+                                NPCList[x].ReDisplaySprite();
+                                NPCList[x].SetCurrentAction(0);
+                                Vector3 TargetPos = (NPCList[x].GetRoutePositions()[NPCList[x].GetRoutePositions().Count - 1]);
+                                NPCList[x].SetRoute(GridCreator.GameMap.WorldToCell(TargetPos), GridCreator.GameGrid, GridCreator.GameMap, GridHandler);
+                            }
+                        }
                     }
                 }
             }
