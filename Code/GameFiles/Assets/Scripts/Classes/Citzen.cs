@@ -769,10 +769,14 @@ public class Citzen
         }
         if (Position.x > RoutePositions[NexPositionOnRoute].x)
         {
+            //move left 
+            NPCSprite.GetComponent<SpriteRenderer>().flipX = true;
             Position.x = Mathf.Max(Position.x - MovementSpeed, RoutePositions[NexPositionOnRoute].x);
         }
         else
         {
+            //move right
+            NPCSprite.GetComponent<SpriteRenderer>().flipX = false;
             Position.x = Mathf.Min(Position.x + MovementSpeed, RoutePositions[NexPositionOnRoute].x);
         }
         NPCSprite.transform.position = Position;
@@ -959,10 +963,14 @@ public class Citzen
         }
         if (Position.x > MovementTarget.x)
         {
+            //move left 
+            NPCSprite.GetComponent<SpriteRenderer>().flipX = true;
             Position.x = Mathf.Max(Position.x- MovementSpeed,MovementTarget.x);
         }
         else
         {
+            //move right
+            NPCSprite.GetComponent<SpriteRenderer>().flipX = false;
             Position.x = Mathf.Min(Position.x+ MovementSpeed, MovementTarget.x);
         }
         NPCSprite.transform.position = Position;
