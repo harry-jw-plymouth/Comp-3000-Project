@@ -33,6 +33,7 @@ public class Citzen
     public int buildingInsideIndex = -1;
 
     public bool NeedsUpdateAfterTravel = false;
+    public bool ReadyToUpdateAfterTravel = false;
 
     Building Home;
     int HomeIndex = -1;
@@ -92,6 +93,11 @@ public class Citzen
         NPCSprite.GetComponent<SpriteRenderer>().enabled = true;
         NPCSprite.transform.position = Position;
 
+        if (NeedsUpdateAfterTravel)
+        {
+            ReadyToUpdateAfterTravel = true;
+            NeedsUpdateAfterTravel = false;
+        }
     }
     public void GetOffBus()
     {

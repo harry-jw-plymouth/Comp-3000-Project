@@ -52,6 +52,8 @@ public class GridCreator : MonoBehaviour
 
     public GameStatusScript GameStatusScript;
 
+    public List<Route> RoutesHighlighted = new List<Route>();
+
 
     public GameObject NoPowerForBuildingWarning;
     public int NumberOfBusStops = 0;
@@ -836,6 +838,16 @@ public class GridCreator : MonoBehaviour
             if (TransportPlacementScript.CheckIfRouteExistsUsingTrack(ClickPos)){
                 List<Route> RoutesForPos= TransportPlacementScript.GetAllRoutesUsingTrack(ClickPos);
                 uiHandler.DisplayRoutes(RoutesForPos);
+                for (int i = 0; i < RoutesForPos.Count; i++) {
+                    List<Vector3Int> Current = RoutesForPos[i].GetCurrentRoute();
+                    for (int e = 0; e < RoutesForPos[i].GetCurrentRoute().Count; e++)
+                    {
+                        GameMap.SetColor(Current[e], new Color(1f, 1f, 1f, 0.5f));
+                        
+                    }
+                    RoutesHighlighted.Add(RoutesForPos[i]);
+                }
+                
             }
         }
     }

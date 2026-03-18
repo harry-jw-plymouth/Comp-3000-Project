@@ -145,6 +145,18 @@ public class NPChandler : MonoBehaviour
           //  Debug.Log("placinng NPC");
         }
     }
+    void CheckForNPCsToUpdateAfterTrainRouteRemoval()
+    {
+        for (int i = 0; i < NumberOfNpcs; i++)
+        {
+            if (NPCList[i].ReadyToUpdateAfterTravel)
+            {
+                Vector3 TargetPos = (NPCList[i].GetRoutePositions()[NPCList[i].GetRoutePositions().Count - 1]);
+                NPCList[i].SetRoute(GridCreator.GameMap.WorldToCell(TargetPos), GridCreator.GameGrid, GridCreator.GameMap, GridHandler);
+                NPCList[i].ReadyToUpdateAfterTravel = false;
+            }
+        }
+    }
 
     // Update is called once per frame
     void Update()
@@ -157,6 +169,7 @@ public class NPChandler : MonoBehaviour
             CheckForNewNPCs();
             CheckForLeavingNPCs();
             UpdatePopulationDisplay();
+            CheckForNPCsToUpdateAfterTrainRouteRemoval();
         }
     //    Debug.Log("Number of NPCS:" + NumberOfNpcs);
 
@@ -172,7 +185,7 @@ public class NPChandler : MonoBehaviour
         
 
 
-        int RandomLeaveChance = Random.Range(0, 300);
+        int RandomLeaveChance = Random.Range(0, 100);
         if (RandomLeaveChance > Happiness && NumberOfNpcs >1) {
             if (NPCList[RandomNpcIndex].GetIfInBuilding())
             {
@@ -226,7 +239,7 @@ public class NPChandler : MonoBehaviour
     }
     void CheckForNewNPCs()
     {
-        float value = Random.Range(30, 200);
+        float value = Random.Range(30, 400);
         if (value < GameStatusScript.GetRating())
         {
             Vector3 worldPosition = new Vector3(Random.Range(0,GridCreator.WIDTH),Random.Range(0,GridCreator.HEIGHT),0);
