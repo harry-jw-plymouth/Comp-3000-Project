@@ -84,6 +84,18 @@ public class GridCreator : MonoBehaviour
     {
         return PlacedBuildings;
     }
+    public void DeHighlightAllRoutes()
+    {
+        for (int i = 0; i < RoutesHighlighted.Count; i++) {
+            List<Vector3Int> Current = RoutesHighlighted[i].GetCurrentRoute();
+            for(int e=0; e<Current.Count; e++)
+            {
+                GameMap.SetTileFlags(Current[e], TileFlags.None);
+                GameMap.SetColor(Current[e], Color.white);
+            }
+        }
+        RoutesHighlighted.Clear();
+    }
     
     bool CheckIfBuildingCanBeplaced(int x, int y,Building building)
     {
@@ -126,6 +138,7 @@ public class GridCreator : MonoBehaviour
                     Vector3Int CurrentPos = GetPositionForSquare(MouseHoverPosition, BuildingsListManager.Buildings[BuildingsListManager.BuildingCurrentlySelected].Shape, X, Y, BuildingsListManager.Buildings[BuildingsListManager.BuildingCurrentlySelected].Origin);
                     GameMap.SetColor(CurrentPos, new Color(1f, 1f, 1f, 0.5f));
                     PreviousBuildingHighlight.Add(CurrentPos);
+
                 }
 
             }
@@ -439,6 +452,18 @@ public class GridCreator : MonoBehaviour
         }
         return -1;
     }
+    public bool GetIfHighlightedForRoute(Vector3Int CurrentPos)
+    {
+        for(int i = 0; i < RoutesHighlighted.Count; i++)
+        {
+            if (RoutesHighlighted[i].GetCurrentRoute().Contains(CurrentPos))
+            {
+                return true;
+            }
+            
+        }
+        return false;
+    }
     void CheckForMouseHover()
     {
         Vector3Int MouseHoverPosition =GameMap.WorldToCell(Camera.main.ScreenToWorldPoint(Input.mousePosition));
@@ -448,8 +473,20 @@ public class GridCreator : MonoBehaviour
             {
                 if (GameMap.HasTile(PreviousMousePosition))
                 {
-                    GameMap.SetTileFlags(PreviousMousePosition, TileFlags.None);
-                    GameMap.SetColor(PreviousMousePosition, Color.white);
+                    if (uiHandler.RailRouteDisplayCanvasActive)
+                    {
+                        if (!GetIfHighlightedForRoute(PreviousMousePosition))
+                        {
+                            GameMap.SetTileFlags(PreviousMousePosition, TileFlags.None);
+                            GameMap.SetColor(PreviousMousePosition, Color.white);
+                        }
+                    }
+                    else
+                    {
+                        GameMap.SetTileFlags(PreviousMousePosition, TileFlags.None);
+                        GameMap.SetColor(PreviousMousePosition, Color.white);
+                    }
+                        
                 }
                 GameMap.SetTileFlags(MouseHoverPosition, TileFlags.None);
                 GameMap.SetColor(MouseHoverPosition, new Color(1f, 1f, 1f, 0.5f));

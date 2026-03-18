@@ -125,6 +125,7 @@ public class UIHandlerScript : MonoBehaviour
     }
     public void OnCancelRouteButtonClick()
     {
+        GridHandler.DeHighlightAllRoutes();
         CurrentRoutes[RouteDisplayIndex].SetCancelled();
         ShowAlertPopUp("Route being cancelled. Cancellation will occur at the next station the train stops at");
     }
@@ -160,6 +161,7 @@ public class UIHandlerScript : MonoBehaviour
             RouteSetCanvas.SetActive(true);
             TrainRouteViewerOn = false;
             RouteSelectedInfo.SetActive(false);
+            GridHandler.DeHighlightAllRoutes();
             
 
         }
