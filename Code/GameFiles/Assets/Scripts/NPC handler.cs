@@ -1,5 +1,7 @@
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
+using Unity.VisualScripting.ReorderableList;
 using UnityEngine;
 
 public class NPChandler : MonoBehaviour
@@ -13,6 +15,7 @@ public class NPChandler : MonoBehaviour
     [SerializeField] int NumberOfNpcs;
     public GameObject NPCPrefab;
     public TextMeshProUGUI PopulationCountDisplay;
+    GridCreator GridHandler;
     
 
 
@@ -449,7 +452,33 @@ public class NPChandler : MonoBehaviour
     }
     public void UpdateNPCRoutesAfterRoutesRemoval(List<Route> DeletedRoutes)
     {
+        for (int i = 0; i < DeletedRoutes.Count; i++)
+        {
+            for (int x = 0; x < NPCList.Count; x++)
+            {
+                if (NPCList[x].CurrentStation == DeletedRoutes[i].StartStation || NPCList[x].CurrentStation == DeletedRoutes[i].EndStation||
+                    NPCList[x].TargetStation == DeletedRoutes[i].StartStation || NPCList[x].TargetStation == DeletedRoutes[i].EndStation)
+                {
+                    if (NPCList[x].GetCurrentAction() == 0)
+                    {
+                        Vector3 TargetPos = (NPCList[x].GetRoutePositions()[NPCList[x].GetRoutePositions().Count - 1]);
+                        NPCList[x].SetRoute(GridCreator.GameMap.WorldToCell(TargetPos), GridCreator.GameGrid, GridCreator.GameMap, GridHandler);
+                    }else if (NPCList[x].GetCurrentAction() == 6)
+                    {
+                        for(int e=0; e < TransportPlacementScript.TrainRoutes.Count; e++)
+                        {
+                            Route Current = TransportPlacementScript.TrainRoutes[e];
+                           // if(Current.GetNP)
+                        }
+                    }
+                    else if (NPCList[x].GetCurrentAction()== 7)
+                    {
 
+                    }
+                }
+            }
+        }
+        
     }
     void UpdateNPCs()
     {

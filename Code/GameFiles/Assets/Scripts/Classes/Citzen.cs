@@ -63,6 +63,10 @@ public class Citzen
         CitzenID = ID;
         UpdateNeeded = true;
     }
+    public List<Vector3> GetRoutePositions()
+    {
+        return RoutePositions; 
+    }
     public int GetCitzenID()
     {
         return CitzenID;

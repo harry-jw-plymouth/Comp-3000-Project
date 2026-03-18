@@ -2,6 +2,7 @@ using NUnit.Framework;
 using UnityEngine;
 using System.Collections.Generic;
 using System.Security.Cryptography.X509Certificates;
+using JetBrains.Annotations;
 
 public class Route
 {
@@ -38,6 +39,19 @@ public class Route
     public bool GetIfCancelled()
     {
         return IsCancelled;
+    }
+    public List<int> GetNPCIDs()
+    {
+        List<int> IDs=new List<int>();
+        for(int  i = 0; i < TrainsOnRoute.Count; i++)
+        {
+            List<int> Current = TrainsOnRoute[i].GetNPCIDsOnTrain();
+            for(int e = 0; e < Current.Count;e++)
+            {
+                IDs.Add(Current[e]);
+            }
+        }
+        return IDs;
     }
     public void Activate()
     {
@@ -83,6 +97,7 @@ public class Route
         }
         return Positions;
     }
+
     public void DestroyRoute()
     {
         Object.Destroy(SpriteForTrains);
