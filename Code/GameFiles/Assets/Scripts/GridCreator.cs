@@ -55,6 +55,8 @@ public class GridCreator : MonoBehaviour
 
     public List<Route> RoutesHighlighted = new List<Route>();
 
+    public bool DisplayingBuilding = true;
+    public int CurrentlyDisplayedBuilding = -1;
 
     public GameObject NoPowerForBuildingWarning;
     public int NumberOfBusStops = 0;
@@ -478,6 +480,10 @@ public class GridCreator : MonoBehaviour
             {
                 uiHandler.DisplayBuildingInfoAtSpecificPos(PlacedBuildings[BuildingPos], CellHoverPos);
             }
+        }
+        else
+        {
+             uiHandler.HideBuildingInfo();
         }
     }
     void CheckForMouseHover()

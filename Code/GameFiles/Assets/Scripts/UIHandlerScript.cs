@@ -431,6 +431,7 @@ public class UIHandlerScript : MonoBehaviour
 
 
     }
+   
     public void DisplayBuildingInfoAtSpecificPos(PlacedBuilding BuildingToDisplay, Vector3Int PosToShow)
     {
         BuildingInfoBox.SetActive(true);
@@ -459,6 +460,7 @@ public class UIHandlerScript : MonoBehaviour
         {
             BuildingSpeificText.text = " building is a " + BuildingToDisplay.GetType();
         }
+
         var infoRect = BuildingInfoBox.GetComponent<RectTransform>();
        // infoRect.position=GridCreator.GameMap.CellToWorld(PosToShow)+ new Vector3(0.5f, 0.5f, 0);
         Vector3 worldPos = GridCreator.GameMap.CellToWorld(PosToShow) + new Vector3(0.5f, 1.5f, 0);
