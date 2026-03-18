@@ -14557,7 +14557,9 @@ MonoBehaviour:
   gridCreator: {fileID: 94827939}
   BuildingFrame: 20
   NumberOfNpcs: 0
-  NPCPrefab: {fileID: 8474580357229362486, guid: b48bc3c5a502118498b1b57baf876fcd, type: 3}
+  NPCSprites: []
+  NPC1Prefab: {fileID: 8474580357229362486, guid: b48bc3c5a502118498b1b57baf876fcd, type: 3}
+  NPC2Prefab: {fileID: 8474580357229362486, guid: 2878364e765de754387ad4d61a3ba1bd, type: 3}
   PopulationCountDisplay: {fileID: 2133956224}
 --- !u!4 &1443401070
 Transform:

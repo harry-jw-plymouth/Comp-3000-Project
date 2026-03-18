@@ -13,7 +13,13 @@ public class NPChandler : MonoBehaviour
     int CurrentID = 0;
    [SerializeField]  List<Citzen> NPCList=new List<Citzen>();
     [SerializeField] int NumberOfNpcs;
-    public GameObject NPCPrefab;
+
+    public List<GameObject> NPCSprites = new List<GameObject>();
+    public GameObject NPC1Prefab;
+    public GameObject NPC2Prefab;
+    public GameObject NPC3Prefab;
+
+
     public TextMeshProUGUI PopulationCountDisplay;
     GridCreator GridHandler;
     
@@ -23,6 +29,11 @@ public class NPChandler : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+
+        NPCSprites.Add(NPC1Prefab);
+        NPCSprites.Add(NPC2Prefab);
+        NPCSprites.Add(NPC3Prefab);
+
         NumberOfNpcs = GetNumberOfNPCs();
         LoadNPCs();
         SetHomes();
@@ -135,12 +146,16 @@ public class NPChandler : MonoBehaviour
         }
      //   Debug.Log("NPC homes set: " + TotalSet + "\n Total not set: " + TotalNotSet);
     }
+    public int GetRandomNPCSpriteIndex()
+    {
+        return Random.Range(0,NPCSprites.Count);
+    }
     void LoadNPCs()
     {
         Vector3 worldPosition = GridCreator.GameMap.GetCellCenterWorld(MapCenter);
         for (int i = 0; i < NumberOfNpcs; i++) {
             worldPosition.x++; 
-            GameObject Current= Instantiate(NPCPrefab,worldPosition,Quaternion.identity );
+            GameObject Current= Instantiate(NPCSprites[GetRandomNPCSpriteIndex()],worldPosition,Quaternion.identity );
             NPCList.Add(new Citzen(worldPosition,CurrentID++,Current));
           //  Debug.Log("placinng NPC");
         }
@@ -244,7 +259,7 @@ public class NPChandler : MonoBehaviour
         {
             Vector3 worldPosition = new Vector3(Random.Range(0,GridCreator.WIDTH),Random.Range(0,GridCreator.HEIGHT),0);
             NumberOfNpcs++;
-            GameObject Current = Instantiate(NPCPrefab, worldPosition, Quaternion.identity);
+            GameObject Current = Instantiate(NPCSprites[GetRandomNPCSpriteIndex()], worldPosition, Quaternion.identity);
             NPCList.Add(new Citzen(worldPosition,CurrentID++, Current));
         }
     }
