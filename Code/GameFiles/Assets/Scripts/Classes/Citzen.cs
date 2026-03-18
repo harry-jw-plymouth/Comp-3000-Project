@@ -32,6 +32,8 @@ public class Citzen
     Vector3 BuildingInsidePos = new Vector3(-1, -1, -1);
     public int buildingInsideIndex = -1;
 
+    public bool NeedsUpdateAfterTravel = false;
+
     Building Home;
     int HomeIndex = -1;
     Vector3 HomePosition=new Vector3(-1,-1,-1);

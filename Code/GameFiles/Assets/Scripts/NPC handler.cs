@@ -471,7 +471,7 @@ public class NPChandler : MonoBehaviour
                             Route Current = TransportPlacementScript.TrainRoutes[e];
                             if (Current.GetNPCIDs().Contains(NPCList[x].GetCitzenID()))
                             {
-
+                                NPCList[x].NeedsUpdateAfterTravel = true;
                             }
                             else
                             {
@@ -489,7 +489,7 @@ public class NPChandler : MonoBehaviour
                             BusRoute Current = TransportPlacementScript.BusRoutes[e];
                             if (Current.GetNPCIDs().Contains(NPCList[x].GetCitzenID()))
                             {
-
+                                NPCList[x].NeedsUpdateAfterTravel = true;
                             }
                             else
                             {
