@@ -137,7 +137,7 @@
       "VerticalTabListWidth": 256,
       "DocumentGroups": [
         {
-          "DockedWidth": 1619,
+          "DockedWidth": 2345,
           "SelectedChildIndex": 4,
           "Children": [
             {
@@ -181,7 +181,7 @@
               "RelativeDocumentMoniker": "Assets\\Scripts\\UIHandlerScript.cs",
               "ToolTip": "C:\\Uni stuff\\Year 3\\Comp 3000\\Comp-3000-Project\\Code\\GameFiles\\Assets\\Scripts\\UIHandlerScript.cs",
               "RelativeToolTip": "Assets\\Scripts\\UIHandlerScript.cs",
-              "ViewState": "AgIAALsAAAAAAAAAAAAqwOMAAAAfAAAAAAAAAA==",
+              "ViewState": "AgIAAL4BAAAAAAAAAAAAwMcBAAAwAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-01-21T16:07:48.927Z",
               "EditorCaption": ""
@@ -393,20 +393,21 @@
           ]
         },
         {
-          "DockedWidth": 1423,
-          "SelectedChildIndex": 2,
+          "DockedWidth": 697,
+          "SelectedChildIndex": 0,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "NPC handler.cs",
-              "DocumentMoniker": "C:\\Uni stuff\\Year 3\\Comp 3000\\Comp-3000-Project\\Code\\GameFiles\\Assets\\Scripts\\NPC handler.cs",
-              "RelativeDocumentMoniker": "Assets\\Scripts\\NPC handler.cs",
-              "ToolTip": "C:\\Uni stuff\\Year 3\\Comp 3000\\Comp-3000-Project\\Code\\GameFiles\\Assets\\Scripts\\NPC handler.cs",
-              "RelativeToolTip": "Assets\\Scripts\\NPC handler.cs",
-              "ViewState": "AgIAAKcAAAAAAAAAAAAqwMoAAAAHAAAAAAAAAA==",
+              "DocumentIndex": 2,
+              "Title": "BusRoute.cs",
+              "DocumentMoniker": "C:\\Uni stuff\\Year 3\\Comp 3000\\Comp-3000-Project\\Code\\GameFiles\\Assets\\Scripts\\Classes\\BusRoute.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Classes\\BusRoute.cs",
+              "ToolTip": "C:\\Uni stuff\\Year 3\\Comp 3000\\Comp-3000-Project\\Code\\GameFiles\\Assets\\Scripts\\Classes\\BusRoute.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Classes\\BusRoute.cs",
+              "ViewState": "AgIAAGAAAAAAAAAAAAAAAH0AAAAeAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-27T12:48:44.227Z"
+              "WhenOpened": "2026-03-09T11:53:33.509Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -422,16 +423,15 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "BusRoute.cs",
-              "DocumentMoniker": "C:\\Uni stuff\\Year 3\\Comp 3000\\Comp-3000-Project\\Code\\GameFiles\\Assets\\Scripts\\Classes\\BusRoute.cs",
-              "RelativeDocumentMoniker": "Assets\\Scripts\\Classes\\BusRoute.cs",
-              "ToolTip": "C:\\Uni stuff\\Year 3\\Comp 3000\\Comp-3000-Project\\Code\\GameFiles\\Assets\\Scripts\\Classes\\BusRoute.cs",
-              "RelativeToolTip": "Assets\\Scripts\\Classes\\BusRoute.cs",
-              "ViewState": "AgIAAGAAAAAAAAAAAAAAAH0AAAAeAAAAAAAAAA==",
+              "DocumentIndex": 5,
+              "Title": "NPC handler.cs",
+              "DocumentMoniker": "C:\\Uni stuff\\Year 3\\Comp 3000\\Comp-3000-Project\\Code\\GameFiles\\Assets\\Scripts\\NPC handler.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\NPC handler.cs",
+              "ToolTip": "C:\\Uni stuff\\Year 3\\Comp 3000\\Comp-3000-Project\\Code\\GameFiles\\Assets\\Scripts\\NPC handler.cs",
+              "RelativeToolTip": "Assets\\Scripts\\NPC handler.cs",
+              "ViewState": "AgIAAKcAAAAAAAAAAAAqwMoAAAAHAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-03-09T11:53:33.509Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-01-27T12:48:44.227Z"
             },
             {
               "$type": "Document",

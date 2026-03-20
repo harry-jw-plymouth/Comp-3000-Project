@@ -450,6 +450,11 @@ public class UIHandlerScript : MonoBehaviour
         BusCanvasActive= false;
         StopEditingBusStops();
 
+        StartingBusStopInfo.text = "";
+        EndBusStopInfo.text = "";
+        StartBusStop = new Vector3Int(-1, -1, -1);
+        EndBusStop = new Vector3Int(-1, -1, -1);
+
     }
     public void OnBusRouteCanvasCloseButtonClosed()
     {
@@ -457,6 +462,8 @@ public class UIHandlerScript : MonoBehaviour
         BusRouteSetCanvas.SetActive(false);
         BusCanvas.SetActive(true);
         BusCanvasActive = true;
+
+
     }
     public void OnBusButtonClicked()
     {
