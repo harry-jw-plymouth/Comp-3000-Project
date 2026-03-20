@@ -23,6 +23,8 @@ public class Bus
     public int ReactivateCount = 0;
     public int ReactivateTime = 100;
 
+    public bool IsCancelled = false;
+
     public int CurrentDirection;
     //0 is down
     //1 is left
@@ -60,6 +62,13 @@ public class Bus
     public bool GetIfBusCanBeReactivated()
     {
         return ReactivateCount >= ReactivateTime;
+    }
+    public void DestroySprite()
+    {
+        Object.Destroy(FrontSprite);
+        Object.Destroy(LeftSprite);
+        Object.Destroy(RightSprite);
+        Object.Destroy(BackSprite);
     }
     public void MoveSprite()
     {

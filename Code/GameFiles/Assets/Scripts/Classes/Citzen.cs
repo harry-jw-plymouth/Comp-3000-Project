@@ -116,6 +116,12 @@ public class Citzen
         NPCSprite.GetComponent<SpriteRenderer>().enabled = true;
         NPCSprite.transform.position = Position;
 
+        if (NeedsUpdateAfterTravel)
+        {
+            ReadyToUpdateAfterTravel = true;
+            NeedsUpdateAfterTravel = false;
+        }
+
     }
     public int GetHomeIndex()
     {

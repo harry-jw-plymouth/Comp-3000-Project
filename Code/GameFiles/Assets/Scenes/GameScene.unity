@@ -21241,6 +21241,7 @@ MonoBehaviour:
   StartRouteStationBuilding: -1
   EndRouteStationBuilding: -1
   RouteDisplayIndex: -1
+  BusRouteDisplayIndex: -1
 --- !u!4 &1831244043
 Transform:
   m_ObjectHideFlags: 0
@@ -23768,7 +23769,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1831244042}
         m_TargetAssemblyTypeName: UIHandlerScript, Assembly-CSharp
-        m_MethodName: OnCancelRouteButtonClick
+        m_MethodName: OnCancelBusRouteButtonClick
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

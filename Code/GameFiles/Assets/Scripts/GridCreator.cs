@@ -100,7 +100,20 @@ public class GridCreator : MonoBehaviour
         }
         RoutesHighlighted.Clear();
     }
-    
+    public void DeHighlightAllBusRoutes()
+    {
+        for (int i = 0; i < BusRoutesHighlighted.Count; i++)
+        {
+            List<Vector3Int> Current = BusRoutesHighlighted[i].GetCurrentRoute();
+            for (int e = 0; e < Current.Count; e++)
+            {
+                GameMap.SetTileFlags(Current[e], TileFlags.None);
+                GameMap.SetColor(Current[e], Color.white);
+            }
+        }
+        BusRoutesHighlighted.Clear();
+    }
+
     bool CheckIfBuildingCanBeplaced(int x, int y,Building building)
     {
         //Debug.Log("New Y: " + (y + building.Shape.GetLength(0)));

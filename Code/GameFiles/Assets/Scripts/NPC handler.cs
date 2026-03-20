@@ -187,6 +187,7 @@ public class NPChandler : MonoBehaviour
         }
     }
 
+
     // Update is called once per frame
     void Update()
     {
@@ -199,6 +200,7 @@ public class NPChandler : MonoBehaviour
             CheckForLeavingNPCs();
             UpdatePopulationDisplay();
             CheckForNPCsToUpdateAfterTrainRouteRemoval();
+       
         }
     //    Debug.Log("Number of NPCS:" + NumberOfNpcs);
 
@@ -552,6 +554,61 @@ public class NPChandler : MonoBehaviour
             }
         }
         
+    }
+    public void UpdateNPCRoutesAfterBusRoutesRemoval(List<BusRoute> DeletedRoutes)
+    {
+        for (int i = 0; i < DeletedRoutes.Count; i++)
+        {
+            for (int x = 0; x < NPCList.Count; x++)
+            {
+                if (NPCList[x].CurrentBusStop == DeletedRoutes[i].StartStop || NPCList[x].CurrentBusStop == DeletedRoutes[i].EndStop ||
+                    NPCList[x].TargetBusStop == DeletedRoutes[i].StartStop || NPCList[x].TargetBusStop== DeletedRoutes[i].EndStop)
+                {
+                    if (NPCList[x].GetCurrentAction() == 0)
+                    {
+                        Vector3 TargetPos = (NPCList[x].GetRoutePositions()[NPCList[x].GetRoutePositions().Count - 1]);
+                        NPCList[x].SetRoute(GridCreator.GameMap.WorldToCell(TargetPos), GridCreator.GameGrid, GridCreator.GameMap, GridHandler);
+                    }
+                    else if (NPCList[x].GetCurrentAction() == 7)
+                    {
+                        for (int e = 0; e < TransportPlacementScript.TrainRoutes.Count; e++)
+                        {
+                            Route Current = TransportPlacementScript.TrainRoutes[e];
+                            if (Current.GetNPCIDs().Contains(NPCList[x].GetCitzenID()))
+                            {
+                                NPCList[x].NeedsUpdateAfterTravel = true;
+                            }
+                            else
+                            {
+                                NPCList[x].ReDisplaySprite();
+                                NPCList[x].SetCurrentAction(0);
+                                Vector3 TargetPos = (NPCList[x].GetRoutePositions()[NPCList[x].GetRoutePositions().Count - 1]);
+                                NPCList[x].SetRoute(GridCreator.GameMap.WorldToCell(TargetPos), GridCreator.GameGrid, GridCreator.GameMap, GridHandler);
+                            }
+                        }
+                    }
+                    else if (NPCList[x].GetCurrentAction() == 7)
+                    {
+                        for (int e = 0; e < TransportPlacementScript.BusRoutes.Count; e++)
+                        {
+                            BusRoute Current = TransportPlacementScript.BusRoutes[e];
+                            if (Current.GetNPCIDs().Contains(NPCList[x].GetCitzenID()))
+                            {
+                                NPCList[x].NeedsUpdateAfterTravel = true;
+                            }
+                            else
+                            {
+                                NPCList[x].ReDisplaySprite();
+                                NPCList[x].SetCurrentAction(0);
+                                Vector3 TargetPos = (NPCList[x].GetRoutePositions()[NPCList[x].GetRoutePositions().Count - 1]);
+                                NPCList[x].SetRoute(GridCreator.GameMap.WorldToCell(TargetPos), GridCreator.GameGrid, GridCreator.GameMap, GridHandler);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
     }
     void UpdateNPCs()
     {

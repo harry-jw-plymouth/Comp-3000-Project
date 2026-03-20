@@ -111,6 +111,7 @@ public class UIHandlerScript : MonoBehaviour
     public List<Route> CurrentRoutes=new List<Route>();
     public List<BusRoute> CurrentBusRoutes = new List<BusRoute>();
     public int RouteDisplayIndex = -1;
+    public int BusRouteDisplayIndex = -1;
 
     int RouteStationPos = -1;
     //  public Square[,] GameGrid;
@@ -142,7 +143,7 @@ public class UIHandlerScript : MonoBehaviour
         CurrentBusRoutes = RoutesToDisplay;
         if (RoutesToDisplay.Count != 0)
         {
-            RouteDisplayIndex = 0;
+            BusRouteDisplayIndex = 0;
             RouteDisplayStartingBusStopInfo.text = "Start: " + RoutesToDisplay[0].StartStop;
             RouteDisplayEndBusStopInfo.text = "End:" + RoutesToDisplay[0].EndStop;
         }
@@ -152,6 +153,12 @@ public class UIHandlerScript : MonoBehaviour
         GridHandler.DeHighlightAllRoutes();
         CurrentRoutes[RouteDisplayIndex].SetCancelled();
         ShowAlertPopUp("Route being cancelled. Cancellation will occur at the next station the train stops at");
+    }
+    public void OnCancelBusRouteButtonClick()
+    {
+        GridHandler.DeHighlightAllBusRoutes();
+        CurrentBusRoutes[BusRouteDisplayIndex].SetCancelled();
+        ShowAlertPopUp("Route being cancelled. Cancellation will occur at the next stop the bus stops at");
     }
     public void OnBusRouteConfirmButtonClicked()
     {

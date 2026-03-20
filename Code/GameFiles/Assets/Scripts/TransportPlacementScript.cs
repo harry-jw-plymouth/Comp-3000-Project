@@ -596,6 +596,25 @@ public class TransportPlacementScript : MonoBehaviour
         NPChandler.UpdateNPCRoutesAfterRoutesRemoval(DeletedRoutes);
 
     }
+    void CheckForCancelledBuses()
+    {
+        List<BusRoute> DeletedRoutes = new List<BusRoute>();
+        for (int i = 0; i < BusRoutes.Count; i++)
+        {
+            if (BusRoutes[i].GetIfEnded())
+            {
+                BusRoutes[i].DestroyRoute();
+                BusRoutes.RemoveAt(i);
+
+
+            }
+        }
+        for (int i = 0; i < DeletedRoutes.Count; i++)
+        {
+            BusRoutes.Remove(DeletedRoutes[i]);
+        }
+        NPChandler.UpdateNPCRoutesAfterBusRoutesRemoval(DeletedRoutes);
+    }
     void DoTrainRoutes()
     {
         CheckForNewRoutes();
@@ -608,6 +627,7 @@ public class TransportPlacementScript : MonoBehaviour
         CheckForNewBusRoutes();
         CheckForBusReactivation();
         DoBusMovement();
+        CheckForCancelledBuses();
     }
     // Update is called once per frame
     void Update()
