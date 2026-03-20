@@ -21222,6 +21222,8 @@ MonoBehaviour:
   RouteTypeInfo: {fileID: 1824086292}
   StartingBusStopInfo: {fileID: 1368660373}
   EndBusStopInfo: {fileID: 1933560509}
+  RouteDisplayStartingBusStopInfo: {fileID: 1912252501}
+  RouteDisplayEndBusStopInfo: {fileID: 1303176409}
   RailCanvas: {fileID: 477983842}
   RailDisplayCanvas: {fileID: 1011104272}
   RouteSetCanvas: {fileID: 398500211}

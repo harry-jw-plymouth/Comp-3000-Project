@@ -54,6 +54,7 @@ public class GridCreator : MonoBehaviour
     public GameStatusScript GameStatusScript;
 
     public List<Route> RoutesHighlighted = new List<Route>();
+    public List<BusRoute> BusRoutesHighlighted = new List<BusRoute>();
 
     public bool DisplayingBuilding = true;
     public int CurrentlyDisplayedBuilding = -1;
@@ -895,32 +896,56 @@ public class GridCreator : MonoBehaviour
     }
     void DoClickForRouteManager(Vector3Int ClickPos)
     {
-        //check square is for rail
-        if (GameGrid[ClickPos.x, ClickPos.y].Contains == 4)
+        
+        if (uiHandler.TrainRouteViewerOn)
         {
-            if (TransportPlacementScript.CheckIfRouteExistsUsingTrack(ClickPos)){
-                List<Route> RoutesForPos= TransportPlacementScript.GetAllRoutesUsingTrack(ClickPos);
-                uiHandler.DisplayRoutes(RoutesForPos);
-                for (int i = 0; i < RoutesForPos.Count; i++) {
-                    List<Vector3Int> Current = RoutesForPos[i].GetCurrentRoute();
-                    for (int e = 0; e < RoutesForPos[i].GetCurrentRoute().Count; e++)
-                    {
-                        GameMap.SetColor(Current[e], new Color(1f, 1f, 1f, 0.5f));
-                        
-                    }
-                    RoutesHighlighted.Add(RoutesForPos[i]);
-                }
-                
-            }
-        }
-        if (GameGrid[ClickPos.x, ClickPos.y].Contains == 1|| GameGrid[ClickPos.x, ClickPos.y].Contains == 5)
-        {
-            if (TransportPlacementScript.CheckIfRouteExistsUsingRoad(ClickPos))
+            //check square is for rail
+            if (GameGrid[ClickPos.x, ClickPos.y].Contains == 4)
             {
-                
+                if (TransportPlacementScript.CheckIfRouteExistsUsingTrack(ClickPos))
+                {
+                    List<Route> RoutesForPos = TransportPlacementScript.GetAllRoutesUsingTrack(ClickPos);
+                    uiHandler.DisplayRoutes(RoutesForPos);
+                    for (int i = 0; i < RoutesForPos.Count; i++)
+                    {
+                        List<Vector3Int> Current = RoutesForPos[i].GetCurrentRoute();
+                        for (int e = 0; e < RoutesForPos[i].GetCurrentRoute().Count; e++)
+                        {
+                            GameMap.SetColor(Current[e], new Color(1f, 1f, 1f, 0.5f));
+
+                        }
+                        RoutesHighlighted.Add(RoutesForPos[i]);
+                    }
+
+                }
             }
         }
+        if (uiHandler.BusRouteViewerOn)
+        {
+            if (GameGrid[ClickPos.x, ClickPos.y].Contains == 1 || GameGrid[ClickPos.x, ClickPos.y].Contains == 5)
+            {
+                Debug.Log("Road/bus stop clicked");
+                if (TransportPlacementScript.CheckIfRouteExistsUsingRoad(ClickPos))
+                {
+                    Debug.Log("Route uses road");
+                    List<BusRoute> BusRoutesForPos = TransportPlacementScript.GetAllRoutesUsingRoad(ClickPos);
+                    uiHandler.DisplayBusRoutes(BusRoutesForPos);
+                    for (int i = 0; i < BusRoutesForPos.Count; i++)
+                    {
+                        List<Vector3Int> Current = BusRoutesForPos[i].GetCurrentRoute();
+                        for (int e = 0; e < BusRoutesForPos[i].GetCurrentRoute().Count; e++)
+                        {
+                            GameMap.SetColor(Current[e], new Color(1f, 1f, 1f, 0.5f));
+
+                        }
+                        BusRoutesHighlighted.Add(BusRoutesForPos[i]);
+                    }
+                }
+            }
+        }
+
     }
+
 
     void CheckForMouseClicK() {
         if (Input.GetMouseButtonDown(0))
@@ -946,7 +971,7 @@ public class GridCreator : MonoBehaviour
                 }
                     
             }
-            else if (uiHandler.TrainRouteViewerOn)
+            else if (uiHandler.TrainRouteViewerOn|| uiHandler.BusRouteViewerOn)
             {
                 DoClickForRouteManager(CellClickedPos);
             }

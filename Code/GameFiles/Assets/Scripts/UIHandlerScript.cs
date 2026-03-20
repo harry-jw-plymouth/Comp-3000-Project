@@ -76,6 +76,13 @@ public class UIHandlerScript : MonoBehaviour
 
     public TextMeshProUGUI StartingBusStopInfo;
     public TextMeshProUGUI EndBusStopInfo;
+
+    public TextMeshProUGUI RouteDisplayStartingBusStopInfo;
+    public TextMeshProUGUI RouteDisplayEndBusStopInfo;
+
+
+
+
     Vector3Int StartBusStop;
     Vector3Int EndBusStop;
 
@@ -102,6 +109,7 @@ public class UIHandlerScript : MonoBehaviour
     public int EndRouteStationBuilding = -1;
 
     public List<Route> CurrentRoutes=new List<Route>();
+    public List<BusRoute> CurrentBusRoutes = new List<BusRoute>();
     public int RouteDisplayIndex = -1;
 
     int RouteStationPos = -1;
@@ -127,6 +135,16 @@ public class UIHandlerScript : MonoBehaviour
             RouteDisplayIndex = 0;
             StartStationForRoute.text = "Start: "+RoutesToDisplay[0].StartStation.GetBuildingPosAsInt();
             EndStationForRoute.text = "End:" + RoutesToDisplay[0].EndStation.GetBuildingPosAsInt();
+        }
+    }
+    public void DisplayBusRoutes(List<BusRoute> RoutesToDisplay)
+    {
+        CurrentBusRoutes = RoutesToDisplay;
+        if (RoutesToDisplay.Count != 0)
+        {
+            RouteDisplayIndex = 0;
+            RouteDisplayStartingBusStopInfo.text = "Start: " + RoutesToDisplay[0].StartStop;
+            RouteDisplayEndBusStopInfo.text = "End:" + RoutesToDisplay[0].EndStop;
         }
     }
     public void OnCancelRouteButtonClick()
