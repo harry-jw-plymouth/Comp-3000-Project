@@ -405,6 +405,7 @@ public class GridCreator : MonoBehaviour
     }
     void RemoveSelectedBuilding(Building RemovedBuilding, Vector3Int Origin)
     {
+        
         for (int Y = 0; Y < RemovedBuilding.Shape.GetLength(0); Y++)
         {
             for (int X = 0; X < RemovedBuilding.Shape.GetLength(1); X++)
@@ -884,9 +885,21 @@ public class GridCreator : MonoBehaviour
         if (GameGrid[CellClickedPos.x, CellClickedPos.y].Contains == 2)
         {
             int BuildingPos = GetBuildingClicked(CellClickedPos);
+           
+
            // Debug.Log("Building found at poaition");
             if (BuildingPos != -1)
             {
+                PlacedBuilding Selected= PlacedBuildings[BuildingPos];
+                if (Selected.GetIfTrainStation())
+                {
+                    if(TransportPlacementScript.CheclIfTrainStationInUse(Selected))
+                    {
+                        uiHandler.ShowAlertPopUp("Train station in use on route, cannot remove");
+                        return;
+                    }
+                }
+
                 RemoveSelectedBuilding(PlacedBuildings[BuildingPos].buildingType,
                     new Vector3Int(PlacedBuildings[BuildingPos].OriginPos[0], PlacedBuildings[BuildingPos].OriginPos[1], 0));
                 if (PlacedBuildings[BuildingPos] != null)

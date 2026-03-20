@@ -616,6 +616,18 @@ public class TransportPlacementScript : MonoBehaviour
         }
         NPChandler.UpdateNPCRoutesAfterBusRoutesRemoval(DeletedRoutes);
     }
+    public static bool CheclIfTrainStationInUse(PlacedBuilding Station)
+    {
+        for(int i = 0; i < TrainRoutes.Count; i++)
+        {
+            if ( TrainRoutes[i].StartStation.GetBuildingPosAsInt() == Station.GetBuildingPosAsInt() ||
+                TrainRoutes[i].EndStation.GetBuildingPosAsInt() == Station.GetBuildingPosAsInt())
+            {
+                return true;
+            }
+        }
+        return false;
+    }
     public static bool CheckIfBusStopInUse(Vector3Int BusStopPos)
     {
         for(int i = 0; i < BusRoutes.Count; i++)
@@ -624,7 +636,6 @@ public class TransportPlacementScript : MonoBehaviour
                 BusRoutes[i].EndStop==BusStopPos ||
                 BusRoutes[i].GetCurrentRoute().Contains(BusStopPos))
             {
-                Debug.Log("Bus stop in use");
                 return true;
             }
 
