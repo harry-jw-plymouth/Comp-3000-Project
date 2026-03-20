@@ -913,6 +913,13 @@ public class GridCreator : MonoBehaviour
                 
             }
         }
+        if (GameGrid[ClickPos.x, ClickPos.y].Contains == 1|| GameGrid[ClickPos.x, ClickPos.y].Contains == 5)
+        {
+            if (TransportPlacementScript.CheckIfRouteExistsUsingRoad(ClickPos))
+            {
+
+            }
+        }
     }
 
     void CheckForMouseClicK() {

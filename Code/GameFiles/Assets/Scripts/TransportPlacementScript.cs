@@ -491,6 +491,17 @@ public class TransportPlacementScript : MonoBehaviour
         }
         return false;
     }
+    public static bool CheckIfRouteExistsUsingRoad(Vector3Int RoadPosition)
+    {
+        for (int i = 0; i <BusRoutes.Count; i++)
+        {
+            if (BusRoutes[i].GetCurrentRoute().Contains(RoadPosition))
+            {
+                return true;
+            }
+        }
+        return false;
+    }
     public static bool CheckIfRouteExistsUsingTrack(Vector3Int TrackPosition)
     {
         for(int i = 0; i < TrainRoutes.Count; i++)
