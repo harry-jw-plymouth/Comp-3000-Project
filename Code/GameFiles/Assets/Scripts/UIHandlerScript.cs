@@ -150,15 +150,29 @@ public class UIHandlerScript : MonoBehaviour
     }
     public void OnCancelRouteButtonClick()
     {
+        if (RouteDisplayIndex == -1) 
+        {
+            return;
+        }
         GridHandler.DeHighlightAllRoutes();
         CurrentRoutes[RouteDisplayIndex].SetCancelled();
         ShowAlertPopUp("Route being cancelled. Cancellation will occur at the next station the train stops at");
+
+        RouteDisplayIndex = -1;
     }
     public void OnCancelBusRouteButtonClick()
     {
+        if(BusRouteDisplayIndex==-1)
+        {
+            ShowAlertPopUp("No bus route selected");
+            return;
+        }
+
         GridHandler.DeHighlightAllBusRoutes();
         CurrentBusRoutes[BusRouteDisplayIndex].SetCancelled();
         ShowAlertPopUp("Route being cancelled. Cancellation will occur at the next stop the bus stops at");
+
+        BusRouteDisplayIndex = -1;
     }
     public void OnBusRouteConfirmButtonClicked()
     {
@@ -183,6 +197,7 @@ public class UIHandlerScript : MonoBehaviour
     }
     public void OnDisplayBusRoutesButtonClicked()
     {
+        BusRouteDisplayIndex = -1;
         if (BusRouteDisplayCanvasActive)
         {
             //close
@@ -193,7 +208,7 @@ public class UIHandlerScript : MonoBehaviour
             BusRouteViewerOn = false;
             RouteSelectedInfo.SetActive(false);
             GridHandler.DeHighlightAllRoutes();
-
+            
 
         }
         else
@@ -210,6 +225,7 @@ public class UIHandlerScript : MonoBehaviour
     }
     public void OnDisplayRoutesButtonClicked()
     {
+        RouteDisplayIndex = -1;
         if (RailRouteDisplayCanvasActive)
         {
             //close
