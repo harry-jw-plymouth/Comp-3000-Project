@@ -393,6 +393,75 @@ public class BusRoute
         }
         return IDs;
     }
+    public bool CheckIfRoutePossibleWithEdit(Square[,] GameGrid, Vector3Int EditedPos)
+    {
+        Queue<Vector3Int> ToCheck = new Queue<Vector3Int>();
+        HashSet<Vector3Int> AlreadyVisited = new HashSet<Vector3Int>();
+
+        Dictionary<Vector3Int, Vector3Int> CameFrom = new Dictionary<Vector3Int, Vector3Int>();
+        List<Vector3Int> RoadAroundStop = GetRoadsTouchingStop(StartStop);
+        for (int i = 0; i < RoadAroundStop.Count; i++)
+        {
+            if (RoadAroundStop[i] != EditedPos)
+            {
+                ToCheck.Enqueue(RoadAroundStop[i]);
+                AlreadyVisited.Add(RoadAroundStop[i]);
+                CameFrom[RoadAroundStop[i]] = RoadAroundStop[i];
+            }
+            
+        }
+
+        while (ToCheck.Count > 0)
+        {
+            Vector3Int Current = ToCheck.Dequeue();
+
+            if (GetIfIsNextToTargetStop(Current, EndStop))
+            { 
+                //route possible
+                return true;
+            }
+
+            Vector3Int New = new Vector3Int();
+            List<Vector3Int> NewChecks = new List<Vector3Int>();
+
+            //add surrounding tiles
+            if (GridCreator.GameGrid[Current.x + 1, Current.y].Contains == 1 || GridCreator.GameGrid[Current.x + 1, Current.y].Contains == 5)
+            {
+                NewChecks.Add(new Vector3Int(Current.x + 1, Current.y, 0));
+                // PositionsToCheck.Add(new Vector3Int(CurrentPos.x + 1, CurrentPos.y, 0));
+                // AlreadyAdded.Add(new Vector3Int(CurrentPos.x + 1, CurrentPos.y, 0));
+            }
+            if (GridCreator.GameGrid[Current.x - 1, Current.y].Contains == 1 || GridCreator.GameGrid[Current.x - 1, Current.y].Contains == 5)
+            {
+                NewChecks.Add(new Vector3Int(Current.x - 1, Current.y, 0));
+                // AlreadyAdded.Add(new Vector3Int(CurrentPos.x - 1, CurrentPos.y, 0));
+            }
+            if (GridCreator.GameGrid[Current.x, Current.y + 1].Contains == 1 || GridCreator.GameGrid[Current.x, Current.y + 1].Contains == 5)
+            {
+                NewChecks.Add(new Vector3Int(Current.x, Current.y + 1, 0));
+                // AlreadyAdded.Add(new Vector3Int(CurrentPos.x, CurrentPos.y + 1, 0));
+            }
+            if (GridCreator.GameGrid[Current.x, Current.y - 1].Contains == 1 || GridCreator.GameGrid[Current.x, Current.y - 1].Contains == 5)
+            {
+                NewChecks.Add(new Vector3Int(Current.x, Current.y - 1, 0));
+                //  AlreadyAdded.Add(new Vector3Int(CurrentPos.x, CurrentPos.y - 1, 0));
+            }
+            for (int i = 0; i < NewChecks.Count; i++)
+            {
+                if (!AlreadyVisited.Contains(NewChecks[i]) && NewChecks[i]!=EditedPos)
+                {
+                    ToCheck.Enqueue(NewChecks[i]);
+                    AlreadyVisited.Add(NewChecks[i]);
+                    CameFrom[NewChecks[i]] = Current;
+                }
+            }
+
+
+        }
+        return false;
+
+
+    }
     public void SetRoute(Square[,] GameGrid)
     {
         Queue<Vector3Int> ToCheck = new Queue<Vector3Int>();

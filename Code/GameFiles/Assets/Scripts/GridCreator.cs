@@ -789,6 +789,7 @@ public class GridCreator : MonoBehaviour
         return false;
        
     }
+    
     void PlaceTiles(Vector3Int CellClickedPos)
     {
         //Place tiles 
@@ -844,9 +845,40 @@ public class GridCreator : MonoBehaviour
                 {
                     if (GameGrid[CellClickedPos.x, CellClickedPos.y].Contains == 1)
                     {
-                        NumberOfRoads--;
+                        int RouteIndex = TransportPlacementScript.CheckIfRoadIsInUseForRoute(CellClickedPos);
+                        if (RouteIndex!=-1)
+                        {
+                            //route found using road
+                            if(TransportPlacementScript.GetIfReRoutePossible(CellClickedPos, RouteIndex))
+                            {
+                                //reroute possible, remove road and update route
+
+                                NumberOfRoads--;
+                                GameGrid[CellClickedPos.x, CellClickedPos.y].Contains = 0;
+                                GameMap.SetTile(CellClickedPos, GameTile);
+                                RoadPositions.Remove(CellClickedPos);
+
+                                TransportPlacementScript.UpdateBusRoute(RouteIndex);
+
+                            }
+                            else
+                            {
+                                // reroute not possible, show pop up saying cannot remove road
+                                uiHandler.ShowAlertPopUp("Cannot remove this road without disrupting a bus route");
+                            }
+
+                        }
+                        else
+                        {
+                            //no route found using road, remove road
+                            NumberOfRoads--;
+                            GameGrid[CellClickedPos.x, CellClickedPos.y].Contains = 0;
+                            GameMap.SetTile(CellClickedPos, GameTile);
+                            RoadPositions.Remove(CellClickedPos);
+                        }
+                        
                     }
-                    if (GameGrid[CellClickedPos.x, CellClickedPos.y].Contains == 5)
+                    else if (GameGrid[CellClickedPos.x, CellClickedPos.y].Contains == 5)
                     {
                         if (TransportPlacementScript.CheckIfBusStopInUse(CellClickedPos))
                         {

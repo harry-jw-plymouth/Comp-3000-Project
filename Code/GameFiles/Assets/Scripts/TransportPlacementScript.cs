@@ -597,6 +597,25 @@ public class TransportPlacementScript : MonoBehaviour
         NPChandler.UpdateNPCRoutesAfterRoutesRemoval(DeletedRoutes);
 
     }
+    public static int CheckIfRoadIsInUseForRoute(Vector3Int RoadPos)
+    {
+        for(int i = 0; i < BusRoutes.Count; i++)
+        {
+            if(BusRoutes[i].GetCurrentRoute().Contains(RoadPos))
+            {
+                return i;
+            }
+        }
+        return -1;
+    }
+    public static bool GetIfReRoutePossible(Vector3Int RoadPos,int RouteIndex)
+    {
+        return BusRoutes[RouteIndex].CheckIfRoutePossibleWithEdit(GridCreator.GameGrid, RoadPos);
+    }
+    public static void UpdateBusRoute(int RouteIndex )
+    {
+          BusRoutes[RouteIndex].SetRoute(GridCreator.GameGrid);
+    }
     void CheckForCancelledBuses()
     {
         List<BusRoute> DeletedRoutes = new List<BusRoute>();
