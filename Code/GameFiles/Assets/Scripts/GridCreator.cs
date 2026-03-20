@@ -468,6 +468,18 @@ public class GridCreator : MonoBehaviour
         }
         return false;
     }
+    public bool GetIfHighlightedForBusRoute(Vector3Int CurrentPos)
+    {
+        for (int i = 0; i < BusRoutesHighlighted.Count; i++)
+        {
+            if (BusRoutesHighlighted[i].GetCurrentRoute().Contains(CurrentPos))
+            {
+                return true;
+            }
+
+        }
+        return false;
+    }
     void DisplayBuildingInfoPopUpAboveBuilding(int BuildingIndex,Vector3Int Pos)
     {
         uiHandler.DisplayBuildingInfo(PlacedBuildings[BuildingIndex]);
@@ -496,20 +508,15 @@ public class GridCreator : MonoBehaviour
             {
                 if (GameMap.HasTile(PreviousMousePosition))
                 {
-                    if (uiHandler.RailRouteDisplayCanvasActive)
-                    {
-                        if (!GetIfHighlightedForRoute(PreviousMousePosition))
-                        {
-                            GameMap.SetTileFlags(PreviousMousePosition, TileFlags.None);
-                            GameMap.SetColor(PreviousMousePosition, Color.white);
-                        }
-                    }
-                    else
+                    bool isHighlightedTrain = GetIfHighlightedForRoute(PreviousMousePosition);
+                    bool isHighlightedBus = GetIfHighlightedForBusRoute(PreviousMousePosition);
+
+                    if (!isHighlightedTrain && !isHighlightedBus)
                     {
                         GameMap.SetTileFlags(PreviousMousePosition, TileFlags.None);
                         GameMap.SetColor(PreviousMousePosition, Color.white);
                     }
-                        
+                      
                 }
                 GameMap.SetTileFlags(MouseHoverPosition, TileFlags.None);
                 GameMap.SetColor(MouseHoverPosition, new Color(1f, 1f, 1f, 0.5f));
