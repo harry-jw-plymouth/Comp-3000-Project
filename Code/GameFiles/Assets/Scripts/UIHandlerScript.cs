@@ -596,7 +596,8 @@ public class UIHandlerScript : MonoBehaviour
         DBManager.UpdateSave(NpcHandler.GetCurrentNumberOfNPCs(), MainMenu.CurrentSaveID);
         DBManager.UpdateMapSave(MainMenu.CurrentSaveID, GridCreator.WIDTH, GridCreator.HEIGHT, GridCreator.GameGrid);
         DBManager.AddAllBuildingsForSave(MainMenu.CurrentSaveID, GridCreator.PlacedBuildings);
-        DBManager.UpdateTrainRoutesForSave(MainMenu.GameSaveID, TransportPlacementScript.TrainRoutes);
+        DBManager.UpdateTrainRoutesForSave(MainMenu.CurrentSaveID, TransportPlacementScript.TrainRoutes);
+        DBManager.UpdateBusRoutesForSave(MainMenu.CurrentSaveID, TransportPlacementScript.BusRoutes);
     }
     public void OnExitButtonClicked()
     {

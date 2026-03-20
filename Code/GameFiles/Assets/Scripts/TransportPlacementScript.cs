@@ -76,6 +76,12 @@ public class TransportPlacementScript : MonoBehaviour
             TrainRouteModel Current = RoutesInDB[i];
             int StartStationIndex= GridHandler.GetBuildingClicked(new Vector3Int(Current.StartXpos, Current.StartYpos, 0));
             int EndStationIndex= GridHandler.GetBuildingClicked(new Vector3Int(Current.EndXpos, Current.EndYpos, 0));
+
+            if(StartStationIndex==-1 || EndStationIndex==-1)
+            {
+                Debug.Log("Error loading route, station not found");
+                continue;
+            }
             if (GridCreator.PlacedBuildings[StartStationIndex].GetIfTrainStation()&& GridCreator.PlacedBuildings[EndStationIndex].GetIfTrainStation())
             {
                 if (TransportHandler.GetIfLinkBetweenStations(StartStationIndex, EndStationIndex))
@@ -86,6 +92,31 @@ public class TransportPlacementScript : MonoBehaviour
                 }
             }
         }
+
+        List<BusRouteModel> BusRoutesInDB = DBManager.GetAllBusRoutesForID(ID);
+        for (int i = 0; i < BusRoutesInDB.Count; i++)
+        {
+            BusRouteModel Current = BusRoutesInDB[i];
+            Vector3Int StartStop = new Vector3Int(Current.StartXpos, Current.StartYpos, 0);
+            Vector3Int EndStop = new Vector3Int(Current.EndXpos, Current.EndYpos, 0);
+            if (StartStop.x < 0 || StartStop.x >= GridCreator.WIDTH || StartStop.y < 0 || StartStop.y >= GridCreator.HEIGHT ||
+           EndStop.x < 0 || EndStop.x >= GridCreator.WIDTH || EndStop.y < 0 || EndStop.y >= GridCreator.HEIGHT)
+            {
+                continue;
+            }
+            if (GridCreator.GameGrid[StartStop.x, StartStop.y].Contains == 5 &&
+                GridCreator.GameGrid[EndStop.x, EndStop.y].Contains == 5)
+            {
+                BusRoute newRoute = new BusRoute(StartStop, EndStop);
+                if (newRoute.GetIfPathBetweenBusStops(StartStop, EndStop))
+                {
+                    newRoute.SetRoute(GridCreator.GameGrid);
+                    AddBusRoute(newRoute);
+
+                }
+            }
+        }
+
     }
 
     public bool GetIfSquareIsPartOfTargetStation(Vector3Int Current, PlacedBuilding Target)

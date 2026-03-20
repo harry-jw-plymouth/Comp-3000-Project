@@ -36,6 +36,7 @@ public class DBManager : MonoBehaviour
         db.CreateTable<SaveBuildingModel>();
         db.CreateTable<SaveNPCInfoModel>();
         db.CreateTable<TrainRouteModel>();
+        db.CreateTable<BusRouteModel>();
         Debug.Log("Database loaded");
     }
     public static byte[] GetMapForDB(Square[,] Grid, int Height, int Width)
@@ -189,7 +190,8 @@ public class DBManager : MonoBehaviour
         BusRouteModel Route = new BusRouteModel { AssociatedSaveID = CurrentID, 
             StartXpos = StartStopPos.x, StartYpos = StartStopPos.y, 
             EndXpos = EndStopPos.x, EndYpos = EndStopPos.y };
-        db.Insert(Route);
+        int result=db.Insert(Route);
+        Debug.Log("Bus route save restult: " + result); 
     }
     public static List<TrainRouteModel> GetAllTrainRoutesForID(int ID)
     {
@@ -221,7 +223,7 @@ public class DBManager : MonoBehaviour
         ClearBusRoutesForSave(ID);
         for (int i = 0; i < routes.Count; i++)
         {
-            AddRoute(routes[i].StartStop, routes[i].EndStop, ID);
+            AddBusRoute(routes[i].StartStop, routes[i].EndStop, ID);
         }
     }
     public static void CreateNewFile(string FileName,string FileType, bool FileIsEmpty,int NPCAmount)
