@@ -79,6 +79,7 @@
     <Compile Include="Assets\Scripts\Classes\BusRoute.cs" />
     <Compile Include="Assets\Scripts\SQLite.cs" />
     <Compile Include="Assets\Scripts\Classes\Route.cs" />
+    <Compile Include="Assets\Scripts\Classes\SettingsManager.cs" />
     <Compile Include="Assets\Scripts\UIHandlerScript.cs" />
     <Compile Include="Assets\Scripts\SaveItemScript.cs" />
     <Compile Include="Assets\Scripts\DbModels\SaveFileModel.cs" />
