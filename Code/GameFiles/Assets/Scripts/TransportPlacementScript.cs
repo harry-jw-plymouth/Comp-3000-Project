@@ -67,6 +67,18 @@ public class TransportPlacementScript : MonoBehaviour
         }
         return routes;
     }
+    public static List<BusRoute> GetAllRoutesUsingRoad(Vector3Int RoadPos)
+    {
+        List<BusRoute> routes = new List<BusRoute>();
+        for (int i = 0; i < BusRoutes.Count; i++)
+        {
+            if (BusRoutes[i].GetCurrentRoute().Contains(RoadPos))
+            {
+                routes.Add(BusRoutes[i]);
+            }
+        }
+        return routes;
+    }
 
     public static void SetupRoutesFromSave(int ID,GridCreator GridHandler,TransportPlacementScript TransportHandler)
     {
