@@ -804,9 +804,16 @@ public class GridCreator : MonoBehaviour
                 }
                 else if (GameGrid[CellClickedPos.x,CellClickedPos.y].Contains==5)
                 {
-                    GameGrid[CellClickedPos.x, CellClickedPos.y].Contains = 1;
-                    GameMap.SetTile(CellClickedPos, RoadTile);
-                    NumberOfBusStops--;
+                    if (TransportPlacementScript.CheckIfBusStopInUse(CellClickedPos)){
+                        Debug.Log("Bus stop in use, cannot remove");
+                    }
+                    else
+                    {
+                        GameGrid[CellClickedPos.x, CellClickedPos.y].Contains = 1;
+                        GameMap.SetTile(CellClickedPos, RoadTile);
+                        NumberOfBusStops--;
+                    }
+                        
                 }
             }
             else
@@ -838,10 +845,26 @@ public class GridCreator : MonoBehaviour
                     {
                         NumberOfRoads--;
                     }
-                    GameGrid[CellClickedPos.x, CellClickedPos.y].Contains = 0;
-                    GameMap.SetTile(CellClickedPos, GameTile);
-                    RoadPositions.Remove(CellClickedPos);
-
+                    if (GameGrid[CellClickedPos.x, CellClickedPos.y].Contains == 5)
+                    {
+                        if (TransportPlacementScript.CheckIfBusStopInUse(CellClickedPos))
+                        {
+                            Debug.Log("Bus stop in use, cannot remove");
+                        }
+                        else {
+                            NumberOfBusStops--;
+                            GameGrid[CellClickedPos.x, CellClickedPos.y].Contains = 0;
+                            GameMap.SetTile(CellClickedPos, GameTile);
+                            RoadPositions.Remove(CellClickedPos);
+                        }
+                    }
+                    else
+                    {
+                        GameGrid[CellClickedPos.x, CellClickedPos.y].Contains = 0;
+                        GameMap.SetTile(CellClickedPos, GameTile);
+                        RoadPositions.Remove(CellClickedPos);
+                    }
+                  
                 }
             }
             

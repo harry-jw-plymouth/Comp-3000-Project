@@ -7,6 +7,7 @@ using UnityEditor.PackageManager;
 using Unity.VisualScripting;
 using NUnit.Framework.Constraints;
 using UnityEditor.Build;
+using UnityEditor;
 
 public class TransportPlacementScript : MonoBehaviour
 {
@@ -614,6 +615,21 @@ public class TransportPlacementScript : MonoBehaviour
             BusRoutes.Remove(DeletedRoutes[i]);
         }
         NPChandler.UpdateNPCRoutesAfterBusRoutesRemoval(DeletedRoutes);
+    }
+    public static bool CheckIfBusStopInUse(Vector3Int BusStopPos)
+    {
+        for(int i = 0; i < BusRoutes.Count; i++)
+        {
+            if ( BusRoutes[i].StartStop == BusStopPos || 
+                BusRoutes[i].EndStop==BusStopPos ||
+                BusRoutes[i].GetCurrentRoute().Contains(BusStopPos))
+            {
+                Debug.Log("Bus stop in use");
+                return true;
+            }
+
+        }
+        return false;
     }
     void DoTrainRoutes()
     {
