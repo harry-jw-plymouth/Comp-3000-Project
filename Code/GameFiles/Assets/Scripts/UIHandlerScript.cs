@@ -207,7 +207,7 @@ public class UIHandlerScript : MonoBehaviour
             BusRouteSetCanvas.SetActive(true);
             BusRouteViewerOn = false;
             RouteSelectedInfo.SetActive(false);
-            GridHandler.DeHighlightAllRoutes();
+            GridHandler.DeHighlightAllBusRoutes();
             
 
         }
