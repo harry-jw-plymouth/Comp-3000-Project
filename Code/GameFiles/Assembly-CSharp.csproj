@@ -62,6 +62,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\GridCreator.cs" />
+    <Compile Include="Assets\Scripts\DbModels\BusRouteModel.cs" />
     <Compile Include="Assets\Scripts\DbModels\SaveBuildingModel.cs" />
     <Compile Include="Assets\Scripts\DbModels\TrainRouteModel.cs" />
     <Compile Include="Assets\Scripts\NPC handler.cs" />
