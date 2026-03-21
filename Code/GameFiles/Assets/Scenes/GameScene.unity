@@ -696,7 +696,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 93337074}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1831244042}
+        m_TargetAssemblyTypeName: UIHandlerScript, Assembly-CSharp
+        m_MethodName: OnSettingsButtonClicked
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &93337074
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4708,7 +4720,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Button
+  m_text: Settings
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: e035ec6d91f79db46a23316f3109dd94, type: 2}
   m_sharedMaterial: {fileID: 8991214297436973525, guid: e035ec6d91f79db46a23316f3109dd94, type: 2}
@@ -10084,7 +10096,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &771648300
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18275,7 +18287,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1464817057}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1831244042}
+        m_TargetAssemblyTypeName: UIHandlerScript, Assembly-CSharp
+        m_MethodName: OnSettingsButtonClicked
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1464817057
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -22766,6 +22790,7 @@ MonoBehaviour:
   StationSelectCanvas: {fileID: 1627663198}
   UpdatesButton: {fileID: 1124787293}
   BusCanvas: {fileID: 1543827633}
+  SettingsCanvas: {fileID: 1270578024}
   TradeButton: {fileID: 1660644200}
   TradeItems: {fileID: 1913237650}
   Action: {fileID: 151595382}
@@ -22784,6 +22809,7 @@ MonoBehaviour:
   PauseMenuActive: 0
   RailMenuActive: 0
   RouteMenuActive: 0
+  SettingsMenuActive: 0
   TrainRouteViewerOn: 0
   BuildingInfoBox: {fileID: 1367251069}
   BuildingTypeText: {fileID: 1848557101}

@@ -28,8 +28,8 @@ public class UIHandlerScript : MonoBehaviour
     public GameObject StationSelectCanvas;
     public GameObject UpdatesButton;
     public GameObject BusCanvas;
+    public GameObject SettingsCanvas;
     public Button TradeButton;
-    
 
 
     public TMP_Dropdown TradeItems;
@@ -57,6 +57,7 @@ public class UIHandlerScript : MonoBehaviour
     public bool PauseMenuActive = false;
     public bool RailMenuActive = false;
     public bool RouteMenuActive = false;
+    public bool SettingsMenuActive = false;
 
     public bool TrainRouteViewerOn = false;
 
@@ -198,6 +199,21 @@ public class UIHandlerScript : MonoBehaviour
                 }
                
             }
+        }
+    }
+    public void OnSettingsButtonClicked()
+    {
+        if (SettingsMenuActive)
+        {
+            SettingsCanvas.SetActive(false);
+            SettingsMenuActive = false;
+        }
+        else
+        {
+            PauseCanvas.SetActive(false);
+            SettingsCanvas.SetActive(true);
+            SettingsMenuActive = true;
+
         }
     }
     public void OnMusicVolumeSliderAdjusted()
