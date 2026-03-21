@@ -50,6 +50,7 @@ public class GridCreator : MonoBehaviour
     public GameObject WindFarmPrefab;
     public GameObject ShoppingCenterPrefab;
     public GameObject TrainStationPrefab;
+    public GameObject NatureAreaPrefab;
 
     public GameStatusScript GameStatusScript;
 
@@ -748,6 +749,15 @@ public class GridCreator : MonoBehaviour
                                         NewSprite = Instantiate(TrainStationPrefab, AdjustedStartPos, Quaternion.identity);
                                     }
                                 }
+                                else if (BuildingsListManager.BuildingCurrentlySelected == 9)
+                                {
+                                    if (BuildingsListManager.Buildings[BuildingsListManager.BuildingCurrentlySelected].Shape[Y, X] == 0)
+                                    {
+                                        Vector3 AdjustedStartPos = CurrentPos + new Vector3(0.0f, 0.0f, 0);
+                                        NewSprite = Instantiate(NatureAreaPrefab, AdjustedStartPos, Quaternion.identity);
+                                    }
+                                }
+
 
                             }
 
@@ -1337,6 +1347,14 @@ public class GridCreator : MonoBehaviour
                             {
                                 Vector3 AdjustedStartPos = CurrentPos + new Vector3(0.0f, 0.0f, 0);
                                 NewSprite = Instantiate(TrainStationPrefab, AdjustedStartPos, Quaternion.identity);
+                            }
+                        }
+                        else if (Save.TypeIndex == 9)
+                        {
+                            if (BuildingsListManager.Buildings[Save.TypeIndex].Shape[Y, X] == 0)
+                            {
+                                Vector3 AdjustedStartPos = CurrentPos + new Vector3(0.0f, 0.0f, 0);
+                                NewSprite = Instantiate(NatureAreaPrefab, AdjustedStartPos, Quaternion.identity);
                             }
                         }
 

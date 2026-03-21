@@ -42,7 +42,9 @@ public class BuildingsListManager : MonoBehaviour
             new Building("Shopping center",700,30, " a shopping centre full of shops and entertainment",new int[2,2]{{1,1},{0,1 } },new int[]{1,0 },true
             ,300,1000,false,7,100,150,true,40,false),
             new Building("Train Station",1000,20,"a stop for trains",new int[2,2]{{1,1},{0,1} } ,new int[]{1,0},false,
-            100,500,false,8,100,20,false,0,true)
+            100,500,false,8,100,20,false,0,true),
+            new Building("Nature area" ,300,-5,"a nature area to increase enviromental value",new int[3,3]{{1,1,1},{1,1,1},{0,1,1 } } ,new int[]{2,0},false,
+            100,400,false,9,0,-50, true,0,false)
 
         }; Buildings[8].SetIsTrainStation(true);
     }
@@ -107,5 +109,9 @@ public class BuildingsListManager : MonoBehaviour
     public void OnTrainStationClicked()
     {
         BuildingCurrentlySelected = 8;
+    }
+    public void OnNatureAreaSelected()
+    {
+        BuildingCurrentlySelected = 9;
     }
 }
