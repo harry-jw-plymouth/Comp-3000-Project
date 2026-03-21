@@ -9628,7 +9628,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 3835070460468526036, guid: 102aa87cb198f7a439b32b89d1a58b35, type: 3}
+  m_Sprite: {fileID: -6020041204944936968, guid: 066ed1b2e9b2e7b45b30c988cd33cf29, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -10298,7 +10298,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -4612876987381437317, guid: 8b79ee2bd6ec652479fa881f0427acfe, type: 3}
+  m_Sprite: {fileID: -3730242620340620577, guid: ba614458646c4f34597683215a61e7bb, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -10966,7 +10966,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 6ead2d2626f52e54d9c160cb22c4c7da, type: 3}
+  m_Sprite: {fileID: -1469018981424480115, guid: b9bbb29e23f82db4d838c33c865f68e8, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -11856,7 +11856,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Wind farm
+  m_text: 'NatureArea
+
+'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: e035ec6d91f79db46a23316f3109dd94, type: 2}
   m_sharedMaterial: {fileID: 8991214297436973525, guid: e035ec6d91f79db46a23316f3109dd94, type: 2}
@@ -12576,7 +12578,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -4391539332027601580, guid: 875f7561abadf434a927ba78ed1399c2, type: 3}
+  m_Sprite: {fileID: 4887453240760355058, guid: 71161f69e25db9741915b7bab2e481bb, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -13265,7 +13267,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -454033426144113461, guid: 859a5532677b5be4c8bf433be62d53f2, type: 3}
+  m_Sprite: {fileID: -4838859737675946749, guid: 628b8c42673bc8849b319b690f169130, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -21659,7 +21661,7 @@ GameObject:
   - component: {fileID: 1706469630}
   - component: {fileID: 1706469629}
   m_Layer: 5
-  m_Name: WindPowerPlant
+  m_Name: NatureArea
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
