@@ -86,6 +86,7 @@
     <Compile Include="Assets\Scripts\SaveItemScript.cs" />
     <Compile Include="Assets\Scripts\DbModels\SaveFileModel.cs" />
     <Compile Include="Assets\Scripts\Classes\PowerPlant.cs" />
+    <Compile Include="Assets\Scripts\ColourBlindCameraController.cs" />
     <Compile Include="Assets\Scripts\TransportPlacementScript.cs" />
     <Compile Include="Assets\Scripts\Classes\Square.cs" />
     <Compile Include="Assets\Scripts\SoundManagerScript.cs" />
@@ -110,6 +111,7 @@
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Surface-Mobile.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\SDFFunctions.hlsl" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Surface.shader" />
+    <None Include="Assets\Shaders\ColourBlindFilter.shader" />
     <None Include="Assets\TextMesh Pro\Sprites\EmojiOne Attribution.txt" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap-Custom-Atlas.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF.shader" />

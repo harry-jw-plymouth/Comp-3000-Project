@@ -84,7 +84,7 @@ public class NPChandler : MonoBehaviour
         }
         //else get NPC amounf from save file
         SaveFileModel Save= DBManager.GetSaveFiles()[MainMenu.GetCurrentSaveID()];
-        Debug.Log("Number of npcs from save:" + Save.NumberOfNPCs);
+      //  Debug.Log("Number of npcs from save:" + Save.NumberOfNPCs);
          return Save.NumberOfNPCs;   
     }
     public int GetCurrentNumberOfNPCs()
@@ -241,7 +241,7 @@ public class NPChandler : MonoBehaviour
                 NPCList[i].TargetStation.GetBuildingPosAsInt() == End.GetBuildingPosAsInt())
                 {
                     Ids.Add(NPCList[i].GetCitzenID());
-                    Debug.Log("NPC getting on train");
+                  //  Debug.Log("NPC getting on train");
                 }
             }          
         }
@@ -381,7 +381,7 @@ public class NPChandler : MonoBehaviour
                   //  NPCList[NPCIndex].SetMovementTarget(ShopPos);
                    if( NPCList[NPCIndex].SetRoute(GridCreator.GameMap.WorldToCell( ShopPos), GridCreator.GameGrid, GridCreator.GameMap,gridCreator))
                     {
-                        Debug.Log("Set action to 0");
+                      //  Debug.Log("Set action to 0");
                         NPCList[NPCIndex].SetCurrentAction(0);
                         NPCList[NPCIndex].SetIfTargetIsBuilding(true);
                         NPCList[NPCIndex].SetTargetBuilding(GridCreator.GetSelectedBuilding());
@@ -396,7 +396,7 @@ public class NPChandler : MonoBehaviour
                     //NPCList[NPCIndex].SetMovementTarget(GetWanderTarget());
                     if(NPCList[NPCIndex].SetRoute(GridCreator.GameMap.WorldToCell(GetWanderTarget()), GridCreator.GameGrid, GridCreator.GameMap,gridCreator))
                     {
-                        Debug.Log("Set action to 0");
+                    //    Debug.Log("Set action to 0");
                         NPCList[NPCIndex].SetCurrentAction(0);
                     }
                    
@@ -411,7 +411,7 @@ public class NPChandler : MonoBehaviour
                 if (HomePos.x != -1) {
                     if(NPCList[NPCIndex].SetRoute(GridCreator.GameMap.WorldToCell(HomePos), GridCreator.GameGrid, GridCreator.GameMap, gridCreator))
                     {
-                        Debug.Log("Set action to 0");
+                        //Debug.Log("Set action to 0");
                         NPCList[NPCIndex].SetCurrentAction(0);
                         //  NPCList[NPCIndex].SetMovementTarget(HomePos);
 
@@ -431,7 +431,7 @@ public class NPChandler : MonoBehaviour
                     {
                         if(NPCList[NPCIndex].SetRoute(GridCreator.GameMap.WorldToCell(HospitalPos), GridCreator.GameGrid, GridCreator.GameMap, gridCreator))
                         {
-                            Debug.Log("Set action to 0");
+                          //  Debug.Log("Set action to 0");
                             NPCList[NPCIndex].SetCurrentAction(0);
                             //   NPCList[NPCIndex].SetMovementTarget(HospitalPos);
 
@@ -454,7 +454,7 @@ public class NPChandler : MonoBehaviour
                     {
                         if(NPCList[NPCIndex].SetRoute(GridCreator.GameMap.WorldToCell(EntertainmentPos), GridCreator.GameGrid, GridCreator.GameMap, gridCreator))
                         {
-                            Debug.Log("Set action to 0");
+                            //Debug.Log("Set action to 0");
                             NPCList[NPCIndex].SetCurrentAction(0);
                             //  NPCList[NPCIndex].SetMovementTarget(EntertainmentPos);
 
@@ -472,7 +472,7 @@ public class NPChandler : MonoBehaviour
                 //Wander
                 if( NPCList[NPCIndex].SetRoute(GridCreator.GameMap.WorldToCell(GetWanderTarget()), GridCreator.GameGrid, GridCreator.GameMap, gridCreator))
                 {
-                    Debug.Log("Set action to 0");
+                  //  Debug.Log("Set action to 0");
                     //  NPCList[NPCIndex].SetMovementTarget(GetWanderTarget());
                     NPCList[NPCIndex].SetCurrentAction(0);
                     // NPCList[NPCIndex].SetCurrentAction(0);
@@ -497,7 +497,7 @@ public class NPChandler : MonoBehaviour
             NPCList[Indexes[i]].RemoveNPCSprite();
             NPCList.RemoveAt(Indexes[i]);
             NumberOfNpcs--;
-            Debug.Log("Npc left");
+          //  Debug.Log("Npc left");
         }
     }
     public void UpdateNPCRoutesAfterRoutesRemoval(List<Route> DeletedRoutes)

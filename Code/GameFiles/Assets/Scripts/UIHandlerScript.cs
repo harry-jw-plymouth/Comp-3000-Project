@@ -43,6 +43,7 @@ public class UIHandlerScript : MonoBehaviour
     public PowerHandlerScript powerHandler;
     public TransportPlacementScript TransportHandler;
     public SoundManagerScript SoundHandler;
+    public ColourBlindCameraController ColourBlindHandler;
 
 
     public GameObject AlertpopUp;
@@ -82,6 +83,7 @@ public class UIHandlerScript : MonoBehaviour
     public TextMeshProUGUI RouteDisplayEndBusStopInfo;
 
     public Slider MusicVolumeSlider;
+    public TMP_Dropdown ColourBlindModeDropdown;
 
 
 
@@ -202,6 +204,12 @@ public class UIHandlerScript : MonoBehaviour
     {
         float Value=MusicVolumeSlider.value;
         SoundHandler.ChangeMusicVolume(Value);
+    }
+    public void OnColourBlindModeDropdownChanged()
+    {
+        Debug.Log("Colour blind mode dropdown changed");
+        int index = ColourBlindModeDropdown.value;
+        ColourBlindHandler.SetMode(index);
     }
 
     public void OnDisplayBusRoutesButtonClicked()

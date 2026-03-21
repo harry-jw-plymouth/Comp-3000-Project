@@ -87,8 +87,8 @@ public class Citzen
     }
     public void GetOffTrain()
     {
-        Debug.Log("Npc moved to target station at "+ TargetStation.GetBuildingPosAsInt());
-        Debug.Log("Start station was:"+CurrentStation.GetBuildingPosAsInt());
+     //   Debug.Log("Npc moved to target station at "+ TargetStation.GetBuildingPosAsInt());
+     //   Debug.Log("Start station was:"+CurrentStation.GetBuildingPosAsInt());
         Position = TargetStation.GetBuildingPos();
         SetCurrentAction(0);
         CurrentStation = null;
@@ -104,7 +104,7 @@ public class Citzen
     }
     public void GetOffBus()
     {
-        Debug.Log("Get off bus called");
+       // Debug.Log("Get off bus called");
 
         //Debug.Log("Npc moved to target stop at " + TargetBusStop);
         //Debug.Log("Start stop was:" + CurrentBusStop);
@@ -303,11 +303,11 @@ public class Citzen
             Vector3Int Temp=GridCreator.GameMap.WorldToCell(RoutePositions[i]);
             if (GridCreator.GameGrid[Temp.x, Temp.y].Contains == 5)
             {
-                Debug.Log(" (Bus stop)Route Pos " + i + ":" + RoutePositions[i]);
+            //    Debug.Log(" (Bus stop)Route Pos " + i + ":" + RoutePositions[i]);
             }
             else
             {
-                Debug.Log(" Route Pos " + i + ":" + RoutePositions[i]);
+              //  Debug.Log(" Route Pos " + i + ":" + RoutePositions[i]);
             }
                 
         }
@@ -400,7 +400,7 @@ public class Citzen
 
             if (Current == Target)
             {
-                Debug.Log("Route set for " + CitzenID);
+             //   Debug.Log("Route set for " + CitzenID);
                 /*
                 RoutePositions = new List<Vector3>();
                 Vector3Int CurrentRoutePos = Current;
@@ -576,7 +576,7 @@ public class Citzen
 
 
         }
-        Debug.Log("Route could not be set for NPC"+ CitzenID);
+      //  Debug.Log("Route could not be set for NPC"+ CitzenID);
         return false;
     }
     public Vector3Int GetCurrentBusStop()
@@ -793,12 +793,12 @@ public class Citzen
                 Vector3Int cell = GridCreator.GameMap.WorldToCell(Position);
                 if (GridCreator.GameGrid[cell.x, cell.y].Contains == 5 &&CurrentBusStop.x != -1 &&TargetBusStop.x != -1)
                 {
-                    Debug.Log("NPC " + CitzenID + " reached bus stop and is now waiting for bus");
+              //      Debug.Log("NPC " + CitzenID + " reached bus stop and is now waiting for bus");
                     SetCurrentAction(7); // waiting for bus
                     return;
                 }
                 //Final target reached
-                Debug.Log("NPC With ID: " + CitzenID + " Finished route at " + RoutePositions[RoutePositions.Count-1]);
+                //Debug.Log("NPC With ID: " + CitzenID + " Finished route at " + RoutePositions[RoutePositions.Count-1]);
                 CurrentBusStop = new Vector3Int(-1, -1, -1);
                 TargetBusStop=new Vector3Int(-1, -1, -1);
                 
@@ -814,23 +814,23 @@ public class Citzen
                     NPCSprite.GetComponent<SpriteRenderer>().enabled = false;
                     if (BuildingCurrentlyTargetting.IsHome)
                     {
-                        Debug.Log("NPC " + CitzenID + " is now home");
+                 //       Debug.Log("NPC " + CitzenID + " is now home");
                         SetCurrentAction(2);
                     }
                     else if (BuildingCurrentlyTargetting.GetIfIsHospital())
                     {
-                        Debug.Log("NPC " + CitzenID + " is now partaling in hospital");
+                    //    Debug.Log("NPC " + CitzenID + " is now partaling in hospital");
                         SetCurrentAction(3);
                     }
                     else if (BuildingCurrentlyTargetting.GetIfEntertainment())
                     {
-                        Debug.Log("NPC " + CitzenID + " is now partaling in entertainment");
+                 //       Debug.Log("NPC " + CitzenID + " is now partaling in entertainment");
                         SetCurrentAction(4);
                     }
                 }
                 else
                 {
-                    Debug.Log("NPC " + CitzenID + " is now selecting a new route");
+             //       Debug.Log("NPC " + CitzenID + " is now selecting a new route");
                     SetCurrentAction(-1);
                 }
 
@@ -842,28 +842,28 @@ public class Citzen
                 int TempCurrentIndex = NexPositionOnRoute;
                 if (TempCurrentIndex == 0)
                 {
-                    Debug.Log("NPC " + CitzenID + "Has reached the next point on their route \n Previous position: N/A \n" +
-                    " position just arrived at: " + RoutePositions[TempCurrentIndex] +
-                    "\n Next position : " + RoutePositions[TempCurrentIndex + 1]);
+          //          Debug.Log("NPC " + CitzenID + "Has reached the next point on their route \n Previous position: N/A \n" +
+         //           " position just arrived at: " + RoutePositions[TempCurrentIndex] +
+          //          "\n Next position : " + RoutePositions[TempCurrentIndex + 1]);
 
-                    Debug.Log("NexPositiom on route for "+ CitzenID+": "+NexPositionOnRoute);
+            //        Debug.Log("NexPositiom on route for "+ CitzenID+": "+NexPositionOnRoute);
 
-                    Debug.Log("Current route for npc " + CitzenID);
+              //      Debug.Log("Current route for npc " + CitzenID);
                     ShowRoute();
                 }
 
                 else if (TempCurrentIndex == RoutePositions.Count - 1)
                 {
 
-                    Debug.Log("NPC " + CitzenID + "Has reached the next point on their route\n Previous position:" + RoutePositions[TempCurrentIndex - 1] + " \n" +
-                    " position just arrived at: " + RoutePositions[TempCurrentIndex] +
-                    "\n Next position : N/A");
+          //          Debug.Log("NPC " + CitzenID + "Has reached the next point on their route\n Previous position:" + RoutePositions[TempCurrentIndex - 1] + " \n" +
+            //        " position just arrived at: " + RoutePositions[TempCurrentIndex] +
+              //      "\n Next position : N/A");
                 }
                 else
                 {
-                    Debug.Log("NPC " + CitzenID + "Has reached the next point on their route\n Previous position:" + RoutePositions[TempCurrentIndex - 1] + " \n" +
-                    " position just arrived at: " + RoutePositions[TempCurrentIndex] +
-                    "\n Next position : " + RoutePositions[TempCurrentIndex + 1]);
+       //             Debug.Log("NPC " + CitzenID + "Has reached the next point on their route\n Previous position:" + RoutePositions[TempCurrentIndex - 1] + " \n" +
+         //           " position just arrived at: " + RoutePositions[TempCurrentIndex] +
+           //         "\n Next position : " + RoutePositions[TempCurrentIndex + 1]);
                 }
 
 

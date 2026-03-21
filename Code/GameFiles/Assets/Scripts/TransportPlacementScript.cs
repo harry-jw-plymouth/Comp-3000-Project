@@ -92,7 +92,7 @@ public class TransportPlacementScript : MonoBehaviour
 
             if(StartStationIndex==-1 || EndStationIndex==-1)
             {
-                Debug.Log("Error loading route, station not found");
+             //   Debug.Log("Error loading route, station not found");
                 continue;
             }
             if (GridCreator.PlacedBuildings[StartStationIndex].GetIfTrainStation()&& GridCreator.PlacedBuildings[EndStationIndex].GetIfTrainStation())
