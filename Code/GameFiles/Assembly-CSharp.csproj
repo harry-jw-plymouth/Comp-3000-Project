@@ -72,6 +72,7 @@
     <Compile Include="Assets\Scripts\BuildingsListManager.cs" />
     <Compile Include="Assets\Scripts\DbModels\SaveMapModel.cs" />
     <Compile Include="Assets\Scripts\Classes\Home.cs" />
+    <Compile Include="Assets\Colorblind Effect\Assets\Scripts\Colorblind.cs" />
     <Compile Include="Assets\Scripts\MainMeniScripts\MainMenu.cs" />
     <Compile Include="Assets\Scripts\DBManagerScript.cs" />
     <Compile Include="Assets\Scripts\RoadManager.cs" />
@@ -102,6 +103,8 @@
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Overlay.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile-2-Pass.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap.shader" />
+    <None Include="Assets\Colorblind Effect\Documentation\ReadMe.txt" />
+    <None Include="Assets\Colorblind Effect\Assets\Shaders\Colorblind.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMPro_Mobile.cginc" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF SSD.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Surface-Mobile.shader" />
