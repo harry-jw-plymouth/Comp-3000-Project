@@ -323,8 +323,8 @@ Canvas:
   m_GameObject: {fileID: 157335950}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 0
-  m_Camera: {fileID: 0}
+  m_RenderMode: 1
+  m_Camera: {fileID: 1631329171}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
@@ -3848,8 +3848,8 @@ Canvas:
   m_GameObject: {fileID: 1397200810}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 0
-  m_Camera: {fileID: 0}
+  m_RenderMode: 1
+  m_Camera: {fileID: 1631329171}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
@@ -4571,6 +4571,7 @@ GameObject:
   - component: {fileID: 1631329172}
   - component: {fileID: 1631329171}
   - component: {fileID: 1631329170}
+  - component: {fileID: 1631329173}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -4652,6 +4653,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1631329173
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1631329169}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 73f8093a32a48aa49bcbdc7f5f9b5f24, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ColourBlindCameraController
+  material: {fileID: 2100000, guid: 53129ff27539b08489011e8fa44db139, type: 2}
+  mode: 0
 --- !u!1 &1637208373
 GameObject:
   m_ObjectHideFlags: 0
