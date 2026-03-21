@@ -14,6 +14,7 @@ public class SoundManagerScript : MonoBehaviour
     public void ChangeMusicVolume(float newVolume)
     {
         MusicVolume = newVolume;
+        UpdateVolume();
 
     } 
     public void UpdateVolume()

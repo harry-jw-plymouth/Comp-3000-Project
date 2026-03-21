@@ -42,6 +42,7 @@ public class UIHandlerScript : MonoBehaviour
     public GameStatusScript gameHandler;
     public PowerHandlerScript powerHandler;
     public TransportPlacementScript TransportHandler;
+    public SoundManagerScript SoundHandler;
 
 
     public GameObject AlertpopUp;
@@ -79,6 +80,8 @@ public class UIHandlerScript : MonoBehaviour
 
     public TextMeshProUGUI RouteDisplayStartingBusStopInfo;
     public TextMeshProUGUI RouteDisplayEndBusStopInfo;
+
+    public Slider MusicVolumeSlider;
 
 
 
@@ -195,6 +198,12 @@ public class UIHandlerScript : MonoBehaviour
             }
         }
     }
+    public void OnMusicVolumeSliderAdjusted()
+    {
+        float Value=MusicVolumeSlider.value;
+        SoundHandler.ChangeMusicVolume(Value);
+    }
+
     public void OnDisplayBusRoutesButtonClicked()
     {
         BusRouteDisplayIndex = -1;

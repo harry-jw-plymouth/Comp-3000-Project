@@ -3676,7 +3676,7 @@ RectTransform:
   m_Father: {fileID: 447814952}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 10, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -10767,7 +10767,7 @@ RectTransform:
   m_Father: {fileID: 1944513096}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -12718,7 +12718,7 @@ RectTransform:
   m_Father: {fileID: 101602597}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -14886,7 +14886,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1270578025
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17576,7 +17576,7 @@ RectTransform:
   m_Father: {fileID: 1271105852}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 10, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -18483,7 +18483,19 @@ MonoBehaviour:
   m_Value: 0
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1831244042}
+        m_TargetAssemblyTypeName: UIHandlerScript, Assembly-CSharp
+        m_MethodName: OnMusicVolumeSliderAdjusted
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1573506431
 GameObject:
   m_ObjectHideFlags: 0
@@ -21353,6 +21365,7 @@ MonoBehaviour:
   gameHandler: {fileID: 1453347093}
   powerHandler: {fileID: 1586839704}
   TransportHandler: {fileID: 1113947654}
+  SoundHandler: {fileID: 1578450399}
   AlertpopUp: {fileID: 416345905}
   AlertText: {fileID: 453934387}
   TradeMenuActive: 0
@@ -21377,6 +21390,7 @@ MonoBehaviour:
   EndBusStopInfo: {fileID: 1933560509}
   RouteDisplayStartingBusStopInfo: {fileID: 1912252501}
   RouteDisplayEndBusStopInfo: {fileID: 1303176409}
+  MusicVolumeSlider: {fileID: 1572694441}
   RailCanvas: {fileID: 477983842}
   RailDisplayCanvas: {fileID: 1011104272}
   RouteSetCanvas: {fileID: 398500211}
