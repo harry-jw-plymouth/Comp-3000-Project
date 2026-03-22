@@ -229,7 +229,8 @@ public class Citzen
         List<Vector3Int> Positions = new List<Vector3Int>();
 
         if (GetIfInBounds(CurrentPos.x+1,CurrentPos.y)&&
-            GridCreator.GameGrid[CurrentPos.x + 1, CurrentPos.y].Contains != 4 && GridCreator.GameGrid[CurrentPos.x + 1, CurrentPos.y].Contains != 2)
+            GridCreator.GameGrid[CurrentPos.x + 1, CurrentPos.y].Contains != 4 &&
+            GridCreator.GameGrid[CurrentPos.x + 1, CurrentPos.y].Contains != 2)
         {
             Positions.Add(new Vector3Int(CurrentPos.x + 1, CurrentPos.y, 0));
         }
@@ -325,12 +326,25 @@ public class Citzen
         HashSet<Vector3Int> AlreadyVisited = new HashSet<Vector3Int>();
 
         Dictionary<Vector3Int, Vector3Int> CameFrom = new Dictionary<Vector3Int, Vector3Int>();
+
+        Vector3Int StartPos = GameMap.WorldToCell(Position);
+        if (GetIfInBounds(StartPos.x, StartPos.y))
+        {
+            ToCheck.Enqueue(StartPos);
+            AlreadyVisited.Add(StartPos);
+            CameFrom[StartPos] = StartPos;
+        }
+
         List<Vector3Int> TilesAroundStart = GetSurroundingTiles(GameMap.WorldToCell(Position));
         for (int i = 0; i < TilesAroundStart.Count; i++)
         {
-            ToCheck.Enqueue(TilesAroundStart[i]);
-            AlreadyVisited.Add(TilesAroundStart[i]);
-            CameFrom[TilesAroundStart[i]] = TilesAroundStart[i];
+            if (!AlreadyVisited.Contains(TilesAroundStart[i]))
+            {
+                ToCheck.Enqueue(TilesAroundStart[i]);
+                AlreadyVisited.Add(TilesAroundStart[i]);
+                CameFrom[TilesAroundStart[i]] = StartPos;
+            }
+                
         }
 
         while (ToCheck.Count > 0)

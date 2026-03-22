@@ -1485,6 +1485,13 @@ public class GridCreator : MonoBehaviour
                             NumberOfBusStops++;
 
                         }
+                        if (GameGrid[x, y].Contains == 6)
+                        {
+                            //place greenery
+                            GameMap.SetTile(CurrentPosition, GreeneryTile);
+                            NumberOfGreenery++;
+                            GreeneryPositions.Add(CurrentPosition);
+                        }
 
 
                     }
