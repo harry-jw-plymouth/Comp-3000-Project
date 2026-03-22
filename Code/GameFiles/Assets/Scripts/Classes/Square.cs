@@ -3,7 +3,13 @@ using UnityEngine;
 public class Square
 {
     public int Contains;
-    // 0 is grass, 1 is road, 2 is building 3 is water, 4 is train track, 5 is bus stop tile
+    // 0 is grass
+    // 1 is road
+    // 2 is building
+    // 3 is water
+    // 4 is train track
+    // 5 is bus stop tile
+    // 6 is Greenery
     // more to be added later
 
 

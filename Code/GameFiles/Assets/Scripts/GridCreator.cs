@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Unity.Mathematics.Geometry;
 using Unity.VisualScripting;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.Rendering;
@@ -37,6 +38,7 @@ public class GridCreator : MonoBehaviour
     public RuleTile GameTile;
     public RuleTile RoadTile;
     public RuleTile BusStopTile;
+    public RuleTile GreeneryTile;
 
     public RuleTile SmallHouseTile;
     public RuleTile MediumHouseTile;
@@ -65,6 +67,10 @@ public class GridCreator : MonoBehaviour
 
     public static List<Vector3> RoadPositions=new List<Vector3>();
     public List<GameObject> PowerIcons=new List<GameObject>();
+
+    public static List<Vector3Int> GreeneryPositions=new List<Vector3Int>();
+    public static int NumberOfGreenery = 0;
+
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -832,10 +838,21 @@ public class GridCreator : MonoBehaviour
             {
                 if (GameGrid[CellClickedPos.x, CellClickedPos.y].Contains == 0)
                 {
-                    GameGrid[CellClickedPos.x, CellClickedPos.y].Contains = 1;
-                    GameMap.SetTile(CellClickedPos, RoadTile);
-                    NumberOfRoads++;
-                    RoadPositions.Add(CellClickedPos);
+                    if (UIHandlerScript.GreeneryEditorOn)
+                    {
+                        GameGrid[CellClickedPos.x, CellClickedPos.y].Contains = 6;
+                        GameMap.SetTile(CellClickedPos, GreeneryTile);
+                        NumberOfGreenery++;
+                        GreeneryPositions.Add(CellClickedPos);
+
+                    }
+                    else
+                    {
+                        GameGrid[CellClickedPos.x, CellClickedPos.y].Contains = 1;
+                        GameMap.SetTile(CellClickedPos, RoadTile);
+                        NumberOfRoads++;
+                        RoadPositions.Add(CellClickedPos);
+                    }                
                 }
                 else if (GameGrid[CellClickedPos.x, CellClickedPos.y].Contains == 4)
                 {
@@ -901,8 +918,21 @@ public class GridCreator : MonoBehaviour
                             RoadPositions.Remove(CellClickedPos);
                         }
                     }
+                    else if(GameGrid[CellClickedPos.x, CellClickedPos.y].Contains == 6)
+                    {
+                        if (UIHandlerScript.GreeneryEditorOn)
+                        {
+                            NumberOfGreenery--;
+                            GameGrid[CellClickedPos.x, CellClickedPos.y].Contains = 0;
+                            GameMap.SetTile(CellClickedPos, GameTile);
+                            GreeneryPositions.Remove(CellClickedPos);
+                        }
+                        
+                    }
                     else
                     {
+
+
                         GameGrid[CellClickedPos.x, CellClickedPos.y].Contains = 0;
                         GameMap.SetTile(CellClickedPos, GameTile);
                         RoadPositions.Remove(CellClickedPos);

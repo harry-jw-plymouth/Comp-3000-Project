@@ -50,6 +50,7 @@ public class UIHandlerScript : MonoBehaviour
     public TextMeshProUGUI AlertText;
     
     public static bool TileEditorOn;
+    public static bool GreeneryEditorOn;
     public static bool BusStopEditorOn;
     public static bool TransportPlacementOn=false;
     public static bool BuildingRemoverOn = false;
@@ -796,8 +797,30 @@ public class UIHandlerScript : MonoBehaviour
     {
         UpdatesButton.SetActive(true);
         Debug.Log(" report section clicked");
+        
         ReportDisplay.SetActive(false);
     }
+    public void OnGreeneryButtonClicked()
+    {
+        BusStopEditorOn = false;
+        Debug.Log("Road button clicked");
+        SetUIInactive();
+        if (TileEditorOn)
+        {
+            TileEditorOn = false;
+            GreeneryEditorOn = false;
+        }
+        else
+        {
+            TilePlaceCanvas.SetActive(true);
+            TilePlaceCanvasActive = true;
+            CloseBusCanvas();
+            CloseTransportPopup();
+            TileEditorOn = true;
+            GreeneryEditorOn = true;
+        }
+    }
+
     public void OnRoadButtonClicked()
     {
         BusStopEditorOn = false;
@@ -814,8 +837,10 @@ public class UIHandlerScript : MonoBehaviour
             CloseBusCanvas();
             CloseTransportPopup();
             TileEditorOn= true;
+            GreeneryEditorOn = false;
         }
     }
+
     public void OnTransportButtonClicked()
     {
         Debug.Log("Transport button clicked");
