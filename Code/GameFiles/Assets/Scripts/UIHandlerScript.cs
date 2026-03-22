@@ -86,6 +86,9 @@ public class UIHandlerScript : MonoBehaviour
     public Slider MusicVolumeSlider;
     public TMP_Dropdown ColourBlindModeDropdown;
 
+    public GameObject TilePlaceCanvas;
+    public bool TilePlaceCanvasActive = false; 
+
 
 
 
@@ -133,6 +136,29 @@ public class UIHandlerScript : MonoBehaviour
     void Update()
     {
         
+    }
+    public void CloseTilePlaceCanvas()
+    {
+        TilePlaceCanvasActive = false;
+        TilePlaceCanvas.SetActive(false);
+        TileEditorOn = false;
+    }
+    public void OnLayoutButtonClick()
+    {
+        SetUIInactive();
+        if (TilePlaceCanvasActive)
+        {
+            CloseTilePlaceCanvas();
+        }
+        else
+        {
+            TilePlaceCanvasActive = true;
+            TilePlaceCanvas.SetActive(true);
+            BuildingInfoBox.SetActive(false);
+            BuildingInfoShowing = false;
+            CloseTransportPopup();
+            CloseBusCanvas();
+        }
     }
     public void DisplayRoutes(List<Route> RoutesToDisplay)
     {
@@ -730,6 +756,8 @@ public class UIHandlerScript : MonoBehaviour
         TransportPlacementOn = false;
         BuildingRemoverOn=false;
 
+        CloseTilePlaceCanvas();
+
     }
     public void OnRatingClicked()
     {
@@ -781,6 +809,7 @@ public class UIHandlerScript : MonoBehaviour
         }
         else
         {
+            CloseTilePlaceCanvas();
             CloseBusCanvas();
             TransportPlacementOn = true;
             TransportBuilderPopUp.SetActive(true);

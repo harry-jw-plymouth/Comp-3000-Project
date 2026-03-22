@@ -8813,7 +8813,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1831244042}
         m_TargetAssemblyTypeName: UIHandlerScript, Assembly-CSharp
-        m_MethodName: OnTransportButtonClicked
+        m_MethodName: OnLayoutButtonClick
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -23607,6 +23607,8 @@ MonoBehaviour:
   RouteDisplayEndBusStopInfo: {fileID: 1303176409}
   MusicVolumeSlider: {fileID: 1572694441}
   ColourBlindModeDropdown: {fileID: 1804343007}
+  TilePlaceCanvas: {fileID: 391461860}
+  TilePlaceCanvasActive: 0
   RailCanvas: {fileID: 477983842}
   RailDisplayCanvas: {fileID: 1011104272}
   RouteSetCanvas: {fileID: 398500211}
