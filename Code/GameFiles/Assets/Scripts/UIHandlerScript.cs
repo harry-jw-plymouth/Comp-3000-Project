@@ -143,22 +143,39 @@ public class UIHandlerScript : MonoBehaviour
         TilePlaceCanvas.SetActive(false);
         TileEditorOn = false;
     }
+    public void OnCancelPlacementButtonClicked()
+    {
+        TileEditorOn= false;
+    }
     public void OnLayoutButtonClick()
     {
-        SetUIInactive();
+        
         if (TilePlaceCanvasActive)
         {
             CloseTilePlaceCanvas();
         }
         else
         {
+            //SetUIInactive();
             TilePlaceCanvasActive = true;
             TilePlaceCanvas.SetActive(true);
+
             BuildingInfoBox.SetActive(false);
             BuildingInfoShowing = false;
+            BuildingsMenuPopUp.SetActive(false);
+            TransportBuilderPopUp.SetActive(false);
+            BuildingsListManager.BuildingCurrentlySelected = -1;
+            BuildingRemoveButton.SetActive(false);
+
+            TileEditorOn = false;
+            TransportPlacementOn = false;
+            BuildingRemoverOn = false;
+
             CloseTransportPopup();
             CloseBusCanvas();
+            
         }
+
     }
     public void DisplayRoutes(List<Route> RoutesToDisplay)
     {
@@ -792,6 +809,8 @@ public class UIHandlerScript : MonoBehaviour
         }
         else
         {
+            TilePlaceCanvas.SetActive(true);
+            TilePlaceCanvasActive = true;
             CloseBusCanvas();
             CloseTransportPopup();
             TileEditorOn= true;
