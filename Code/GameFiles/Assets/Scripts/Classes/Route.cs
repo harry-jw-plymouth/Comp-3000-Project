@@ -100,10 +100,15 @@ public class Route
 
     public void DestroyRoute()
     {
-        Object.Destroy(SpriteForTrains);
-        for (int i = 0; i < TrainsOnRoute.Count; i++) {
-            TrainsOnRoute[i].DestroySprite();
+        if (Application.isPlaying)
+        {
+            for (int i = 0; i < TrainsOnRoute.Count; i++)
+            {
+                Object.Destroy(TrainsOnRoute[i].CreatedSprite);
+            }
+            TrainsOnRoute.Clear();
         }
+
     }
     /*
     public void ReactivateTrains(NPChandler NpcHandler)

@@ -36,14 +36,14 @@ public class BusRoute
     }
     public void DestroyRoute()
     {
-        Object.Destroy(FrontSprite);
-        Object.Destroy(LeftSprite);
-        Object.Destroy(RightSprite);
-        Object.Destroy(BackSprite);
-        for (int i = 0; i < BusesOnRoute.Count; i++)
+        if (Application.isPlaying)
         {
-            BusesOnRoute[i].DestroySprite();
-        }
+            for (int i = 0; i < BusesOnRoute.Count; i++)
+            {
+                BusesOnRoute[i].DestroySprite();
+            }
+            BusesOnRoute.Clear();
+        }     
     }
     public void SetSpritesForBusOnRoute(GameObject Front, GameObject Left,GameObject Right,GameObject Back)
     {

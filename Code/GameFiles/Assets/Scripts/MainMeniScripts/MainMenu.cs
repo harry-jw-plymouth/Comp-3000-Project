@@ -220,5 +220,37 @@ public class MainMenu : MonoBehaviour
         SaveObjectButton1.SetActive(false);
     }
 
-
+    public void ClearTrainRoutes()
+    {
+        if (TransportPlacementScript.TrainRoutes != null)
+        {
+            for (int i =0;i<TransportPlacementScript.TrainRoutes.Count; i++)
+            {
+                if (TransportPlacementScript.TrainRoutes[i] != null)
+                {
+                    TransportPlacementScript.TrainRoutes[i].DestroyRoute();
+                }
+            }
+            TransportPlacementScript.TrainRoutes.Clear();
+        }
+    }
+    public void ClearBusRoutes()
+    {
+        if (TransportPlacementScript.BusRoutes != null)
+        {
+            for (int i = 0; i < TransportPlacementScript.BusRoutes.Count; i++)
+            {
+                if (TransportPlacementScript.BusRoutes[i] != null)
+                {
+                    TransportPlacementScript.BusRoutes[i].DestroyRoute();
+                }
+            }
+            TransportPlacementScript.BusRoutes.Clear();
+        }
+    }
+    public void CleanupBeforeOpeningSave()
+    {
+        ClearTrainRoutes();
+        ClearBusRoutes();
+    }
 }

@@ -695,5 +695,38 @@ public class TransportPlacementScript : MonoBehaviour
         
       //  CheckForMouseClick();
     }
+    public void ClearTrainRoutes()
+    {
+        if (TrainRoutes != null)
+        {
+            for (int i = 0; i < TrainRoutes.Count; i++)
+            {
+                if (TrainRoutes[i] != null)
+                {
+                    TrainRoutes[i].DestroyRoute();
+                }
+            }
+            TrainRoutes.Clear();
+        }
+    }
+    public void ClearBusRoutes()
+    {
+        if (BusRoutes != null)
+        {
+            for (int i = 0; i < BusRoutes.Count; i++)
+            {
+                if (BusRoutes[i] != null)
+                {
+                    BusRoutes[i].DestroyRoute();
+                }
+            }
+            BusRoutes.Clear();
+        }
+    }
+    private void OnDestroy()
+    {
+        ClearTrainRoutes();
+        ClearBusRoutes();
+    }
 
 }
