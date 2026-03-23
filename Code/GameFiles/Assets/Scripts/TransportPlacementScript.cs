@@ -439,8 +439,9 @@ public class TransportPlacementScript : MonoBehaviour
         {
             if (!TrainRoutes[i].GetIfActivated())
             {
-                
-                GameObject NewSprite = Instantiate(RedModernTrainFront, TrainRoutes[i].GetCurrentRoute()[0],Quaternion.identity);
+
+                //  GameObject NewSprite = Instantiate(RedModernTrainFront, TrainRoutes[i].GetCurrentRoute()[0],Quaternion.identity);
+                GameObject NewSprite = RedModernTrainFront;
                 TrainRoutes[i].SetSpriteForTrainOnRoute(NewSprite);
                 TrainRoutes[i].Activate();
                 NewSprite.GetComponent<SpriteRenderer>().enabled = true;
