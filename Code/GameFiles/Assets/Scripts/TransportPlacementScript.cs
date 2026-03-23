@@ -16,6 +16,7 @@ public class TransportPlacementScript : MonoBehaviour
     public static  RuleTile TrackTile;
     public GridCreator GridHandler;
     public UIHandlerScript uiHandler;
+    public GameStatusScript GameHandler;
 
     public NPChandler NPChandler;
     [SerializeField] private RuleTile TrackTileReference;
@@ -572,17 +573,21 @@ public class TransportPlacementScript : MonoBehaviour
     }
     void CheckForReactivation()
     {
+        int TotalCost = 0;
         for (int i = 0; i < TrainRoutes.Count; i++)
         {
-            TrainRoutes[i].ReactivateTrains(NPChandler);
+            TotalCost+= TrainRoutes[i].ReactivateTrains(NPChandler);
         }
+        GameHandler.AdjustMoney(-TotalCost);
     }
     void CheckForBusReactivation()
     {
+        int TotalCost= 0;
         for (int i = 0; i < BusRoutes.Count; i++)
         {
-            BusRoutes[i].ReactivateBusesOnRoute(NPChandler);
+            TotalCost+=BusRoutes[i].ReactivateBusesOnRoute(NPChandler);
         }
+        GameHandler.AdjustMoney(-TotalCost);
     }
     public void CheckForcancelledTrains()
     {

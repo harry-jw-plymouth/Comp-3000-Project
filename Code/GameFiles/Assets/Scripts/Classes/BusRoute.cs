@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Diagnostics.Contracts;
 using UnityEngine;
 
 public class BusRoute
@@ -17,11 +18,23 @@ public class BusRoute
     public bool IsCancelled = false;
     public bool Ended= false;
 
+    public int CostToRun = 100;
+    public int FareCost= 10;
+
 
     public BusRoute(Vector3Int Start, Vector3Int End)
     {
         StartStop = Start; EndStop = End;
     }
+    public int GetCostToRun()
+    {
+        return CostToRun;
+    }
+    public int GetFareCost()
+    {
+        return FareCost;
+    }
+
     public bool GetIfEnded()
     {
         return Ended;
@@ -95,8 +108,9 @@ public class BusRoute
         }
         return Positions;
     }
-    public void ReactivateBusesOnRoute(NPChandler NpcHandler)
+    public int ReactivateBusesOnRoute(NPChandler NpcHandler)
     {
+        int ReactivateCost= 0;
         for (int i = 0; i < BusesOnRoute.Count; i++)
         {
             if (!BusesOnRoute[i].GetIfCurrentlyMoving())
@@ -109,6 +123,7 @@ public class BusRoute
                 {
                     if (BusesOnRoute[i].GetIfBusCanBeReactivated())
                     {
+                        ReactivateCost += CostToRun; ;
                         Bus CurrentBus = BusesOnRoute[i];
                         List<int> IDs = new List<int>();
 
@@ -122,6 +137,7 @@ public class BusRoute
                         {
                             IDs = NpcHandler.GetNPCsIdWaitingForBus(EndStop, StartStop);
                         }
+                        ReactivateCost -=FareCost * IDs.Count;
                         BusesOnRoute[i].SetIDsOnBus(IDs);
                         BusesOnRoute[i].SetIsCurrentlyMoving(true);
                         BusesOnRoute[i].ResetReactivateCount();
@@ -135,6 +151,7 @@ public class BusRoute
                
             }
         }
+        return ReactivateCost;
     }
     public void DoMovement(NPChandler NpcHandler)
     {

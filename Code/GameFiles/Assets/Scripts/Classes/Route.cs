@@ -13,12 +13,22 @@ public class Route
     List<Train> TrainsOnRoute = new List<Train>();
     GameObject SpriteForTrains;
 
+    public int CostToRun = 150;
+    public int FareCost = 20;
 
     public bool IsCancelled = false;
     public bool Ended = false;
     public Route(PlacedBuilding Start,PlacedBuilding End)
     {
         StartStation= Start;EndStation= End;
+    }
+    public int GetCostToRun()
+    {
+        return CostToRun;
+    }
+    public int GetFareCost()
+    {
+        return FareCost;
     }
     public bool GetIfEnded()
     {
@@ -138,8 +148,9 @@ public class Route
         }
     }
     */
-    public void ReactivateTrains(NPChandler NpcHandler)
+    public int ReactivateTrains(NPChandler NpcHandler)
     {
+        int totalReactivateCost = 0;
 
         for (int i = 0; i < TrainsOnRoute.Count; i++)
         {
@@ -153,6 +164,7 @@ public class Route
                 {
                     if (TrainsOnRoute[i].GetIfTrainCanBeReactivated())
                     {
+                        totalReactivateCost += CostToRun;
                         if (IsCancelled)
                         {
 
@@ -173,6 +185,7 @@ public class Route
                         {
                             IDs = NpcHandler.GetNPCsIdWaitingForTrain(EndStation, StartStation);
                         }
+                        totalReactivateCost-= IDs.Count * FareCost;
                         TrainsOnRoute[i].SetIDsOnTrain(IDs);
                         TrainsOnRoute[i].SetIsCurrentlyMoving(true);
                         TrainsOnRoute[i].ResetReactivateCount();
@@ -187,6 +200,7 @@ public class Route
                 
             }
         }
+        return totalReactivateCost;
     }
     public void DoMovement(NPChandler NpcHandler)
     {
