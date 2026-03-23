@@ -1493,17 +1493,21 @@ public class GridCreator : MonoBehaviour
                 HeightMap[x, y] = Mathf.PerlinNoise(x * 0.03f, y * 0.03f);
             }
         }
-        List<Vector3Int> RiverStartPositions = GetRiverStartPositions(3, 6, MinimumHeight, HeightMap);
+        List<Vector3Int> RiverStartPositions = GetRiverStartPositions(5, 8, MinimumHeight, HeightMap);
         List<Vector3Int> RiverPositions = new List<Vector3Int>();
 
+        List<List<Vector3Int>> Rivers = new List<List<Vector3Int>>();
         for (int i = 0; i < RiverStartPositions.Count;i++)
         {
+            List<Vector3Int> CurrentRiver = new List<Vector3Int>();
+           // Rivers[i]=new List<Vector3Int>();
+
             Vector3Int CurrentPos=RiverStartPositions[i];
             int RiverLength = 0;
             bool BasinFound= false;
             while (!BasinFound)
             {
-                RiverPositions.Add(CurrentPos);
+                CurrentRiver.Add(CurrentPos);
                 Vector3Int Next=GetLowestNeigbour(CurrentPos.x, CurrentPos.y,HeightMap);
                 if(Next==CurrentPos)
                 {
@@ -1514,11 +1518,86 @@ public class GridCreator : MonoBehaviour
                     CurrentPos = Next;
                 }
             }
+            Rivers.Add(CurrentRiver);
         }
-        for (int i = 0; i < RiverPositions.Count; i++)
+        for (int i = 0; i < Rivers.Count; i++)
         {
-            GameGrid[RiverPositions[i].x, RiverPositions[i].y].Contains = 3;
-            GameMap.SetTile(RiverPositions[i], WaterTile);
+            int Width = UnityEngine.Random.Range(1, 4);
+
+            for (int Pos=0; Pos < Rivers[i].Count; Pos++)
+            {
+                Vector3Int CurrentPos = new Vector3Int(Rivers[i][Pos].x, Rivers[i][Pos].y, 0);
+                if (Width == 1)
+                {
+                    GameGrid[CurrentPos.x,CurrentPos.y].Contains = 3;
+                    GameMap.SetTile(CurrentPos, WaterTile);
+                }
+                else if (Width == 2)
+                {
+                    GameGrid[CurrentPos.x, CurrentPos.y].Contains = 3;
+                    GameMap.SetTile(CurrentPos, WaterTile);
+                    int XPlace= UnityEngine.Random.Range(0, 2);
+                    if (XPlace == 0)
+                    {
+                        if (GetIfInBounds(CurrentPos.x + 1, CurrentPos.y))
+                        {
+                            GameGrid[CurrentPos.x + 1, CurrentPos.y].Contains = 3;
+                            GameMap.SetTile(new Vector3Int(CurrentPos.x + 1, CurrentPos.y, 0), WaterTile);
+                        }
+                            
+                    }
+                    else
+                    {
+                        if(GetIfInBounds(CurrentPos.x-1, CurrentPos.y))
+                        {
+                            GameGrid[CurrentPos.x - 1, CurrentPos.y].Contains = 3;
+                            GameMap.SetTile(new Vector3Int(CurrentPos.x - 1, CurrentPos.y, 0), WaterTile);
+                        }
+                            
+                    }
+
+                    int YPlace = UnityEngine.Random.Range(0, 2);
+                    if (YPlace == 0)
+                    {
+                        if(GetIfInBounds(CurrentPos.x, CurrentPos.y + 1))
+                        {
+                            GameGrid[CurrentPos.x, CurrentPos.y + 1].Contains = 3;
+                            GameMap.SetTile(new Vector3Int(CurrentPos.x, CurrentPos.y + 1, 0), WaterTile);
+                        }
+                            
+                    }
+                    else
+                    {
+                        if(GetIfInBounds(CurrentPos.x, CurrentPos.y - 1))
+                        {
+                            GameGrid[CurrentPos.x, CurrentPos.y - 1].Contains = 3;
+                            GameMap.SetTile(new Vector3Int(CurrentPos.x, CurrentPos.y, -1), WaterTile);
+                        }
+                            
+                    }
+                }
+                else
+                {
+                    for (int XOffset = -1; XOffset <= 1; XOffset++)
+                    {
+                        for (int YOffset = -1; YOffset <= 1; YOffset++)
+                        {
+                            if(GetIfInBounds(CurrentPos.x + XOffset, CurrentPos.y + YOffset))
+                            {
+                                GameGrid[CurrentPos.x + XOffset, CurrentPos.y + YOffset].Contains = 3;
+                                GameMap.SetTile(new Vector3Int(CurrentPos.x + XOffset, CurrentPos.y + YOffset, 0), WaterTile);
+                            }
+
+                            
+                        }
+                    }
+                }
+
+                    
+            }
+            
+            
+            
         }
 
 
