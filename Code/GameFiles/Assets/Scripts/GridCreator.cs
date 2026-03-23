@@ -1420,6 +1420,108 @@ public class GridCreator : MonoBehaviour
     {
         return XPos >= 0 && XPos < GridCreator.WIDTH && YPos >= 0 && YPos < GridCreator.HEIGHT;
     }
+    Vector3Int GetLowestNeigbour(int x, int y, float[,]HeightMap)
+    {
+        Vector3Int LowestNeighbour= new Vector3Int(x, y, 0);
+        float CurrentLowestHeight=HeightMap[x, y];
+
+        for (int xOffset= -1; xOffset < 2; xOffset++)
+        {
+            for (int yOffset = -1; yOffset < 2; yOffset++)
+            {
+                int NewX= x + xOffset;
+                int NewY= y + yOffset;
+                if(GetIfInBounds(NewX, NewY))
+                {
+                    if (HeightMap[NewX, NewY] < CurrentLowestHeight)
+                    {
+                        CurrentLowestHeight = HeightMap[NewX, NewY];
+                        LowestNeighbour = new Vector3Int(NewX, NewY, 0);
+                    }
+                }
+            }
+        }
+
+        return LowestNeighbour;
+    }
+    public List<Vector3Int> GetRiverStartPositions(int Min, int Max, float MinimumHeight, float[,]HeightMap)
+    {
+        int NumberOfRivers = UnityEngine.Random.Range(Min, Max);
+        List<Vector3Int> StartPositions = new List<Vector3Int>();
+        for (int i = 0; i < NumberOfRivers; i++)
+        {
+            int x = UnityEngine.Random.Range(0, WIDTH);
+            int y = UnityEngine.Random.Range(0, HEIGHT);
+            if (HeightMap[x, y] > MinimumHeight)
+            {
+                if (GameGrid[x, y].Contains == 0)
+                {
+                    StartPositions.Add(new Vector3Int(x, y, 0));
+                }
+
+            }
+            else
+            {
+                while (HeightMap[x, y] <= MinimumHeight && GameGrid[x, y].Contains == 0)
+                {
+                    x = UnityEngine.Random.Range(0, WIDTH);
+                    y = UnityEngine.Random.Range(0, HEIGHT);
+                    if (HeightMap[x, y] > MinimumHeight)
+                    {
+                        if (GameGrid[x, y].Contains == 0)
+                        {
+                            StartPositions.Add(new Vector3Int(x, y, 0));
+                        }
+
+                    }
+                }
+            }
+        }
+        return StartPositions;
+    }
+    void GenerateRivers()
+    {
+        float[,] HeightMap=new float[WIDTH, HEIGHT];
+
+        float MinimumHeight = 0.8f; 
+        
+        for (int x= 0; x < WIDTH; x++)
+        {
+            for (int y = 0; y < HEIGHT; y++)
+            {
+                HeightMap[x, y] = Mathf.PerlinNoise(x * 0.1f, y * 0.1f);
+            }
+        }
+        List<Vector3Int> RiverStartPositions = GetRiverStartPositions(3, 6, MinimumHeight, HeightMap);
+        List<Vector3Int> RiverPositions = new List<Vector3Int>();
+
+        for (int i = 0; i < RiverStartPositions.Count;i++)
+        {
+            Vector3Int CurrentPos=RiverStartPositions[i];
+            bool BasinFound= false;
+            while (!BasinFound)
+            {
+                RiverPositions.Add(CurrentPos);
+                Vector3Int Next=GetLowestNeigbour(CurrentPos.x, CurrentPos.y,HeightMap);
+                if(Next==CurrentPos)
+                {
+                    BasinFound = true;
+                }
+                else
+                {
+                    CurrentPos = Next;
+                }
+            }
+        }
+        for (int i = 0; i < RiverPositions.Count; i++)
+        {
+            GameGrid[RiverPositions[i].x, RiverPositions[i].y].Contains = 3;
+            GameMap.SetTile(RiverPositions[i], WaterTile);
+        }
+
+
+    }
+    
     void ScatterGreenery()
     {
         for (int i = 0; i < 200; i++)
@@ -1513,6 +1615,7 @@ public class GridCreator : MonoBehaviour
 
                     }
                 }
+                GenerateRivers();
                 ScatterGreenery();
                 DBManager.AddNewMapToDB(MainMenu.GetCurrentSaveID(), WIDTH, HEIGHT, GameGrid);
                 CreateStartingArea();

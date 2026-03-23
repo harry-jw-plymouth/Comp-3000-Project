@@ -3,19 +3,23 @@
   "WorkspaceRootPath": "C:\\Uni stuff\\Year 3\\Comp 3000\\Comp-3000-Project\\Code\\GameFiles\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{5535B127-6443-C756-7444-11C2CBE43265}|Assembly-CSharp.csproj|C:\\Uni stuff\\Year 3\\Comp 3000\\Comp-3000-Project\\Code\\GameFiles\\assets\\scripts\\gridcreator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{5535B127-6443-C756-7444-11C2CBE43265}|Assembly-CSharp.csproj|c:\\uni stuff\\year 3\\comp 3000\\comp-3000-project\\code\\gamefiles\\assets\\scripts\\gridcreator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{5535B127-6443-C756-7444-11C2CBE43265}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\gridcreator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{5535B127-6443-C756-7444-11C2CBE43265}|Assembly-CSharp.csproj|C:\\Uni stuff\\Year 3\\Comp 3000\\Comp-3000-Project\\Code\\GameFiles\\assets\\scripts\\classes\\citzen.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5535B127-6443-C756-7444-11C2CBE43265}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\classes\\citzen.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{5535B127-6443-C756-7444-11C2CBE43265}|Assembly-CSharp.csproj|C:\\Uni stuff\\Year 3\\Comp 3000\\Comp-3000-Project\\Code\\GameFiles\\assets\\scripts\\classes\\square.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5535B127-6443-C756-7444-11C2CBE43265}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\classes\\square.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{5535B127-6443-C756-7444-11C2CBE43265}|Assembly-CSharp.csproj|c:\\uni stuff\\year 3\\comp 3000\\comp-3000-project\\code\\gamefiles\\assets\\scripts\\transportplacementscript.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{5535B127-6443-C756-7444-11C2CBE43265}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\transportplacementscript.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{5535B127-6443-C756-7444-11C2CBE43265}|Assembly-CSharp.csproj|c:\\uni stuff\\year 3\\comp 3000\\comp-3000-project\\code\\gamefiles\\assets\\scripts\\classes\\busroute.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{5535B127-6443-C756-7444-11C2CBE43265}|Assembly-CSharp.csproj|C:\\Uni stuff\\Year 3\\Comp 3000\\Comp-3000-Project\\Code\\GameFiles\\assets\\scripts\\classes\\citzen.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5535B127-6443-C756-7444-11C2CBE43265}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\classes\\citzen.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5535B127-6443-C756-7444-11C2CBE43265}|Assembly-CSharp.csproj|C:\\Uni stuff\\Year 3\\Comp 3000\\Comp-3000-Project\\Code\\GameFiles\\assets\\scripts\\classes\\busroute.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{5535B127-6443-C756-7444-11C2CBE43265}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\classes\\busroute.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
@@ -45,10 +49,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{5535B127-6443-C756-7444-11C2CBE43265}|Assembly-CSharp.csproj|C:\\Uni stuff\\Year 3\\Comp 3000\\Comp-3000-Project\\Code\\GameFiles\\assets\\scripts\\classes\\building.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{5535B127-6443-C756-7444-11C2CBE43265}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\classes\\building.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{5535B127-6443-C756-7444-11C2CBE43265}|Assembly-CSharp.csproj|C:\\Uni stuff\\Year 3\\Comp 3000\\Comp-3000-Project\\Code\\GameFiles\\assets\\scripts\\classes\\square.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5535B127-6443-C756-7444-11C2CBE43265}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\classes\\square.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{5535B127-6443-C756-7444-11C2CBE43265}|Assembly-CSharp.csproj|C:\\Uni stuff\\Year 3\\Comp 3000\\Comp-3000-Project\\Code\\GameFiles\\assets\\scripts\\classes\\home.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -145,7 +145,7 @@
       "VerticalTabListWidth": 256,
       "DocumentGroups": [
         {
-          "DockedWidth": 1505,
+          "DockedWidth": 250,
           "SelectedChildIndex": 3,
           "Children": [
             {
@@ -171,20 +171,33 @@
             },
             {
               "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Square.cs",
+              "DocumentMoniker": "C:\\Uni stuff\\Year 3\\Comp 3000\\Comp-3000-Project\\Code\\GameFiles\\Assets\\Scripts\\Classes\\Square.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Classes\\Square.cs",
+              "ToolTip": "C:\\Uni stuff\\Year 3\\Comp 3000\\Comp-3000-Project\\Code\\GameFiles\\Assets\\Scripts\\Classes\\Square.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Classes\\Square.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAUAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-27T14:48:31.398Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 2,
               "Title": "TransportPlacementScript.cs",
               "DocumentMoniker": "C:\\Uni stuff\\Year 3\\Comp 3000\\Comp-3000-Project\\Code\\GameFiles\\Assets\\Scripts\\TransportPlacementScript.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\TransportPlacementScript.cs",
               "ToolTip": "C:\\Uni stuff\\Year 3\\Comp 3000\\Comp-3000-Project\\Code\\GameFiles\\Assets\\Scripts\\TransportPlacementScript.cs",
               "RelativeToolTip": "Assets\\Scripts\\TransportPlacementScript.cs",
-              "ViewState": "AgIAABECAAAAAAAAAAAUwBwCAABYAAAAAAAAAA==",
+              "ViewState": "AgIAAOsBAAAAAAAAAAAqwBwCAABYAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-01-26T20:54:25.704Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 5,
               "Title": "Route.cs",
               "DocumentMoniker": "C:\\Uni stuff\\Year 3\\Comp 3000\\Comp-3000-Project\\Code\\GameFiles\\Assets\\Scripts\\Classes\\Route.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\Classes\\Route.cs",
@@ -196,7 +209,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 7,
               "Title": "PowerHandlerScript.cs",
               "DocumentMoniker": "C:\\Uni stuff\\Year 3\\Comp 3000\\Comp-3000-Project\\Code\\GameFiles\\Assets\\Scripts\\PowerHandlerScript.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\PowerHandlerScript.cs",
@@ -208,7 +221,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 6,
               "Title": "GameFeaturesHandler.cs",
               "DocumentMoniker": "C:\\Uni stuff\\Year 3\\Comp 3000\\Comp-3000-Project\\Code\\GameFiles\\Assets\\Scripts\\GameFeaturesHandler.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\GameFeaturesHandler.cs",
@@ -217,18 +230,6 @@
               "ViewState": "AgIAAB8AAAAAAAAAAABBwE0AAAAXAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-02-13T12:51:01.362Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 11,
-              "Title": "Square.cs",
-              "DocumentMoniker": "C:\\Uni stuff\\Year 3\\Comp 3000\\Comp-3000-Project\\Code\\GameFiles\\Assets\\Scripts\\Classes\\Square.cs",
-              "RelativeDocumentMoniker": "Assets\\Scripts\\Classes\\Square.cs",
-              "ToolTip": "C:\\Uni stuff\\Year 3\\Comp 3000\\Comp-3000-Project\\Code\\GameFiles\\Assets\\Scripts\\Classes\\Square.cs",
-              "RelativeToolTip": "Assets\\Scripts\\Classes\\Square.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAUAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-27T14:48:31.398Z"
             },
             {
               "$type": "Document",
@@ -244,7 +245,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 11,
               "Title": "Building.cs",
               "DocumentMoniker": "C:\\Uni stuff\\Year 3\\Comp 3000\\Comp-3000-Project\\Code\\GameFiles\\Assets\\Scripts\\Classes\\Building.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\Classes\\Building.cs",
@@ -256,7 +257,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 10,
               "Title": "PlacedBuilding.cs",
               "DocumentMoniker": "C:\\Uni stuff\\Year 3\\Comp 3000\\Comp-3000-Project\\Code\\GameFiles\\Assets\\Scripts\\Classes\\PlacedBuilding.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\Classes\\PlacedBuilding.cs",
@@ -413,20 +414,32 @@
           ]
         },
         {
-          "DockedWidth": 1537,
-          "SelectedChildIndex": 3,
+          "DockedWidth": 2792,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Document",
               "DocumentIndex": 3,
-              "Title": "BusRoute.cs",
-              "DocumentMoniker": "C:\\Uni stuff\\Year 3\\Comp 3000\\Comp-3000-Project\\Code\\GameFiles\\Assets\\Scripts\\Classes\\BusRoute.cs",
-              "RelativeDocumentMoniker": "Assets\\Scripts\\Classes\\BusRoute.cs",
-              "ToolTip": "C:\\Uni stuff\\Year 3\\Comp 3000\\Comp-3000-Project\\Code\\GameFiles\\Assets\\Scripts\\Classes\\BusRoute.cs",
-              "RelativeToolTip": "Assets\\Scripts\\Classes\\BusRoute.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAB4AAAAZAAAAAAAAAA==",
+              "Title": "Citzen.cs",
+              "DocumentMoniker": "C:\\Uni stuff\\Year 3\\Comp 3000\\Comp-3000-Project\\Code\\GameFiles\\Assets\\Scripts\\Classes\\Citzen.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Classes\\Citzen.cs",
+              "ToolTip": "C:\\Uni stuff\\Year 3\\Comp 3000\\Comp-3000-Project\\Code\\GameFiles\\Assets\\Scripts\\Classes\\Citzen.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Classes\\Citzen.cs",
+              "ViewState": "AgIAANYCAAAAAAAAAAAEwPMCAAADAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-03-09T11:53:33.509Z",
+              "WhenOpened": "2025-12-11T16:07:19.508Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "GridCreator.cs",
+              "DocumentMoniker": "C:\\Uni stuff\\Year 3\\Comp 3000\\Comp-3000-Project\\Code\\GameFiles\\Assets\\Scripts\\GridCreator.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\GridCreator.cs",
+              "ToolTip": "C:\\Uni stuff\\Year 3\\Comp 3000\\Comp-3000-Project\\Code\\GameFiles\\Assets\\Scripts\\GridCreator.cs",
+              "RelativeToolTip": "Assets\\Scripts\\GridCreator.cs",
+              "ViewState": "AgIAANMFAAAAAAAAAAAAAPMFAAAEAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-02-04T14:21:31.854Z",
               "EditorCaption": ""
             },
             {
@@ -443,33 +456,19 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "Citzen.cs",
-              "DocumentMoniker": "C:\\Uni stuff\\Year 3\\Comp 3000\\Comp-3000-Project\\Code\\GameFiles\\Assets\\Scripts\\Classes\\Citzen.cs",
-              "RelativeDocumentMoniker": "Assets\\Scripts\\Classes\\Citzen.cs",
-              "ToolTip": "C:\\Uni stuff\\Year 3\\Comp 3000\\Comp-3000-Project\\Code\\GameFiles\\Assets\\Scripts\\Classes\\Citzen.cs",
-              "RelativeToolTip": "Assets\\Scripts\\Classes\\Citzen.cs",
-              "ViewState": "AgIAANYCAAAAAAAAAAAEwPMCAAADAAAAAAAAAA==",
+              "DocumentIndex": 4,
+              "Title": "BusRoute.cs",
+              "DocumentMoniker": "C:\\Uni stuff\\Year 3\\Comp 3000\\Comp-3000-Project\\Code\\GameFiles\\Assets\\Scripts\\Classes\\BusRoute.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Classes\\BusRoute.cs",
+              "ToolTip": "C:\\Uni stuff\\Year 3\\Comp 3000\\Comp-3000-Project\\Code\\GameFiles\\Assets\\Scripts\\Classes\\BusRoute.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Classes\\BusRoute.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAB4AAAAZAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-11T16:07:19.508Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-03-09T11:53:33.509Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "GridCreator.cs",
-              "DocumentMoniker": "C:\\Uni stuff\\Year 3\\Comp 3000\\Comp-3000-Project\\Code\\GameFiles\\Assets\\Scripts\\GridCreator.cs",
-              "RelativeDocumentMoniker": "Assets\\Scripts\\GridCreator.cs",
-              "ToolTip": "C:\\Uni stuff\\Year 3\\Comp 3000\\Comp-3000-Project\\Code\\GameFiles\\Assets\\Scripts\\GridCreator.cs",
-              "RelativeToolTip": "Assets\\Scripts\\GridCreator.cs",
-              "ViewState": "AgIAALUFAAAAAAAAAAAUwMcFAAA3AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-04T14:21:31.854Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 9,
               "Title": "ColourBlindCameraController.cs",
               "DocumentMoniker": "C:\\Uni stuff\\Year 3\\Comp 3000\\Comp-3000-Project\\Code\\GameFiles\\Assets\\Scripts\\ColourBlindCameraController.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\ColourBlindCameraController.cs",
@@ -481,7 +480,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 8,
               "Title": "MainMenu.cs",
               "DocumentMoniker": "C:\\Uni stuff\\Year 3\\Comp 3000\\Comp-3000-Project\\Code\\GameFiles\\Assets\\Scripts\\MainMeniScripts\\MainMenu.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\MainMeniScripts\\MainMenu.cs",
