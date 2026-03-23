@@ -10,6 +10,7 @@ public class GameStatusScript : MonoBehaviour
     [SerializeField] GridCreator gridCreator;
     [SerializeField] TextMeshProUGUI DisplayText;
     [SerializeField] TextMeshProUGUI MoneyDisplayText;
+    public TextMeshProUGUI TimeDisplayText;
     int FrequencyOfRatingUpdate = 1000;
     int FrequencyOfTaxUpdate=1000;
     int MoneyCounter = 500;
@@ -51,6 +52,13 @@ public class GameStatusScript : MonoBehaviour
         }
         return TotalChange;
     }
+    public int GetTimeToDisplay()
+    {
+        return FrequencyOfRatingUpdate - (int)FrequencyCounter;
+    }
+    public void UpateTimeDisplay() {
+        TimeDisplayText.text =  GetTimeToDisplay().ToString();
+    }
     public void DoMoney()
     {
         List<PlacedBuilding>Buildings=GridCreator.GetAllBuildings();
@@ -84,6 +92,7 @@ public class GameStatusScript : MonoBehaviour
         }
   
         FrequencyCounter++;
+        UpateTimeDisplay();
         if(FrequencyCounter == FrequencyOfRatingUpdate)
         {
             FrequencyCounter = 0;
