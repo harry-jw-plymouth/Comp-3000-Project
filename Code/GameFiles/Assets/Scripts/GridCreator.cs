@@ -1483,13 +1483,14 @@ public class GridCreator : MonoBehaviour
     {
         float[,] HeightMap=new float[WIDTH, HEIGHT];
 
-        float MinimumHeight = 0.8f; 
+        float MinimumHeight = 0.8f;
+        
         
         for (int x= 0; x < WIDTH; x++)
         {
             for (int y = 0; y < HEIGHT; y++)
             {
-                HeightMap[x, y] = Mathf.PerlinNoise(x * 0.1f, y * 0.1f);
+                HeightMap[x, y] = Mathf.PerlinNoise(x * 0.03f, y * 0.03f);
             }
         }
         List<Vector3Int> RiverStartPositions = GetRiverStartPositions(3, 6, MinimumHeight, HeightMap);
@@ -1498,6 +1499,7 @@ public class GridCreator : MonoBehaviour
         for (int i = 0; i < RiverStartPositions.Count;i++)
         {
             Vector3Int CurrentPos=RiverStartPositions[i];
+            int RiverLength = 0;
             bool BasinFound= false;
             while (!BasinFound)
             {

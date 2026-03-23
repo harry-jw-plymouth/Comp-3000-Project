@@ -789,6 +789,7 @@ MonoBehaviour:
   RoadTile: {fileID: 11400000, guid: 9b1e8d7cba2eec548a79230dfbe5018d, type: 2}
   BusStopTile: {fileID: 11400000, guid: 0c5d6857f8d21c647a10f51bea860e1b, type: 2}
   GreeneryTile: {fileID: 11400000, guid: 896a33725d6537f438a81094a42059fd, type: 2}
+  WaterTile: {fileID: 11400000, guid: ed8865580b37974458325a8db68ba567, type: 2}
   SmallHouseTile: {fileID: 11400000, guid: 01f1174f0bdc37e4397d2e594b094202, type: 2}
   MediumHouseTile: {fileID: 11400000, guid: ac1cba31994bb6c49a208bf01efba04f, type: 2}
   SmallHousePreFab: {fileID: 7826875583060409410, guid: 1d779554805a36e408b1ea552f527f9c, type: 3}
@@ -11260,7 +11261,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.6134296, y: 0.5}
-  m_AnchoredPosition: {x: 212.00002, y: 72}
+  m_AnchoredPosition: {x: 212.00003, y: 72}
   m_SizeDelta: {x: 94, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &806575391
