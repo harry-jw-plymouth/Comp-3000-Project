@@ -40,6 +40,7 @@ public class GridCreator : MonoBehaviour
     public RuleTile RoadTile;
     public RuleTile BusStopTile;
     public RuleTile GreeneryTile;
+    public RuleTile WaterTile;
 
     public RuleTile SmallHouseTile;
     public RuleTile MediumHouseTile;
@@ -1415,6 +1416,84 @@ public class GridCreator : MonoBehaviour
         return NewSprite;
 
     }
+    public bool GetIfInBounds(int XPos, int YPos)
+    {
+        return XPos >= 0 && XPos < GridCreator.WIDTH && YPos >= 0 && YPos < GridCreator.HEIGHT;
+    }
+    void ScatterGreenery()
+    {
+        for (int i = 0; i < 200; i++)
+        {
+            int x = UnityEngine.Random.Range(0, WIDTH);
+            int y = UnityEngine.Random.Range(0, HEIGHT);
+            if (GameGrid[x, y].Contains == 0)
+            {
+                GameGrid[x, y].Contains = 6;
+                GameMap.SetTile(new Vector3Int(x, y, 0), GreeneryTile);
+                NumberOfGreenery++;
+                GreeneryPositions.Add(new Vector3Int(x, y, 0));
+            }
+            int Up=UnityEngine.Random.Range(0, 2);
+            if (Up==0)
+            {
+                if(GetIfInBounds(x, y + 1))
+                {
+                    if (GameGrid[x, y + 1].Contains == 0)
+                    {
+                        GameGrid[x, y + 1].Contains = 6;
+                        GameMap.SetTile(new Vector3Int(x, y + 1, 0), GreeneryTile);
+                        NumberOfGreenery++;
+                        GreeneryPositions.Add(new Vector3Int(x, y + 1, 0));
+                    }
+                }
+                
+            }
+            int Down = UnityEngine.Random.Range(0, 2);
+            if (Down == 0)
+            {
+                if(GetIfInBounds(x, y - 1))
+                {
+                    if (GameGrid[x, y - 1].Contains == 0)
+                    {
+                        GameGrid[x, y - 1].Contains = 6;
+                        GameMap.SetTile(new Vector3Int(x, y - 1, 0), GreeneryTile);
+                        NumberOfGreenery++;
+                        GreeneryPositions.Add(new Vector3Int(x, y - 1, 0));
+                    }
+                }                    
+            }
+            int Left = UnityEngine.Random.Range(0, 2);
+            if (Left == 0)
+            {
+                if(GetIfInBounds(x+1, y))
+                {
+                    if (GameGrid[x + 1, y].Contains == 0)
+                    {
+                        GameGrid[x + 1, y].Contains = 6;
+                        GameMap.SetTile(new Vector3Int(x + 1, y, 0), GreeneryTile);
+                        NumberOfGreenery++;
+                        GreeneryPositions.Add(new Vector3Int(x + 1, y, 0));
+                    }
+                }
+                    
+            }
+            int Right = UnityEngine.Random.Range(0, 2);
+            if (Left == 0)
+            {
+                if (GetIfInBounds(x - 1, y))
+                {
+                    if (GameGrid[x - 1, y].Contains == 0)
+                    {
+                        GameGrid[x - 1, y].Contains = 6;
+                        GameMap.SetTile(new Vector3Int(x - 1, y, 0), GreeneryTile);
+                        NumberOfGreenery++;
+                        GreeneryPositions.Add(new Vector3Int(x - 1, y, 0));
+                    }
+                }
+                    
+            }
+        }
+    }
     void CreateGrid()
     {
         try
@@ -1434,6 +1513,7 @@ public class GridCreator : MonoBehaviour
 
                     }
                 }
+                ScatterGreenery();
                 DBManager.AddNewMapToDB(MainMenu.GetCurrentSaveID(), WIDTH, HEIGHT, GameGrid);
                 CreateStartingArea();
                 
