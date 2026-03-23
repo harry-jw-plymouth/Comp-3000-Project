@@ -11,7 +11,7 @@ public class GameStatusScript : MonoBehaviour
     [SerializeField] TextMeshProUGUI DisplayText;
     [SerializeField] TextMeshProUGUI MoneyDisplayText;
     public TextMeshProUGUI TimeDisplayText;
-    int FrequencyOfRatingUpdate = 1000;
+    int UpdateFrequency = 3000;
     int FrequencyOfTaxUpdate=1000;
     int MoneyCounter = 500;
 
@@ -54,7 +54,7 @@ public class GameStatusScript : MonoBehaviour
     }
     public int GetTimeToDisplay()
     {
-        return FrequencyOfRatingUpdate - (int)FrequencyCounter;
+        return (UpdateFrequency - (int)FrequencyCounter)/100;
     }
     public void UpateTimeDisplay() {
         TimeDisplayText.text =  GetTimeToDisplay().ToString();
@@ -93,12 +93,14 @@ public class GameStatusScript : MonoBehaviour
   
         FrequencyCounter++;
         UpateTimeDisplay();
-        if(FrequencyCounter == FrequencyOfRatingUpdate)
+        if(FrequencyCounter == UpdateFrequency)
         {
             FrequencyCounter = 0;
             CalculateCityRating();
             Info = new List<string>(CurrentInfo.GetReport());
             CurrentInfo.ClearReports();
+
+            DoMoney();
         }
     }
     public void DisplayMoney()
