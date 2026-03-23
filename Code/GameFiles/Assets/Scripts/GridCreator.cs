@@ -787,6 +787,7 @@ public class GridCreator : MonoBehaviour
                         GameStatusScript.DoPlaceBuildingCosts(BuildingsListManager.Buildings[BuildingsListManager.BuildingCurrentlySelected]);
                     }
                     GameStatusHandler.DisplayMoneyChange();
+                    GameStatusHandler.DisplayPowerChange();
                 }
             }
             
@@ -987,6 +988,7 @@ public class GridCreator : MonoBehaviour
                 npcHandler.UpdateHomesForNPCsAfterBuildingRemoval(Indexes);
 
                 GameStatusHandler.DisplayMoneyChange();
+                GameStatusHandler.DisplayPowerChange();
 
 
 

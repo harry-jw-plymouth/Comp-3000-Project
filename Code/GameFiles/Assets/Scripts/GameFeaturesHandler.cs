@@ -30,6 +30,7 @@ public class GameStatusScript : MonoBehaviour
         PlayerMoneyCount = GetPlayerStartingMoney();
 
         DisplayMoneyChange();
+        DisplayPowerChange();
 
     }
     public int GetPlayerStartingMoney()
@@ -81,6 +82,11 @@ public class GameStatusScript : MonoBehaviour
         int Change=GetChangeInMoney(GridCreator.GetAllBuildings());
         MoneyChangeText.text =  "Money change:"+Change.ToString();
 
+    }
+    public void DisplayPowerChange()
+    {
+        int Change=GridCreator.GetPowerGeneration()-GridCreator.GetPowerUsage(); ;
+        PowerChangeText.text =  "Power change:"+Change.ToString();
     }
     public void CheckForMoneyCheck()
     {

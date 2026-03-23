@@ -780,7 +780,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::GridCreator
   npcHandler: {fileID: 1443401069}
   TransportHandler: {fileID: 1113947654}
-  GameStatusHandler: {fileID: 0}
+  GameStatusHandler: {fileID: 1453347093}
   GameMapReference: {fileID: 367962549}
   uiHandler: {fileID: 1831244042}
   NumberOfRoads: 0
