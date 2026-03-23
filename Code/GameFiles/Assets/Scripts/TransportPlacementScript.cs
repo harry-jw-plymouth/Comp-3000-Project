@@ -456,10 +456,15 @@ public class TransportPlacementScript : MonoBehaviour
             if (!BusRoutes[i].GetIfActivated())
             {
 
-                GameObject FrontSprite = Instantiate(RedModernBusFront, BusRoutes[i].GetCurrentRoute()[0], Quaternion.identity);
-                GameObject LeftSprite = Instantiate(RedModernBusLeft, BusRoutes[i].GetCurrentRoute()[0], Quaternion.identity);
-                GameObject RightSprite = Instantiate(RedModernBusRight, BusRoutes[i].GetCurrentRoute()[0], Quaternion.identity);
-                GameObject BackSprite = Instantiate(RedModernBusBack, BusRoutes[i].GetCurrentRoute()[0], Quaternion.identity);
+                //                GameObject FrontSprite = Instantiate(RedModernBusFront, BusRoutes[i].GetCurrentRoute()[0], Quaternion.identity);
+                //              GameObject LeftSprite = Instantiate(RedModernBusLeft, BusRoutes[i].GetCurrentRoute()[0], Quaternion.identity);
+                //            GameObject RightSprite = Instantiate(RedModernBusRight, BusRoutes[i].GetCurrentRoute()[0], Quaternion.identity);
+                //          GameObject BackSprite = Instantiate(RedModernBusBack, BusRoutes[i].GetCurrentRoute()[0], Quaternion.identity);
+
+                GameObject FrontSprite = RedModernBusFront;
+                GameObject LeftSprite = RedModernBusLeft;
+                GameObject RightSprite = RedModernBusRight;
+                GameObject BackSprite = RedModernBusBack;
                 BusRoutes[i].SetSpritesForBusOnRoute(FrontSprite,LeftSprite,RightSprite,BackSprite);
                 BusRoutes[i].Activate();
                 //NewSprite.GetComponent<SpriteRenderer>().enabled = true;
