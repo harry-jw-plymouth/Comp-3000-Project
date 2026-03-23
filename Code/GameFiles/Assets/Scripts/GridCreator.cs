@@ -13,6 +13,7 @@ public class GridCreator : MonoBehaviour
 {
     [SerializeField] NPChandler npcHandler;
     [SerializeField] TransportPlacementScript TransportHandler;
+    [SerializeField] GameStatusScript GameStatusHandler;
     public static Square[,]GameGrid = new Square[GridCreator.WIDTH, GridCreator.HEIGHT];
     public const int WIDTH = 100;
     public const int HEIGHT = 100;
@@ -785,6 +786,7 @@ public class GridCreator : MonoBehaviour
                     {
                         GameStatusScript.DoPlaceBuildingCosts(BuildingsListManager.Buildings[BuildingsListManager.BuildingCurrentlySelected]);
                     }
+                    GameStatusHandler.DisplayMoneyChange();
                 }
             }
             
@@ -984,8 +986,10 @@ public class GridCreator : MonoBehaviour
                 PlacedBuildings.RemoveAt(BuildingPos);
                 npcHandler.UpdateHomesForNPCsAfterBuildingRemoval(Indexes);
 
-         
-        
+                GameStatusHandler.DisplayMoneyChange();
+
+
+
 
             }
         }
