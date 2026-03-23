@@ -788,6 +788,7 @@ public class GridCreator : MonoBehaviour
                     }
                     GameStatusHandler.DisplayMoneyChange();
                     GameStatusHandler.DisplayPowerChange();
+                    GameStatusHandler.AdjustMoney(- BuildingsListManager.Buildings[BuildingsListManager.BuildingCurrentlySelected].GetCostToBuild());
                 }
             }
             
@@ -942,6 +943,7 @@ public class GridCreator : MonoBehaviour
                     }
                   
                 }
+                GameStatusHandler.AdjustMoney(-30);
             }
             
             UpdateRoadsAroundEdit(CellClickedPos);
