@@ -73,6 +73,8 @@ public class GridCreator : MonoBehaviour
     public static List<Vector3Int> GreeneryPositions=new List<Vector3Int>();
     public static int NumberOfGreenery = 0;
 
+    public static List<Vector3Int> WaterPositions = new List<Vector3Int>();
+    public static int NumberOfWater = 0;
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -850,6 +852,13 @@ public class GridCreator : MonoBehaviour
                         NumberOfGreenery++;
                         GreeneryPositions.Add(CellClickedPos);
 
+                    }
+                    else if (UIHandlerScript.WaterEditorOn)
+                    {
+                        GameGrid[CellClickedPos.x, CellClickedPos.y].Contains = 3;
+                        GameMap.SetTile(CellClickedPos, WaterTile);
+                        NumberOfWater++;
+                        WaterPositions.Add(CellClickedPos);
                     }
                     else
                     {
