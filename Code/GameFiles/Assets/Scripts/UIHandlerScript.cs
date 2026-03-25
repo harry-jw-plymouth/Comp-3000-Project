@@ -51,6 +51,7 @@ public class UIHandlerScript : MonoBehaviour
     
     public static bool TileEditorOn;
     public static bool GreeneryEditorOn;
+    public static bool WaterEditorOn=false;
     public static bool BusStopEditorOn;
     public static bool TransportPlacementOn=false;
     public static bool BuildingRemoverOn = false;
@@ -803,6 +804,7 @@ public class UIHandlerScript : MonoBehaviour
     public void OnGreeneryButtonClicked()
     {
         BusStopEditorOn = false;
+        WaterEditorOn = false;
         Debug.Log("Road button clicked");
         SetUIInactive();
         if (TileEditorOn)
@@ -812,12 +814,35 @@ public class UIHandlerScript : MonoBehaviour
         }
         else
         {
+            
             TilePlaceCanvas.SetActive(true);
             TilePlaceCanvasActive = true;
             CloseBusCanvas();
             CloseTransportPopup();
             TileEditorOn = true;
             GreeneryEditorOn = true;
+        }
+    }
+    public void OnWaterButtonClicked()
+    {
+        GreeneryEditorOn = false;
+        WaterEditorOn = false;
+        Debug.Log("Water button Clicked");
+        SetUIInactive();
+        if (TileEditorOn)
+        {
+            TileEditorOn = false;
+            WaterEditorOn = false;
+        }
+        else
+        {
+
+            TilePlaceCanvas.SetActive(true);
+            TilePlaceCanvasActive = true;
+            CloseBusCanvas();
+            CloseTransportPopup();
+            TileEditorOn = true;
+            WaterEditorOn = true;
         }
     }
 
