@@ -640,3 +640,107 @@ MonoBehaviour:
     - {x: 0, y: 1, z: 0}
     - {x: 1, y: 0, z: 0}
     m_RuleTransform: 0
+  - m_Id: 24
+    m_Sprites:
+    - {fileID: -1647365102445808589, guid: 2c6e643c4377f07438959b54a7d27a94, type: 3}
+    - {fileID: -416378915, guid: 2c6e643c4377f07438959b54a7d27a94, type: 3}
+    - {fileID: -1887093785, guid: 2c6e643c4377f07438959b54a7d27a94, type: 3}
+    - {fileID: 1416150364, guid: 2c6e643c4377f07438959b54a7d27a94, type: 3}
+    - {fileID: -1470882013, guid: 2c6e643c4377f07438959b54a7d27a94, type: 3}
+    - {fileID: -976261240, guid: 2c6e643c4377f07438959b54a7d27a94, type: 3}
+    m_GameObject: {fileID: 0}
+    m_MinAnimationSpeed: 1
+    m_MaxAnimationSpeed: 1
+    m_PerlinScale: 0.5
+    m_Output: 2
+    m_ColliderType: 1
+    m_RandomTransform: 0
+    m_Neighbors: 0200000002000000010000000100000001000000020000000100000001000000
+    m_NeighborPositions:
+    - {x: 1, y: 1, z: 0}
+    - {x: 1, y: -1, z: 0}
+    - {x: 0, y: -1, z: 0}
+    - {x: -1, y: 0, z: 0}
+    - {x: 0, y: 1, z: 0}
+    - {x: 1, y: 0, z: 0}
+    - {x: -1, y: -1, z: 0}
+    - {x: -1, y: 1, z: 0}
+    m_RuleTransform: 0
+  - m_Id: 25
+    m_Sprites:
+    - {fileID: 3577075743903343676, guid: 6e4f8ecfc3e4d2d4a8d0fe0afe1d0390, type: 3}
+    - {fileID: -927658582, guid: 6e4f8ecfc3e4d2d4a8d0fe0afe1d0390, type: 3}
+    - {fileID: -1607143306, guid: 6e4f8ecfc3e4d2d4a8d0fe0afe1d0390, type: 3}
+    - {fileID: -888087163, guid: 6e4f8ecfc3e4d2d4a8d0fe0afe1d0390, type: 3}
+    - {fileID: 1282072864, guid: 6e4f8ecfc3e4d2d4a8d0fe0afe1d0390, type: 3}
+    - {fileID: -133795115, guid: 6e4f8ecfc3e4d2d4a8d0fe0afe1d0390, type: 3}
+    m_GameObject: {fileID: 0}
+    m_MinAnimationSpeed: 1
+    m_MaxAnimationSpeed: 1
+    m_PerlinScale: 0.5
+    m_Output: 2
+    m_ColliderType: 1
+    m_RandomTransform: 0
+    m_Neighbors: 0200000001000000010000000200000001000000010000000100000002000000
+    m_NeighborPositions:
+    - {x: 0, y: -1, z: 0}
+    - {x: -1, y: 0, z: 0}
+    - {x: 0, y: 1, z: 0}
+    - {x: -1, y: -1, z: 0}
+    - {x: -1, y: 1, z: 0}
+    - {x: 1, y: 0, z: 0}
+    - {x: 1, y: 1, z: 0}
+    - {x: 1, y: -1, z: 0}
+    m_RuleTransform: 0
+  - m_Id: 26
+    m_Sprites:
+    - {fileID: 2231893496014783801, guid: c817192d5de58bd46a5b93be4f154225, type: 3}
+    - {fileID: 1917119649, guid: c817192d5de58bd46a5b93be4f154225, type: 3}
+    - {fileID: -586717452, guid: c817192d5de58bd46a5b93be4f154225, type: 3}
+    - {fileID: 494713691, guid: c817192d5de58bd46a5b93be4f154225, type: 3}
+    - {fileID: -1663983971, guid: c817192d5de58bd46a5b93be4f154225, type: 3}
+    - {fileID: 590017278, guid: c817192d5de58bd46a5b93be4f154225, type: 3}
+    m_GameObject: {fileID: 0}
+    m_MinAnimationSpeed: 1
+    m_MaxAnimationSpeed: 1
+    m_PerlinScale: 0.5
+    m_Output: 2
+    m_ColliderType: 1
+    m_RandomTransform: 0
+    m_Neighbors: 0100000002000000010000000100000002000000020000000100000001000000
+    m_NeighborPositions:
+    - {x: 0, y: 1, z: 0}
+    - {x: -1, y: -1, z: 0}
+    - {x: 1, y: 0, z: 0}
+    - {x: 1, y: 1, z: 0}
+    - {x: -1, y: 0, z: 0}
+    - {x: -1, y: 1, z: 0}
+    - {x: 0, y: -1, z: 0}
+    - {x: 1, y: -1, z: 0}
+    m_RuleTransform: 0
+  - m_Id: 27
+    m_Sprites:
+    - {fileID: -6971818738794706150, guid: 45c329ab232912842a860515837f27e9, type: 3}
+    - {fileID: -155441271, guid: 45c329ab232912842a860515837f27e9, type: 3}
+    - {fileID: 798660933, guid: 45c329ab232912842a860515837f27e9, type: 3}
+    - {fileID: 102117457, guid: 45c329ab232912842a860515837f27e9, type: 3}
+    - {fileID: 542609680, guid: 45c329ab232912842a860515837f27e9, type: 3}
+    - {fileID: -262216709, guid: 45c329ab232912842a860515837f27e9, type: 3}
+    m_GameObject: {fileID: 0}
+    m_MinAnimationSpeed: 1
+    m_MaxAnimationSpeed: 1
+    m_PerlinScale: 0.5
+    m_Output: 2
+    m_ColliderType: 1
+    m_RandomTransform: 0
+    m_Neighbors: 0100000002000000010000000100000001000000010000000200000002000000
+    m_NeighborPositions:
+    - {x: 1, y: 0, z: 0}
+    - {x: -1, y: 1, z: 0}
+    - {x: 1, y: -1, z: 0}
+    - {x: 0, y: -1, z: 0}
+    - {x: -1, y: -1, z: 0}
+    - {x: -1, y: 0, z: 0}
+    - {x: 0, y: 1, z: 0}
+    - {x: 1, y: 1, z: 0}
+    m_RuleTransform: 0
