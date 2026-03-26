@@ -217,7 +217,7 @@ public class NPChandler : MonoBehaviour
 
 
         int RandomLeaveChance = Random.Range(0, 100);
-        if (RandomLeaveChance > Happiness && NumberOfNpcs >1) {
+        if (RandomLeaveChance > Happiness*1.5f  && NumberOfNpcs >1) {
             if (NPCList[RandomNpcIndex].GetIfInBuilding())
             {
                 NPCList[RandomNpcIndex].ForceLeaveBuidlingOnBuildingRemoval();
