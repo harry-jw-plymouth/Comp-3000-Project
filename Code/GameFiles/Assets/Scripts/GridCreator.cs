@@ -1707,9 +1707,11 @@ public class GridCreator : MonoBehaviour
                 }
                 GenerateRivers();
                 ScatterGreenery();
-                DBManager.AddNewMapToDB(MainMenu.GetCurrentSaveID(), WIDTH, HEIGHT, GameGrid);
-                CreateStartingArea();
                 
+                CreateStartingArea();
+                DBManager.AddNewMapToDB(MainMenu.GetCurrentSaveID(), WIDTH, HEIGHT, GameGrid);
+
+
             }
             else
             {
@@ -1749,6 +1751,11 @@ public class GridCreator : MonoBehaviour
 
                             //   GameMap.SetTile(CurrentPosition, GameTile);
                             //  TransportPlacementScript.PlaceRail(CurrentPosition);
+                        }
+                        if (GameGrid[x,y].Contains == 3){
+                            GameMap.SetTile(CurrentPosition, WaterTile);
+                            NumberOfWater++;
+                            WaterPositions.Add(CurrentPosition);
                         }
                         if (GameGrid[x,y].Contains == 4)
                         {

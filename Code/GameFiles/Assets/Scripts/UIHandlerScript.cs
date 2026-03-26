@@ -863,6 +863,7 @@ public class UIHandlerScript : MonoBehaviour
             CloseTransportPopup();
             TileEditorOn= true;
             GreeneryEditorOn = false;
+            WaterEditorOn = false;
         }
     }
 
