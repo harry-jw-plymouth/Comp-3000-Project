@@ -16,6 +16,7 @@ public class RatingInfo
     int EnviromentRating = 0;
     int PowerReachRating = 0;
     int TrainStationRating = 0;
+    int GreeneryRating = 0;
     public void SetHomeLessPercentage(float New){
         HomeLessPercentage = New;
         if(HomeLessPercentage > 60)
@@ -272,6 +273,71 @@ public class RatingInfo
         }
 
     }
+    public void SetGreeneryRating(int NumberOfGreenery, int NumberOfNatureAreas,int NumberOfNPCs) { 
+        int OverallGreeneryAmount=NumberOfGreenery+NumberOfNatureAreas*10;
+        if (OverallGreeneryAmount == 0)
+        { 
+            GreeneryRating = 0;
+            AddReport("No greenery, add some very soon");
+        }
+        else if(OverallGreeneryAmount < NumberOfNPCs)
+        {
+            GreeneryRating = 5;
+            AddReport("Very little greenery, add some soon");
+        }
+        else if ( OverallGreeneryAmount<NumberOfNPCs*2 && OverallGreeneryAmount >= NumberOfNPCs)
+        {
+            GreeneryRating = 15;
+            AddReport("Very little greenery, add some soon");
+        }
+        else if (OverallGreeneryAmount < NumberOfNPCs * 4 && OverallGreeneryAmount >= NumberOfNPCs*2)
+        {
+            GreeneryRating = 25;
+            AddReport("Not enough greenery, add some soon");
+        }
+        else if (OverallGreeneryAmount < NumberOfNPCs * 10 && OverallGreeneryAmount >= NumberOfNPCs * 4)
+        {
+            GreeneryRating = 35;
+            AddReport("Not enough greenery, add some soon");
+        }
+        else if (OverallGreeneryAmount < NumberOfNPCs * 15 && OverallGreeneryAmount >= NumberOfNPCs * 10)
+        {
+            GreeneryRating = 45;
+            AddReport("Not enough greenery, add some soon");
+        }
+        else if (OverallGreeneryAmount < NumberOfNPCs * 20 && OverallGreeneryAmount >= NumberOfNPCs * 15)
+        {
+            GreeneryRating = 55;
+            AddReport("An alright amount of greenery, but more would be an improvement");
+        }
+        else if (OverallGreeneryAmount < NumberOfNPCs * 22 && OverallGreeneryAmount >= NumberOfNPCs * 20)
+        {
+            GreeneryRating = 65;
+            AddReport("An alright amount of greenery, but more would be an improvement");
+        }
+        else if (OverallGreeneryAmount < NumberOfNPCs * 23 && OverallGreeneryAmount >= NumberOfNPCs * 22)
+        {
+            GreeneryRating = 75;
+            AddReport("A  very good amount of greenery, but more would be an improvement");
+        }
+        else if (OverallGreeneryAmount < NumberOfNPCs * 24 && OverallGreeneryAmount >= NumberOfNPCs * 23)
+        {
+            GreeneryRating = 85;
+            AddReport("A  very good amount of greenery, but more would be an improvement");
+        }
+        else if (OverallGreeneryAmount < NumberOfNPCs * 25 && OverallGreeneryAmount >= NumberOfNPCs * 24)
+        {
+            GreeneryRating = 95;
+            AddReport("A very good amount of greenery");
+        }
+        else if (OverallGreeneryAmount >= NumberOfNPCs * 25)
+        {
+            GreeneryRating = 100;
+            AddReport("Amazing amount of grennery!");
+        }
+
+    }
+
     public void SetPowerReachRating(List<PlacedBuilding> Buildings)
     {
         int total = 0;
