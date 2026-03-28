@@ -5095,7 +5095,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Time to next money and power collection
+  m_text: Time to next tax collection and power usage
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: e035ec6d91f79db46a23316f3109dd94, type: 2}
   m_sharedMaterial: {fileID: 8991214297436973525, guid: e035ec6d91f79db46a23316f3109dd94, type: 2}
