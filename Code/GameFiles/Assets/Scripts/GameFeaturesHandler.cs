@@ -142,7 +142,7 @@ public class GameStatusScript : MonoBehaviour
         CurrentInfo.SetEnviromentalEffectRating(GridCreator.GetTotalEnviormentalEffects(), npcHandler.GetCurrentNumberOfNPCs());
         CurrentInfo.SetPowerReachRating(GridCreator.PlacedBuildings);
         CurrentInfo.SetTrainStationRating(npcHandler.GetCurrentNumberOfNPCs(), GridCreator.GetNumberOfTrainStations());
-        CurrentInfo.SetGreeneryRating(GridCreator.NumberOfGreenery, 0, 0);
+        CurrentInfo.SetGreeneryRating(GridCreator.NumberOfGreenery, GridCreator.GetNumberOfGreenBuildings(), npcHandler.GetCurrentNumberOfNPCs());
 
         //Calculate rating
         CurrentInfo.CalulcateRating();

@@ -333,7 +333,7 @@ public class RatingInfo
         else if (OverallGreeneryAmount >= NumberOfNPCs * 25)
         {
             GreeneryRating = 100;
-            AddReport("Amazing amount of grennery!");
+            AddReport("Amazing amount of greenery!");
         }
 
     }

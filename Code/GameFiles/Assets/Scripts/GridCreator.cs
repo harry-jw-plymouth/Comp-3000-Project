@@ -181,6 +181,18 @@ public class GridCreator : MonoBehaviour
     {
         return NumberOfGreenery;
     }
+    public static int GetNumberOfGreenBuildings()
+    {
+        int total = 0;
+        for(int i = 0; i < PlacedBuildings.Count; i++)
+        {
+            if (PlacedBuildings[i].GetType().GetIfIsGreenery())
+            {
+                total++;
+            }
+        }
+        return total;
+    }
     public static int GetPowerGeneration()
     {
         int Total = 0;
