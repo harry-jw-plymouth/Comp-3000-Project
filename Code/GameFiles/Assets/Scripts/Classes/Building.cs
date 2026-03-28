@@ -21,8 +21,9 @@ public class Building
     public int CostToBuild;
     public int TaxGeneration;
     public bool IsTrainStation = false;
+    public bool IsGreenery = false;
 
-    public Building(string name,int Cost,int Tax, string description, int[,] shape, int[] origin, bool Shop ,int LB,int UB,bool hospital,int typeIndex,int Usage,int EF,bool Entertainment, int EV,bool isStation)
+    public Building(string name,int Cost,int Tax, string description, int[,] shape, int[] origin, bool Shop ,int LB,int UB,bool hospital,int typeIndex,int Usage,int EF,bool Entertainment, int EV,bool isStation,bool isGreenery)
     {
         Name = name;
         Description = description;
@@ -44,6 +45,7 @@ public class Building
         CostToBuild = Cost;
         TaxGeneration= Tax;
         IsTrainStation = isStation;
+        IsGreenery = isGreenery;
     }
     public void SetIsTrainStation(bool New)
     {
@@ -89,6 +91,10 @@ public class Building
     {
         return IsHospital;
     }
+    public bool GetIfIsGreenery()
+    {
+        return IsGreenery;
+    }
     public bool GetIfBuildingIsAShop()
     {
         return IsShop;
@@ -111,7 +117,7 @@ public class Building
     }
     public virtual Building GetInstance()
     {
-        return new Building(Name,CostToBuild,TaxGeneration, Description, Shape, Origin,IsShop,LowerTimeInBuilding,UpperTimeInBuilding,IsHospital,TypeIndex,PowerUsage,EnviromentalEffect,IsEntertaiment,EntertainmentValue,IsTrainStation);
+        return new Building(Name,CostToBuild,TaxGeneration, Description, Shape, Origin,IsShop,LowerTimeInBuilding,UpperTimeInBuilding,IsHospital,TypeIndex,PowerUsage,EnviromentalEffect,IsEntertaiment,EntertainmentValue,IsTrainStation,IsGreenery);
     }
 
 }
