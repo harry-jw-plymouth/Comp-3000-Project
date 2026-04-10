@@ -14,6 +14,7 @@ public class UIHandlerScript : MonoBehaviour
 {
     public NPChandler NpcHandler;
     public GridCreator GridHandler;
+    public UIHandlerScript uiHandler;
 
     public TextMeshProUGUI ReportText;
     public GameObject ReportDisplay;
@@ -30,6 +31,11 @@ public class UIHandlerScript : MonoBehaviour
     public GameObject BusCanvas;
     public GameObject SettingsCanvas;
     public Button TradeButton;
+
+    public GameObject NewPopUpCanvas;
+    public TextMeshProUGUI PopUpTitle;
+    public TextMeshProUGUI PopUpDescription;
+    
 
 
     public TMP_Dropdown TradeItems;
@@ -149,6 +155,17 @@ public class UIHandlerScript : MonoBehaviour
     {
         TileEditorOn= false;
     }
+    public void OpenNewPopUp(string Title, string Text)
+    {
+        Debug.Log("Displaying Pop up");
+        NewPopUpCanvas.SetActive(true);
+        PopUpTitle.text = Title;
+        PopUpDescription.text = Text;
+    }
+    public void OnNewPopUpClosed()
+    {
+        NewPopUpCanvas.SetActive(false);
+    }
     public void OnLayoutButtonClick()
     {
         
@@ -240,6 +257,7 @@ public class UIHandlerScript : MonoBehaviour
                 }
                 else
                 {
+                    uiHandler.OpenNewPopUp("Cant create bus route", "no route between stops");
                     Debug.Log("Couldnt set bus route, no path");
                 }
                
@@ -350,6 +368,7 @@ public class UIHandlerScript : MonoBehaviour
         }
         else
         {
+            uiHandler.OpenNewPopUp("Issue creating route", "Route could not be created");
             Debug.Log("Proper selection not made");
         }
     }
@@ -386,6 +405,7 @@ public class UIHandlerScript : MonoBehaviour
         }
         else
         {
+            uiHandler.OpenNewPopUp("", "No train stations for route ");
             Debug.Log("No train station found");
             ShowAlertPopUp("No train stations for route");
        

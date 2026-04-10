@@ -24,6 +24,7 @@ public class Citzen
     Building BuildingCurrentlyTargetting;
     Vector3 MovementTarget=new Vector3(0,0,0);
     Vector3 Position;
+    Vector3 LastFramePos;
     public bool UpdateNeeded;
     GameObject NPCSprite;
     bool IsHomeLess = true;
@@ -38,6 +39,7 @@ public class Citzen
     Building Home;
     int HomeIndex = -1;
     Vector3 HomePosition=new Vector3(-1,-1,-1);
+    int StuckCount = 0;
 
 
 
@@ -58,6 +60,7 @@ public class Citzen
     public Vector3Int CurrentBusStop;
     public Vector3Int TargetBusStop;
 
+    
 
     public Citzen(Vector3 Pos,int ID,GameObject sprite)
     {
@@ -68,6 +71,46 @@ public class Citzen
        
         CurrentBusStop = new Vector3Int(-1, -1, -1);
         TargetBusStop = new Vector3Int(-1, -1, -1);
+    }
+    public void SetLastPos(Vector3 Pos)
+    {
+        LastFramePos=Pos;
+    }
+    public void UpdateStuckCount(int Change)
+    {
+        if(LastFramePos.x==Position.x && LastFramePos.y == Position.y)
+        {
+            StuckCount += Change;
+        }
+        else
+        {
+            StuckCount= 0;
+        }
+        SetLastPos(Position);
+        
+    }
+    public void ResetStuckNPC()
+    {
+        CurrentStation= null;
+        TargetStation= null;
+
+        CurrentBusStop=new Vector3Int(-1,-1, -1);
+        TargetBusStop=new Vector3Int(-1,-1,-1);
+        SetCurrentAction(-1);
+
+    }
+    public bool CheckIfStuck()
+    {
+        if (StuckCount > 200)
+        {
+            return true;
+           
+        }
+        return false;
+    }
+    public void ResetStuckCount()
+    {
+        StuckCount = 0;
     }
     public List<Vector3> GetRoutePositions()
     {

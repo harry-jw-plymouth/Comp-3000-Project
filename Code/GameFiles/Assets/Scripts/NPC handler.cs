@@ -341,10 +341,10 @@ public class NPChandler : MonoBehaviour
         int RandomValue = UnityEngine.Random.Range(0, ShopChance+HomeChance+WanderChance);
 
 
-        if (NPCList[NPCIndex].GetCurrentAction() == 7)
-        {
-            return; // already waiting for bus
-        }
+   //     if (NPCList[NPCIndex].GetCurrentAction() == 7)
+    //    {
+     //       return; // already waiting for bus
+     //   }
             
                     //   Debug.Log("TiredNess:" + NPCList[NPCIndex].GetTiredNess());
         if (!CheckIfOnRoad(NPCList[NPCIndex].GetPosition())){
@@ -610,12 +610,23 @@ public class NPChandler : MonoBehaviour
         }
 
     }
+    void CheckIfStuck(int Index)
+    {
+        NPCList[Index].UpdateStuckCount(1);
+        if (NPCList[Index].CheckIfStuck())
+        {
+            NPCList[Index].ResetStuckNPC();
+        }
+
+    }
     void UpdateNPCs()
     {
         List<int> NPCsToRemove=new List<int>();
         MovementCounter++;
         // check for updates to each NPC
         for (int i = 0; i < NPCList.Count; i++) {
+           // CheckIfStuck(i);
+
             if (NPCList[i].GetIfJusteEnteredBuilding())
             {
                 int BuildingIndex=gridCreator.EnterBuildingForNPC(NPCList[i].GetPosition(),i);

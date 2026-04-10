@@ -130,12 +130,14 @@ public class GridCreator : MonoBehaviour
         //Debug.Log("New Y: " + (y + building.Shape.GetLength(0)));
         if (x + building.Shape.GetLength(1) > WIDTH )
         {
-          //  Debug.Log("Building cant be placed");
+            uiHandler.OpenNewPopUp("Cant place building", "Space already occupied");
+            Debug.Log("Building cant be placed"); 
             return false;
         }
         else if (y + building.Shape.GetLength(0) >= HEIGHT+1)
         {
-          //  Debug.Log("Building cant be placed, final Y pos:"+ (y + building.Shape.GetLength(0)));
+            uiHandler.OpenNewPopUp("Cant place building", "Space already occupied");
+              Debug.Log("Building cant be placed, final Y pos:"+ (y + building.Shape.GetLength(0)));
             return false;
 
         }
@@ -148,7 +150,8 @@ public class GridCreator : MonoBehaviour
                     BuildingsListManager.Buildings[BuildingsListManager.BuildingCurrentlySelected].Origin);
                 if(GameGrid[CurrentPos.x, CurrentPos.y].Contains == 2 )
                 {
-                  //  Debug.Log(" Building cant be placed, building already occupying square: " + CurrentPos.x + " , " + CurrentPos.y);
+                    uiHandler.OpenNewPopUp("Cant place building", "Space already occupied");
+                    Debug.Log(" Building cant be placed, building already occupying square: " + CurrentPos.x + " , " + CurrentPos.y);
                     return false;
                 }
             }
@@ -847,6 +850,7 @@ public class GridCreator : MonoBehaviour
                 {
                     if (TransportPlacementScript.CheckIfBusStopInUse(CellClickedPos)){
                         Debug.Log("Bus stop in use, cannot remove");
+                        uiHandler.OpenNewPopUp("Cant remove stop", "stop still in use, route must be cancelled before stop is removed");
                     }
                     else
                     {
@@ -890,6 +894,7 @@ public class GridCreator : MonoBehaviour
                     if (TransportPlacementScript.CheckIfRouteExistsUsingTrack(CellClickedPos))
                     {
                         Debug.Log("Route uses track");
+                        uiHandler.OpenNewPopUp("Cant remove track", "Route exists using route");
                     }
                     else
                     {
@@ -922,6 +927,7 @@ public class GridCreator : MonoBehaviour
                             {
                                 // reroute not possible, show pop up saying cannot remove road
                                 uiHandler.ShowAlertPopUp("Cannot remove this road without disrupting a bus route");
+                                uiHandler.OpenNewPopUp("Cant remove Road", "removing this road will disrupt a bus route");
                             }
 
                         }
@@ -940,6 +946,7 @@ public class GridCreator : MonoBehaviour
                         if (TransportPlacementScript.CheckIfBusStopInUse(CellClickedPos))
                         {
                             Debug.Log("Bus stop in use, cannot remove");
+                            uiHandler.OpenNewPopUp("Cant remove stop", "stop still in use, route must be cancelled before stop is removed");
                         }
                         else {
                             NumberOfBusStops--;
@@ -999,6 +1006,7 @@ public class GridCreator : MonoBehaviour
                     if(TransportPlacementScript.CheclIfTrainStationInUse(Selected))
                     {
                         uiHandler.ShowAlertPopUp("Train station in use on route, cannot remove");
+                        uiHandler.OpenNewPopUp("Cant remove station", "station still in use, route must be cancelled before station is removed");
                         return;
                     }
                 }
@@ -1112,6 +1120,7 @@ public class GridCreator : MonoBehaviour
     void CheckForMouseClicK() {
         if (Input.GetMouseButtonDown(0))
         {
+           // uiHandler.OpenNewPopUp("Test", "Test");
             if (EventSystem.current.IsPointerOverGameObject())
             {
                 return;
