@@ -83,8 +83,8 @@
     <Compile Include="Assets\Scripts\Handlers\DBManagerScript.cs" />
     <Compile Include="Assets\Scripts\SQLite.cs" />
     <Compile Include="Assets\Scripts\Classes\DbModels\SaveMapModel.cs" />
-    <Compile Include="Assets\Scripts\Classes\Route.cs" />
     <Compile Include="Assets\Scripts\Classes\DbModels\SaveBuildingModel.cs" />
+    <Compile Include="Assets\Scripts\Classes\Route.cs" />
     <Compile Include="Assets\Scripts\Classes\SettingsManager.cs" />
     <Compile Include="Assets\Scripts\SaveItemScript.cs" />
     <Compile Include="Assets\Scripts\Classes\PowerPlant.cs" />
