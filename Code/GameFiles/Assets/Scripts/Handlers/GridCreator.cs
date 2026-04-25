@@ -1513,6 +1513,14 @@ public class GridCreator : MonoBehaviour
         }
         return StartPositions;
     }
+    bool CheckIfDiagonal(Vector3Int Next, Vector3Int Current)
+    {
+        if (Next.x != Current.x && Next.y != Current.y)
+        {
+            return true;
+        }
+        return false;
+    }
     void GenerateRivers()
     {
         float[,] HeightMap=new float[WIDTH, HEIGHT];
@@ -1549,7 +1557,27 @@ public class GridCreator : MonoBehaviour
                 }
                 else
                 {
+                    if (CheckIfDiagonal(Next, CurrentPos)){
+                        Vector3Int Connection1 = new Vector3Int(
+                            CurrentPos.x+ (Next.x - CurrentPos.x),
+                            CurrentPos.y,
+                            0);
+                        Vector3Int Connection2 = new Vector3Int(
+                            CurrentPos.x ,
+                            CurrentPos.y + (Next.y - CurrentPos.y),
+                            0);
+
+                        if (HeightMap[Connection1.x,Connection1.y]<HeightMap[Connection2.x, Connection2.y])
+                        {
+                            CurrentRiver.Add(Connection1);
+                        }
+                        else
+                        {
+                            CurrentRiver.Add(Connection2);
+                        }
+                    }
                     CurrentPos = Next;
+
                 }
             }
             Rivers.Add(CurrentRiver);
@@ -1565,6 +1593,7 @@ public class GridCreator : MonoBehaviour
                 {
                     GameGrid[CurrentPos.x,CurrentPos.y].Contains = 3;
                     GameMap.SetTile(CurrentPos, WaterTile);
+                    
                 }
                 else if (Width == 2)
                 {
