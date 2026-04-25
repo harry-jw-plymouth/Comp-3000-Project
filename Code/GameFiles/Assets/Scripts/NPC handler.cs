@@ -181,7 +181,8 @@ public class NPChandler : MonoBehaviour
             if (NPCList[i].ReadyToUpdateAfterTravel)
             {
                 Vector3 TargetPos = (NPCList[i].GetRoutePositions()[NPCList[i].GetRoutePositions().Count - 1]);
-                NPCList[i].SetRoute(GridCreator.GameMap.WorldToCell(TargetPos), GridCreator.GameGrid, GridCreator.GameMap, GridHandler);
+                //NPCList[i].SetRoute(GridCreator.GameMap.WorldToCell(TargetPos), GridCreator.GameGrid, GridCreator.GameMap, GridHandler);
+                NPCList[i].SetRouteNew(GridCreator.GameMap.WorldToCell(TargetPos), GridCreator.GameGrid, GridCreator.GameMap, GridHandler);
                 NPCList[i].ReadyToUpdateAfterTravel = false;
             }
         }
@@ -358,11 +359,18 @@ public class NPChandler : MonoBehaviour
                 RoadPos.y += 0.5f;
                 RoadPos.x += 0.5f;
               //  NPCList[NPCIndex].SetMovementTarget(RoadPos);
-                if(NPCList[NPCIndex].SetRoute(GridCreator.GameMap.WorldToCell(RoadPos), GridCreator.GameGrid, GridCreator.GameMap,gridCreator))
+             //   if(NPCList[NPCIndex].SetRoute(GridCreator.GameMap.WorldToCell(RoadPos), GridCreator.GameGrid, GridCreator.GameMap,gridCreator))
+             //   {
+              //      Debug.Log("Set action to 0");
+              //      NPCList[NPCIndex].SetCurrentAction(0);
+               // }
+
+                if (NPCList[NPCIndex].SetRouteNew(GridCreator.GameMap.WorldToCell(RoadPos), GridCreator.GameGrid, GridCreator.GameMap, gridCreator))
                 {
                     Debug.Log("Set action to 0");
                     NPCList[NPCIndex].SetCurrentAction(0);
                 }
+
             }
         }
         else
@@ -379,27 +387,39 @@ public class NPChandler : MonoBehaviour
 
                     ShopPos.x += 0.5f; ShopPos.y += 0.5f;
                   //  NPCList[NPCIndex].SetMovementTarget(ShopPos);
-                   if( NPCList[NPCIndex].SetRoute(GridCreator.GameMap.WorldToCell( ShopPos), GridCreator.GameGrid, GridCreator.GameMap,gridCreator))
-                    {
+                 //  if( NPCList[NPCIndex].SetRoute(GridCreator.GameMap.WorldToCell( ShopPos), GridCreator.GameGrid, GridCreator.GameMap,gridCreator))
+                  ///  {
                       //  Debug.Log("Set action to 0");
+                    //    NPCList[NPCIndex].SetCurrentAction(0);
+                     //   NPCList[NPCIndex].SetIfTargetIsBuilding(true);
+                     //   NPCList[NPCIndex].SetTargetBuilding(GridCreator.GetSelectedBuilding());
+                   // }
+                    if (NPCList[NPCIndex].SetRouteNew(GridCreator.GameMap.WorldToCell(ShopPos), GridCreator.GameGrid, GridCreator.GameMap, gridCreator))
+                    {
+                        //  Debug.Log("Set action to 0");
                         NPCList[NPCIndex].SetCurrentAction(0);
                         NPCList[NPCIndex].SetIfTargetIsBuilding(true);
                         NPCList[NPCIndex].SetTargetBuilding(GridCreator.GetSelectedBuilding());
                     }
-                    
 
-                    
+
+
                 }
                 else
                 {
                     //no shop found
                     //NPCList[NPCIndex].SetMovementTarget(GetWanderTarget());
-                    if(NPCList[NPCIndex].SetRoute(GridCreator.GameMap.WorldToCell(GetWanderTarget()), GridCreator.GameGrid, GridCreator.GameMap,gridCreator))
-                    {
+                 //   if(NPCList[NPCIndex].SetRoute(GridCreator.GameMap.WorldToCell(GetWanderTarget()), GridCreator.GameGrid, GridCreator.GameMap,gridCreator))
+                   // {
                     //    Debug.Log("Set action to 0");
+                     //   NPCList[NPCIndex].SetCurrentAction(0);
+                   // }
+                    if (NPCList[NPCIndex].SetRouteNew(GridCreator.GameMap.WorldToCell(GetWanderTarget()), GridCreator.GameGrid, GridCreator.GameMap, gridCreator))
+                    {
+                        //    Debug.Log("Set action to 0");
                         NPCList[NPCIndex].SetCurrentAction(0);
                     }
-                   
+
                 }
 
                 
@@ -409,7 +429,17 @@ public class NPChandler : MonoBehaviour
                 //go home
                 Vector3 HomePos = NPCList[NPCIndex].GetHomePos();
                 if (HomePos.x != -1) {
-                    if(NPCList[NPCIndex].SetRoute(GridCreator.GameMap.WorldToCell(HomePos), GridCreator.GameGrid, GridCreator.GameMap, gridCreator))
+                 //   if(NPCList[NPCIndex].SetRoute(GridCreator.GameMap.WorldToCell(HomePos), GridCreator.GameGrid, GridCreator.GameMap, gridCreator))
+                  //  {
+                        //Debug.Log("Set action to 0");
+                    //    NPCList[NPCIndex].SetCurrentAction(0);
+                        //  NPCList[NPCIndex].SetMovementTarget(HomePos);
+
+                    //    NPCList[NPCIndex].SetIfTargetIsBuilding(true);
+                     //   NPCList[NPCIndex].SetTargetBuilding(NPCList[NPCIndex].GetHome());
+                    //}
+
+                    if (NPCList[NPCIndex].SetRouteNew(GridCreator.GameMap.WorldToCell(HomePos), GridCreator.GameGrid, GridCreator.GameMap, gridCreator))
                     {
                         //Debug.Log("Set action to 0");
                         NPCList[NPCIndex].SetCurrentAction(0);
@@ -417,7 +447,7 @@ public class NPChandler : MonoBehaviour
 
                         NPCList[NPCIndex].SetIfTargetIsBuilding(true);
                         NPCList[NPCIndex].SetTargetBuilding(NPCList[NPCIndex].GetHome());
-                    }     
+                    }
                 }
                 
             }
@@ -429,16 +459,26 @@ public class NPChandler : MonoBehaviour
                     Vector3 HospitalPos = GridCreator.GetPosOfNearestHospital(NPCList[NPCIndex].GetPosition());
                     if (HospitalPos.x != -1)
                     {
-                        if(NPCList[NPCIndex].SetRoute(GridCreator.GameMap.WorldToCell(HospitalPos), GridCreator.GameGrid, GridCreator.GameMap, gridCreator))
-                        {
+                     //   if(NPCList[NPCIndex].SetRoute(GridCreator.GameMap.WorldToCell(HospitalPos), GridCreator.GameGrid, GridCreator.GameMap, gridCreator))
+                       // {
                           //  Debug.Log("Set action to 0");
+                         //   NPCList[NPCIndex].SetCurrentAction(0);
+                            //   NPCList[NPCIndex].SetMovementTarget(HospitalPos);
+
+  //                          NPCList[NPCIndex].SetIfTargetIsBuilding(true);
+//                            NPCList[NPCIndex].SetTargetBuilding(GridCreator.GetSelectedBuilding());
+    //                    }
+
+                        if (NPCList[NPCIndex].SetRouteNew(GridCreator.GameMap.WorldToCell(HospitalPos), GridCreator.GameGrid, GridCreator.GameMap, gridCreator))
+                        {
+                            //  Debug.Log("Set action to 0");
                             NPCList[NPCIndex].SetCurrentAction(0);
                             //   NPCList[NPCIndex].SetMovementTarget(HospitalPos);
 
                             NPCList[NPCIndex].SetIfTargetIsBuilding(true);
                             NPCList[NPCIndex].SetTargetBuilding(GridCreator.GetSelectedBuilding());
                         }
-                        
+
                     }
 
                    
@@ -452,7 +492,18 @@ public class NPChandler : MonoBehaviour
                     Vector3 EntertainmentPos = GridCreator.GetPosOfNearestEntertainment(NPCList[NPCIndex].GetPosition());
                     if(EntertainmentPos.x != -1)
                     {
-                        if(NPCList[NPCIndex].SetRoute(GridCreator.GameMap.WorldToCell(EntertainmentPos), GridCreator.GameGrid, GridCreator.GameMap, gridCreator))
+                   //     if(NPCList[NPCIndex].SetRoute(GridCreator.GameMap.WorldToCell(EntertainmentPos), GridCreator.GameGrid, GridCreator.GameMap, gridCreator))
+                     //   {
+                            //Debug.Log("Set action to 0");
+                       //     NPCList[NPCIndex].SetCurrentAction(0);
+                            //  NPCList[NPCIndex].SetMovementTarget(EntertainmentPos);
+
+                         //   NPCList[NPCIndex].SetIfTargetIsBuilding(true);
+                          //  NPCList[NPCIndex].SetTargetBuilding(GridCreator.GetSelectedBuilding());
+
+                        //}
+
+                        if (NPCList[NPCIndex].SetRoute(GridCreator.GameMap.WorldToCell(EntertainmentPos), GridCreator.GameGrid, GridCreator.GameMap, gridCreator))
                         {
                             //Debug.Log("Set action to 0");
                             NPCList[NPCIndex].SetCurrentAction(0);
@@ -462,7 +513,7 @@ public class NPChandler : MonoBehaviour
                             NPCList[NPCIndex].SetTargetBuilding(GridCreator.GetSelectedBuilding());
 
                         }
-                       
+
                     }
                 }
                
@@ -470,9 +521,16 @@ public class NPChandler : MonoBehaviour
             else
             {
                 //Wander
-                if( NPCList[NPCIndex].SetRoute(GridCreator.GameMap.WorldToCell(GetWanderTarget()), GridCreator.GameGrid, GridCreator.GameMap, gridCreator))
-                {
+            //    if( NPCList[NPCIndex].SetRoute(GridCreator.GameMap.WorldToCell(GetWanderTarget()), GridCreator.GameGrid, GridCreator.GameMap, gridCreator))
+             //   {
                   //  Debug.Log("Set action to 0");
+                    //  NPCList[NPCIndex].SetMovementTarget(GetWanderTarget());
+               //     NPCList[NPCIndex].SetCurrentAction(0);
+                    // NPCList[NPCIndex].SetCurrentAction(0);
+               // }
+                if (NPCList[NPCIndex].SetRouteNew(GridCreator.GameMap.WorldToCell(GetWanderTarget()), GridCreator.GameGrid, GridCreator.GameMap, gridCreator))
+                {
+                    //  Debug.Log("Set action to 0");
                     //  NPCList[NPCIndex].SetMovementTarget(GetWanderTarget());
                     NPCList[NPCIndex].SetCurrentAction(0);
                     // NPCList[NPCIndex].SetCurrentAction(0);
@@ -512,7 +570,8 @@ public class NPChandler : MonoBehaviour
                     if (NPCList[x].GetCurrentAction() == 0)
                     {
                         Vector3 TargetPos = (NPCList[x].GetRoutePositions()[NPCList[x].GetRoutePositions().Count - 1]);
-                        NPCList[x].SetRoute(GridCreator.GameMap.WorldToCell(TargetPos), GridCreator.GameGrid, GridCreator.GameMap, GridHandler);
+                        // NPCList[x].SetRoute(GridCreator.GameMap.WorldToCell(TargetPos), GridCreator.GameGrid, GridCreator.GameMap, GridHandler);
+                        NPCList[x].SetRouteNew(GridCreator.GameMap.WorldToCell(TargetPos), GridCreator.GameGrid, GridCreator.GameMap, GridHandler);
                     }
                     else if (NPCList[x].GetCurrentAction() == 6)
                     {
@@ -528,7 +587,8 @@ public class NPChandler : MonoBehaviour
                                 NPCList[x].ReDisplaySprite();
                                 NPCList[x].SetCurrentAction(0);
                                 Vector3 TargetPos = (NPCList[x].GetRoutePositions()[NPCList[x].GetRoutePositions().Count - 1]);
-                                NPCList[x].SetRoute(GridCreator.GameMap.WorldToCell(TargetPos), GridCreator.GameGrid, GridCreator.GameMap, GridHandler);
+                                // NPCList[x].SetRoute(GridCreator.GameMap.WorldToCell(TargetPos), GridCreator.GameGrid, GridCreator.GameMap, GridHandler);
+                                NPCList[x].SetRouteNew(GridCreator.GameMap.WorldToCell(TargetPos), GridCreator.GameGrid, GridCreator.GameMap, GridHandler);
                             }
                         }
                     }
@@ -541,12 +601,13 @@ public class NPChandler : MonoBehaviour
                             {
                                 NPCList[x].NeedsUpdateAfterTravel = true;
                             }
-                            else
+                            else 
                             {
                                 NPCList[x].ReDisplaySprite();
                                 NPCList[x].SetCurrentAction(0);
                                 Vector3 TargetPos = (NPCList[x].GetRoutePositions()[NPCList[x].GetRoutePositions().Count - 1]);
-                                NPCList[x].SetRoute(GridCreator.GameMap.WorldToCell(TargetPos), GridCreator.GameGrid, GridCreator.GameMap, GridHandler);
+                               // NPCList[x].SetRoute(GridCreator.GameMap.WorldToCell(TargetPos), GridCreator.GameGrid, GridCreator.GameMap, GridHandler);
+                                NPCList[x].SetRouteNew(GridCreator.GameMap.WorldToCell(TargetPos), GridCreator.GameGrid, GridCreator.GameMap, GridHandler);
                             }
                         }
                     }
@@ -567,7 +628,8 @@ public class NPChandler : MonoBehaviour
                     if (NPCList[x].GetCurrentAction() == 0)
                     {
                         Vector3 TargetPos = (NPCList[x].GetRoutePositions()[NPCList[x].GetRoutePositions().Count - 1]);
-                        NPCList[x].SetRoute(GridCreator.GameMap.WorldToCell(TargetPos), GridCreator.GameGrid, GridCreator.GameMap, GridHandler);
+                        // NPCList[x].SetRoute(GridCreator.GameMap.WorldToCell(TargetPos), GridCreator.GameGrid, GridCreator.GameMap, GridHandler);
+                        NPCList[x].SetRouteNew(GridCreator.GameMap.WorldToCell(TargetPos), GridCreator.GameGrid, GridCreator.GameMap, GridHandler);
                     }
                     else if (NPCList[x].GetCurrentAction() == 7)
                     {
@@ -583,7 +645,8 @@ public class NPChandler : MonoBehaviour
                                 NPCList[x].ReDisplaySprite();
                                 NPCList[x].SetCurrentAction(0);
                                 Vector3 TargetPos = (NPCList[x].GetRoutePositions()[NPCList[x].GetRoutePositions().Count - 1]);
-                                NPCList[x].SetRoute(GridCreator.GameMap.WorldToCell(TargetPos), GridCreator.GameGrid, GridCreator.GameMap, GridHandler);
+                                //NPCList[x].SetRoute(GridCreator.GameMap.WorldToCell(TargetPos), GridCreator.GameGrid, GridCreator.GameMap, GridHandler);
+                                NPCList[x].SetRouteNew(GridCreator.GameMap.WorldToCell(TargetPos), GridCreator.GameGrid, GridCreator.GameMap, GridHandler);
                             }
                         }
                     }
@@ -601,7 +664,8 @@ public class NPChandler : MonoBehaviour
                                 NPCList[x].ReDisplaySprite();
                                 NPCList[x].SetCurrentAction(0);
                                 Vector3 TargetPos = (NPCList[x].GetRoutePositions()[NPCList[x].GetRoutePositions().Count - 1]);
-                                NPCList[x].SetRoute(GridCreator.GameMap.WorldToCell(TargetPos), GridCreator.GameGrid, GridCreator.GameMap, GridHandler);
+                               // NPCList[x].SetRoute(GridCreator.GameMap.WorldToCell(TargetPos), GridCreator.GameGrid, GridCreator.GameMap, GridHandler);
+                                NPCList[x].SetRouteNew(GridCreator.GameMap.WorldToCell(TargetPos), GridCreator.GameGrid, GridCreator.GameMap, GridHandler);
                             }
                         }
                     }
@@ -619,13 +683,43 @@ public class NPChandler : MonoBehaviour
         }
 
     }
+    // Add this method to NPChandler
+    void HandleStuckNPC(int npcIndex)
+    {
+        // Try to assign a wander route as a fallback
+        Vector3 wanderTarget = GetWanderTarget();
+        bool routeSet = NPCList[npcIndex].SetRouteNew(
+            GridCreator.GameMap.WorldToCell(wanderTarget),
+            GridCreator.GameGrid,
+            GridCreator.GameMap,
+            gridCreator
+        );
+        if (routeSet)
+        {
+            NPCList[npcIndex].SetCurrentAction(0);
+            NPCList[npcIndex].ResetStuckCount();
+        }
+        else
+        {
+            // If even wandering fails, just reset and try again next frame
+            NPCList[npcIndex].SetCurrentAction(-1);
+            NPCList[npcIndex].ResetStuckCount();
+        }
+    }
     void UpdateNPCs()
     {
         List<int> NPCsToRemove=new List<int>();
         MovementCounter++;
         // check for updates to each NPC
         for (int i = 0; i < NPCList.Count; i++) {
-           // CheckIfStuck(i);
+            // CheckIfStuck(i);
+            // Stuck detection and handling
+            NPCList[i].UpdateStuckCount(1);
+            if (NPCList[i].CheckIfStuck())
+            {
+                HandleStuckNPC(i);
+                continue; // Skip further processing for this NPC this frame
+            }
 
             if (NPCList[i].GetIfJusteEnteredBuilding())
             {
@@ -661,7 +755,8 @@ public class NPChandler : MonoBehaviour
                     NPCList[i].ResetCounter();
                     //      Debug.Log("Moving towards target");
                     // NPCList[i].MovetowardsTarget();
-                    NPCList[i].MoveTowardsTargetOnRoute(gridCreator);
+                    //  NPCList[i].MoveTowardsTargetOnRoute(gridCreator);
+                    NPCList[i].MoveTowardsTargetOnRouteNew(gridCreator);
                 }
                 else
                 {

@@ -1125,6 +1125,7 @@ public class GridCreator : MonoBehaviour
             {
                 return;
             }
+            uiHandler.OpenNewPopUp("Test", "Test");
 
             Vector3 ClickPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             Vector3Int CellClickedPos = GameMap.WorldToCell(ClickPos);

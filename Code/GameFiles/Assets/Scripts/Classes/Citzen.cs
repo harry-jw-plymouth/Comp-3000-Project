@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using UnityEngine.UIElements;
 
 public class Citzen
 {
@@ -359,6 +360,183 @@ public class Citzen
     public void ReDisplaySprite()
     {
         NPCSprite.GetComponent<SpriteRenderer>().enabled = true;
+    }
+    public bool GetIfSquareValid(Vector3Int Current)
+    {
+        return GridCreator.GameGrid[Current.x, Current.y].Contains != 4 &&
+                GridCreator.GameGrid[Current.x, Current.y].Contains != 2 &&
+                GridCreator.GameGrid[Current.x , Current.y].Contains != 3;
+
+    }
+    public bool SetRouteNew(Vector3Int Target, Square[,] Grid, Tilemap GameMap, GridCreator GridHandler)
+    {
+        Queue<Vector3Int> ToCheck = new Queue<Vector3Int>();
+        HashSet<Vector3Int> AlreadyVisited = new HashSet<Vector3Int>();
+
+        Dictionary<Vector3Int, Vector3Int> CameFrom = new Dictionary<Vector3Int, Vector3Int>();
+
+        Vector3Int StartPos = GameMap.WorldToCell(Position);
+        if (GetIfInBounds(StartPos.x, StartPos.y))
+        {
+            ToCheck.Enqueue(StartPos);
+            AlreadyVisited.Add(StartPos);
+            CameFrom[StartPos] = StartPos;
+        }
+
+        List<Vector3Int> TilesAroundStart = GetSurroundingTiles(GameMap.WorldToCell(Position));
+        for (int i = 0; i < TilesAroundStart.Count; i++)
+        {
+            if (!AlreadyVisited.Contains(TilesAroundStart[i]))
+            {
+                ToCheck.Enqueue(TilesAroundStart[i]);
+                AlreadyVisited.Add(TilesAroundStart[i]);
+                CameFrom[TilesAroundStart[i]] = StartPos;
+            }
+
+        }
+
+        while (ToCheck.Count > 0)
+        {
+            Vector3Int Current = ToCheck.Dequeue();
+
+            int currentBuildingIndex = GridHandler.GetBuildingClicked(Current);
+
+            if (currentBuildingIndex != -1)
+            {
+                PlacedBuilding currentBuilding = GridCreator.PlacedBuildings[currentBuildingIndex];
+            }
+            
+
+            if (Current == Target)
+            {
+
+                RoutePositions = new List<Vector3>();
+
+                Vector3Int currentRoutePos = Current;
+
+                while (CameFrom[currentRoutePos] != currentRoutePos)
+                {
+                    RoutePositions.Add(
+                        GridCreator.GameMap.CellToWorld(currentRoutePos)
+                    );
+
+                    currentRoutePos = CameFrom[currentRoutePos];
+                }
+                RoutePositions.Add(
+                    GridCreator.GameMap.CellToWorld(currentRoutePos)
+                );
+
+                RoutePositions.Reverse();
+
+
+                NexPositionOnRoute = 0;
+                if (NexPositionOnRoute > RoutePositions.Count)
+                {
+
+                    NexPositionOnRoute = RoutePositions.Count - 1;
+                }
+
+                if (RoutePositions.Count <= 2)
+                {
+                    return false;
+                }
+
+                return true;
+
+
+            }
+
+            Vector3Int New = new Vector3Int();
+            List<Vector3Int> NewChecks = new List<Vector3Int>();
+
+            //add surrounding tiles
+
+            // check right tile
+            if (GetIfInBounds(Current.x + 1, Current.y))
+            {
+                if (GetIfSquareValid(new Vector3Int(Current.x + 1, Current.y,0)))
+                {
+                    NewChecks.Add(new Vector3Int(Current.x + 1, Current.y, 0));
+                }
+                else if (GridCreator.GameGrid[Current.x + 1, Current.y].Contains == 2)
+                {
+                    // pos is building
+                }
+                else if (Target.x == Current.x + 1 && Target.y == Current.y)
+                {
+                    NewChecks.Add(new Vector3Int(Current.x + 1, Current.y, 0));
+                }
+            }
+            
+
+            //check left tile
+            if (GetIfInBounds(Current.x - 1, Current.y))
+            {
+                if (GetIfSquareValid(new Vector3Int(Current.x - 1, Current.y,0)))
+                {
+                    NewChecks.Add(new Vector3Int(Current.x - 1, Current.y, 0));
+                }
+                else if (GridCreator.GameGrid[Current.x - 1, Current.y].Contains == 2)
+                {
+                    // check for building
+                }
+                else if (Target.x == Current.x - 1 && Target.y == Current.y)
+                {
+                    NewChecks.Add(new Vector3Int(Current.x - 1, Current.y, 0));
+                }
+            }
+            
+
+            //check above tile
+            if (GetIfInBounds(Current.x, Current.y + 1))
+            {
+                if (GetIfSquareValid(new Vector3Int(Current.x, Current.y + 1, 0)))
+                {
+                    NewChecks.Add(new Vector3Int(Current.x, Current.y + 1, 0));
+                }
+                else if (GridCreator.GameGrid[Current.x, Current.y + 1].Contains == 2)
+                {
+                    // check for building
+                }
+                else if (Target.x == Current.x && Target.y == Current.y + 1)
+                {
+                    NewChecks.Add(new Vector3Int(Current.x, Current.y + 1, 0));
+                }
+            }
+            
+
+            //check below tile
+            if (GetIfInBounds(Current.x, Current.y - 1))
+            {
+                if (GetIfSquareValid(new Vector3Int(Current.x,Current.y-1,0)))
+                {
+                    NewChecks.Add(new Vector3Int(Current.x, Current.y - 1, 0));
+                }
+                else if (GridCreator.GameGrid[Current.x, Current.y - 1].Contains == 2)
+                {
+                    //check for building
+                }
+                else if (Target.x == Current.x && Target.y == Current.y - 1)
+                {
+                    NewChecks.Add(new Vector3Int(Current.x, Current.y - 1, 0));
+                }
+            }
+            
+
+            for (int i = 0; i < NewChecks.Count; i++)
+            {
+                if (!AlreadyVisited.Contains(NewChecks[i]))
+                {
+                    ToCheck.Enqueue(NewChecks[i]);
+                    AlreadyVisited.Add(NewChecks[i]);
+                    CameFrom[NewChecks[i]] = Current;
+                }
+            }
+
+
+        }
+        //  Debug.Log("Route could not be set for NPC"+ CitzenID);
+        return false;
     }
 
 
@@ -1014,6 +1192,121 @@ public class Citzen
                     
                 }
                 NexPositionOnRoute++;                    
+            }
+        }
+    }
+    public void MoveTowardsTargetOnRouteNew(GridCreator GridHandler)
+    {
+
+
+
+        IncreaseBoredom(1);
+        IncreaseSickness(2);
+        IncreaseTiredNess();
+        if (RoutePositions == null || RoutePositions.Count == 0)
+        {
+            SetCurrentAction(-1);
+            return;
+        }
+
+        if (NexPositionOnRoute < 0 || NexPositionOnRoute >= RoutePositions.Count)
+        {
+            SetCurrentAction(-1);
+            return;
+        }
+
+        //   Debug.Log("Nex position:" + NexPositionOnRoute);
+        //  Debug.Log("Route length" + RoutePositions.Count);
+        if (Position.y > RoutePositions[NexPositionOnRoute].y)
+        {
+            Position.y = Mathf.Max(Position.y - MovementSpeed, RoutePositions[NexPositionOnRoute].y);
+        }
+        else
+        {
+            Position.y = Mathf.Min(Position.y + MovementSpeed, RoutePositions[NexPositionOnRoute].y);
+        }
+        if (Position.x > RoutePositions[NexPositionOnRoute].x)
+        {
+            //move left 
+            NPCSprite.GetComponent<SpriteRenderer>().flipX = true;
+            Position.x = Mathf.Max(Position.x - MovementSpeed, RoutePositions[NexPositionOnRoute].x);
+        }
+        else
+        {
+            //move right
+            NPCSprite.GetComponent<SpriteRenderer>().flipX = false;
+            Position.x = Mathf.Min(Position.x + MovementSpeed, RoutePositions[NexPositionOnRoute].x);
+        }
+        NPCSprite.transform.position = Position;
+        if (Vector3.Distance(Position, RoutePositions[NexPositionOnRoute]) < 0.01f)
+        {
+            if (NexPositionOnRoute == RoutePositions.Count - 1)
+            {
+                Vector3Int cell = GridCreator.GameMap.WorldToCell(Position);
+                
+                //Final target reached
+                //Debug.Log("NPC With ID: " + CitzenID + " Finished route at " + RoutePositions[RoutePositions.Count-1]);
+                CurrentBusStop = new Vector3Int(-1, -1, -1);
+                TargetBusStop = new Vector3Int(-1, -1, -1);
+
+                RoutePositions = new List<Vector3>();
+                MovementTarget = new Vector3();
+                if (TargetIsbuilding)
+                {
+
+                    JustEnteredBuilding = true;
+                    SetCurrentAction(1);
+                    TargetIsbuilding = false;
+                    InBuilding = GetTimeInBuilding(BuildingCurrentlyTargetting.GetLowerBound(), BuildingCurrentlyTargetting.GetUpperBound());
+                    NPCSprite.GetComponent<SpriteRenderer>().enabled = false;
+                    if (BuildingCurrentlyTargetting.IsHome)
+                    {
+                        //       Debug.Log("NPC " + CitzenID + " is now home");
+                        SetCurrentAction(2);
+                    }
+                    else if (BuildingCurrentlyTargetting.GetIfIsHospital())
+                    {
+                        //    Debug.Log("NPC " + CitzenID + " is now partaling in hospital");
+                        SetCurrentAction(3);
+                    }
+                    else if (BuildingCurrentlyTargetting.GetIfEntertainment())
+                    {
+                        //       Debug.Log("NPC " + CitzenID + " is now partaling in entertainment");
+                        SetCurrentAction(4);
+                    }
+                }
+                else
+                {
+                    //       Debug.Log("NPC " + CitzenID + " is now selecting a new route");
+                    SetCurrentAction(-1);
+                }
+
+            }
+            else
+            {
+                //Next target
+
+                int TempCurrentIndex = NexPositionOnRoute;
+                if (TempCurrentIndex == 0)
+                {
+                    ShowRoute();
+                }
+
+                else if (TempCurrentIndex == RoutePositions.Count - 1)
+                {
+
+                    //          Debug.Log("NPC " + CitzenID + "Has reached the next point on their route\n Previous position:" + RoutePositions[TempCurrentIndex - 1] + " \n" +
+                    //        " position just arrived at: " + RoutePositions[TempCurrentIndex] +
+                    //      "\n Next position : N/A");
+                }
+                else
+                {
+                    //             Debug.Log("NPC " + CitzenID + "Has reached the next point on their route\n Previous position:" + RoutePositions[TempCurrentIndex - 1] + " \n" +
+                    //           " position just arrived at: " + RoutePositions[TempCurrentIndex] +
+                    //         "\n Next position : " + RoutePositions[TempCurrentIndex + 1]);
+                }  
+              
+                NexPositionOnRoute++;
             }
         }
     }
