@@ -11,6 +11,7 @@ public class MainMenu : MonoBehaviour
 {
     public GameObject SavesCanvas; //scene 1
     public GameObject StartButton; // scene 0
+    public GameObject CreditsCanvas;
     public GameObject SelectableSavesCanvas; //Scene 2
     public static int GameSaveID;
 
@@ -32,9 +33,13 @@ public class MainMenu : MonoBehaviour
     public TMP_Text SaveText1;
     public TMP_Text SaveText2;
     public TMP_Text SaveText3;
+    public TMP_Text CreditsText;
 
     public DBManager dbmanager;
 
+
+    List<string> CreditsPageContents = new List<string>();
+    int CurrentCreditsPage = 0;
 
 
 
@@ -48,6 +53,13 @@ public class MainMenu : MonoBehaviour
     void Start()
     {
         SelectableSavesCanvas.SetActive(false);
+        SetupCreditsContents();
+    }
+    void SetupCreditsContents()
+    {
+        CreditsPageContents.Add("Music\r\nGame background Music : https://www.zapsplat.com/music/game-day-rhythmic-upbeat-electronic-sports-game-instrumental-with-piano-chords-and-synths/ \r\nUI\r\nMoney ICON: https://xflomasterx.itch.io/coins-free\r\nCity background for main menu: https://free-game-assets.itch.io/free-city-backgrounds-pixel-art \r\nButtons and most UI elements :\r\nhttps://crusenho.itch.io/complete-ui-essential-pack \r\nGame Font : https://www.1001fonts.com/arcadeclassic-font.html  \r\nTiles\r\nGrass tiles: https://cardinalzebra.itch.io/grass-road-tiles \r\nRoad tiles (edited to have pathway): https://kubigames.itch.io/road-tiles/download/eyJleHBpcmVzIjoxNzczMjY1NTE3LCJpZCI6MzkwMjY1fQ%3d%3d.WJny6AaDSPHNmF3wyioaGVCdeuk%3d \r\nWater tile/animation (grass overlay was added by me):https://zrodfects.itch.io/16x16-water-tiles-animated-tileset-1-starter-pack \r\n");
+        CreditsPageContents.Add("Buildings\r\nHospital sprite:https://dai420.itch.io/hospital \r\nTown hall sprite https://avkov.itch.io/city-tilemap-32x32  \r\nShop sprite(edited to fit style of game slightly) : https://avkov.itch.io/city-tilemap-32x32?download \r\nAssorted sprites/items\r\nPlants: https://shubibubi.itch.io/nature-things \r\nTrees :https://karsiori.itch.io/free-pixel-art-tree-pack \r\nNPCs https://free-game-assets.itch.io/free-townspeople-cyberpunk-pixel-art \r\nPackages/tools\r\nColour blind mode package :https://assetstore.unity.com/packages/vfx/shaders/fullscreen-camera-effects/colorblind-effect-76360  \r\nSQL for Database operations: https://github.com/robertohuertasm/SQLite4Unity3d\r\nSprite splitter : https://ezgif.com/split\r\nWebsite for developing sprites : https://www.piskelapp.com/\r\n");
+        CreditsPageContents.Add("Hand made assets - Made By Harry Watton \r\nUI \r\nMain menu game logo, Save slot Block, Power icon, Population icon \r\nTiles\r\nTrain track tiles ,Bus stop tile (Modified from road mentioned previously)\r\nBuildings \r\nShopping center, Small house, Medium house, Power plant, Wind farm,Train station\r\nOther:\r\nBus sprites, Train sprites\r\n\r\nDeveloper- Harry Watton\r\n\r\nDeveloped using the Unity 6 engine \r\n");
     }
 //    void PopulateSaveView()
   //  {
@@ -70,9 +82,49 @@ public class MainMenu : MonoBehaviour
     {
         return NewFileCreated;
     }
+    public void OnFirstPageBackButtonClicked()
+    {
+        SavesCanvas.SetActive(false);
+        StartButton.SetActive(true);
+    }
     public void OnStartClicked()
     {
         StartButton.SetActive(false);
+        SavesCanvas.SetActive(true);
+    }
+    public void OnExitClicked()
+    {
+        Application.Quit();
+    }
+    public void DisplayCredits(int Page)
+    {
+        CreditsText.text = CreditsPageContents[Page];
+        CurrentCreditsPage = Page;
+
+    }
+    public void OnNextCreditsClicked()
+    {
+        if (CurrentCreditsPage < CreditsPageContents.Count - 1)
+        {
+            DisplayCredits(CurrentCreditsPage + 1);
+        }
+    }
+    public void OnPreviousCreditsClicked()
+    {
+        if (CurrentCreditsPage > 0)
+        {
+            DisplayCredits(CurrentCreditsPage - 1);
+        }
+    }
+    public void OnCreditsClicked()
+    {
+        CreditsCanvas.SetActive(true);
+        SavesCanvas.SetActive(false);
+        DisplayCredits(0);
+    }
+    public void OnCreditsBackButtonClicked()
+    {
+        CreditsCanvas.SetActive(false);
         SavesCanvas.SetActive(true);
     }
     public void OnSelectSaveClicked()
