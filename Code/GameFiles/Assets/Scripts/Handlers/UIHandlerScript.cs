@@ -20,6 +20,7 @@ public class UIHandlerScript : MonoBehaviour
     public GameObject ReportDisplay;
     public GameObject RatingDisplay;
     public GameObject BuildingsMenuPopUp;
+    
     public GameObject BuildingRemoveButton;
     public GameObject TransportButton;
     public GameObject TransportBuilderPopUp;
@@ -69,6 +70,8 @@ public class UIHandlerScript : MonoBehaviour
 
     public bool TrainRouteViewerOn = false;
 
+
+    public GameObject NewBuidingInfoBox;
     public GameObject BuildingInfoBox;
     public TextMeshProUGUI BuildingTypeText;
     public TextMeshProUGUI BuildingMoneyText;
@@ -581,6 +584,8 @@ public class UIHandlerScript : MonoBehaviour
     }
     public void DisplayBuildingInfo(PlacedBuilding BuildingToDisplay)
     {
+        NewBuidingInfoBox.SetActive(true);
+
         BuildingInfoBox.SetActive(true);
         BuildingInfoShowing = true;
         BuildingTypeText.text = BuildingToDisplay.buildingType.Name;
@@ -613,6 +618,8 @@ public class UIHandlerScript : MonoBehaviour
    
     public void DisplayBuildingInfoAtSpecificPos(PlacedBuilding BuildingToDisplay, Vector3Int PosToShow)
     {
+        NewBuidingInfoBox.SetActive(true);
+
         BuildingInfoBox.SetActive(true);
         BuildingInfoShowing = true;
         BuildingTypeText.text = BuildingToDisplay.buildingType.Name;
@@ -638,22 +645,27 @@ public class UIHandlerScript : MonoBehaviour
         else
         {
             BuildingSpeificText.text = " building is a " + BuildingToDisplay.GetType();
-        }
+        } 
 
+        var NewInfoRect = NewBuidingInfoBox.GetComponent<RectTransform>();
         var infoRect = BuildingInfoBox.GetComponent<RectTransform>();
        // infoRect.position=GridCreator.GameMap.CellToWorld(PosToShow)+ new Vector3(0.5f, 0.5f, 0);
         Vector3 worldPos = GridCreator.GameMap.CellToWorld(PosToShow) + new Vector3(0.5f, 1.5f, 0);
         Vector3 screenPos = Camera.main.WorldToScreenPoint(worldPos);
 
-        infoRect.position = screenPos;
+   
 
+
+        //infoRect.position = screenPos;
+        //NewInfoRect.position = screenPos;
     }
 
     public void HideBuildingInfo()
     {
         BuildingInfoShowing = false;
-        BuildingInfoBox.SetActive(false);
-        
+     //   BuildingInfoBox.SetActive(false);
+       // NewBuidingInfoBox.SetActive(false);
+
     }
 
     public void OpenPauseMenu()

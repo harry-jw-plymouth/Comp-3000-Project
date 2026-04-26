@@ -31,6 +31,7 @@ public class GameStatusScript : MonoBehaviour
 
         DisplayMoneyChange();
         DisplayPowerChange();
+        CalculateCityRating();
 
     }
     public int GetPlayerStartingMoney()

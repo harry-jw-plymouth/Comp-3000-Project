@@ -691,6 +691,8 @@ public class GridCreator : MonoBehaviour
         if(!GameStatusScript.CheckIfPurchaseAffordable(CurrentlySelected.CostToBuild))
         {
             uiHandler.ShowAlertPopUp("Not enough money to build");
+            uiHandler.OpenNewPopUp("Cant place building", "Not enough money to build");
+             Debug.Log("Not enough money to build");
         }
         else
         {
@@ -782,7 +784,7 @@ public class GridCreator : MonoBehaviour
                                 {
                                     if (BuildingsListManager.Buildings[BuildingsListManager.BuildingCurrentlySelected].Shape[Y, X] == 0)
                                     {
-                                        Vector3 AdjustedStartPos = CurrentPos + new Vector3(0.0f, 0.0f, 0);
+                                        Vector3 AdjustedStartPos = CurrentPos + new Vector3(-0.5f, -0.5f, 0);
                                         NewSprite = Instantiate(NatureAreaPrefab, AdjustedStartPos, Quaternion.identity);
                                     }
                                 }
@@ -1125,7 +1127,7 @@ public class GridCreator : MonoBehaviour
             {
                 return;
             }
-            uiHandler.OpenNewPopUp("Test", "Test");
+           // uiHandler.OpenNewPopUp("Test", "Test");
 
             Vector3 ClickPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             Vector3Int CellClickedPos = GameMap.WorldToCell(ClickPos);
@@ -1427,7 +1429,7 @@ public class GridCreator : MonoBehaviour
                         {
                             if (BuildingsListManager.Buildings[Save.TypeIndex].Shape[Y, X] == 0)
                             {
-                                Vector3 AdjustedStartPos = CurrentPos + new Vector3(0.0f, 0.0f, 0);
+                                Vector3 AdjustedStartPos = CurrentPos + new Vector3(-0.5f, -0.5f, 0);
                                 NewSprite = Instantiate(NatureAreaPrefab, AdjustedStartPos, Quaternion.identity);
                             }
                         }
