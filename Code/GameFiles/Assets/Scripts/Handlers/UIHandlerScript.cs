@@ -663,8 +663,8 @@ public class UIHandlerScript : MonoBehaviour
     public void HideBuildingInfo()
     {
         BuildingInfoShowing = false;
-     //   BuildingInfoBox.SetActive(false);
-       // NewBuidingInfoBox.SetActive(false);
+        BuildingInfoBox.SetActive(false);
+        NewBuidingInfoBox.SetActive(false);
 
     }
 

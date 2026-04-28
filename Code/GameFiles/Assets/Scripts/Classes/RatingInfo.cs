@@ -17,6 +17,8 @@ public class RatingInfo
     int PowerReachRating = 0;
     int TrainStationRating = 0;
     int GreeneryRating = 0;
+
+    int AirQualityRating = 0;
     public void SetHomeLessPercentage(float New){
         HomeLessPercentage = New;
         if(HomeLessPercentage > 60)
@@ -273,6 +275,70 @@ public class RatingInfo
         }
 
     }
+    public void SetAirQaulityRating(List<PlacedBuilding> Buildings, int NumberOfGreenery) { 
+        int EffectFromBuildings = 0;
+        for (int i = 0; i < Buildings.Count; i++)
+        {
+            EffectFromBuildings += Buildings[i].GetEnviromentalValue();
+        }
+        int EffectFromGreenery = (int)((float)NumberOfGreenery * 1.0f);
+
+        int OverallEffects = EffectFromBuildings - EffectFromGreenery;
+        //Higher is worse
+
+        if (OverallEffects < 0) { 
+            AirQualityRating = 100;
+            AddReport("Amazing air quality!");
+        }
+        else if (OverallEffects>=0 && OverallEffects<100)
+        {
+            AirQualityRating = 85;
+            AddReport("Great air quality!");
+        }
+        else if (OverallEffects >= 100 && OverallEffects < 200)
+        {
+            AirQualityRating = 75;
+            AddReport("Great air quality!");
+        }
+        else if (OverallEffects >= 200 && OverallEffects < 300)
+        {
+            AirQualityRating = 65;
+            AddReport("Great air quality, But could see improvement");
+        }
+        else if (OverallEffects >= 300 && OverallEffects < 400)
+        {
+            AirQualityRating = 55;
+            AddReport("good air quality, but more greenery would improve it");
+        }
+        else if (OverallEffects >= 400 && OverallEffects < 500)
+        {
+            AirQualityRating = 45;
+            AddReport("okay air quality, but more greenery would improve it");
+        }
+        else if (OverallEffects >= 500 && OverallEffects < 600)
+        {
+            AirQualityRating = 35;
+            AddReport("Bad quality, add more greenery soon");
+        }
+        else if (OverallEffects >= 600 && OverallEffects < 700)
+        {
+            AirQualityRating = 20;
+            AddReport("Bad quality, add more greenery soon, your citzens health is effected");
+        }
+        else if (OverallEffects >= 700 && OverallEffects < 800)
+        {
+            AirQualityRating = 5;
+            AddReport("Bad quality, add more greenery soon, your citzens health is effected");
+        }
+        else
+        {
+            AirQualityRating = 0;
+            AddReport("Air qaulity critical, your citzens health is effected.");
+        }
+
+
+
+    }
     public void SetGreeneryRating(int NumberOfGreenery, int NumberOfNatureAreas,int NumberOfNPCs) { 
         int OverallGreeneryAmount=NumberOfGreenery+NumberOfNatureAreas*10;
         if (OverallGreeneryAmount == 0)
@@ -387,7 +453,7 @@ public class RatingInfo
     }
     public void CalulcateRating()
     {
-        Rating=((int)(100-HomeLessPercentage)+ShopRating+HospitalRating+RoadRating+PowerRating+EntertainmentRating+EnviromentRating+PowerReachRating+TrainStationRating)/9;
+        Rating=((int)(100-HomeLessPercentage)+ShopRating+HospitalRating+RoadRating+PowerRating+EntertainmentRating+EnviromentRating+PowerReachRating+TrainStationRating+AirQualityRating)/10;
     }
     public void SetTrainStationRating(int NumberOfNPCs, int NumberOfTrainStation)
     {

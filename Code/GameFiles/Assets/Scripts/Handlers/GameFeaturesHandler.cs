@@ -34,6 +34,12 @@ public class GameStatusScript : MonoBehaviour
         CalculateCityRating();
 
     }
+    void CalculateEnviornmentRating()
+    {
+        CurrentInfo.SetAirQaulityRating(GridCreator.PlacedBuildings,GridCreator.NumberOfGreenery);
+        CurrentInfo.SetGreeneryRating(GridCreator.NumberOfGreenery, GridCreator.GetNumberOfGreenBuildings(), npcHandler.GetCurrentNumberOfNPCs());
+        CurrentInfo.SetEnviromentalEffectRating(GridCreator.GetTotalEnviormentalEffects(), npcHandler.GetCurrentNumberOfNPCs());
+    }
     public int GetPlayerMoney()
     {
         return PlayerMoneyCount;
@@ -149,8 +155,9 @@ public class GameStatusScript : MonoBehaviour
         CurrentInfo.SetEnviromentalEffectRating(GridCreator.GetTotalEnviormentalEffects(), npcHandler.GetCurrentNumberOfNPCs());
         CurrentInfo.SetPowerReachRating(GridCreator.PlacedBuildings);
         CurrentInfo.SetTrainStationRating(npcHandler.GetCurrentNumberOfNPCs(), GridCreator.GetNumberOfTrainStations());
-        CurrentInfo.SetGreeneryRating(GridCreator.NumberOfGreenery, GridCreator.GetNumberOfGreenBuildings(), npcHandler.GetCurrentNumberOfNPCs());
+       
 
+        CalculateEnviornmentRating();
         //Calculate rating
         CurrentInfo.CalulcateRating();
         float Rating = CurrentInfo.GetRating();
