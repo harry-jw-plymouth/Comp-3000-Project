@@ -7,8 +7,10 @@ public class Home : Building
     public int CurrentResidents=0;
     
 
-    public Home(string name, int Cost, int Tax, string description, int[,] shape, int[] origin, bool Shop, int LB, int UB,bool hospital,int typeIndex,int Usage,int EF, bool Entertainment, int EV,bool IsStation,bool isGreenery, int MaxResidents)
-        : base(name, Cost, Tax, description, shape, origin, false, LB, UB,hospital,typeIndex,Usage,EF, Entertainment, EV,IsStation,isGreenery)
+    public Home(string name, int Cost, int Tax, string description, int[,] shape, int[] origin, bool Shop, int LB,
+        int UB,bool hospital,int typeIndex,int Usage,int EF, bool Entertainment, int EV,bool IsStation,bool isGreenery,
+        int AirPoll, int WaterPoll, int AreaPoll, int WasteCre, int MaxResidents)
+        : base(name, Cost, Tax, description, shape, origin, false, LB, UB,hospital,typeIndex,Usage,EF, Entertainment, EV,IsStation,isGreenery, AirPoll, WaterPoll, AreaPoll, WasteCre)
     {
         MaximumNumberOfReisdents = MaxResidents;
         IsHome = true;
@@ -39,6 +41,8 @@ public class Home : Building
     }
     public override Building GetInstance()
     {
-        return new Home(Name,CostToBuild,TaxGeneration , Description, Shape, Origin, IsShop, LowerTimeInBuilding, UpperTimeInBuilding,IsHospital,TypeIndex,PowerUsage,EnviromentalEffect,IsEntertaiment,EntertainmentValue,IsTrainStation,IsGreenery, MaximumNumberOfReisdents);
+        return new Home(Name,CostToBuild,TaxGeneration , Description, Shape, Origin, IsShop, LowerTimeInBuilding,
+            UpperTimeInBuilding,IsHospital,TypeIndex,PowerUsage,EnviromentalEffect,IsEntertaiment,EntertainmentValue,
+            IsTrainStation,IsGreenery, AirPollution, WaterPollution, AreaPollution, WasteCreated, MaximumNumberOfReisdents);
     }
 }

@@ -22,8 +22,14 @@ public class Building
     public int TaxGeneration;
     public bool IsTrainStation = false;
     public bool IsGreenery = false;
+    public int AirPollution;
+    public int WaterPollution;
+    public int AreaPollution;
+    public int WasteCreated;
 
-    public Building(string name,int Cost,int Tax, string description, int[,] shape, int[] origin, bool Shop ,int LB,int UB,bool hospital,int typeIndex,int Usage,int EF,bool Entertainment, int EV,bool isStation,bool isGreenery)
+    public Building(string name,int Cost,int Tax, string description, int[,] shape, int[] origin, bool Shop ,
+        int LB,int UB,bool hospital,int typeIndex,int Usage,int EF,bool Entertainment, int EV,bool 
+        isStation,bool isGreenery, int AirPoll,int WaterPoll,int AreaPoll,int WasteCre)
     {
         Name = name;
         Description = description;
@@ -46,7 +52,11 @@ public class Building
         TaxGeneration= Tax;
         IsTrainStation = isStation;
         IsGreenery = isGreenery;
-    }
+        AirPollution= AirPoll;
+        WaterPollution= WaterPoll;
+        AreaPollution= AreaPoll;
+        WasteCreated= WasteCre;
+}
     public void SetIsTrainStation(bool New)
     {
         IsTrainStation= New;
@@ -117,7 +127,7 @@ public class Building
     }
     public virtual Building GetInstance()
     {
-        return new Building(Name,CostToBuild,TaxGeneration, Description, Shape, Origin,IsShop,LowerTimeInBuilding,UpperTimeInBuilding,IsHospital,TypeIndex,PowerUsage,EnviromentalEffect,IsEntertaiment,EntertainmentValue,IsTrainStation,IsGreenery);
+        return new Building(Name,CostToBuild,TaxGeneration, Description, Shape, Origin,IsShop,LowerTimeInBuilding,UpperTimeInBuilding,IsHospital,TypeIndex,PowerUsage,EnviromentalEffect,IsEntertaiment,EntertainmentValue,IsTrainStation,IsGreenery,AirPollution,WaterPollution,AreaPollution,WasteCreated);
     }
 
 }

@@ -6,8 +6,10 @@ public class PowerPlant : Building
     public int Range;
  
 
-    public PowerPlant(string name,int Cost,int Tax, string description, int[,] shape, int[] origin, bool Shop, int LB, int UB, bool hospital, int typeIndex, int Usage,int EF,bool Entertainment,int EV,bool isStation,bool isGreenery , int PowerGen,int range)
-        : base(name,Cost,Tax, description, shape, origin, false, LB, UB, hospital, typeIndex,Usage,EF,Entertainment,EV,isStation,isGreenery)
+    public PowerPlant(string name,int Cost,int Tax, string description, int[,] shape, int[] origin, bool Shop, 
+        int LB, int UB, bool hospital, int typeIndex, int Usage,int EF,bool Entertainment,int EV,
+        bool isStation,bool isGreenery, int AirPoll, int WaterPoll, int AreaPoll, int WasteCre, int PowerGen,int range)
+        : base(name,Cost,Tax, description, shape, origin, false, LB, UB, hospital, typeIndex,Usage,EF,Entertainment,EV,isStation,isGreenery, AirPoll, WaterPoll,  AreaPoll, WasteCre)
     {
         PowerGeneration =PowerGen;
         IsPowerPlant = true;
@@ -23,6 +25,8 @@ public class PowerPlant : Building
     }
     public override Building GetInstance()
     {
-        return new PowerPlant(Name,CostToBuild,TaxGeneration, Description, Shape, Origin, IsShop, LowerTimeInBuilding, UpperTimeInBuilding, IsHospital, TypeIndex, PowerUsage,EnviromentalEffect,IsEntertaiment,EntertainmentValue,IsTrainStation,IsGreenery,PowerGeneration,Range);
+        return new PowerPlant(Name,CostToBuild,TaxGeneration, Description, Shape, Origin, IsShop, LowerTimeInBuilding, UpperTimeInBuilding,
+            IsHospital, TypeIndex, PowerUsage,EnviromentalEffect,IsEntertaiment,EntertainmentValue,IsTrainStation,IsGreenery,AirPollution,
+            WaterPollution, AreaPollution, WasteCreated, PowerGeneration,Range);
     }
 }
