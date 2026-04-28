@@ -139,6 +139,7 @@ public class DBManager : MonoBehaviour
         SaveFile.Type= Mode;
         SaveFile.IsEmpty = false;
         SaveFile.NumberOfNPCs = Current.NumberOfNPCs;
+        SaveFile.Money = Current.Money;
 
         db.Update(SaveFile);
         return true;
@@ -161,11 +162,11 @@ public class DBManager : MonoBehaviour
     public static void ResetSaves()
     {
         ClearDB();
-        CreateNewFile("", "", true,10);
-        CreateNewFile("", "", true,10);
-        CreateNewFile("", "", true,10);
+        CreateNewFile("", "", true,10,10000);
+        CreateNewFile("", "", true,10,10000);
+        CreateNewFile("", "", true,10,10000);
     }
-    public static bool UpdateSave( int NPCAmount,int CurrentID)
+    public static bool UpdateSave( int NPCAmount,int CurrentID,int CurrentMoney)
     {
         var SaveFile = db.Table<SaveFileModel>().Where(x => x.IDToAssociate == CurrentID).FirstOrDefault();
 
@@ -175,6 +176,7 @@ public class DBManager : MonoBehaviour
             return false;
         }
         SaveFile.NumberOfNPCs = NPCAmount;
+        SaveFile.Money = CurrentMoney;
 
         db.Update(SaveFile);
         return true;
@@ -226,9 +228,9 @@ public class DBManager : MonoBehaviour
             AddBusRoute(routes[i].StartStop, routes[i].EndStop, ID);
         }
     }
-    public static void CreateNewFile(string FileName,string FileType, bool FileIsEmpty,int NPCAmount)
+    public static void CreateNewFile(string FileName,string FileType, bool FileIsEmpty,int NPCAmount, int CurrentMoney)
     {
-        SaveFileModel Save = new SaveFileModel { Name=FileName,Type=FileType,IsEmpty=FileIsEmpty,NumberOfNPCs=NPCAmount};
+        SaveFileModel Save = new SaveFileModel { Name=FileName,Type=FileType,IsEmpty=FileIsEmpty,NumberOfNPCs=NPCAmount, Money=CurrentMoney};
         db.Insert(Save);
     }
     public void DisplaySaveFiles()
@@ -257,6 +259,12 @@ public class DBManager : MonoBehaviour
     public static List<SaveFileModel> GetSaveFiles()
     {
         return db.Table<SaveFileModel>().ToList();
+    }
+    public static SaveFileModel GetSpecificSaveFile(int AssociatedID)
+    {
+        SaveFileModel Current= db.Table<SaveFileModel>()
+                     .FirstOrDefault(x => x.IDToAssociate == AssociatedID);
+        return Current;
     }
     public static void AddNewBuilding(int AssociatedId, PlacedBuilding Current)
     {

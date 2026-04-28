@@ -34,12 +34,18 @@ public class GameStatusScript : MonoBehaviour
         CalculateCityRating();
 
     }
+    public int GetPlayerMoney()
+    {
+        return PlayerMoneyCount;
+    }   
     public int GetPlayerStartingMoney()
     {
-        if (MainMenu.GetCurrentSaveID() == -1)
+        if (MainMenu.GetCurrentSaveID() != -1)
         {
-
+            
+            return DBManager.GetSpecificSaveFile(MainMenu.GetCurrentSaveID()).Money;
         }
+        Debug.Log("No save file found, giving default money");
         return 10000;
     }
     public static List<string> GetReport()

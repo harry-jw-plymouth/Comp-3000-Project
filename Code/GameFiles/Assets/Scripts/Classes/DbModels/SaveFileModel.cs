@@ -14,4 +14,5 @@ public class SaveFileModel
     public string Type { get; set; }
     public bool IsEmpty {  get; set; }
     public int NumberOfNPCs {  get; set; }
+    public int Money {  get; set; }
 }

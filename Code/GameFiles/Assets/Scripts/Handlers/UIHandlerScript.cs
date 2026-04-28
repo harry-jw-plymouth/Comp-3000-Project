@@ -784,7 +784,7 @@ public class UIHandlerScript : MonoBehaviour
     public void OnSaveButtonClicked()
     {
         Debug.Log("Save button clicked");
-        DBManager.UpdateSave(NpcHandler.GetCurrentNumberOfNPCs(), MainMenu.CurrentSaveID);
+        DBManager.UpdateSave(NpcHandler.GetCurrentNumberOfNPCs(), MainMenu.CurrentSaveID, gameHandler.GetPlayerMoney()) ;
         DBManager.UpdateMapSave(MainMenu.CurrentSaveID, GridCreator.WIDTH, GridCreator.HEIGHT, GridCreator.GameGrid);
         DBManager.AddAllBuildingsForSave(MainMenu.CurrentSaveID, GridCreator.PlacedBuildings);
         DBManager.UpdateTrainRoutesForSave(MainMenu.CurrentSaveID, TransportPlacementScript.TrainRoutes);
