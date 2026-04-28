@@ -1,5 +1,6 @@
 using JetBrains.Annotations;
 using NUnit.Framework;
+using UnityEditor.Build;
 using UnityEngine;
 
 public class Building
@@ -58,6 +59,14 @@ public class Building
         AreaPollution= AreaPoll;
         WasteCreated= WasteCre;
 }
+    public int GetBuildingWaste()
+    {
+        return WasteCreated;
+    }
+    public bool GetIfIsWastageCenter()
+    {
+        return IsWastageCenter;
+    }
     public void SetIsTrainStation(bool New)
     {
         IsTrainStation= New;
@@ -132,7 +141,11 @@ public class Building
     }
     public virtual Building GetInstance()
     {
-        return new Building(Name,CostToBuild,TaxGeneration, Description, Shape, Origin,IsShop,LowerTimeInBuilding,UpperTimeInBuilding,IsHospital,TypeIndex,PowerUsage,EnviromentalEffect,IsEntertaiment,EntertainmentValue,IsTrainStation,IsGreenery,AirPollution,WaterPollution,AreaPollution,WasteCreated);
+        Building building = new Building(Name, CostToBuild, TaxGeneration, Description, Shape, Origin, IsShop, LowerTimeInBuilding, UpperTimeInBuilding, IsHospital, TypeIndex, PowerUsage, EnviromentalEffect, IsEntertaiment, EntertainmentValue, IsTrainStation, IsGreenery, AirPollution, WaterPollution, AreaPollution, WasteCreated);
+        building.SetIsTrainStation(IsTrainStation);
+        building.SetIsWatageCenter(IsWastageCenter);
+        return building;
+
     }
 
 }

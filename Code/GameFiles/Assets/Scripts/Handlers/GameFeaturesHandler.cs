@@ -13,9 +13,12 @@ public class GameStatusScript : MonoBehaviour
     public TextMeshProUGUI MoneyChangeText;
     public TextMeshProUGUI PowerChangeText;
     public TextMeshProUGUI TimeDisplayText;
+    public TextMeshProUGUI WasteAmountText;
     int UpdateFrequency = 3000;
     int FrequencyOfTaxUpdate=1000;
     int MoneyCounter = 500;
+
+    int AmountOfWaste = 0;
 
     int PlayerMoneyCount;
     float FrequencyCounter = 0;
@@ -34,7 +37,19 @@ public class GameStatusScript : MonoBehaviour
         CalculateCityRating();
         Info = new List<string>(CurrentInfo.GetReport());
         CurrentInfo.ClearReports();
+        UpdateWasteAmount();
 
+    }
+
+    void UpdateWasteAmount()
+    {
+        int NumberOfWastageCenters = GridCreator.GetNumberOfWastageFacilities();
+
+        int WasteCreated= GridCreator.GetWasteFromBuildings();
+        AmountOfWaste+= WasteCreated-(NumberOfWastageCenters*40);
+        AmountOfWaste= Mathf.Max(0, AmountOfWaste);
+
+        WasteAmountText.text = "Waste amount: "+AmountOfWaste.ToString();
     }
     void CalculateEnviornmentRating()
     {
@@ -136,6 +151,7 @@ public class GameStatusScript : MonoBehaviour
             CurrentInfo.ClearReports();
 
             DoMoney();
+            UpdateWasteAmount();
         }
     }
     public void DisplayMoney()
@@ -171,6 +187,7 @@ public class GameStatusScript : MonoBehaviour
         DisplayText.text = Rating.ToString();
         CurrentRating = Rating;
 
+        
     }
     public static int GetRating()
     {

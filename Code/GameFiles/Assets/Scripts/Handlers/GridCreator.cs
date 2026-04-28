@@ -55,6 +55,9 @@ public class GridCreator : MonoBehaviour
     public GameObject ShoppingCenterPrefab;
     public GameObject TrainStationPrefab;
     public GameObject NatureAreaPrefab;
+    public GameObject WastageCenterPrefab;
+    public GameObject RecyclingCenterPrefab;
+
 
     public GameStatusScript GameStatusScript;
 
@@ -195,6 +198,28 @@ public class GridCreator : MonoBehaviour
             }
         }
         return total;
+    }
+    public static int GetWasteFromBuildings()
+    {
+        int Waste = 0;
+        List<PlacedBuilding> Buildings =GetAllBuildings();
+        for (int i = 0; i < Buildings.Count; i++)
+        {
+            Waste += Buildings[i].GetType().GetBuildingWaste();
+        }
+        return Waste;
+    }
+    public static int GetNumberOfWastageFacilities()
+    {
+        int Amount = 0;
+        for (int i = 0; i < PlacedBuildings.Count; i++)
+        {
+            if (PlacedBuildings[i].GetType().GetIfIsWastageCenter())
+            {
+                Amount++;
+            }
+        }
+        return Amount;
     }
     public static int GetPowerGeneration()
     {
@@ -786,6 +811,22 @@ public class GridCreator : MonoBehaviour
                                     {
                                         Vector3 AdjustedStartPos = CurrentPos + new Vector3(-0.5f, -0.5f, 0);
                                         NewSprite = Instantiate(NatureAreaPrefab, AdjustedStartPos, Quaternion.identity);
+                                    }
+                                }
+                                else if (BuildingsListManager.BuildingCurrentlySelected == 10)
+                                {
+                                    if (BuildingsListManager.Buildings[BuildingsListManager.BuildingCurrentlySelected].Shape[Y, X] == 0)
+                                    {
+                                        Vector3 AdjustedStartPos = CurrentPos + new Vector3(0.0f, 0.0f, 0);
+                                        NewSprite = Instantiate(WastageCenterPrefab, AdjustedStartPos, Quaternion.identity);
+                                    }
+                                }
+                                else if (BuildingsListManager.BuildingCurrentlySelected == 11)
+                                {
+                                    if (BuildingsListManager.Buildings[BuildingsListManager.BuildingCurrentlySelected].Shape[Y, X] == 0)
+                                    {
+                                        Vector3 AdjustedStartPos = CurrentPos + new Vector3(0.0f, 0.0f, 0);
+                                        NewSprite = Instantiate(RecyclingCenterPrefab, AdjustedStartPos, Quaternion.identity);
                                     }
                                 }
 
@@ -1431,6 +1472,21 @@ public class GridCreator : MonoBehaviour
                             {
                                 Vector3 AdjustedStartPos = CurrentPos + new Vector3(-0.5f, -0.5f, 0);
                                 NewSprite = Instantiate(NatureAreaPrefab, AdjustedStartPos, Quaternion.identity);
+                            }
+                        }else if (Save.TypeIndex == 10)
+                        {
+                            if (BuildingsListManager.Buildings[Save.TypeIndex].Shape[Y, X] == 0)
+                            {
+                                Vector3 AdjustedStartPos = CurrentPos + new Vector3(0.0f, 0.0f, 0);
+                                NewSprite = Instantiate(WastageCenterPrefab, AdjustedStartPos, Quaternion.identity);
+                            }
+                        }
+                        else if (Save.TypeIndex == 11)
+                        {
+                            if (BuildingsListManager.Buildings[Save.TypeIndex].Shape[Y, X] == 0)
+                            {
+                                Vector3 AdjustedStartPos = CurrentPos + new Vector3(0.0f, 0.0f, 0);
+                                NewSprite = Instantiate(RecyclingCenterPrefab, AdjustedStartPos, Quaternion.identity);
                             }
                         }
 
