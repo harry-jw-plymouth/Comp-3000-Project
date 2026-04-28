@@ -21,9 +21,25 @@ public class PowerHandlerScript : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        PowerReserves=SetPowerOnStart();
         UpdatePowerDisplay();
     }
     // Update is called once per frame
+    public int SetPowerOnStart()
+    {
+        if (MainMenu.CurrentSaveID != -1)
+        {
+            Debug.Log("Save file found, setting power to saved amount");
+            Debug.Log("Power amount:" + DBManager.GetSpecificSaveFile(MainMenu.CurrentSaveID).Power);
+            return DBManager.GetSpecificSaveFile(MainMenu.CurrentSaveID).Power;
+        }
+        Debug.Log("No save file found, setting power to default amount");
+        return 10000;
+    }
+    public int GetPowerReserves()
+    {
+        return PowerReserves;
+    }
     void Update()
     {
         FrequencyCounter++;

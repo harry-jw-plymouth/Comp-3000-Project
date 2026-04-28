@@ -140,6 +140,7 @@ public class DBManager : MonoBehaviour
         SaveFile.IsEmpty = false;
         SaveFile.NumberOfNPCs = Current.NumberOfNPCs;
         SaveFile.Money = Current.Money;
+        SaveFile.Power = Current.Power;
 
         db.Update(SaveFile);
         return true;
@@ -162,11 +163,11 @@ public class DBManager : MonoBehaviour
     public static void ResetSaves()
     {
         ClearDB();
-        CreateNewFile("", "", true,10,10000);
-        CreateNewFile("", "", true,10,10000);
-        CreateNewFile("", "", true,10,10000);
+        CreateNewFile("", "", true,10,10000,10000);
+        CreateNewFile("", "", true,10,10000,10000);
+        CreateNewFile("", "", true,10,10000,10000);
     }
-    public static bool UpdateSave( int NPCAmount,int CurrentID,int CurrentMoney)
+    public static bool UpdateSave( int NPCAmount,int CurrentID,int CurrentMoney,int CurrentPower)
     {
         var SaveFile = db.Table<SaveFileModel>().Where(x => x.IDToAssociate == CurrentID).FirstOrDefault();
 
@@ -177,6 +178,7 @@ public class DBManager : MonoBehaviour
         }
         SaveFile.NumberOfNPCs = NPCAmount;
         SaveFile.Money = CurrentMoney;
+        SaveFile.Power = CurrentPower;
 
         db.Update(SaveFile);
         return true;
@@ -228,9 +230,9 @@ public class DBManager : MonoBehaviour
             AddBusRoute(routes[i].StartStop, routes[i].EndStop, ID);
         }
     }
-    public static void CreateNewFile(string FileName,string FileType, bool FileIsEmpty,int NPCAmount, int CurrentMoney)
+    public static void CreateNewFile(string FileName,string FileType, bool FileIsEmpty,int NPCAmount, int CurrentMoney,int CurrentPower)
     {
-        SaveFileModel Save = new SaveFileModel { Name=FileName,Type=FileType,IsEmpty=FileIsEmpty,NumberOfNPCs=NPCAmount, Money=CurrentMoney};
+        SaveFileModel Save = new SaveFileModel { Name=FileName,Type=FileType,IsEmpty=FileIsEmpty,NumberOfNPCs=NPCAmount, Money=CurrentMoney, Power=CurrentPower};
         db.Insert(Save);
     }
     public void DisplaySaveFiles()
