@@ -31,6 +31,7 @@ public class GameStatusScript : MonoBehaviour
     {
         CurrentGameMode=MainMenu.GetCurrentGameMode();
         PlayerMoneyCount = GetPlayerStartingMoney();
+        AmountOfWaste= GetStartingPlayerWaste();
 
         DisplayMoneyChange();
         DisplayPowerChange();
@@ -39,6 +40,17 @@ public class GameStatusScript : MonoBehaviour
         CurrentInfo.ClearReports();
         UpdateWasteAmount();
 
+
+    }
+    public int GetStartingPlayerWaste()
+    {
+        if (MainMenu.GetCurrentSaveID() != -1)
+        {
+            
+            return DBManager.GetSpecificSaveFile(MainMenu.GetCurrentSaveID()).Waste;
+        }
+        Debug.Log("No save file found, giving default waste");
+        return 0;
     }
 
     void UpdateWasteAmount()
@@ -54,6 +66,7 @@ public class GameStatusScript : MonoBehaviour
     void CalculateEnviornmentRating()
     {
         CurrentInfo.SetAirQaulityRating(GridCreator.PlacedBuildings,GridCreator.NumberOfGreenery);
+        CurrentInfo.SetWastageRating(AmountOfWaste, npcHandler.GetCurrentNumberOfNPCs());
         CurrentInfo.SetGreeneryRating(GridCreator.NumberOfGreenery, GridCreator.GetNumberOfGreenBuildings(), npcHandler.GetCurrentNumberOfNPCs());
         CurrentInfo.SetEnviromentalEffectRating(GridCreator.GetTotalEnviormentalEffects(), npcHandler.GetCurrentNumberOfNPCs());
     }
@@ -61,6 +74,10 @@ public class GameStatusScript : MonoBehaviour
     {
         return PlayerMoneyCount;
     }   
+    public int GetPlayerWaste()
+    {
+                return AmountOfWaste;
+    }
     public int GetPlayerStartingMoney()
     {
         if (MainMenu.GetCurrentSaveID() != -1)

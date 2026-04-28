@@ -19,6 +19,7 @@ public class RatingInfo
     int GreeneryRating = 0;
 
     int AirQualityRating = 0;
+    int WastageRating = 0;
     public void SetHomeLessPercentage(float New){
         HomeLessPercentage = New;
         if(HomeLessPercentage > 60)
@@ -275,6 +276,41 @@ public class RatingInfo
         }
 
     }
+    public int SetWastageRating(int WasteAmount,int NumberOfNPCs)
+    {
+        float WastePerPerson = (float)WasteAmount / (float)NumberOfNPCs;
+        if (WastePerPerson > 50)
+        {
+            WastageRating = 0;
+            ReportList.Add("Extremely high waste amount, build wastage facilities as soon as possible");
+        }
+        else if (WastePerPerson > 40)
+        {
+            WastageRating = 20;
+            ReportList.Add("high waste amount");
+        }
+        else if (WastePerPerson > 30)
+        {
+            WastageRating = 35;
+            ReportList.Add("Moderate waste amount");
+        }
+        else if (WastePerPerson > 20)
+        {
+            WastageRating = 55;
+            ReportList.Add("Alright waste amount");
+        }
+        else if (WastePerPerson > 10)
+        {
+            WastageRating= 75;
+            ReportList.Add("Alright waste amount");
+        }
+        else
+        {
+            EntertainmentRating = 100;
+            ReportList.Add("good waste amount");
+        }
+        return (int)WastePerPerson;
+    }
     public int GetAirQualityRating()
     {
         return AirQualityRating;
@@ -457,7 +493,9 @@ public class RatingInfo
     }
     public void CalulcateRating()
     {
-        Rating=((int)(100-HomeLessPercentage)+ShopRating+HospitalRating+RoadRating+PowerRating+EntertainmentRating+EnviromentRating+PowerReachRating+TrainStationRating+AirQualityRating)/10;
+        Rating=((int)(100-HomeLessPercentage)+ShopRating+
+            HospitalRating+RoadRating+PowerRating+EntertainmentRating+
+            EnviromentRating+PowerReachRating+TrainStationRating+AirQualityRating+WastageRating)/11;
     }
     public void SetTrainStationRating(int NumberOfNPCs, int NumberOfTrainStation)
     {

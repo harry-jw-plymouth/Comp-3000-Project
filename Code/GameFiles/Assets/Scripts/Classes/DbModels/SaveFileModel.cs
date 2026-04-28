@@ -16,5 +16,6 @@ public class SaveFileModel
     public int NumberOfNPCs {  get; set; }
     public int Money {  get; set; }
     public int Power { get; set; }
+    public int Waste { get; set; }
 
 }

@@ -141,6 +141,7 @@ public class DBManager : MonoBehaviour
         SaveFile.NumberOfNPCs = Current.NumberOfNPCs;
         SaveFile.Money = Current.Money;
         SaveFile.Power = Current.Power;
+        SaveFile.Waste = Current.Waste;
 
         db.Update(SaveFile);
         return true;
@@ -163,11 +164,11 @@ public class DBManager : MonoBehaviour
     public static void ResetSaves()
     {
         ClearDB();
-        CreateNewFile("", "", true,10,10000,10000);
-        CreateNewFile("", "", true,10,10000,10000);
-        CreateNewFile("", "", true,10,10000,10000);
+        CreateNewFile("", "", true,10,10000,10000,0);
+        CreateNewFile("", "", true,10,10000,10000,0);
+        CreateNewFile("", "", true,10,10000,10000,0);
     }
-    public static bool UpdateSave( int NPCAmount,int CurrentID,int CurrentMoney,int CurrentPower)
+    public static bool UpdateSave( int NPCAmount,int CurrentID,int CurrentMoney,int CurrentPower,int CurrentWaste)
     {
         var SaveFile = db.Table<SaveFileModel>().Where(x => x.IDToAssociate == CurrentID).FirstOrDefault();
 
@@ -179,6 +180,7 @@ public class DBManager : MonoBehaviour
         SaveFile.NumberOfNPCs = NPCAmount;
         SaveFile.Money = CurrentMoney;
         SaveFile.Power = CurrentPower;
+        SaveFile.Waste = CurrentWaste;
 
         db.Update(SaveFile);
         return true;
@@ -230,9 +232,9 @@ public class DBManager : MonoBehaviour
             AddBusRoute(routes[i].StartStop, routes[i].EndStop, ID);
         }
     }
-    public static void CreateNewFile(string FileName,string FileType, bool FileIsEmpty,int NPCAmount, int CurrentMoney,int CurrentPower)
+    public static void CreateNewFile(string FileName,string FileType, bool FileIsEmpty,int NPCAmount, int CurrentMoney,int CurrentPower,int CurrentWaste)
     {
-        SaveFileModel Save = new SaveFileModel { Name=FileName,Type=FileType,IsEmpty=FileIsEmpty,NumberOfNPCs=NPCAmount, Money=CurrentMoney, Power=CurrentPower};
+        SaveFileModel Save = new SaveFileModel { Name=FileName,Type=FileType,IsEmpty=FileIsEmpty,NumberOfNPCs=NPCAmount, Money=CurrentMoney, Power=CurrentPower, Waste=CurrentWaste};
         db.Insert(Save);
     }
     public void DisplaySaveFiles()
