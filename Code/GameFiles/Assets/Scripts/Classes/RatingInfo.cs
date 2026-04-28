@@ -275,6 +275,10 @@ public class RatingInfo
         }
 
     }
+    public int GetAirQualityRating()
+    {
+        return AirQualityRating;
+    }
     public void SetAirQaulityRating(List<PlacedBuilding> Buildings, int NumberOfGreenery) { 
         int EffectFromBuildings = 0;
         for (int i = 0; i < Buildings.Count; i++)

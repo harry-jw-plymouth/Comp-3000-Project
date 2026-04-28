@@ -7,6 +7,8 @@ using UnityEngine;
 public class NPChandler : MonoBehaviour
 {
     [SerializeField] GridCreator gridCreator;
+    [SerializeField] GameStatusScript GameFeaturesHandler;
+
     int MovementCounter = 0; int frameToMoveOn = 10;
     int AmountCheckCounter = 0;int CheckFrame = 1000;
     public int BuildingFrame = 20 ;
@@ -30,7 +32,6 @@ public class NPChandler : MonoBehaviour
     public TextMeshProUGUI PopulationCountDisplay;
     GridCreator GridHandler;
     
-
 
     Vector3Int MapCenter = new Vector3Int(GridCreator.WIDTH / 2, GridCreator.HEIGHT / 2, 0);
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -758,7 +759,7 @@ public class NPChandler : MonoBehaviour
                     NPCList[i].ResetCounter();
                     //      Debug.Log("Moving towards target");
                     // NPCList[i].MovetowardsTarget();
-                     NPCList[i].MoveTowardsTargetOnRoute(gridCreator);
+                     NPCList[i].MoveTowardsTargetOnRoute(gridCreator,GameFeaturesHandler.GetAirQaulityRating());
                    // NPCList[i].MoveTowardsTargetOnRouteNew(gridCreator);
                 }
                 else
@@ -772,7 +773,7 @@ public class NPChandler : MonoBehaviour
                 if (NPCList[i].GetMoveCounter() == BuildingFrame)
                 {
                     NPCList[i].ResetCounter();
-                    NPCList[i].SpendTImeInBuilding();
+                    NPCList[i].SpendTImeInBuilding(GameFeaturesHandler.GetAirQaulityRating());
                 }
                 else
                 {
@@ -811,7 +812,7 @@ public class NPChandler : MonoBehaviour
                 if(NPCList[i].GetMoveCounter() == BuildingFrame)
                 {
                     NPCList[i].ResetCounter();
-                    NPCList[i].PartakeInEnterainment();
+                    NPCList[i].PartakeInEnterainment(GameFeaturesHandler.GetAirQaulityRating());
                 }
                 else
                 {

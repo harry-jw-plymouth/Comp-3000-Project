@@ -32,6 +32,8 @@ public class GameStatusScript : MonoBehaviour
         DisplayMoneyChange();
         DisplayPowerChange();
         CalculateCityRating();
+        Info = new List<string>(CurrentInfo.GetReport());
+        CurrentInfo.ClearReports();
 
     }
     void CalculateEnviornmentRating()
@@ -76,6 +78,10 @@ public class GameStatusScript : MonoBehaviour
     }
     public void UpateTimeDisplay() {
         TimeDisplayText.text =  GetTimeToDisplay().ToString();
+    }
+    public int GetAirQaulityRating()
+    {
+        return CurrentInfo.GetAirQualityRating();
     }
     public void DoMoney()
     {

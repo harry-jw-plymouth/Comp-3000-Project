@@ -1,5 +1,6 @@
 using NUnit.Framework;
 using System.Collections.Generic;
+using System.Data;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Tilemaps;
@@ -222,9 +223,30 @@ public class Citzen
     {
         return BuildingInsidePos;
     }
-    public void IncreaseSickness(int Max)
+    public void IncreaseSickness(int Max,int AirQaulity)
     {
+        
         Sickness += Random.Range(0, Max);
+        if (AirQaulity < 80)
+        {
+            Sickness += 1;
+        }
+        if (AirQaulity >= 80&& AirQaulity<50)
+        {
+            Sickness += 2;
+        }
+        if (AirQaulity >= 50 && AirQaulity < 30)
+        {
+            Sickness += 3;
+        }
+        if (AirQaulity >= 30 && AirQaulity < 10)
+        {
+            Sickness += 4;
+        }
+        if (AirQaulity >= 10 && AirQaulity < 0)
+        {
+            Sickness += 5;
+        }
     }
     public int GetSickness()
     {
@@ -871,9 +893,9 @@ public class Citzen
 
      //   ResetBuildingData();
     }
-    public void SpendTImeInBuilding()
+    public void SpendTImeInBuilding(int AirQaulity)
     {
-        IncreaseSickness(3);
+        IncreaseSickness(2,AirQaulity);
         InBuilding--;
         if (InBuilding == 0)
         {
@@ -944,11 +966,11 @@ public class Citzen
 
         }
     }
-    public void PartakeInEnterainment()
+    public void PartakeInEnterainment(int AirQualityRating)
     {
       //  Debug.Log("Partaking in entertainment");
         AdjustBoredom(-1);
-        IncreaseSickness(3);
+        IncreaseSickness(2,AirQualityRating);
         IncreaseTiredNess();
 
         // Debug.Log("NPC at home");
@@ -978,13 +1000,13 @@ public class Citzen
     {
         return XPos>=0 && XPos<GridCreator.WIDTH && YPos>=0 && YPos<GridCreator.HEIGHT;
     }
-    public void MoveTowardsTargetOnRoute(GridCreator GridHandler)
+    public void MoveTowardsTargetOnRoute(GridCreator GridHandler,int AirQaulity)
     {
 
 
 
         IncreaseBoredom(1);
-        IncreaseSickness(2);
+        IncreaseSickness(1,AirQaulity);
         IncreaseTiredNess();
         if (RoutePositions == null || RoutePositions.Count == 0)
         {
@@ -1195,13 +1217,13 @@ public class Citzen
             }
         }
     }
-    public void MoveTowardsTargetOnRouteNew(GridCreator GridHandler)
+    public void MoveTowardsTargetOnRouteNew(GridCreator GridHandler, int AirQaulityRating)
     {
 
 
 
         IncreaseBoredom(1);
-        IncreaseSickness(2);
+        IncreaseSickness(2,AirQaulityRating);
         IncreaseTiredNess();
         if (RoutePositions == null || RoutePositions.Count == 0)
         {
@@ -1310,10 +1332,10 @@ public class Citzen
             }
         }
     }
-    public void MovetowardsTarget()
+    public void MovetowardsTarget(int AirQaulity)
     {
         IncreaseBoredom(1);
-        IncreaseSickness(2);
+        IncreaseSickness(1,AirQaulity);
         IncreaseTiredNess();
      //   Debug.Log("Moving");
         if (Position.y > MovementTarget.y)
