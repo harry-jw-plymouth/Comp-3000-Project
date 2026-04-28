@@ -44,9 +44,14 @@ public class BuildingsListManager : MonoBehaviour
             new Building("Train Station",1000,20,"a stop for trains",new int[2,2]{{1,1},{0,1} } ,new int[]{1,0},false,
             100,500,false,8,100,20,false,0,true,false,30,10,40,30),
             new Building("Nature area" ,300,-5,"a nature area to increase enviromental value",new int[3,3]{{1,1,1},{1,1,1},{0,1,1 } } ,new int[]{2,0},false,
-            100,400,false,9,0,-50, true,0,false,true,-30,0,0,0)
+            100,400,false,9,0,-50, true,0,false,true,-30,0,0,0),
+            new Building("Wastage center ",600, -10," A place to deal with waste, deals with waste but can cause pollution", new int[2,2]{{1,1},{0,1} } ,new int[]{1,0 },
+            false, 100,500, false,10,50,30,false,0,false,false,30,100,100,0),
+             new Building("Recycling center ",900, -40," A place to deal with waste, deals with waste in a way that is less harmful to the environment", new int[2,2]{{1,1},{0,1} } ,new int[]{1,0 },
+            false,100,500, false,11,70,10,false,0,false,false,10,10,10,0),
 
         }; Buildings[8].SetIsTrainStation(true);
+        Buildings[10].SetIsWatageCenter(true); Buildings[11].SetIsWatageCenter(true);
     }
    
     // Update is called once per frame
@@ -113,5 +118,13 @@ public class BuildingsListManager : MonoBehaviour
     public void OnNatureAreaSelected()
     {
         BuildingCurrentlySelected = 9;
+    }
+    public void OnWastageAreaSelected()
+    {
+        BuildingCurrentlySelected = 10;
+    }
+    public void OnRecyclingCenterSelected()
+    {
+        BuildingCurrentlySelected = 11;
     }
 }

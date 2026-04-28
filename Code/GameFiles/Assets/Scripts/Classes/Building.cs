@@ -26,6 +26,7 @@ public class Building
     public int WaterPollution;
     public int AreaPollution;
     public int WasteCreated;
+    public bool IsWastageCenter = false;
 
     public Building(string name,int Cost,int Tax, string description, int[,] shape, int[] origin, bool Shop ,
         int LB,int UB,bool hospital,int typeIndex,int Usage,int EF,bool Entertainment, int EV,bool 
@@ -60,6 +61,10 @@ public class Building
     public void SetIsTrainStation(bool New)
     {
         IsTrainStation= New;
+    }
+    public void SetIsWatageCenter(bool New)
+    {
+        IsWastageCenter = New;
     }
     public bool GetIfIsTrainStation()
     {
