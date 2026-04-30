@@ -13,7 +13,7 @@ public class Route
     List<Train> TrainsOnRoute = new List<Train>();
     GameObject SpriteForTrains;
 
-    public int CostToRun = 150;
+    public int CostToRun = 100;
     public int FareCost = 20;
 
     public bool IsCancelled = false;

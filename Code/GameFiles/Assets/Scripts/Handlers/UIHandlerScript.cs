@@ -255,8 +255,20 @@ public class UIHandlerScript : MonoBehaviour
                 BusRoute NewBusRoute = new BusRoute(StartBusStop,EndBusStop);
                 if (NewBusRoute.GetIfPathBetweenBusStops(StartBusStop, EndBusStop))
                 {
-                    NewBusRoute.SetRoute(GridCreator.GameGrid);
-                    TransportPlacementScript.AddBusRoute(NewBusRoute);
+                    if(gameHandler.CheckIfPurchaseAffordable(50))
+                    {
+                        gameHandler.AdjustMoney(-50);
+                        NewBusRoute.SetRoute(GridCreator.GameGrid);
+                        TransportPlacementScript.AddBusRoute(NewBusRoute);
+                        OpenNewPopUp("Bus route created", "New bus route created between stop at " + StartBusStop + " and stop at " + EndBusStop + ". ");
+                        OnBusRouteCanvasCloseButtonClosed();
+                    }
+                    else
+                    {
+                        OpenNewPopUp("Not enough money to create bus route", "You need 50 money to create a bus route.");
+                        return;
+                    }
+                    
                 }
                 else
                 {
@@ -356,9 +368,23 @@ public class UIHandlerScript : MonoBehaviour
         if(StartRouteStationBuilding!=-1&& EndRouteStationBuilding != -1)
         {
             Debug.Log("Making new route");
-            Route NewRoute = new Route(GridCreator.PlacedBuildings[StartRouteStationBuilding], GridCreator.PlacedBuildings[EndRouteStationBuilding]);
-            NewRoute.SetRoute(GridCreator.GameGrid);
-            TransportPlacementScript.AddRoute(NewRoute);
+            if (gameHandler.CheckIfPurchaseAffordable(100))
+            {
+                Route NewRoute = new Route(GridCreator.PlacedBuildings[StartRouteStationBuilding], GridCreator.PlacedBuildings[EndRouteStationBuilding]);
+                NewRoute.SetRoute(GridCreator.GameGrid);
+                TransportPlacementScript.AddRoute(NewRoute);
+                OpenNewPopUp("Route created", "New route created between station at " + GridCreator.PlacedBuildings[StartRouteStationBuilding].GetBuildingPosAsInt() + " and station at " + GridCreator.PlacedBuildings[EndRouteStationBuilding].GetBuildingPosAsInt() + ". ");
+                gameHandler.AdjustMoney(-100);
+                OnRouteMenuCloseButtonClicked();
+
+            }
+            else
+            {
+                uiHandler.OpenNewPopUp("Issue creating route", "Not enough money to create route");
+            }
+
+
+
             //  List<Vector3Int> test = NewRoute.GetCurrentRoute();
             //  Debug.Log("Route made");
             // Debug.Log("Route length: " + test.Count);
