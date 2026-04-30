@@ -334,148 +334,212 @@ public class NPChandler : MonoBehaviour
     }
     void SelectNewAction(int NPCIndex)
     {
+        
         int ShopChance = 5;
-        int HomeChance = 15 + ((NPCList[NPCIndex].GetTiredNess() / 50));
+        int HomeChance = 15 + ((NPCList[NPCIndex].GetTiredNess()/50));
         int WanderChance = 80;
         int EntertainmentChance = 5 + ((NPCList[NPCIndex].GetBoredom() / 50));
         int HospitalChance = 0 + (NPCList[NPCIndex].GetSickness() / 100);
-        int RandomValue = UnityEngine.Random.Range(0, ShopChance + HomeChance + WanderChance + EntertainmentChance + HospitalChance);
+        int RandomValue = UnityEngine.Random.Range(0, ShopChance+HomeChance+WanderChance);
 
-        if (!CheckIfOnRoad(NPCList[NPCIndex].GetPosition()))
-        {
+
+   //     if (NPCList[NPCIndex].GetCurrentAction() == 7)
+    //    {
+     //       return; // already waiting for bus
+     //   }
+            
+                    //   Debug.Log("TiredNess:" + NPCList[NPCIndex].GetTiredNess());
+        if (!CheckIfOnRoad(NPCList[NPCIndex].GetPosition())){
+            //Debug.Log("Not on road");
             if (GridCreator.GetIfRoadExists())
             {
-                Vector3 RoadPos = GridCreator.GetPosOfNearestRoad(NPCList[NPCIndex].GetPosition());
+              //  Debug.Log("RoadFound");
+              //  NPCList[NPCIndex].SetCurrentAction(0) ;
+                //Go to nearest path
+                Vector3 RoadPos= GridCreator.GetPosOfNearestRoad(NPCList[NPCIndex].GetPosition());
                 RoadPos.y += 0.5f;
                 RoadPos.x += 0.5f;
-                if (NPCList[NPCIndex].SetRoute(GridCreator.GameMap.WorldToCell(RoadPos), GridCreator.GameGrid, GridCreator.GameMap, gridCreator))
+              //  NPCList[NPCIndex].SetMovementTarget(RoadPos);
+                if(NPCList[NPCIndex].SetRoute(GridCreator.GameMap.WorldToCell(RoadPos), GridCreator.GameGrid, GridCreator.GameMap,gridCreator))
                 {
+                    Debug.Log("Set action to 0");
                     NPCList[NPCIndex].SetCurrentAction(0);
                 }
+
+               // if (NPCList[NPCIndex].SetRouteNew(GridCreator.GameMap.WorldToCell(RoadPos), GridCreator.GameGrid, GridCreator.GameMap, gridCreator))
+               // {
+               //     Debug.Log("Set action to 0");
+                //    NPCList[NPCIndex].SetCurrentAction(0);
+               // }
+
             }
         }
         else
         {
-            // Already on road - select an action
+           // Debug.Log("Already on road");
             if (RandomValue < ShopChance)
             {
-                // Go to shop
+                // go to the shop
                 Vector3 ShopPos = GridCreator.GetPosOfNearestShop(NPCList[NPCIndex].GetPosition());
                 if (ShopPos.x != -1)
                 {
-                    ShopPos.x += 0.5f;
-                    ShopPos.y += 0.5f;
-                    if (NPCList[NPCIndex].SetRoute(GridCreator.GameMap.WorldToCell(ShopPos), GridCreator.GameGrid, GridCreator.GameMap, gridCreator))
-                    {
+                    //Go to nearest shop
+                   
+
+                    ShopPos.x += 0.5f; ShopPos.y += 0.5f;
+                  //  NPCList[NPCIndex].SetMovementTarget(ShopPos);
+                   if( NPCList[NPCIndex].SetRoute(GridCreator.GameMap.WorldToCell( ShopPos), GridCreator.GameGrid, GridCreator.GameMap,gridCreator))
+                   {
+                        Debug.Log("Set action to 0");
                         NPCList[NPCIndex].SetCurrentAction(0);
                         NPCList[NPCIndex].SetIfTargetIsBuilding(true);
-                        // Get the actual building at this position
-                        PlacedBuilding targetBuilding = GetBuildingAtPosition(ShopPos);
-                        if (targetBuilding != null)
-                        {
-                            NPCList[NPCIndex].SetTargetBuilding(targetBuilding.buildingType);
-                        }
+                        NPCList[NPCIndex].SetTargetBuilding(GridCreator.GetSelectedBuilding());
                     }
+                //    if (NPCList[NPCIndex].SetRouteNew(GridCreator.GameMap.WorldToCell(ShopPos), GridCreator.GameGrid, GridCreator.GameMap, gridCreator))
+                  //  {
+                        //  Debug.Log("Set action to 0");
+                    //    NPCList[NPCIndex].SetCurrentAction(0);
+                      //  NPCList[NPCIndex].SetIfTargetIsBuilding(true);
+                        //NPCList[NPCIndex].SetTargetBuilding(GridCreator.GetSelectedBuilding());
+                   // }
+
+
+
                 }
                 else
                 {
-                    // No shop found, wander instead
-                    if (NPCList[NPCIndex].SetRoute(GridCreator.GameMap.WorldToCell(GetWanderTarget()), GridCreator.GameGrid, GridCreator.GameMap, gridCreator))
+                    //no shop found
+                    //NPCList[NPCIndex].SetMovementTarget(GetWanderTarget());
+                    if(NPCList[NPCIndex].SetRoute(GridCreator.GameMap.WorldToCell(GetWanderTarget()), GridCreator.GameGrid, GridCreator.GameMap,gridCreator))
                     {
+                        Debug.Log("Set action to 0");
                         NPCList[NPCIndex].SetCurrentAction(0);
                     }
+                   // if (NPCList[NPCIndex].SetRouteNew(GridCreator.GameMap.WorldToCell(GetWanderTarget()), GridCreator.GameGrid, GridCreator.GameMap, gridCreator))
+                   // {
+                        //    Debug.Log("Set action to 0");
+                     //   NPCList[NPCIndex].SetCurrentAction(0);
+                    //}
+
                 }
+
+                
             }
-            else if (RandomValue >= ShopChance && RandomValue < ShopChance + HomeChance)
+            else if(RandomValue>=ShopChance && RandomValue < ShopChance+HomeChance)
             {
-                // Go home
+                //go home
                 Vector3 HomePos = NPCList[NPCIndex].GetHomePos();
-                if (HomePos.x != -1)
-                {
-                    if (NPCList[NPCIndex].SetRoute(GridCreator.GameMap.WorldToCell(HomePos), GridCreator.GameGrid, GridCreator.GameMap, gridCreator))
+                if (HomePos.x != -1) {
+                    if(NPCList[NPCIndex].SetRoute(GridCreator.GameMap.WorldToCell(HomePos), GridCreator.GameGrid, GridCreator.GameMap, gridCreator))
                     {
+                        //Debug.Log("Set action to 0");
                         NPCList[NPCIndex].SetCurrentAction(0);
+                        NPCList[NPCIndex].SetMovementTarget(HomePos);
+
                         NPCList[NPCIndex].SetIfTargetIsBuilding(true);
                         NPCList[NPCIndex].SetTargetBuilding(NPCList[NPCIndex].GetHome());
                     }
+
+                 //   if (NPCList[NPCIndex].SetRouteNew(GridCreator.GameMap.WorldToCell(HomePos), GridCreator.GameGrid, GridCreator.GameMap, gridCreator))
+                //    {
+                        //Debug.Log("Set action to 0");
+                  //      NPCList[NPCIndex].SetCurrentAction(0);
+                        //  NPCList[NPCIndex].SetMovementTarget(HomePos);
+
+                    //    NPCList[NPCIndex].SetIfTargetIsBuilding(true);
+                      //  NPCList[NPCIndex].SetTargetBuilding(NPCList[NPCIndex].GetHome());
+                   // }
                 }
+                
             }
-            else if (RandomValue >= ShopChance + HomeChance && RandomValue < ShopChance + HomeChance + HospitalChance)
+            else if(RandomValue >= ShopChance+HomeChance && RandomValue < ShopChance + HomeChance + HospitalChance)
             {
-                // Go to hospital
-                if (GridCreator.GetNumberOfHospitals() != 0)
+                //go to the hospital 
+                if (GridCreator.GetNumberOfHospitals() != 0)// check hopsital exists
                 {
                     Vector3 HospitalPos = GridCreator.GetPosOfNearestHospital(NPCList[NPCIndex].GetPosition());
                     if (HospitalPos.x != -1)
                     {
-                        if (NPCList[NPCIndex].SetRoute(GridCreator.GameMap.WorldToCell(HospitalPos), GridCreator.GameGrid, GridCreator.GameMap, gridCreator))
+                        if(NPCList[NPCIndex].SetRoute(GridCreator.GameMap.WorldToCell(HospitalPos), GridCreator.GameGrid, GridCreator.GameMap, gridCreator))
                         {
+                            Debug.Log("Set action to 0");
                             NPCList[NPCIndex].SetCurrentAction(0);
-                            NPCList[NPCIndex].SetIfTargetIsBuilding(true);
-                            PlacedBuilding targetBuilding = GetBuildingAtPosition(HospitalPos);
-                            if (targetBuilding != null)
-                            {
-                                NPCList[NPCIndex].SetTargetBuilding(targetBuilding.buildingType);
-                            }
+                            NPCList[NPCIndex].SetMovementTarget(HospitalPos);
+
+                           NPCList[NPCIndex].SetIfTargetIsBuilding(true);
+                           NPCList[NPCIndex].SetTargetBuilding(GridCreator.GetSelectedBuilding());
                         }
+
+                   //     if (NPCList[NPCIndex].SetRouteNew(GridCreator.GameMap.WorldToCell(HospitalPos), GridCreator.GameGrid, GridCreator.GameMap, gridCreator))
+                     //   {
+                            //  Debug.Log("Set action to 0");
+                       //     NPCList[NPCIndex].SetCurrentAction(0);
+                            //   NPCList[NPCIndex].SetMovementTarget(HospitalPos);
+
+                         //   NPCList[NPCIndex].SetIfTargetIsBuilding(true);
+                          //  NPCList[NPCIndex].SetTargetBuilding(GridCreator.GetSelectedBuilding());
+                        //}
+
                     }
+
+                   
                 }
             }
-            else if (RandomValue >= ShopChance + HomeChance + HospitalChance && RandomValue < ShopChance + HomeChance + HospitalChance + EntertainmentChance)
+            else if (RandomValue >= ShopChance + HomeChance+HospitalChance && RandomValue < ShopChance + HomeChance + HospitalChance+EntertainmentChance)
             {
-                // Go to entertainment
-                if (GridCreator.GetNumberOfEntertainment() != 0)
+                //go to some kind of entertainment
+                if (GridCreator.GetNumberOfEntertainment()!=0)//check hospitals exist
                 {
                     Vector3 EntertainmentPos = GridCreator.GetPosOfNearestEntertainment(NPCList[NPCIndex].GetPosition());
-                    if (EntertainmentPos.x != -1)
+                    if(EntertainmentPos.x != -1)
                     {
+                   //     if(NPCList[NPCIndex].SetRoute(GridCreator.GameMap.WorldToCell(EntertainmentPos), GridCreator.GameGrid, GridCreator.GameMap, gridCreator))
+                     //   {
+                            //Debug.Log("Set action to 0");
+                       //     NPCList[NPCIndex].SetCurrentAction(0);
+                            //  NPCList[NPCIndex].SetMovementTarget(EntertainmentPos);
+
+                         //   NPCList[NPCIndex].SetIfTargetIsBuilding(true);
+                          //  NPCList[NPCIndex].SetTargetBuilding(GridCreator.GetSelectedBuilding());
+
+                        //}
+
                         if (NPCList[NPCIndex].SetRoute(GridCreator.GameMap.WorldToCell(EntertainmentPos), GridCreator.GameGrid, GridCreator.GameMap, gridCreator))
                         {
+                            //Debug.Log("Set action to 0");
                             NPCList[NPCIndex].SetCurrentAction(0);
+                            //  NPCList[NPCIndex].SetMovementTarget(EntertainmentPos);
+
                             NPCList[NPCIndex].SetIfTargetIsBuilding(true);
-                            PlacedBuilding targetBuilding = GetBuildingAtPosition(EntertainmentPos);
-                            if (targetBuilding != null)
-                            {
-                                NPCList[NPCIndex].SetTargetBuilding(targetBuilding.buildingType);
-                            }
+                            NPCList[NPCIndex].SetTargetBuilding(GridCreator.GetSelectedBuilding());
+
                         }
+
                     }
                 }
+               
             }
             else
             {
-                // Wander
-                if (NPCList[NPCIndex].SetRoute(GridCreator.GameMap.WorldToCell(GetWanderTarget()), GridCreator.GameGrid, GridCreator.GameMap, gridCreator))
+               // Wander
+                if( NPCList[NPCIndex].SetRoute(GridCreator.GameMap.WorldToCell(GetWanderTarget()), GridCreator.GameGrid, GridCreator.GameMap, gridCreator))
                 {
+                //    Debug.Log("Set action to 0");
+            //        NPCList[NPCIndex].SetMovementTarget(GetWanderTarget());
                     NPCList[NPCIndex].SetCurrentAction(0);
+                  //  NPCList[NPCIndex].SetCurrentAction(0);
                 }
-            }
-        }
-    }
+             //   if (NPCList[NPCIndex].SetRouteNew(GridCreator.GameMap.WorldToCell(GetWanderTarget()), GridCreator.GameGrid, GridCreator.GameMap, gridCreator))
+              //  {
+                    //  Debug.Log("Set action to 0");
+                    //  NPCList[NPCIndex].SetMovementTarget(GetWanderTarget());
+               //     NPCList[NPCIndex].SetCurrentAction(0);
+                    // NPCList[NPCIndex].SetCurrentAction(0);
+                //}
 
-    // Add this helper method to find the building at a position
-    PlacedBuilding GetBuildingAtPosition(Vector3 Position)
-    {
-        Vector3Int cell = GridCreator.GameMap.WorldToCell(Position);
-        for (int i = 0; i < GridCreator.PlacedBuildings.Count; i++)
-        {
-            PlacedBuilding building = GridCreator.PlacedBuildings[i];
-            for (int Y = 0; Y < building.buildingType.Shape.GetLength(0); Y++)
-            {
-                for (int X = 0; X < building.buildingType.Shape.GetLength(1); X++)
-                {
-                    Vector3Int currentPos = GridCreator.GameMap.WorldToCell(new Vector3(
-                        building.OriginPos[0] + X - building.buildingType.Origin[0],
-                        building.OriginPos[1] - Y + building.buildingType.Origin[1],
-                        0));
-                    if (currentPos == cell)
-                    {
-                        return building;
-                    }
-                }
+
             }
         }
-        return null;
     }
     void RemoveNPCs(List<int> Indexes)
     {
@@ -624,18 +688,16 @@ public class NPChandler : MonoBehaviour
     void HandleStuckNPC(int npcIndex)
     {
         int action = NPCList[npcIndex].GetCurrentAction();
-
-        // Do not handle stuck if already performing an action or waiting for transport
-        if (action == 1 || action == 2 || action == 3 || action == 4 || action == 6 || action == 7)
+        // Do not handle stuck if waiting for train or bus
+        if (action == 6 || action == 7)
         {
-            NPCList[npcIndex].ResetStuckCount();
             return;
         }
-
+           
         // Try to assign a wander route as a fallback
         Vector3 wanderTarget = GetWanderTarget();
+        //  bool routeSet = NPCList[npcIndex].SetRouteNew(GridCreator.GameMap.WorldToCell(wanderTarget),GridCreator.GameGrid,GridCreator.GameMap, gridCreator);
         bool routeSet = NPCList[npcIndex].SetRoute(GridCreator.GameMap.WorldToCell(wanderTarget), GridCreator.GameGrid, GridCreator.GameMap, gridCreator);
-
         if (routeSet)
         {
             NPCList[npcIndex].SetCurrentAction(0);
@@ -643,9 +705,9 @@ public class NPChandler : MonoBehaviour
         }
         else
         {
-            // If route setting fails, reset and let them try next frame
+            // If even wandering fails, just reset and try again next frame
+            NPCList[npcIndex].SetCurrentAction(-1);
             NPCList[npcIndex].ResetStuckCount();
-            // Don't force action -1, let them stay in current state to try again
         }
     }
     void UpdateNPCs()
@@ -705,7 +767,6 @@ public class NPChandler : MonoBehaviour
                     NPCList[i].UpdateCounter();
                 }          
             }
-            // in building
             else if (NPCList[i].GetCurrentAction() == 1)
             {
                 // In building
@@ -780,8 +841,7 @@ public class NPChandler : MonoBehaviour
             UpdatePopulationDisplay();
             NPCsToRemove.Clear();
             SetHomes();
-            Debug.Log("Number of NPCS:" + NumberOfNpcs);
-
+            
         }
         
     }
