@@ -139,6 +139,10 @@ public class Building
     {
         return UpperTimeInBuilding;
     }
+    public int GetWaterPollution()
+    {
+        return WaterPollution;
+    }
     public virtual Building GetInstance()
     {
         Building building = new Building(Name, CostToBuild, TaxGeneration, Description, Shape, Origin, IsShop, LowerTimeInBuilding, UpperTimeInBuilding, IsHospital, TypeIndex, PowerUsage, EnviromentalEffect, IsEntertaiment, EntertainmentValue, IsTrainStation, IsGreenery, AirPollution, WaterPollution, AreaPollution, WasteCreated);

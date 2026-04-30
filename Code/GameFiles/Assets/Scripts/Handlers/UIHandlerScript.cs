@@ -790,6 +790,11 @@ public class UIHandlerScript : MonoBehaviour
         DBManager.UpdateTrainRoutesForSave(MainMenu.CurrentSaveID, TransportPlacementScript.TrainRoutes);
         DBManager.UpdateBusRoutesForSave(MainMenu.CurrentSaveID, TransportPlacementScript.BusRoutes);
     }
+    public void OnSaveAndExitClicked()
+    {
+        OnSaveButtonClicked();
+        OnExitButtonClicked();
+    }
     public void OnExitButtonClicked()
     {
         Debug.Log("Exit button clicked");

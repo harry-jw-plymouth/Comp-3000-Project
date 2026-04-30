@@ -221,6 +221,15 @@ public class GridCreator : MonoBehaviour
         }
         return Amount;
     }
+    public static int GetWaterPollution()
+    {
+        int Amount = 0;
+        for (int i = 0; i < PlacedBuildings.Count; i++)
+        {
+            Amount += PlacedBuildings[i].GetType().GetWaterPollution();
+        }
+        return Amount;
+    }
     public static int GetPowerGeneration()
     {
         int Total = 0;

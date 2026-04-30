@@ -68,6 +68,7 @@ public class GameStatusScript : MonoBehaviour
         CurrentInfo.SetAirQaulityRating(GridCreator.PlacedBuildings,GridCreator.NumberOfGreenery);
         CurrentInfo.SetWastageRating(AmountOfWaste, npcHandler.GetCurrentNumberOfNPCs());
         CurrentInfo.SetGreeneryRating(GridCreator.NumberOfGreenery, GridCreator.GetNumberOfGreenBuildings(), npcHandler.GetCurrentNumberOfNPCs());
+        CurrentInfo.CalculateWaterPollutionRating(GridCreator.GetWaterPollution(), GridCreator.NumberOfWater);
         CurrentInfo.SetEnviromentalEffectRating(GridCreator.GetTotalEnviormentalEffects(), npcHandler.GetCurrentNumberOfNPCs());
     }
     public int GetPlayerMoney()

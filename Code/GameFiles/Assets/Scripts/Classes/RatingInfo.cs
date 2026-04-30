@@ -20,6 +20,7 @@ public class RatingInfo
 
     int AirQualityRating = 0;
     int WastageRating = 0;
+    int WaterPollutionRating= 0;
     public void SetHomeLessPercentage(float New){
         HomeLessPercentage = New;
         if(HomeLessPercentage > 60)
@@ -169,7 +170,7 @@ public class RatingInfo
         if (NumberrOfEntertainment == 0)
         {
             //No shops
-            AddReport("No entertainment, build one as soon as possible");
+            AddReport("No entertainment, build some as soon as possible");
             EntertainmentRating = 0;
         }
         else if ((float)(NumberOfNPCs / 80) >= NumberrOfEntertainment && (float)(NumberOfNPCs / 60) < NumberrOfEntertainment)
@@ -194,7 +195,7 @@ public class RatingInfo
         {
             //one venue per 30 people or more
             EntertainmentRating = 100;
-            AddReport("A good amount of Entertainment");
+            AddReport("A great amount of Entertainment!");
         }
     }
     public void SetPowerRating(int PowerGeneration,int PowerUsage)
@@ -204,18 +205,18 @@ public class RatingInfo
         if ((Generation == 0))
         {
             PowerRating = 0;
-            AddReport("Build a power plant as soon as possible");
+            AddReport("Build a power plant as soon as possible, power generation critical");
         }
         else
         {
             if (Generation < Usage / 3.0)
             {
                 PowerRating = 10;
-                AddReport("Build a power plant as soon as possible");
+                AddReport("Build a power plant as soon as possible, power generation critical");
             }
             else if (Generation <= Usage / 2.0) {
                 PowerRating = 25;
-                AddReport("Build a power plant as soon as possible");
+                AddReport("Build a power plant as soon as possible,power generation low");
             }
             else if (Generation <= Usage / 1.3)
             {
@@ -235,7 +236,7 @@ public class RatingInfo
             else
             {
                 PowerRating = 100;
-                AddReport("A good amount of power");
+                AddReport("A great amount of power! Power levels stable");
             }
         }
 
@@ -246,33 +247,33 @@ public class RatingInfo
         float EFPerPerson = (float)Ef / (float)NumberOfNPCs;
         if(EFPerPerson >300 )
         {
-            EntertainmentRating = 0;
-            ReportList.Add("Extremely high enviromnetal effects");
+            EnviromentRating = 0;
+            ReportList.Add("Your city is doing terrible damage to the enviornment, consider changing things soon");
         }
         else if (EFPerPerson > 250)
         {
-            EntertainmentRating = 20;
-            ReportList.Add("high enviromnetal effects");
+            EnviromentRating = 20;
+            ReportList.Add("Your city is having a terrible effect on the environment, consider changing buildings to more eco-friendly options");
         }
         else if (EFPerPerson > 200)
         {
-            EntertainmentRating = 35;
-            ReportList.Add("Moderate enviromnetal effects");
+            EnviromentRating = 35;
+            ReportList.Add("Moderate environmental impact from the city, consider changing buildings to more eco-friendly options");
         }
         else if (EFPerPerson > 150)
         {
-            EntertainmentRating = 55;
-            ReportList.Add("Alright enviromnetal effects");
+            EnviromentRating = 55;
+            ReportList.Add("Alright city effects on environment, but still improvements can be made");
         }
         else if (EFPerPerson > 100)
         {
-            EntertainmentRating = 75;
-            ReportList.Add("Alright enviromnetal effects");
+            EnviromentRating     = 75;
+            ReportList.Add("Good eco friendliness overall, but more improvements can be made");
         }
         else
         {
-            EntertainmentRating = 100;
-            ReportList.Add("good enviromnetal effects");
+            EnviromentRating = 100;
+            ReportList.Add("Good enviromnetal effects, your city is doing a great job of co-existing with nature!");
         }
 
     }
@@ -282,32 +283,32 @@ public class RatingInfo
         if (WastePerPerson > 50)
         {
             WastageRating = 0;
-            ReportList.Add("Extremely high waste amount, build wastage facilities as soon as possible");
+            ReportList.Add("Extremely high waste amount, build wastage facilities as soon as possible. Consider a recycling facility if possible");
         }
         else if (WastePerPerson > 40)
         {
             WastageRating = 20;
-            ReportList.Add("high waste amount");
+            ReportList.Add("high waste amount, more wastage facilities needed as soon as possible, consider a recycling facility if possible");
         }
         else if (WastePerPerson > 30)
         {
             WastageRating = 35;
-            ReportList.Add("Moderate waste amount");
+            ReportList.Add("Moderate waste amount, consider adding more wastage facilities");
         }
         else if (WastePerPerson > 20)
         {
             WastageRating = 55;
-            ReportList.Add("Alright waste amount");
+            ReportList.Add("Moderate amount of waste, consider building new wastage facilities");
         }
         else if (WastePerPerson > 10)
         {
             WastageRating= 75;
-            ReportList.Add("Alright waste amount");
+            ReportList.Add("Alright waste amount, youre handling it well! But another recycling plant could help");
         }
         else
         {
-            EntertainmentRating = 100;
-            ReportList.Add("good waste amount");
+            WastageRating = 100;
+            ReportList.Add("Excellent managment of waste! To improve environmental friendliness further, consider swapping any regular facilities into recycling facilities! " );
         }
         return (int)WastePerPerson;
     }
@@ -328,52 +329,52 @@ public class RatingInfo
 
         if (OverallEffects < 0) { 
             AirQualityRating = 100;
-            AddReport("Amazing air quality!");
+            AddReport("Amazing air quality! You've balanced infastructure and green spaces very well!");
         }
         else if (OverallEffects>=0 && OverallEffects<100)
         {
             AirQualityRating = 85;
-            AddReport("Great air quality!");
+            AddReport("Great air quality!But more geeen spaces never hurts a city");
         }
         else if (OverallEffects >= 100 && OverallEffects < 200)
         {
             AirQualityRating = 75;
-            AddReport("Great air quality!");
+            AddReport("Great air quality! But consider adding more green spaces");
         }
         else if (OverallEffects >= 200 && OverallEffects < 300)
         {
             AirQualityRating = 65;
-            AddReport("Great air quality, But could see improvement");
+            AddReport("Great air quality, But could see improvement. More green spaces definitely needed");
         }
         else if (OverallEffects >= 300 && OverallEffects < 400)
         {
             AirQualityRating = 55;
-            AddReport("good air quality, but more greenery would improve it");
+            AddReport("good air quality, but more greenery would improve it, consider adding some more soon");
         }
         else if (OverallEffects >= 400 && OverallEffects < 500)
         {
             AirQualityRating = 45;
-            AddReport("okay air quality, but more greenery would improve it");
+            AddReport("Potentially fine air quality, but adding more greenery would improve it and ensure your citzens dont get sick");
         }
         else if (OverallEffects >= 500 && OverallEffects < 600)
         {
             AirQualityRating = 35;
-            AddReport("Bad quality, add more greenery soon");
+            AddReport("Bad air quality, add more greenery whenever you can, your citzens may get sick");
         }
         else if (OverallEffects >= 600 && OverallEffects < 700)
         {
             AirQualityRating = 20;
-            AddReport("Bad quality, add more greenery soon, your citzens health is effected");
+            AddReport("Bad Air quality, add more greenery soon, your citzens health is effected");
         }
         else if (OverallEffects >= 700 && OverallEffects < 800)
         {
             AirQualityRating = 5;
-            AddReport("Bad quality, add more greenery soon, your citzens health is effected");
+            AddReport("Bad air quality, add more greenery soon, your citzens health is effected");
         }
         else
         {
             AirQualityRating = 0;
-            AddReport("Air qaulity critical, your citzens health is effected.");
+            AddReport("Air qaulity critical, your citzens health is effected. Build more green spaces as soon as possible");
         }
 
 
@@ -491,11 +492,49 @@ public class RatingInfo
             ReportList.Add("Amazing power reach");
         }
     }
+    public int GetOverallRatingForPollution()
+    {
+               return (AirQualityRating + WastageRating + WaterPollutionRating+GreeneryRating) / 4;
+    }
     public void CalulcateRating()
     {
-        Rating=((int)(100-HomeLessPercentage)+ShopRating+
+        Rating=(((int)(100-HomeLessPercentage)+ShopRating+
             HospitalRating+RoadRating+PowerRating+EntertainmentRating+
-            EnviromentRating+PowerReachRating+TrainStationRating+AirQualityRating+WastageRating)/11;
+            EnviromentRating+PowerReachRating+TrainStationRating)/8)/2+GetOverallRatingForPollution()/2;
+    }
+    public void CalculateWaterPollutionRating(int WaterPollution, int WaterTiles)
+    {
+        float PollutionPerTile = (float)WaterPollution / (float)WaterTiles;
+        if (PollutionPerTile > 40)
+        {
+            WaterPollutionRating = 0;
+            ReportList.Add("Extremely high water pollution, consider buildings whith less pollution levels, this could get your citzens sick");
+        }
+        else if (PollutionPerTile > 30)
+        {
+            WaterPollutionRating = 20;
+            ReportList.Add("high water pollution, consider buildings whith less pollution levels, this could get your citzens sick");
+        }
+        else if (PollutionPerTile > 20)
+        {
+            WaterPollutionRating = 35;
+            ReportList.Add("Moderate water pollution, consider buildings whith less pollution levels soon");
+        }
+        else if (PollutionPerTile > 10)
+        {
+            WaterPollutionRating = 55;
+            ReportList.Add("Alright water pollution levels, but could see improvement");
+        }
+        else if (PollutionPerTile > 5)
+        {
+            WaterPollutionRating = 75;
+            ReportList.Add("Alright water pollution levels");
+        }
+        else
+        {
+            WaterPollutionRating = 100;
+            ReportList.Add("Very good water pollution levels, your citzens are not at risk due to bad water!");
+        }
     }
     public void SetTrainStationRating(int NumberOfNPCs, int NumberOfTrainStation)
     {
