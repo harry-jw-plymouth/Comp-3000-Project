@@ -626,7 +626,7 @@ public class Citzen
                 //          }
                 //   ShowRoute();
 
-                if (RoutePositions.Count <= 2)
+                if (RoutePositions.Count==0)
                 {
                     return false;
                 }
@@ -656,12 +656,15 @@ public class Citzen
                     {
                         NewChecks.Add(TrainTiles[i]);
                     }
+
+                    if (Target.x == Current.x + 1 && Target.y == Current.y)
+                    {
+                        NewChecks.Add(new Vector3Int(Current.x + 1, Current.y, 0));
+                    }
                 }
+                
             }
-            else if(Target.x == Current.x + 1 && Target.y == Current.y)
-            {
-                NewChecks.Add(new Vector3Int(Current.x + 1, Current.y, 0));
-            }
+           
 
             //check left tile
             if (GetIfInBounds(Current.x - 1, Current.y))
@@ -678,13 +681,15 @@ public class Citzen
                     {
                         NewChecks.Add(TrainTiles[i]);
                     }
+
+                    if (Target.x == Current.x - 1 && Target.y == Current.y)
+                    {
+                        NewChecks.Add(new Vector3Int(Current.x - 1, Current.y, 0));
+                    }
+
                 }
             }
-            else if (Target.x == Current.x - 1 && Target.y == Current.y)
-            {
-                NewChecks.Add(new Vector3Int(Current.x - 1, Current.y, 0));
-            }
-
+            
             //check above tile
             if (GetIfInBounds(Current.x , Current.y+1))
             {
@@ -700,12 +705,14 @@ public class Citzen
                     {
                         NewChecks.Add(TrainTiles[i]);
                     }
+
+                    if (Target.x == Current.x && Target.y == Current.y + 1)
+                    {
+                        NewChecks.Add(new Vector3Int(Current.x, Current.y + 1, 0));
+                    }
                 }
             }
-            else if (Target.x == Current.x && Target.y == Current.y+1)
-            {
-                NewChecks.Add(new Vector3Int(Current.x , Current.y+1, 0));
-            }
+           
 
             //check below tile
             if (GetIfInBounds(Current.x, Current.y - 1))
@@ -722,13 +729,15 @@ public class Citzen
                     {
                         NewChecks.Add(TrainTiles[i]);
                     }
+
+                    if (Target.x == Current.x && Target.y == Current.y-1 - 1)
+                    {
+                        NewChecks.Add(new Vector3Int(Current.x, Current.y - 1, 0));
+                    }
+
                 }
             }
-            else if (Target.x == Current.x && Target.y == Current.y - 1)
-            {
-                NewChecks.Add(new Vector3Int(Current.x, Current.y - 1, 0));
-            }
-              
+           
             for (int i = 0; i < NewChecks.Count; i++)
             {
                 if (!AlreadyVisited.Contains(NewChecks[i]))
@@ -837,6 +846,7 @@ public class Citzen
        // Debug.Log("NPC at home");
         InBuilding--;
         TiredNess--;
+        Debug.Log("Time left ay home : " + InBuilding);
         if (InBuilding == 0)
         {
             NPCSprite.GetComponent<SpriteRenderer>().enabled = true;
@@ -922,11 +932,6 @@ public class Citzen
             return;
         }    
 
-        if (NexPositionOnRoute < 0 || NexPositionOnRoute >= RoutePositions.Count)
-        {
-            SetCurrentAction(-1);
-            return;
-        }
 
      //   Debug.Log("Nex position:" + NexPositionOnRoute);
       //  Debug.Log("Route length" + RoutePositions.Count);

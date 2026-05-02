@@ -94,7 +94,7 @@ public class GridCreator : MonoBehaviour
     }
     void CenterCamera()
     {
-        Debug.Log("Camera centered");
+     //   Debug.Log("Camera centered");
         Vector3 CenterPos = GameMap.CellToWorld(new Vector3Int(WIDTH / 2, HEIGHT / 2, 0));
         MainCamera.transform.position = new Vector3(CenterPos.x, CenterPos.y, MainCamera.transform.position.z);
     }
@@ -134,13 +134,13 @@ public class GridCreator : MonoBehaviour
         if (x + building.Shape.GetLength(1) > WIDTH )
         {
             uiHandler.OpenNewPopUp("Cant place building", "Space already occupied");
-            Debug.Log("Building cant be placed"); 
+          //  Debug.Log("Building cant be placed"); 
             return false;
         }
         else if (y + building.Shape.GetLength(0) >= HEIGHT+1)
         {
             uiHandler.OpenNewPopUp("Cant place building", "Space already occupied");
-              Debug.Log("Building cant be placed, final Y pos:"+ (y + building.Shape.GetLength(0)));
+             // Debug.Log("Building cant be placed, final Y pos:"+ (y + building.Shape.GetLength(0)));
             return false;
 
         }
@@ -154,7 +154,7 @@ public class GridCreator : MonoBehaviour
                 if(GameGrid[CurrentPos.x, CurrentPos.y].Contains == 2 )
                 {
                     uiHandler.OpenNewPopUp("Cant place building", "Space already occupied");
-                    Debug.Log(" Building cant be placed, building already occupying square: " + CurrentPos.x + " , " + CurrentPos.y);
+                 //   Debug.Log(" Building cant be placed, building already occupying square: " + CurrentPos.x + " , " + CurrentPos.y);
                     return false;
                 }
             }
@@ -290,7 +290,7 @@ public class GridCreator : MonoBehaviour
         int Number = 0;
         for(int i = 0; i < PlacedBuildings.Count; i++)
         {
-            if (PlacedBuildings[i].GetIfIsHospital()) 
+            if (PlacedBuildings[i].GetIfIsShop()) 
             {
                 Number++;
             }
@@ -726,7 +726,7 @@ public class GridCreator : MonoBehaviour
         {
             uiHandler.ShowAlertPopUp("Not enough money to build");
             uiHandler.OpenNewPopUp("Cant place building", "Not enough money to build");
-             Debug.Log("Not enough money to build");
+         //    Debug.Log("Not enough money to build");
         }
         else
         {
@@ -896,12 +896,12 @@ public class GridCreator : MonoBehaviour
                     GameGrid[CellClickedPos.x, CellClickedPos.y].Contains = 5;
                     GameMap.SetTile(CellClickedPos, BusStopTile);
                     NumberOfBusStops++;
-                    Debug.Log("Placing Bus stop");
+              //      Debug.Log("Placing Bus stop");
                 }
                 else if (GameGrid[CellClickedPos.x,CellClickedPos.y].Contains==5)
                 {
                     if (TransportPlacementScript.CheckIfBusStopInUse(CellClickedPos)){
-                        Debug.Log("Bus stop in use, cannot remove");
+                //        Debug.Log("Bus stop in use, cannot remove");
                         uiHandler.OpenNewPopUp("Cant remove stop", "stop still in use, route must be cancelled before stop is removed");
                     }
                     else
@@ -942,10 +942,10 @@ public class GridCreator : MonoBehaviour
                 }
                 else if (GameGrid[CellClickedPos.x, CellClickedPos.y].Contains == 4)
                 {
-                    Debug.Log("Railway clicked");
+             //       Debug.Log("Railway clicked");
                     if (TransportPlacementScript.CheckIfRouteExistsUsingTrack(CellClickedPos))
                     {
-                        Debug.Log("Route uses track");
+               //         Debug.Log("Route uses track");
                         uiHandler.OpenNewPopUp("Cant remove track", "Route exists using route");
                     }
                     else
@@ -997,7 +997,7 @@ public class GridCreator : MonoBehaviour
                     {
                         if (TransportPlacementScript.CheckIfBusStopInUse(CellClickedPos))
                         {
-                            Debug.Log("Bus stop in use, cannot remove");
+                   //         Debug.Log("Bus stop in use, cannot remove");
                             uiHandler.OpenNewPopUp("Cant remove stop", "stop still in use, route must be cancelled before stop is removed");
                         }
                         else {
@@ -1088,14 +1088,14 @@ public class GridCreator : MonoBehaviour
     }
     void DisplayBuildingInfo(int BuildingIndex)
     {
-        Debug.Log("Displaying building info");
-        Debug.Log("Displaying:" + PlacedBuildings[BuildingIndex].buildingType);
+  //      Debug.Log("Displaying building info");
+    //    Debug.Log("Displaying:" + PlacedBuildings[BuildingIndex].buildingType);
         uiHandler.DisplayBuildingInfo(PlacedBuildings[BuildingIndex]);
 
     }
     public void OnPowerWarningClicked()
     {
-        Debug.Log("Power warning clicked");
+     //   Debug.Log("Power warning clicked");
     }
     void CheckForStationClicked(Vector3Int CellClickedPos)
     {
@@ -1104,7 +1104,7 @@ public class GridCreator : MonoBehaviour
         {
             if (PlacedBuildings[BuildingPos].GetIfTrainStation())
             {
-                Debug.Log("Train station clicked");
+       //         Debug.Log("Train station clicked");
                 uiHandler.OnTrainStationClicked(CellClickedPos,BuildingPos);
             }
         }
@@ -1146,10 +1146,10 @@ public class GridCreator : MonoBehaviour
         {
             if (GameGrid[ClickPos.x, ClickPos.y].Contains == 1 || GameGrid[ClickPos.x, ClickPos.y].Contains == 5)
             {
-                Debug.Log("Road/bus stop clicked");
+          //      Debug.Log("Road/bus stop clicked");
                 if (TransportPlacementScript.CheckIfRouteExistsUsingRoad(ClickPos))
                 {
-                    Debug.Log("Route uses road");
+            //        Debug.Log("Route uses road");
                     List<BusRoute> BusRoutesForPos = TransportPlacementScript.GetAllRoutesUsingRoad(ClickPos);
                     uiHandler.DisplayBusRoutes(BusRoutesForPos);
                     for (int i = 0; i < BusRoutesForPos.Count; i++)
@@ -1181,8 +1181,8 @@ public class GridCreator : MonoBehaviour
 
             Vector3 ClickPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             Vector3Int CellClickedPos = GameMap.WorldToCell(ClickPos);
-             Debug.Log("Click at: " + ClickPos);
-              Debug.Log("Click at: " + CellClickedPos);
+       //      Debug.Log("Click at: " + ClickPos);
+         //     Debug.Log("Click at: " + CellClickedPos);
             if (uiHandler.SelectingRouteLocation)
             {
                 if (uiHandler.RouteIsForBus)
@@ -1259,6 +1259,45 @@ public class GridCreator : MonoBehaviour
             }
         }
         return Number;
+    }
+    public static bool CheckIfTileIsWalkable(Vector3Int Pos)
+    {
+        if (Pos.x < 0 || Pos.x >= WIDTH ||
+            Pos.y < 0 || Pos.y >= HEIGHT)
+        {
+            return false;
+        }
+
+        if(GameGrid[Pos.x, Pos.y].Contains==5
+            || GameGrid[Pos.x, Pos.y].Contains==1
+            || GameGrid[Pos.x, Pos.y].Contains == 5)
+        {
+            return true;
+        }
+        return false;
+    }
+    public static Vector3Int GetWalkableTileNextToBuilding(Vector3Int BuildingPos)
+    {
+
+        Vector3Int[] directions = new Vector3Int[]
+        {
+        new Vector3Int(1, 0, 0),
+        new Vector3Int(-1, 0, 0),
+        new Vector3Int(0, 1, 0),
+        new Vector3Int(0, -1, 0)
+        };
+
+        foreach (var dir in directions)
+        {
+            Vector3Int checkPos = BuildingPos + dir;
+
+            if (CheckIfTileIsWalkable(checkPos))
+            {
+                return checkPos;
+            }
+        }
+
+       return new Vector3Int(-1, -1, -1);
     }
     public int EnterBuildingForNPC(Vector3 Pos, int NPCIndex)
     {

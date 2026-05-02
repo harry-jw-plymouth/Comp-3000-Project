@@ -160,7 +160,7 @@ public class UIHandlerScript : MonoBehaviour
     }
     public void OpenNewPopUp(string Title, string Text)
     {
-        Debug.Log("Displaying Pop up");
+       // Debug.Log("Displaying Pop up");
         NewPopUpCanvas.SetActive(true);
         PopUpTitle.text = Title;
         PopUpDescription.text = Text;
@@ -245,6 +245,7 @@ public class UIHandlerScript : MonoBehaviour
 
         BusRouteDisplayIndex = -1;
     }
+   
     public void OnBusRouteConfirmButtonClicked()
     {
         if (StartBusStop != null && EndBusStop != null)
@@ -711,7 +712,7 @@ public class UIHandlerScript : MonoBehaviour
     int PurchaseAmount = -1;
     public void OnEditMadeToNumberToTrade()
     {      
-        Debug.Log("Edit made");
+       // Debug.Log("Edit made");
        
         if (AmountToBuy.text != "")
         {
@@ -785,7 +786,7 @@ public class UIHandlerScript : MonoBehaviour
     }
     public void OnTradeButtonClicked()
     {
-        Debug.Log("TradeButton clicked");
+   //     Debug.Log("TradeButton clicked");
         if (TradeMenuActive)
         {
             TradeMenuActive = false;
@@ -823,7 +824,7 @@ public class UIHandlerScript : MonoBehaviour
     }
     public void OnExitButtonClicked()
     {
-        Debug.Log("Exit button clicked");
+    //    Debug.Log("Exit button clicked");
         SceneManager.LoadScene("MainMenu");
     }
     void SetUIInactive()
@@ -843,15 +844,15 @@ public class UIHandlerScript : MonoBehaviour
     }
     public void OnRatingClicked()
     {
-        Debug.Log(" rating section clicked");
+     //   Debug.Log(" rating section clicked");
         ReportDisplay.SetActive(true);
         UpdatesButton.SetActive(false);
         List<string> Updates = GameStatusScript.GetReport();
         string Info = "";
-        Debug.Log("Number of updates:"+Updates.Count);
+       // Debug.Log("Number of updates:"+Updates.Count);
         for(int i = 0; i < Updates.Count; i++)
         {
-            Debug.Log("Update[" + i + "]:" + Updates[i]);
+         //   Debug.Log("Update[" + i + "]:" + Updates[i]);
             Info += Updates[i] + "\n";
         }
         ReportText.text = Info;
@@ -860,7 +861,7 @@ public class UIHandlerScript : MonoBehaviour
     public void OnReportClicked()
     {
         UpdatesButton.SetActive(true);
-        Debug.Log(" report section clicked");
+      //  Debug.Log(" report section clicked");
         
         ReportDisplay.SetActive(false);
     }
@@ -868,7 +869,7 @@ public class UIHandlerScript : MonoBehaviour
     {
         BusStopEditorOn = false;
         WaterEditorOn = false;
-        Debug.Log("Road button clicked");
+       // Debug.Log("Road button clicked");
         SetUIInactive();
         if (TileEditorOn)
         {
@@ -890,7 +891,7 @@ public class UIHandlerScript : MonoBehaviour
     {
         GreeneryEditorOn = false;
         WaterEditorOn = false;
-        Debug.Log("Water button Clicked");
+     //   Debug.Log("Water button Clicked");
         SetUIInactive();
         if (TileEditorOn)
         {
@@ -912,7 +913,7 @@ public class UIHandlerScript : MonoBehaviour
     public void OnRoadButtonClicked()
     {
         BusStopEditorOn = false;
-        Debug.Log("Road button clicked");
+     //   Debug.Log("Road button clicked");
         SetUIInactive();
         if (TileEditorOn)
         {
@@ -932,7 +933,7 @@ public class UIHandlerScript : MonoBehaviour
 
     public void OnTransportButtonClicked()
     {
-        Debug.Log("Transport button clicked");
+      //  Debug.Log("Transport button clicked");
         SetUIInactive();
         RailCanvas.SetActive(false);
         if (TransportPlacementOn)
@@ -980,7 +981,7 @@ public class UIHandlerScript : MonoBehaviour
     {
         SetUIInactive();
         TileEditorOn = false;
-        Debug.Log("Building button clicked");
+     //   Debug.Log("Building button clicked");
         if (BuildingsMenuPopUp.activeInHierarchy)
         {
             BuildingsListManager.BuildingCurrentlySelected = -1;
@@ -1002,14 +1003,14 @@ public class UIHandlerScript : MonoBehaviour
 
         if (BuildingRemoverOn)
         {
-            Debug.Log("Building remover off");
+        //    Debug.Log("Building remover off");
             BuildingsMenuPopUp.SetActive(true);
             BuildingRemoverOn = false;
 
         }
         else
         {         
-            Debug.Log("Building remover on");
+   //         Debug.Log("Building remover on");
             BuildingsListManager.BuildingCurrentlySelected = -1;
             BuildingRemoverOn = true;
         }
