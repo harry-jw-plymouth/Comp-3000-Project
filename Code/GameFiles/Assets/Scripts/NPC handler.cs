@@ -50,8 +50,7 @@ public class NPChandler : MonoBehaviour
         NPCSprites.Add(NPC9Prefab);
         NPCSprites.Add(NPC10Prefab);
 
-         NumberOfNpcs = GetNumberOfNPCs();
-       // NumberOfNpcs = 1;
+        NumberOfNpcs = GetNumberOfNPCs();
         LoadNPCs();
         SetHomes();
         UpdatePopulationDisplay();
@@ -59,6 +58,7 @@ public class NPChandler : MonoBehaviour
     }
     void UpdatePopulationDisplay()
     {
+        // Display number of NPCs to UI
         PopulationCountDisplay.text = NumberOfNpcs.ToString();
     }
     public  void RemoveAllNPCsFromBuilding(List<int>Indexes)
@@ -69,13 +69,15 @@ public class NPChandler : MonoBehaviour
     }
     public void UpdateHomesForNPCsAfterBuildingRemoval(List<int>Indexes)
     {
+        //for each NPC that was assigned to the home just removed, set them to homeless
         for (int i = 0; i < Indexes.Count; i++) {
             NPCList[Indexes[i]].SetHomeIndex(-1);
             NPCList[Indexes[i]].UpdateHomeStatus(true);
             NPCList[Indexes[i]].RemoveHomeData();
         }
-        SetHomes();
 
+        //then update the NPC homeless status
+        SetHomes();
     }
     int GetNumberOfNPCs()
     {
@@ -85,9 +87,8 @@ public class NPChandler : MonoBehaviour
         {
             return 10;
         }
-        //else get NPC amounf from save file
+        //else get NPC amount from save file
         SaveFileModel Save= DBManager.GetSaveFiles()[MainMenu.GetCurrentSaveID()];
-      //  Debug.Log("Number of npcs from save:" + Save.NumberOfNPCs);
          return Save.NumberOfNPCs;   
     }
     public int GetCurrentNumberOfNPCs()
@@ -104,34 +105,33 @@ public class NPChandler : MonoBehaviour
                 total++;
             }
         }
-     //   Debug.Log("Numebr homeless:" + total);
+        //calculate percentage from total and return 
         float percent = (float)total / NPCList.Count * 100f;
-       // Debug.Log("homesless %:" + percent);
         return percent;
     }
     public void SetHomes()
     {
         int TotalSet=0; int TotalNotSet = 0;
         int HomeIndex = 0;
-   //     Debug.Log("Setting homes"
-     //   Debug.Log("Number of buildings in NPC handler:" + GridCreator.PlacedBuildings.Count);
         bool HomeFound=false;
+
+        // loop through each NPC
         for (int i = 0; i < NPCList.Count; i++) {
             HomeFound = false;
             if (NPCList[i].GetIfHomeless())
             {
-                //         Debug.Log("Npc:" + i);
                 HomeIndex = 0;
                 foreach (PlacedBuilding building in GridCreator.PlacedBuildings)
                 {
                     HomeIndex++;
-         //           Debug.Log("Building type: " + building.buildingType.GetType());
                     if (building.buildingType is Home home)
                     {
+                        // check if home has space to assign NPC
                         if (!home.GetIfFull())
                         {
                             if (home.AdjustResidents(1))
                             {
+                                // if NPC was able to be added, set home found to true so building loop can break and set required data for NPC living at the specified home
                                 building.AddInhabitantIndex(i);
                                 HomeFound = true;
 
@@ -140,8 +140,7 @@ public class NPChandler : MonoBehaviour
                                 NPCList[i].UpdateHomeStatus(false);
                                 NPCList[i].SetHomePos(building.GetBuildingPos());
                                 TotalSet++;
-                            }
-                            
+                            } 
                         }
                     }
                     if (HomeFound)
@@ -151,6 +150,7 @@ public class NPChandler : MonoBehaviour
                 }
                 if (!HomeFound)
                 {
+                    // if home not available set the NPC as homeless 
                     NPCList[i].UpdateHomeStatus(true);
                     NPCList[i].SetHomePos(new Vector3(-1, -1, -1));
                     TotalNotSet++;
@@ -158,17 +158,19 @@ public class NPChandler : MonoBehaviour
             }
             else
             {
+                // if already assigned a home, add to counter
                 TotalSet++;
             }
         }
-     //   Debug.Log("NPC homes set: " + TotalSet + "\n Total not set: " + TotalNotSet);
     }
     public int GetRandomNPCSpriteIndex()
     {
+        // return a random NPC sprite from the list defined earlier
         return Random.Range(0,NPCSprites.Count);
     }
     void LoadNPCs()
     {
+        // for each NPC, set a random start position on a road and assign a random sprite
         for (int i = 0; i < NumberOfNpcs; i++) {
             Vector3 StartPos=  GridCreator.RoadPositions[ Random.Range(0, GridCreator.RoadPositions.Count)];
 
@@ -178,13 +180,14 @@ public class NPChandler : MonoBehaviour
     }
     void CheckForNPCsToUpdateAfterTrainRouteRemoval()
     {
+        // for each NPC, check if theyve just got off a train that had its route removed
+        // if this is the case, recaculate their route to avoid errors
         for (int i = 0; i < NumberOfNpcs; i++)
         {
             if (NPCList[i].ReadyToUpdateAfterTravel)
             {
                 Vector3 TargetPos = (NPCList[i].GetRoutePositions()[NPCList[i].GetRoutePositions().Count - 1]);
                 NPCList[i].SetRoute(GridCreator.GameMap.WorldToCell(TargetPos), GridCreator.GameGrid, GridCreator.GameMap, GridHandler);
-                //NPCList[i].SetRouteNew(GridCreator.GameMap.WorldToCell(TargetPos), GridCreator.GameGrid, GridCreator.GameMap, GridHandler);
                 NPCList[i].ReadyToUpdateAfterTravel = false;
             }
         }
@@ -195,6 +198,8 @@ public class NPChandler : MonoBehaviour
     void Update()
     {
         UpdateNPCs();
+        
+        // counter implemented to ensure code doesnt go off every frame(would be too frequent)
         AmountCheckCounter++;
         if (AmountCheckCounter >= CheckFrame)
         {
@@ -205,11 +210,11 @@ public class NPChandler : MonoBehaviour
             CheckForNPCsToUpdateAfterTrainRouteRemoval();
        
         }
-    //    Debug.Log("Number of NPCS:" + NumberOfNpcs);
 
     }
     void CheckForLeavingNPCs()        
     {
+        // stop NPC leaving if it is the final one
         if (NPCList.Count == 0)
         {
             return;
@@ -218,7 +223,7 @@ public class NPChandler : MonoBehaviour
         int Happiness = NPCList[RandomNpcIndex].CalculateHappiness();
         
 
-
+        // Generate a random and use this to determine if an NPC is deciding to leave
         int RandomLeaveChance = Random.Range(0, 100);
         if (RandomLeaveChance > Happiness*1.8f  && NumberOfNpcs >1) {
             if (NPCList[RandomNpcIndex].GetIfInBuilding())
@@ -226,12 +231,14 @@ public class NPChandler : MonoBehaviour
                 NPCList[RandomNpcIndex].ForceLeaveBuidlingOnBuildingRemoval();
                 
             }
+            // on next update NPCs call, NPC will be removed
             NPCList[RandomNpcIndex].SetCurrentAction(5);
         }
     }
     public List<int> GetNPCsIdWaitingForTrain(PlacedBuilding Start,PlacedBuilding End)
     {
         List<int> Ids = new List<int>();
+        // for each NPC, check if the NPC route information matches the train route information
         for(int i = 0; i < NPCList.Count; i++)
         {
             if (NPCList[i].CurrentStation == null || NPCList[i].TargetStation == null)
@@ -244,7 +251,6 @@ public class NPChandler : MonoBehaviour
                 NPCList[i].TargetStation.GetBuildingPosAsInt() == End.GetBuildingPosAsInt())
                 {
                     Ids.Add(NPCList[i].GetCitzenID());
-                  //  Debug.Log("NPC getting on train");
                 }
             }          
         }
@@ -273,13 +279,16 @@ public class NPChandler : MonoBehaviour
     }
     void CheckForNewNPCs()
     {
+        // do a random to check for new NPCs and then generate a new NPC based on the result
         float value = Random.Range(30, 400);
         if (value < GameStatusScript.GetRating())
         {
-            Vector3 worldPosition = new Vector3(Random.Range(0,GridCreator.WIDTH),Random.Range(0,GridCreator.HEIGHT),0);
+            Vector3 StartPos = GridCreator.RoadPositions[Random.Range(0, GridCreator.RoadPositions.Count)];
             NumberOfNpcs++;
-            GameObject Current = Instantiate(NPCSprites[GetRandomNPCSpriteIndex()], worldPosition, Quaternion.identity);
-            NPCList.Add(new Citzen(worldPosition,CurrentID++, Current));
+            GameObject Current = Instantiate(NPCSprites[GetRandomNPCSpriteIndex()],
+                GridCreator.GameMap.CellToWorld(new Vector3Int((int)StartPos.x, (int)StartPos.y, 0)),
+                Quaternion.identity);
+            NPCList.Add(new Citzen(StartPos,CurrentID++, Current));
         }
     }
     bool CheckIfOnRoad(Vector3 Position)
@@ -290,7 +299,8 @@ public class NPChandler : MonoBehaviour
             return false;
         }
         return true;
-    }
+    } 
+    // for each NPC, get them to continue on traversal route after getting off a train
     public void UpdateNPCsAfterTrainJourney(List<int> NPCIDs)
     {
         for (int i = 0; i < NPCList.Count; i++)
@@ -301,6 +311,7 @@ public class NPChandler : MonoBehaviour
             }
         }
     }
+    // for each NPC, get them to continue on traversal route after getting off a bus
     public void UpdateNPCsAfterBusJourney(List<int> NPCIDs)
     {
         for (int i = 0; i < NPCList.Count; i++)
@@ -312,15 +323,13 @@ public class NPChandler : MonoBehaviour
             }
         }
     }
-
+    // Get random coordinates for NPC to travel to, go to a road if possible
     public Vector3 GetWanderTarget()
-    {
-
+    {   
         Vector3 RoadTarget = GridCreator.GetRandomRoadCoorindates();
         if (RoadTarget.x == -1)
         {
             //No road
-          //  Debug.Log("No road found");
             int RandomX = UnityEngine.Random.Range(0,GridCreator.WIDTH);
             int RandomY = UnityEngine.Random.Range(0, GridCreator.HEIGHT);
             Vector3 FinalPos= GridCreator.GameMap.CellToWorld(new Vector3Int(RandomX, RandomY, 0));
@@ -333,6 +342,7 @@ public class NPChandler : MonoBehaviour
             return RoadTarget;
         }
     }
+    // Select new action for NPC
     void SelectNewAction(int NPCIndex)
     {
         Debug.Log("Start of select action");
@@ -344,18 +354,12 @@ public class NPChandler : MonoBehaviour
         int RandomValue = UnityEngine.Random.Range(0, ShopChance+HomeChance+WanderChance);
         Vector3Int TargetTile=new Vector3Int(-1,-1,-1);
 
-   //     if (NPCList[NPCIndex].GetCurrentAction() == 7)
-    //    {
-     //       return; // already waiting for bus
-     //   }
-            
-                    //   Debug.Log("TiredNess:" + NPCList[NPCIndex].GetTiredNess());
+
         if (!CheckIfOnRoad(NPCList[NPCIndex].GetPosition())){
             Debug.Log("Not on road,checking for road");
             if (GridCreator.GetIfRoadExists())
             {
                 Debug.Log("RoadFound");
-              //  NPCList[NPCIndex].SetCurrentAction(0) ;
                 //Go to nearest path
                 Vector3 RoadPos= GridCreator.GetPosOfNearestRoad(NPCList[NPCIndex].GetPosition());
                 RoadPos.y += 0.5f;
@@ -366,23 +370,8 @@ public class NPChandler : MonoBehaviour
                     Debug.Log("Set action to 0, moving onto nearest road");
                     NPCList[NPCIndex].SetCurrentAction(0);
                 }
-                else
-                {
-                    Debug.Log("NPC could not move to nearest road");
-                }
-
-                //     if (NPCList[NPCIndex].SetRouteNew(GridCreator.GameMap.WorldToCell(RoadPos), GridCreator.GameGrid, GridCreator.GameMap, gridCreator))
-                //    {
-                //      Debug.Log("Set action to 0");
-                //     NPCList[NPCIndex].SetCurrentAction(0);
-                //     NPCList[NPCIndex].SetMovementTarget(RoadPos);
-                ////}
-
             }
-            else
-            {
-                Debug.Log("No road found");
-            }
+
         }
         else
         {
@@ -406,45 +395,17 @@ public class NPChandler : MonoBehaviour
                         NPCList[NPCIndex].SetIfTargetIsBuilding(true);
                         NPCList[NPCIndex].SetTargetBuilding(GridCreator.GetSelectedBuilding());
                    }
-                    else
-                    {
-                        Debug.Log("Route to nearest shop not found, route not set");
-                    }
-                   // if (NPCList[NPCIndex].SetRouteNew(GridCreator.GameMap.WorldToCell(ShopPos), GridCreator.GameGrid, GridCreator.GameMap, gridCreator))
-                  //  {
-                  //        Debug.Log("Set action to 0");
-                  //      NPCList[NPCIndex].SetCurrentAction(0);
-                  //      NPCList[NPCIndex].SetIfTargetIsBuilding(true);
-                  //      NPCList[NPCIndex].SetTargetBuilding(GridCreator.GetSelectedBuilding());
-                    //}
-
-
-
                 }
                 else
                 {
                     Debug.Log("no shop found, attempting to wander");
                     //no shop found
-                    //NPCList[NPCIndex].SetMovementTarget(GetWanderTarget());
                     if (NPCList[NPCIndex].SetRoute(GridCreator.GameMap.WorldToCell(GetWanderTarget()), GridCreator.GameGrid, GridCreator.GameMap, gridCreator))
                     {
                         Debug.Log("Set action to 0, couldnt find shop, wandering");
                         NPCList[NPCIndex].SetCurrentAction(0);
                     }
-                    else
-                    {
-                        Debug.Log("Coud not wander, route setting failed");
-                    }
-            //        if (NPCList[NPCIndex].SetRouteNew(GridCreator.GameMap.WorldToCell(GetWanderTarget()), GridCreator.GameGrid, GridCreator.GameMap, gridCreator))
-             //       {
-               //         Debug.Log("Set action to 0");
-                 //       NPCList[NPCIndex].SetCurrentAction(0);
-                 //   }
-
                 }
-                
-
-                
             }
             else if(RandomValue>=ShopChance && RandomValue < ShopChance+HomeChance)
             {
@@ -462,17 +423,7 @@ public class NPChandler : MonoBehaviour
                         NPCList[NPCIndex].SetIfTargetIsBuilding(true);
                         NPCList[NPCIndex].SetTargetBuilding(NPCList[NPCIndex].GetHome());
                     }
-                    else
-                    {
-                        Debug.Log("Route to home not found, no route set");
-                    }
-
-                }
-                else
-                {
-                    Debug.Log("No home found");
-                }
-                
+                }           
             }
             else if(RandomValue >= ShopChance+HomeChance && RandomValue < ShopChance + HomeChance + HospitalChance)
             {
@@ -498,17 +449,6 @@ public class NPChandler : MonoBehaviour
                         {
                             Debug.Log("Route to hospital failed ot be set, no route set");
                         }
-
-                      //  if (NPCList[NPCIndex].SetRouteNew(GridCreator.GameMap.WorldToCell(HospitalPos), GridCreator.GameGrid, GridCreator.GameMap, gridCreator))
-                      //  {
-                      //      Debug.Log("Set action to 0");
-                      //      NPCList[NPCIndex].SetCurrentAction(0);
-                       //        NPCList[NPCIndex].SetMovementTarget(HospitalPos);
-
-//                            NPCList[NPCIndex].SetIfTargetIsBuilding(true);
-  //                          NPCList[NPCIndex].SetTargetBuilding(GridCreator.GetSelectedBuilding());
-    //                    }
-
                     }
                     else
                     {
@@ -543,31 +483,8 @@ public class NPChandler : MonoBehaviour
                             NPCList[NPCIndex].SetTargetBuilding(GridCreator.GetSelectedBuilding());
 
                         }
-                        else
-                        {
-                            Debug.Log("Failed to set route to entertainment, no route set");
-                        }
-
-                        //       if (NPCList[NPCIndex].SetRouteNew(GridCreator.GameMap.WorldToCell(EntertainmentPos), GridCreator.GameGrid, GridCreator.GameMap, gridCreator))
-                        //      {
-                        //         Debug.Log("Set action to 0");
-                        //        NPCList[NPCIndex].SetCurrentAction(0);
-                        //  NPCList[NPCIndex].SetMovementTarget(EntertainmentPos);
-
-                        //         NPCList[NPCIndex].SetIfTargetIsBuilding(true);
-                        //       NPCList[NPCIndex].SetTargetBuilding(GridCreator.GetSelectedBuilding());
-
-                        //                        }
 
                     }
-                    else
-                    {
-                        Debug.Log("Position of nearest entertainment could not be identified, no route set");
-                    }
-                }
-                else
-                {
-                    Debug.Log("No entertainment identified, no route set");
                 }
                
             }
@@ -586,20 +503,12 @@ public class NPChandler : MonoBehaviour
                 {
                     Debug.Log("No route identified for wandering");
                 }
-               // if (NPCList[NPCIndex].SetRouteNew(GridCreator.GameMap.WorldToCell(GetWanderTarget()), GridCreator.GameGrid, GridCreator.GameMap, gridCreator))
-               //{
-                 //     Debug.Log("Set action to 0");
-                 //   //  NPCList[NPCIndex].SetMovementTarget(GetWanderTarget());
-                  //  NPCList[NPCIndex].SetCurrentAction(0);
-                    // NPCList[NPCIndex].SetCurrentAction(0);
-                //}
-
-
             }
 
         }
         Debug.Log("End of selecting action");
-    }
+    } 
+    // for each NPC index in the list, remove their data from anywhere else in code that would cause issues then remove the NPC
     void RemoveNPCs(List<int> Indexes)
     {
         for(int i = Indexes.Count-1; i >= 0; i--)
@@ -615,9 +524,13 @@ public class NPChandler : MonoBehaviour
             NPCList[Indexes[i]].RemoveNPCSprite();
             NPCList.RemoveAt(Indexes[i]);
             NumberOfNpcs--;
-          //  Debug.Log("Npc left");
+
         }
-    }
+    } 
+    // After Travel route removal,find any NPC that is using route and adjust accordingly
+    // if NPC walking but will use the route, reroute 
+    // if NPC Waiting for bus/train stop them waiting and reroute 
+    // if NPC currently on route, mark them as needing update for next NPC update code
     public void UpdateNPCRoutesAfterRoutesRemoval(List<Route> DeletedRoutes)
     {
         for (int i = 0; i < DeletedRoutes.Count; i++)
@@ -648,7 +561,6 @@ public class NPChandler : MonoBehaviour
                                 NPCList[x].SetCurrentAction(0);
                                 Vector3 TargetPos = (NPCList[x].GetRoutePositions()[NPCList[x].GetRoutePositions().Count - 1]);
                                 NPCList[x].SetRoute(GridCreator.GameMap.WorldToCell(TargetPos), GridCreator.GameGrid, GridCreator.GameMap, GridHandler);
-                               // NPCList[x].SetRouteNew(GridCreator.GameMap.WorldToCell(TargetPos), GridCreator.GameGrid, GridCreator.GameMap, GridHandler);
                             }
                         }
                     }
@@ -667,7 +579,6 @@ public class NPChandler : MonoBehaviour
                                 NPCList[x].SetCurrentAction(0);
                                 Vector3 TargetPos = (NPCList[x].GetRoutePositions()[NPCList[x].GetRoutePositions().Count - 1]);
                                 NPCList[x].SetRoute(GridCreator.GameMap.WorldToCell(TargetPos), GridCreator.GameGrid, GridCreator.GameMap, GridHandler);
-                            //    NPCList[x].SetRouteNew(GridCreator.GameMap.WorldToCell(TargetPos), GridCreator.GameGrid, GridCreator.GameMap, GridHandler);
                             }
                         }
                     }
@@ -706,12 +617,12 @@ public class NPChandler : MonoBehaviour
                                 NPCList[x].SetCurrentAction(0);
                                 Vector3 TargetPos = (NPCList[x].GetRoutePositions()[NPCList[x].GetRoutePositions().Count - 1]);
                                 NPCList[x].SetRoute(GridCreator.GameMap.WorldToCell(TargetPos), GridCreator.GameGrid, GridCreator.GameMap, GridHandler);
-                            //    NPCList[x].SetRouteNew(GridCreator.GameMap.WorldToCell(TargetPos), GridCreator.GameGrid, GridCreator.GameMap, GridHandler);
                             }
                         }
                     }
                     else if (NPCList[x].GetCurrentAction() == 7)
                     {
+                        // check if NPC got off of any buses. If yes then 
                         for (int e = 0; e < TransportPlacementScript.BusRoutes.Count; e++)
                         {
                             BusRoute Current = TransportPlacementScript.BusRoutes[e];
@@ -721,11 +632,11 @@ public class NPChandler : MonoBehaviour
                             }
                             else
                             {
+
                                 NPCList[x].ReDisplaySprite();
                                 NPCList[x].SetCurrentAction(0);
                                 Vector3 TargetPos = (NPCList[x].GetRoutePositions()[NPCList[x].GetRoutePositions().Count - 1]);
                                 NPCList[x].SetRoute(GridCreator.GameMap.WorldToCell(TargetPos), GridCreator.GameGrid, GridCreator.GameMap, GridHandler);
-                          //      NPCList[x].SetRouteNew(GridCreator.GameMap.WorldToCell(TargetPos), GridCreator.GameGrid, GridCreator.GameMap, GridHandler);
                             }
                         }
                     }
@@ -735,7 +646,8 @@ public class NPChandler : MonoBehaviour
 
     }
 
-   
+   // for each NPC, update what they are currently doing
+   // For movement, NPCs  only move on certain frames to ensure they dont move too often 
     void UpdateNPCs()
     {
         List<int> NPCsToRemove=new List<int>();
@@ -753,6 +665,7 @@ public class NPChandler : MonoBehaviour
                 NPCList[i].JustEnteredBuilding = false;
 
             }
+            //if NPCs just left building then update building data accordingly 
             if (NPCList[i].JustLeftBuilding && NPCList[i].buildingInsideIndex != -1)
             {
                 if (NPCList[i].buildingInsideIndex < GridCreator.PlacedBuildings.Count) {
@@ -764,23 +677,17 @@ public class NPChandler : MonoBehaviour
             //New action
             if (NPCList[i].GetCurrentAction() == -1)
             {
-                Debug.Log("NPC selecting new action");
                 // No action selected ,select new action
-               // Debug.Log("Selecting new action");
                 SelectNewAction(i);
             }
             //NPc moving
             else if (NPCList[i].GetCurrentAction() == 0 )
             {
-                Debug.Log("NPC Moving");
                 //moving
                 if (NPCList[i].GetMoveCounter() == frameToMoveOn)
                 {
                     NPCList[i].ResetCounter();
-                    //      Debug.Log("Moving towards target");
-                    // NPCList[i].MovetowardsTarget();
                      NPCList[i].MoveTowardsTargetOnRoute(gridCreator,GameFeaturesHandler.GetAirQaulityRating());
-                  //  NPCList[i].MoveTowardsTargetOnRouteNew(gridCreator,GameFeaturesHandler.GetAirQaulityRating());
                 }
                 else
                 {
@@ -789,7 +696,6 @@ public class NPChandler : MonoBehaviour
             }
             else if (NPCList[i].GetCurrentAction() == 1)
             {
-                Debug.Log("NPC in building");
                 // In building
                 if (NPCList[i].GetMoveCounter() == BuildingFrame)
                 {
@@ -803,7 +709,6 @@ public class NPChandler : MonoBehaviour
             }
             else if (NPCList[i].GetCurrentAction() == 2)
             {
-                Debug.Log("NPC at home");
                 // at home
                 if (NPCList[i].GetMoveCounter() == BuildingFrame)
                 {
@@ -818,7 +723,6 @@ public class NPChandler : MonoBehaviour
             else if (NPCList[i].GetCurrentAction() == 3)
             {
                 // in hospital
-                Debug.Log("Npc at hospital");
                 if (NPCList[i].GetMoveCounter() == BuildingFrame)
                 {
                     NPCList[i].ResetCounter();
@@ -832,7 +736,6 @@ public class NPChandler : MonoBehaviour
             else if (NPCList[i].GetCurrentAction() == 4)
             {
                 // partaking in entertainment
-                Debug.Log("Npc partaking in entertainment");
                 if(NPCList[i].GetMoveCounter() == BuildingFrame)
                 {
                     NPCList[i].ResetCounter();
@@ -845,8 +748,7 @@ public class NPChandler : MonoBehaviour
             }
             else if (NPCList[i].GetCurrentAction() == 5)
             {
-                Debug.Log("NPC leaving");
-                //Leave the city
+                //Add to the list of NPCs to be removed when NPCs next updated
                 NPCsToRemove.Add(i);
 
             }
@@ -864,6 +766,7 @@ public class NPChandler : MonoBehaviour
         }
         if(NPCList.Count!= 0)
         {
+            // After NPC updates done, remove any leaving NPCs and update game accordingly
             RemoveNPCs(NPCsToRemove);
             UpdatePopulationDisplay();
             NPCsToRemove.Clear();
