@@ -11307,6 +11307,7 @@ MonoBehaviour:
   NewObjectButton: {fileID: 1617814687}
   ClearSavesButton: {fileID: 1050708235}
   GameModeSelection: {fileID: 1595396749}
+  GameSizeSelection: {fileID: 1396813105}
   FileNameInput: {fileID: 1644200946}
   SaveText1: {fileID: 1794256165}
   SaveText2: {fileID: 1137332246}

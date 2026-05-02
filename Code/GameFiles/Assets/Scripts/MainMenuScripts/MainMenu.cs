@@ -29,6 +29,7 @@ public class MainMenu : MonoBehaviour
     public GameObject ClearSavesButton;
 
     public TMP_Dropdown GameModeSelection;
+    public TMP_Dropdown GameSizeSelection;
     public TMP_InputField FileNameInput;
 
     public TMP_Text SaveText1;
@@ -279,8 +280,22 @@ public class MainMenu : MonoBehaviour
         Debug.Log("Creating new save");
         string FileName = FileNameInput.text;
         string GameModeSelected = GameModeSelection.options[GameModeSelection.value].text;
+        int GameSizeSelected = GameSizeSelection.value;
         Debug.Log("FileName:" +FileName);
         Debug.Log("Game mode:" +GameModeSelected);
+        if (GameSizeSelected == 0)
+        {
+            Debug.Log("GameSize small");
+        }
+        if (GameSizeSelected == 1)
+        {
+            Debug.Log("GameSize medium");
+        }
+        if (GameSizeSelected == 2)
+        {
+            Debug.Log("GameSize large");
+        }
+
 
         CurrentGameMode = GameModeSelection.value;
         if (FileName == "")

@@ -1805,6 +1805,7 @@ public class GridCreator : MonoBehaviour
             }
         }
     }
+    
     void CreateGrid()
     {
         try
@@ -1812,8 +1813,9 @@ public class GridCreator : MonoBehaviour
             if (MainMenu.NewFileCreated == true)
             {
                 //Create new
-           //     Debug.Log("Creating new");
-                
+                //     Debug.Log("Creating new");
+
+           
                 for (int x = 0; x < WIDTH; x++)
                 {
                     for (int y = 0; y < HEIGHT; y++)
