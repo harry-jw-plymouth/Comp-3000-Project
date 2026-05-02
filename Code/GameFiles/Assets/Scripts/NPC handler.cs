@@ -50,8 +50,8 @@ public class NPChandler : MonoBehaviour
         NPCSprites.Add(NPC9Prefab);
         NPCSprites.Add(NPC10Prefab);
 
-        // NumberOfNpcs = GetNumberOfNPCs();
-        NumberOfNpcs = 1;
+         NumberOfNpcs = GetNumberOfNPCs();
+       // NumberOfNpcs = 1;
         LoadNPCs();
         SetHomes();
         UpdatePopulationDisplay();
@@ -169,12 +169,11 @@ public class NPChandler : MonoBehaviour
     }
     void LoadNPCs()
     {
-        Vector3 worldPosition = GridCreator.GameMap.GetCellCenterWorld(MapCenter);
         for (int i = 0; i < NumberOfNpcs; i++) {
-            worldPosition.x++; 
-            GameObject Current= Instantiate(NPCSprites[GetRandomNPCSpriteIndex()],worldPosition,Quaternion.identity );
-            NPCList.Add(new Citzen(worldPosition,CurrentID++,Current));
-          //  Debug.Log("placinng NPC");
+            Vector3 StartPos=  GridCreator.RoadPositions[ Random.Range(0, GridCreator.RoadPositions.Count)];
+
+            GameObject Current = Instantiate(NPCSprites[GetRandomNPCSpriteIndex()], GridCreator.GameMap.CellToWorld(new Vector3Int((int)StartPos.x,(int)StartPos.y,0)), Quaternion.identity);
+            NPCList.Add(new Citzen(StartPos,CurrentID++,Current));
         }
     }
     void CheckForNPCsToUpdateAfterTrainRouteRemoval()
@@ -200,7 +199,7 @@ public class NPChandler : MonoBehaviour
         if (AmountCheckCounter >= CheckFrame)
         {
             AmountCheckCounter = 0;
-           // CheckForNewNPCs();
+            CheckForNewNPCs();
             CheckForLeavingNPCs();
             UpdatePopulationDisplay();
             CheckForNPCsToUpdateAfterTrainRouteRemoval();
@@ -735,55 +734,14 @@ public class NPChandler : MonoBehaviour
         }
 
     }
-    void CheckIfStuck(int Index)
-    {
-        NPCList[Index].UpdateStuckCount(1);
-        if (NPCList[Index].CheckIfStuck())
-        {
-            NPCList[Index].ResetStuckNPC();
-        }
 
-    }
-    // Add this method to NPChandler
-    void HandleStuckNPC(int npcIndex)
-    {
-        int action = NPCList[npcIndex].GetCurrentAction();
-        // Do not handle stuck if waiting for train or bus
-        if (action == 6 || action == 7)
-        {
-            return;
-        }
-           
-        // Try to assign a wander route as a fallback
-        Vector3 wanderTarget = GetWanderTarget();
-        //  bool routeSet = NPCList[npcIndex].SetRouteNew(GridCreator.GameMap.WorldToCell(wanderTarget),GridCreator.GameGrid,GridCreator.GameMap, gridCreator);
-        bool routeSet = NPCList[npcIndex].SetRoute(GridCreator.GameMap.WorldToCell(wanderTarget), GridCreator.GameGrid, GridCreator.GameMap, gridCreator);
-        if (routeSet)
-        {
-            NPCList[npcIndex].SetCurrentAction(0);
-            NPCList[npcIndex].ResetStuckCount();
-        }
-        else
-        {
-            // If even wandering fails, just reset and try again next frame
-            NPCList[npcIndex].SetCurrentAction(-1);
-            NPCList[npcIndex].ResetStuckCount();
-        }
-    }
+   
     void UpdateNPCs()
     {
         List<int> NPCsToRemove=new List<int>();
         MovementCounter++;
         // check for updates to each NPC
         for (int i = 0; i < NPCList.Count; i++) {
-            // CheckIfStuck(i);
-            // Stuck detection and handling
-         //   NPCList[i].UpdateStuckCount(1);
-          //  if (NPCList[i].CheckIfStuck())
-           // {
-            //    HandleStuckNPC(i);
-             //   continue; // Skip further processing for this NPC this frame
-           // }
 
             if (NPCList[i].GetIfJusteEnteredBuilding())
             {

@@ -1260,45 +1260,8 @@ public class GridCreator : MonoBehaviour
         }
         return Number;
     }
-    public static bool CheckIfTileIsWalkable(Vector3Int Pos)
-    {
-        if (Pos.x < 0 || Pos.x >= WIDTH ||
-            Pos.y < 0 || Pos.y >= HEIGHT)
-        {
-            return false;
-        }
-
-        if(GameGrid[Pos.x, Pos.y].Contains==5
-            || GameGrid[Pos.x, Pos.y].Contains==1
-            || GameGrid[Pos.x, Pos.y].Contains == 5)
-        {
-            return true;
-        }
-        return false;
-    }
-    public static Vector3Int GetWalkableTileNextToBuilding(Vector3Int BuildingPos)
-    {
-
-        Vector3Int[] directions = new Vector3Int[]
-        {
-        new Vector3Int(1, 0, 0),
-        new Vector3Int(-1, 0, 0),
-        new Vector3Int(0, 1, 0),
-        new Vector3Int(0, -1, 0)
-        };
-
-        foreach (var dir in directions)
-        {
-            Vector3Int checkPos = BuildingPos + dir;
-
-            if (CheckIfTileIsWalkable(checkPos))
-            {
-                return checkPos;
-            }
-        }
-
-       return new Vector3Int(-1, -1, -1);
-    }
+   
+   
     public int EnterBuildingForNPC(Vector3 Pos, int NPCIndex)
     {
         Vector3Int cell = GameMap.WorldToCell(Pos);
