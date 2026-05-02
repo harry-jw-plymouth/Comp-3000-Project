@@ -1727,13 +1727,8 @@ public class GridCreator : MonoBehaviour
                 }
 
                     
-            }
-            
-            
-            
+            }  
         }
-
-
     }
     
     void ScatterGreenery()
@@ -1925,7 +1920,7 @@ public class GridCreator : MonoBehaviour
                 UpdateStatusOfBuildingsInRangeOfPower();
                 DisplayPowerAvailabilityOnBuilding();
 
-                TransportPlacementScript.SetupRoutesFromSave(MainMenu.GameSaveID,this,TransportHandler);
+                TransportPlacementScript.SetupRoutesFromSave(MainMenu.CurrentSaveID,this,TransportHandler);
                 
             }
         }

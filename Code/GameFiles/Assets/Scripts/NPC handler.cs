@@ -192,7 +192,13 @@ public class NPChandler : MonoBehaviour
             }
         }
     }
-
+   
+    public void HideNPCSBoardingBus(List<int> Indexes)
+    {
+        for (int i = 0; i < Indexes.Count; i++) {
+            NPCList[Indexes[i]].HideSprite();
+        }
+    }
 
     // Update is called once per frame
     void Update()

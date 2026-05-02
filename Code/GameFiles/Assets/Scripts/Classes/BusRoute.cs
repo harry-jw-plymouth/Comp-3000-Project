@@ -10,6 +10,9 @@ public class BusRoute
     public bool HasBeenActivated = false;
     List<Bus> BusesOnRoute = new List<Bus>();
 
+    bool RouteJustActivated = false;
+    bool RouteJustFinished = false;
+
     GameObject FrontSprite;
     GameObject LeftSprite;
     GameObject RightSprite;
@@ -141,17 +144,32 @@ public class BusRoute
                         BusesOnRoute[i].SetIDsOnBus(IDs);
                         BusesOnRoute[i].SetIsCurrentlyMoving(true);
                         BusesOnRoute[i].ResetReactivateCount();
+                        RouteJustActivated = true;
                     }
                     else
                     {
                         BusesOnRoute[i].IncrementReactivateCount();
                     }
-                }
-                
-               
+                }    
             }
         }
         return ReactivateCost;
+    }
+    public bool GetIfJustActivated()
+    {
+        return RouteJustActivated;
+    }
+    public void SetJustActivated(bool New)
+    {
+        RouteJustActivated= New;
+    }
+    public bool GetIfJustFinished()
+    {
+        return RouteJustFinished;
+    }
+    public void SetJustFinished(bool New)
+    {
+        RouteJustFinished = New;
     }
     public void DoMovement(NPChandler NpcHandler)
     {
@@ -194,11 +212,8 @@ public class BusRoute
                     {
                         if (BusesOnRoute[i].CurrentlyAscendingRoute)
                         {
-                            //     Debug.Log("Reached new postions on route");
-
-
                             Vector3 OldTarget = BusesOnRoute[i].CurrentTarget;
-                            //       Debug.Log("Reached : " + OldTarget);
+
                             BusesOnRoute[i].CurrentlyTargetting++;
 
                             BusesOnRoute[i].SetNewTarget(RoutePositions[BusesOnRoute[i].CurrentlyTargetting]);
@@ -217,11 +232,8 @@ public class BusRoute
                         }
                         else
                         {
-                            //   TrainsOnRoute[i].CurrentlyTargetting--;
-                            //         Debug.Log("Reached new postions on route");
 
                             Vector3 OldTarget = BusesOnRoute[i].CurrentTarget;
-                            //           Debug.Log("Reached : " + OldTarget);
                             BusesOnRoute[i].CurrentlyTargetting--;
 
                             BusesOnRoute[i].SetNewTarget(RoutePositions[BusesOnRoute[i].CurrentlyTargetting]);
@@ -269,20 +281,11 @@ public class BusRoute
                     {
                         CurrentPosition.x = Mathf.Min(CurrentPosition.x + MoveSpeed, CurrentTarget.x);
                     }
-
-
-
-                    //                Debug.Log("Current target:" + TrainsOnRoute[i].CurrentTarget);
-
-                    //              Debug.Log("Train moving, positon before move:" + TrainsOnRoute[i].CurrentPosition) ;
                     BusesOnRoute[i].AdjustPosition(CurrentPosition);
                     BusesOnRoute[i].MoveSprite();
-                    //            Debug.Log("Train moved, positon after move:" + TrainsOnRoute[i].CurrentPosition);
-               //     BusesOnRoute[i].CreatedSprite.transform.position = BusesOnRoute[i].GetPosition();
 
                     if (CurrentTarget.x == CurrentPosition.x && CurrentPosition.y == CurrentTarget.y)
                     {
-                        //              Debug.Log("Target reached, setting new");
                         //Target reached
                         if (BusesOnRoute[i].CurrentlyAscendingRoute)
                         {

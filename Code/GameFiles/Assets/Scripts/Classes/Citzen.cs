@@ -74,6 +74,10 @@ public class Citzen
         CurrentBusStop = new Vector3Int(-1, -1, -1);
         TargetBusStop = new Vector3Int(-1, -1, -1);
     }
+    public void HideSprite()
+    {
+        NPCSprite.GetComponent<SpriteRenderer>().enabled = false;
+    }
     public void SetLastPos(Vector3 Pos)
     {
         LastFramePos=Pos;

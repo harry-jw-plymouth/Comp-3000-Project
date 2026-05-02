@@ -84,16 +84,18 @@ public class TransportPlacementScript : MonoBehaviour
 
     public static void SetupRoutesFromSave(int ID,GridCreator GridHandler,TransportPlacementScript TransportHandler)
     {
+        Debug.Log("Setting up routes");
         List<TrainRouteModel>RoutesInDB=DBManager.GetAllTrainRoutesForID(ID);
         for(int i = 0; i < RoutesInDB.Count; i++)
         {
+            Debug.Log("Loading train route " + i);
             TrainRouteModel Current = RoutesInDB[i];
             int StartStationIndex= GridHandler.GetBuildingClicked(new Vector3Int(Current.StartXpos, Current.StartYpos, 0));
             int EndStationIndex= GridHandler.GetBuildingClicked(new Vector3Int(Current.EndXpos, Current.EndYpos, 0));
 
             if(StartStationIndex==-1 || EndStationIndex==-1)
             {
-             //   Debug.Log("Error loading route, station not found");
+                Debug.Log("Error loading route, station not found");
                 continue;
             }
             if (GridCreator.PlacedBuildings[StartStationIndex].GetIfTrainStation()&& GridCreator.PlacedBuildings[EndStationIndex].GetIfTrainStation())
@@ -110,12 +112,14 @@ public class TransportPlacementScript : MonoBehaviour
         List<BusRouteModel> BusRoutesInDB = DBManager.GetAllBusRoutesForID(ID);
         for (int i = 0; i < BusRoutesInDB.Count; i++)
         {
+            Debug.Log("Loading Bus route " + i);
             BusRouteModel Current = BusRoutesInDB[i];
             Vector3Int StartStop = new Vector3Int(Current.StartXpos, Current.StartYpos, 0);
             Vector3Int EndStop = new Vector3Int(Current.EndXpos, Current.EndYpos, 0);
             if (StartStop.x < 0 || StartStop.x >= GridCreator.WIDTH || StartStop.y < 0 || StartStop.y >= GridCreator.HEIGHT ||
            EndStop.x < 0 || EndStop.x >= GridCreator.WIDTH || EndStop.y < 0 || EndStop.y >= GridCreator.HEIGHT)
             {
+                Debug.Log("Error loading bus route");
                 continue;
             }
             if (GridCreator.GameGrid[StartStop.x, StartStop.y].Contains == 5 &&
@@ -679,12 +683,34 @@ public class TransportPlacementScript : MonoBehaviour
         DoMovement();
         CheckForcancelledTrains();
     }
+    void CheckForJustReactivatedBuses()
+    {
+        for (int i = 0; i < BusRoutes.Count; i++) {
+            if (BusRoutes[i].GetIfJustActivated())
+            {
+                NPChandler.HideNPCSBoardingBus(BusRoutes[i].GetNPCIDs());
+                BusRoutes[i].SetJustActivated(false);
+            }
+        }
+    }
+    void CheckForJustFinishedBuses()
+    {
+        for (int i = 0; i < BusRoutes.Count; i++)
+        {
+            if (BusRoutes[i].GetIfJustFinished())
+            {
+                NPChandler.HideNPCSBoardingBus(BusRoutes[i].GetNPCIDs());
+                BusRoutes[i].SetJustFinished(false);
+            }
+        }
+    }
     void DoBusRoutes()
     {
         CheckForNewBusRoutes();
         CheckForBusReactivation();
         DoBusMovement();
         CheckForCancelledBuses();
+        CheckForJustReactivatedBuses();
     }
     // Update is called once per frame
     void Update()
