@@ -14,9 +14,9 @@ public class GridCreator : MonoBehaviour
     [SerializeField] NPChandler npcHandler;
     [SerializeField] TransportPlacementScript TransportHandler;
     [SerializeField] GameStatusScript GameStatusHandler;
-    public static Square[,]GameGrid = new Square[GridCreator.WIDTH, GridCreator.HEIGHT];
-    public const int WIDTH = 100;
-    public const int HEIGHT = 100;
+    public static Square[,]GameGrid = new Square[100, 100];
+    public static int  WIDTH = 100;
+    public static int HEIGHT = 100;
     [SerializeField] private Tilemap GameMapReference;
     public static Tilemap GameMap;
     public UIHandlerScript uiHandler;
@@ -1522,7 +1522,7 @@ public class GridCreator : MonoBehaviour
     }
     public bool GetIfInBounds(int XPos, int YPos)
     {
-        return XPos >= 0 && XPos < GridCreator.WIDTH && YPos >= 0 && YPos < GridCreator.HEIGHT;
+        return XPos >= 0 && XPos < WIDTH && YPos >= 0 && YPos < HEIGHT;
     }
     Vector3Int GetLowestNeigbour(int x, int y, float[,]HeightMap)
     {
@@ -1815,7 +1815,29 @@ public class GridCreator : MonoBehaviour
                 //Create new
                 //     Debug.Log("Creating new");
 
-           
+
+                int WorldType= MainMenu.GetCurrentWorldSize();
+
+                if (WorldType == 0)
+                {
+                    // Small world
+                    WIDTH = 50;
+                    HEIGHT = 50;
+                }
+                else if (WorldType == 1)
+                {
+                    //medium world
+                    WIDTH = 100;
+                    HEIGHT = 100;
+                }
+                else if (WorldType == 2) {
+                    //large world
+                    WIDTH = 150;
+                    HEIGHT = 150;
+                }
+
+
+                    GameGrid = new Square[WIDTH,HEIGHT];
                 for (int x = 0; x < WIDTH; x++)
                 {
                     for (int y = 0; y < HEIGHT; y++)
@@ -1848,6 +1870,8 @@ public class GridCreator : MonoBehaviour
                 {
              //       Debug.Log(UnconvertedMap[i]);
                 }
+                WIDTH = CurrentSaveMap.GridWidth; HEIGHT=CurrentSaveMap.GridHeight; 
+
                 for (int x = 0; x < CurrentSaveMap.GridWidth; x++)
                 {
                     for (int y = 0; y < CurrentSaveMap.GridHeight; y++)

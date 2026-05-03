@@ -55,6 +55,7 @@ public class MainMenu : MonoBehaviour
     public static bool NewFileCreated = false;
     public static int CurrentSaveID = -1;
     public static int CurrentGameMode = -1;
+    public static int WorldType = 0;
     //0 is Sand box 
     //1 is Simulation
     int CurrentScene = 0;
@@ -275,17 +276,23 @@ public class MainMenu : MonoBehaviour
     {
         return CurrentGameMode;
     }
+    public static int GetCurrentWorldSize()
+    {
+        return WorldType;
+    }
     public void OnNewFileCreateButtonClicked()
     {
         Debug.Log("Creating new save");
         string FileName = FileNameInput.text;
         string GameModeSelected = GameModeSelection.options[GameModeSelection.value].text;
         int GameSizeSelected = GameSizeSelection.value;
+        WorldType = GameSizeSelected;
         Debug.Log("FileName:" +FileName);
         Debug.Log("Game mode:" +GameModeSelected);
         if (GameSizeSelected == 0)
         {
             Debug.Log("GameSize small");
+
         }
         if (GameSizeSelected == 1)
         {
