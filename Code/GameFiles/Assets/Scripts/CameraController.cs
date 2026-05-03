@@ -24,7 +24,7 @@ public class CameraController : MonoBehaviour
     {
    //     StartCoroutine(WaitOneFrame());
         GameCamera=GetComponent<Camera>();
-        SetBounds();
+       // SetBounds();
 
     }
     public void SetBounds()
@@ -53,6 +53,7 @@ public class CameraController : MonoBehaviour
         if (!Moved)
         {
             CenterCamera();
+            SetBounds();
             Moved=true;
         }
         MoveCamera();

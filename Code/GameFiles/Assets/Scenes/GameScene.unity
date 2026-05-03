@@ -920,6 +920,7 @@ MonoBehaviour:
   GameMapReference: {fileID: 367962549}
   uiHandler: {fileID: 1831244042}
   NumberOfRoads: 0
+  MainCameraController: {fileID: 519420033}
   MainCamera: {fileID: 519420031}
   GameTile: {fileID: 11400000, guid: adca81024aaf96c46b46fd8a28d66cc9, type: 2}
   RoadTile: {fileID: 11400000, guid: 9b1e8d7cba2eec548a79230dfbe5018d, type: 2}
@@ -30961,7 +30962,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: -152, y: 139}
+  m_AnchoredPosition: {x: -152.00003, y: 139}
   m_SizeDelta: {x: 800, y: 557}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2093741670

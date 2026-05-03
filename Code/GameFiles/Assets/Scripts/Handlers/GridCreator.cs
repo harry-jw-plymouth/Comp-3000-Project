@@ -22,6 +22,7 @@ public class GridCreator : MonoBehaviour
     public UIHandlerScript uiHandler;
     public int NumberOfRoads = 0;
 
+    public CameraController MainCameraController;
     public Camera MainCamera;
     bool UpdateNeeded = false;
 
@@ -1551,7 +1552,9 @@ public class GridCreator : MonoBehaviour
     public List<Vector3Int> GetRiverStartPositions(int Min, int Max, float MinimumHeight, float[,]HeightMap)
     {
         int NumberOfRivers = UnityEngine.Random.Range(Min, Max);
+        NumberOfRivers += MainMenu.GetCurrentWorldSize()*20;
         List<Vector3Int> StartPositions = new List<Vector3Int>();
+        Debug.Log("Number of rivers: "+NumberOfRivers);
         for (int i = 0; i < NumberOfRivers; i++)
         {
             int x = UnityEngine.Random.Range(0, WIDTH);
@@ -1661,21 +1664,30 @@ public class GridCreator : MonoBehaviour
                 Vector3Int CurrentPos = new Vector3Int(Rivers[i][Pos].x, Rivers[i][Pos].y, 0);
                 if (Width == 1)
                 {
-                    GameGrid[CurrentPos.x,CurrentPos.y].Contains = 3;
-                    GameMap.SetTile(CurrentPos, WaterTile);
-                    
+                    if(GameGrid[CurrentPos.x, CurrentPos.y].Contains != 3)
+                    {
+                        GameGrid[CurrentPos.x, CurrentPos.y].Contains = 3;
+                        GameMap.SetTile(CurrentPos, WaterTile);
+                    }
+                          
                 }
                 else if (Width == 2)
                 {
-                    GameGrid[CurrentPos.x, CurrentPos.y].Contains = 3;
-                    GameMap.SetTile(CurrentPos, WaterTile);
+                    if (GameGrid[CurrentPos.x, CurrentPos.y].Contains != 3)
+                    {
+                        GameGrid[CurrentPos.x, CurrentPos.y].Contains = 3;
+                        GameMap.SetTile(CurrentPos, WaterTile);
+                    }
                     int XPlace= UnityEngine.Random.Range(0, 2);
                     if (XPlace == 0)
                     {
                         if (GetIfInBounds(CurrentPos.x + 1, CurrentPos.y))
                         {
-                            GameGrid[CurrentPos.x + 1, CurrentPos.y].Contains = 3;
-                            GameMap.SetTile(new Vector3Int(CurrentPos.x + 1, CurrentPos.y, 0), WaterTile);
+                            if (GameGrid[CurrentPos.x,+ CurrentPos.y].Contains != 3)
+                            {
+                                GameGrid[CurrentPos.x+1, CurrentPos.y].Contains = 3;
+                                GameMap.SetTile(CurrentPos, WaterTile);
+                            }
                         }
                             
                     }
@@ -1683,8 +1695,11 @@ public class GridCreator : MonoBehaviour
                     {
                         if(GetIfInBounds(CurrentPos.x-1, CurrentPos.y))
                         {
-                            GameGrid[CurrentPos.x - 1, CurrentPos.y].Contains = 3;
-                            GameMap.SetTile(new Vector3Int(CurrentPos.x - 1, CurrentPos.y, 0), WaterTile);
+                            if (GameGrid[CurrentPos.x-1, CurrentPos.y].Contains != 3)
+                            {
+                                GameGrid[CurrentPos.x-1, CurrentPos.y].Contains = 3;
+                                GameMap.SetTile(CurrentPos, WaterTile);
+                            }
                         }
                             
                     }
@@ -1694,8 +1709,11 @@ public class GridCreator : MonoBehaviour
                     {
                         if(GetIfInBounds(CurrentPos.x, CurrentPos.y + 1))
                         {
-                            GameGrid[CurrentPos.x, CurrentPos.y + 1].Contains = 3;
-                            GameMap.SetTile(new Vector3Int(CurrentPos.x, CurrentPos.y + 1, 0), WaterTile);
+                            if (GameGrid[CurrentPos.x, CurrentPos.y+1].Contains != 3)
+                            {
+                                GameGrid[CurrentPos.x, CurrentPos.y+1].Contains = 3;
+                                GameMap.SetTile(CurrentPos, WaterTile);
+                            }
                         }
                             
                     }
@@ -1703,8 +1721,11 @@ public class GridCreator : MonoBehaviour
                     {
                         if(GetIfInBounds(CurrentPos.x, CurrentPos.y - 1))
                         {
-                            GameGrid[CurrentPos.x, CurrentPos.y - 1].Contains = 3;
-                            GameMap.SetTile(new Vector3Int(CurrentPos.x, CurrentPos.y, -1), WaterTile);
+                            if (GameGrid[CurrentPos.x, CurrentPos.y-1].Contains != 3)
+                            {
+                                GameGrid[CurrentPos.x, CurrentPos.y-1].Contains = 3;
+                                GameMap.SetTile(CurrentPos, WaterTile);
+                            }
                         }
                             
                     }
@@ -1715,18 +1736,17 @@ public class GridCreator : MonoBehaviour
                     {
                         for (int YOffset = -1; YOffset <= 1; YOffset++)
                         {
-                            if(GetIfInBounds(CurrentPos.x + XOffset, CurrentPos.y + YOffset))
+                            if (GetIfInBounds(CurrentPos.x + XOffset, CurrentPos.y + YOffset))
                             {
-                                GameGrid[CurrentPos.x + XOffset, CurrentPos.y + YOffset].Contains = 3;
-                                GameMap.SetTile(new Vector3Int(CurrentPos.x + XOffset, CurrentPos.y + YOffset, 0), WaterTile);
+                                if (GameGrid[CurrentPos.x + XOffset, CurrentPos.y + YOffset].Contains != 3)
+                                {
+                                    GameGrid[CurrentPos.x + XOffset, CurrentPos.y + YOffset].Contains = 3;
+                                    GameMap.SetTile(new Vector3Int(CurrentPos.x + XOffset, CurrentPos.y + YOffset, 0), WaterTile);
+                                }
                             }
-
-                            
                         }
                     }
-                }
-
-                    
+                }   
             }  
         }
     }
@@ -1835,7 +1855,7 @@ public class GridCreator : MonoBehaviour
                     WIDTH = 150;
                     HEIGHT = 150;
                 }
-
+               // MainCameraController.SetBounds();
 
                     GameGrid = new Square[WIDTH,HEIGHT];
                 for (int x = 0; x < WIDTH; x++)
