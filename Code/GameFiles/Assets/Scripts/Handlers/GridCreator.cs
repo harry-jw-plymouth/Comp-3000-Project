@@ -1891,6 +1891,7 @@ public class GridCreator : MonoBehaviour
              //       Debug.Log(UnconvertedMap[i]);
                 }
                 WIDTH = CurrentSaveMap.GridWidth; HEIGHT=CurrentSaveMap.GridHeight; 
+                GameGrid = new Square[WIDTH, HEIGHT];
 
                 for (int x = 0; x < CurrentSaveMap.GridWidth; x++)
                 {

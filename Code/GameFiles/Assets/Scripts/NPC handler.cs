@@ -172,10 +172,14 @@ public class NPChandler : MonoBehaviour
     {
         // for each NPC, set a random start position on a road and assign a random sprite
         for (int i = 0; i < NumberOfNpcs; i++) {
-            Vector3 StartPos=  GridCreator.RoadPositions[ Random.Range(0, GridCreator.RoadPositions.Count)];
+            if (GridCreator.RoadPositions.Count != 0)
+            {
+                Vector3 StartPos = GridCreator.RoadPositions[Random.Range(0, GridCreator.RoadPositions.Count)];
 
-            GameObject Current = Instantiate(NPCSprites[GetRandomNPCSpriteIndex()], GridCreator.GameMap.CellToWorld(new Vector3Int((int)StartPos.x,(int)StartPos.y,0)), Quaternion.identity);
-            NPCList.Add(new Citzen(StartPos,CurrentID++,Current));
+                GameObject Current = Instantiate(NPCSprites[GetRandomNPCSpriteIndex()], GridCreator.GameMap.CellToWorld(new Vector3Int((int)StartPos.x, (int)StartPos.y, 0)), Quaternion.identity);
+                NPCList.Add(new Citzen(StartPos, CurrentID++, Current));
+            }
+            
         }
     }
     void CheckForNPCsToUpdateAfterTrainRouteRemoval()

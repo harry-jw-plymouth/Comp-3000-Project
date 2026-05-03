@@ -33,6 +33,10 @@ public class UIHandlerScript : MonoBehaviour
     public GameObject SettingsCanvas;
     public Button TradeButton;
 
+    public GameObject BuildingCoreButton;
+    public GameObject TransportCoreButton;
+    public GameObject LayoutCoreButton;
+
     public GameObject NewPopUpCanvas;
     public TextMeshProUGUI PopUpTitle;
     public TextMeshProUGUI PopUpDescription;
@@ -784,19 +788,90 @@ public class UIHandlerScript : MonoBehaviour
             ShowAlertPopUp("Please enter a value ");
         }
     }
+    public void CloseAllTransportPopUps()
+    {
+        // rail route viewer
+        RailRouteDisplayCanvasActive = false;
+        RailDisplayCanvas.SetActive(false);
+        MainUICanvas.SetActive(true);
+        TrainRouteViewerOn = false;
+        RouteSelectedInfo.SetActive(false);
+        GridHandler.DeHighlightAllRoutes();
+
+
+        // train station selection for route
+        StationSelectCanvas.SetActive(false);
+        SelectingRouteLocation = false;
+
+        // train route set canvas
+        RouteSetCanvas.SetActive(false);
+        RouteMenuActive = false;
+
+        //rail buttons
+        RailMenuActive = false;
+        RailCanvas.SetActive(false);
+
+        // close Bus canvas
+        CloseBusCanvas();
+
+        // cclose bus route canvas
+        BusCanvas.SetActive(false);
+        BusCanvasActive = false;
+        StopEditingBusStops();
+
+        StartingBusStopInfo.text = "";
+        EndBusStopInfo.text = "";
+        StartBusStop = new Vector3Int(-1, -1, -1);
+        EndBusStop = new Vector3Int(-1, -1, -1);
+
+        //close display but routes
+        BusRouteDisplayCanvasActive = false;
+        BusRouteDisplayCanvas.SetActive(false);
+        BusRouteSetCanvas.SetActive(false);
+        BusRouteViewerOn = false;
+        RouteSelectedInfo.SetActive(false);
+        GridHandler.DeHighlightAllBusRoutes();
+
+    }
+    public void HideTransportCanvases()
+    {
+        CloseBusCanvas();
+        CloseRailPopUp();
+        CloseTransportPopup();
+    }
+
+   public void HideCoreUI()
+    {
+        TransportCoreButton.SetActive(false); 
+        LayoutCoreButton.SetActive(false); ;
+        BuildingCoreButton.SetActive(false);
+    }
+    public void ShowCoreUI()
+    {
+        TransportCoreButton.SetActive(true);
+        LayoutCoreButton.SetActive(true);
+        BuildingCoreButton.SetActive(true);
+    }
     public void OnTradeButtonClicked()
     {
    //     Debug.Log("TradeButton clicked");
         if (TradeMenuActive)
         {
+            
             TradeMenuActive = false;
             TradeCanvas.SetActive(false);
+            ShowCoreUI();
+
         }
         else
         {
+            HideCoreUI();
+            SetUIInactive();
+            CloseAllTransportPopUps();
             TradeMenuActive = true;
             TradeCanvas.SetActive(true);
             SetTradeInfo();
+            HideBuildingInfo();
         }
     }
     public  void ShowAlertPopUp(string Alert)
