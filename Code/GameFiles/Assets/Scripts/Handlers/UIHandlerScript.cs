@@ -33,6 +33,8 @@ public class UIHandlerScript : MonoBehaviour
     public GameObject SettingsCanvas;
     public Button TradeButton;
 
+    public TextMeshProUGUI BusRouteInfoText;
+
     public GameObject BuildingCoreButton;
     public GameObject TransportCoreButton;
     public GameObject LayoutCoreButton;
@@ -447,6 +449,11 @@ public class UIHandlerScript : MonoBehaviour
             RouteStationPos=0;
             RouteTypeInfo.text = "Select bus stop";
         }
+        else
+        {
+            Debug.Log("No bus stop exsits");
+            BusRouteInfoText.text = "No stop exists\r\nPlease place bus stop before attempting to set route";
+        }
 
     }
     public void OnBusRouteEndButtonClicked()
@@ -598,8 +605,8 @@ public class UIHandlerScript : MonoBehaviour
         EndBusStopInfo.text = "";
         StartBusStop = new Vector3Int(-1, -1, -1);
         EndBusStop = new Vector3Int(-1, -1, -1);
+        BusRouteInfoText.text = "Set a start and end point for your route then confirm to create your route!";
 
-        
     }
     public void OnBusRouteCanvasCloseButtonClosed()
     {
