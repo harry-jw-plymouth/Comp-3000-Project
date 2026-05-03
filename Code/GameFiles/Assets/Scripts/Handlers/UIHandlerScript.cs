@@ -388,17 +388,6 @@ public class UIHandlerScript : MonoBehaviour
                 uiHandler.OpenNewPopUp("Issue creating route", "Not enough money to create route");
             }
 
-
-
-            //  List<Vector3Int> test = NewRoute.GetCurrentRoute();
-            //  Debug.Log("Route made");
-            // Debug.Log("Route length: " + test.Count);
-            // for(int i=0; i<test.Count; i++)
-            //{
-            ///      Debug.Log("X:" + test[i].x + ", Y:"+ test[i].y);
-            //  }
-
-
         }
         else
         {
@@ -535,15 +524,35 @@ public class UIHandlerScript : MonoBehaviour
             ShowAlertPopUp("No train stations for route");
         }
     }
+    public void ShowTrainRouteUI()
+    {
+        RailMenuActive = true;
+        RailCanvas.SetActive(true);
+    }
+    public void ShowTransportUI()
+    {
+        TransportBuilderPopUp.SetActive(true);
+    }
 
     public void OnRouteMenuCloseButtonClicked()
     {
         RouteSetCanvas.SetActive(false);
         RouteMenuActive = false ;
+
+        ShowCoreUI();
+        ShowTrainRouteUI();
+        ShowTransportUI();
+
     }
     public void OnTrainRouteButtonClicked()
     {
         OpenRouteCanvas();
+        HideCoreUI();
+        SetUIInactive();
+        HideBuildingInfo();
+        RailMenuActive = false;
+        RailCanvas.SetActive(false);
+
     }
     public void OpenRouteCanvas()
     {
@@ -576,6 +585,9 @@ public class UIHandlerScript : MonoBehaviour
     }
     public void OnBusrouteCanvasButtonClicked()
     {
+        HideCoreUI() ;
+        SetUIInactive();
+
         BusRouteCanvasActive = true;
         BusRouteSetCanvas.SetActive(true);
         BusCanvas.SetActive(false);
@@ -587,6 +599,7 @@ public class UIHandlerScript : MonoBehaviour
         StartBusStop = new Vector3Int(-1, -1, -1);
         EndBusStop = new Vector3Int(-1, -1, -1);
 
+        
     }
     public void OnBusRouteCanvasCloseButtonClosed()
     {
@@ -594,6 +607,12 @@ public class UIHandlerScript : MonoBehaviour
         BusRouteSetCanvas.SetActive(false);
         BusCanvas.SetActive(true);
         BusCanvasActive = true;
+
+        ShowCoreUI();
+        ShowTransportUI();
+        BusCanvas.SetActive(true);
+
+
 
 
     }
@@ -610,7 +629,7 @@ public class UIHandlerScript : MonoBehaviour
             CloseRailPopUp();
             BusCanvasActive = true;
             BusCanvas.SetActive(true);
-            TransportBuilderPopUp.SetActive(false);
+          //  TransportBuilderPopUp.SetActive(false);
         }
     }
     public void DisplayBuildingInfo(PlacedBuilding BuildingToDisplay)
@@ -787,6 +806,15 @@ public class UIHandlerScript : MonoBehaviour
         {
             ShowAlertPopUp("Please enter a value ");
         }
+    }
+    public void CloseAllRegularPopUps()
+    {
+        // Hide Buildings view
+
+
+        // Hide transport View
+
+        // Hide Tile editor view
     }
     public void CloseAllTransportPopUps()
     {
@@ -1037,7 +1065,7 @@ public class UIHandlerScript : MonoBehaviour
             CloseBusCanvas();
             RailMenuActive = true;
             RailCanvas.SetActive(true);
-            TransportBuilderPopUp.SetActive(false);
+           // TransportBuilderPopUp.SetActive(false);
         }
     }
     public void CloseTransportPopup()
