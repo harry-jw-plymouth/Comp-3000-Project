@@ -63,6 +63,10 @@ public class Route
         }
         return IDs;
     }
+    public int GetRouteLength()
+    {
+        return RoutePositions.Count;
+    }
     public void Activate()
     {
     
@@ -264,11 +268,8 @@ public class Route
                         }
                         else
                         {
-                            //   TrainsOnRoute[i].CurrentlyTargetting--;
-                            //         Debug.Log("Reached new postions on route");
 
                             Vector3 OldTarget = TrainsOnRoute[i].CurrentTarget;
-                            //           Debug.Log("Reached : " + OldTarget);
                             TrainsOnRoute[i].CurrentlyTargetting--;
 
                             TrainsOnRoute[i].SetNewTarget(RoutePositions[TrainsOnRoute[i].CurrentlyTargetting]);
@@ -288,9 +289,10 @@ public class Route
                 }
                 else
                 {
+                    //target not reached
                     //Move
                     float MoveSpeed = 0.1f;
-                    ;
+                    
                     Vector3 Movement = new Vector3(0.0f, 0.0f, 0.0f);
                     Movement *= Time.deltaTime;
                     Vector3 CurrentPosition = TrainsOnRoute[i].GetPosition();
@@ -315,30 +317,32 @@ public class Route
                     {
                         CurrentPosition.x = Mathf.Min(CurrentPosition.x + MoveSpeed, CurrentTarget.x);
                     }
-
-
-
-                    //                Debug.Log("Current target:" + TrainsOnRoute[i].CurrentTarget);
-
-                    //              Debug.Log("Train moving, positon before move:" + TrainsOnRoute[i].CurrentPosition) ;
                     TrainsOnRoute[i].AdjustPosition(CurrentPosition);
-                    //            Debug.Log("Train moved, positon after move:" + TrainsOnRoute[i].CurrentPosition);
+
+
                     TrainsOnRoute[i].CreatedSprite.transform.position = TrainsOnRoute[i].GetPosition()+new Vector3(0.0f,0.25f,0.0f);
 
                     if (CurrentTarget.x == CurrentPosition.x && CurrentPosition.y == CurrentTarget.y)
                     {
-                        //              Debug.Log("Target reached, setting new");
-                        //Target reached
-                        if (TrainsOnRoute[i].CurrentlyAscendingRoute)
+                        if (TrainsOnRoute[i].CurrentlyTargetting == 0 || TrainsOnRoute[i].CurrentlyTargetting == RoutePositions.Count - 1)
                         {
-                            TrainsOnRoute[i].CurrentlyTargetting++;
+
                         }
                         else
                         {
-                            TrainsOnRoute[i].CurrentlyTargetting--;
-                        }
+                            //Target reached
+                            if (TrainsOnRoute[i].CurrentlyAscendingRoute)
+                            {
+                                TrainsOnRoute[i].CurrentlyTargetting++;
+                            }
+                            else
+                            {
+                                TrainsOnRoute[i].CurrentlyTargetting--;
+                            }
+                            TrainsOnRoute[i].SetNewTarget(RoutePositions[TrainsOnRoute[i].CurrentlyTargetting]);
 
-                        TrainsOnRoute[i].SetNewTarget(RoutePositions[TrainsOnRoute[i].CurrentlyTargetting]);
+                        }
+                        
                     }
                 }
             }

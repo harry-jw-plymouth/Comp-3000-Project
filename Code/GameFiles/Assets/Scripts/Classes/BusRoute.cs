@@ -284,20 +284,29 @@ public class BusRoute
                     BusesOnRoute[i].AdjustPosition(CurrentPosition);
                     BusesOnRoute[i].MoveSprite();
 
-                    if (CurrentTarget.x == CurrentPosition.x && CurrentPosition.y == CurrentTarget.y)
+                    if (BusesOnRoute[i].CurrentlyTargetting == 0 || BusesOnRoute[i].CurrentlyTargetting == RoutePositions.Count - 1)
                     {
-                        //Target reached
-                        if (BusesOnRoute[i].CurrentlyAscendingRoute)
-                        {
-                            BusesOnRoute[i].CurrentlyTargetting++;
-                        }
-                        else
-                        {
-                            BusesOnRoute[i].CurrentlyTargetting--;
-                        }
 
-                        BusesOnRoute[i].SetNewTarget(RoutePositions[BusesOnRoute[i].CurrentlyTargetting]);
                     }
+                    else
+                    {
+                        if (CurrentTarget.x == CurrentPosition.x && CurrentPosition.y == CurrentTarget.y)
+                        {
+                            //Target reached
+                            if (BusesOnRoute[i].CurrentlyAscendingRoute)
+                            {
+                                BusesOnRoute[i].CurrentlyTargetting++;
+                            }
+                            else
+                            {
+                                BusesOnRoute[i].CurrentlyTargetting--;
+                            }
+
+                            BusesOnRoute[i].SetNewTarget(RoutePositions[BusesOnRoute[i].CurrentlyTargetting]);
+                        }
+                    }
+
+                    
                 }
             }
         }

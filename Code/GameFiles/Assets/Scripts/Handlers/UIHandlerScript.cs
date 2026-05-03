@@ -34,6 +34,7 @@ public class UIHandlerScript : MonoBehaviour
     public Button TradeButton;
 
     public TextMeshProUGUI BusRouteInfoText;
+    public TextMeshProUGUI TrainRouteInfoText;
 
     public GameObject BuildingCoreButton;
     public GameObject TransportCoreButton;
@@ -379,22 +380,27 @@ public class UIHandlerScript : MonoBehaviour
             {
                 Route NewRoute = new Route(GridCreator.PlacedBuildings[StartRouteStationBuilding], GridCreator.PlacedBuildings[EndRouteStationBuilding]);
                 NewRoute.SetRoute(GridCreator.GameGrid);
-                TransportPlacementScript.AddRoute(NewRoute);
-                OpenNewPopUp("Route created", "New route created between station at " + GridCreator.PlacedBuildings[StartRouteStationBuilding].GetBuildingPosAsInt() + " and station at " + GridCreator.PlacedBuildings[EndRouteStationBuilding].GetBuildingPosAsInt() + ". ");
-                gameHandler.AdjustMoney(-100);
-                OnRouteMenuCloseButtonClicked();
 
+                if (NewRoute.GetRouteLength() > 1)
+                {
+                    TransportPlacementScript.AddRoute(NewRoute);
+                    OpenNewPopUp("Route created", "New route created between station at " + GridCreator.PlacedBuildings[StartRouteStationBuilding].GetBuildingPosAsInt() + " and station at " + GridCreator.PlacedBuildings[EndRouteStationBuilding].GetBuildingPosAsInt() + ". ");
+                    gameHandler.AdjustMoney(-100);
+                    OnRouteMenuCloseButtonClicked();
+                }
+                else
+                {
+                    TrainRouteInfoText.text="Could not create route, route too short";
+                }
             }
             else
             {
-                uiHandler.OpenNewPopUp("Issue creating route", "Not enough money to create route");
+                TrainRouteInfoText.text = "Could not create route, not enough money";
             }
-
         }
         else
         {
-            uiHandler.OpenNewPopUp("Issue creating route", "Route could not be created");
-            Debug.Log("Proper selection not made");
+            TrainRouteInfoText.text = "Could not create route, please select a valid start and end point then try again";
         }
     }
     public void OnStationSelectorBackButtonClicked() {
@@ -430,10 +436,7 @@ public class UIHandlerScript : MonoBehaviour
         }
         else
         {
-            uiHandler.OpenNewPopUp("", "No train stations for route ");
-            Debug.Log("No train station found");
-            ShowAlertPopUp("No train stations for route");
-       
+            TrainRouteInfoText.text = "No stations found for route, build more stations then try again";
         }
     }
     public void OnBusRouteStartButtonClicked()
@@ -529,6 +532,7 @@ public class UIHandlerScript : MonoBehaviour
         else
         {
             ShowAlertPopUp("No train stations for route");
+            TrainRouteInfoText.text = "No train stations found, build more before setting a route";
         }
     }
     public void ShowTrainRouteUI()
@@ -560,6 +564,7 @@ public class UIHandlerScript : MonoBehaviour
         RailMenuActive = false;
         RailCanvas.SetActive(false);
 
+        TrainRouteInfoText.text = "Select the start and end station on the route and then click confirm. \r\nSetting up a route costs 10 coins";
     }
     public void OpenRouteCanvas()
     {
