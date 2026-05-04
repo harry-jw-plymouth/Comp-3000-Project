@@ -293,12 +293,20 @@ public class UIHandlerScript : MonoBehaviour
         {
             SettingsCanvas.SetActive(false);
             SettingsMenuActive = false;
+            ShowCoreUI();
         }
         else
         {
             PauseCanvas.SetActive(false);
             SettingsCanvas.SetActive(true);
             SettingsMenuActive = true;
+            SetUIInactive();
+            HideCoreUI();
+            CloseAllRegularPopUps();
+            CloseAllTransportPopUps();
+            TradeMenuActive = false;
+            TradeCanvas.SetActive(false);
+
 
         }
     }
@@ -736,11 +744,17 @@ public class UIHandlerScript : MonoBehaviour
         {
             PauseCanvas.SetActive(false);
             PauseMenuActive = false;
+            ShowCoreUI();
         }
         else
         {
+            TradeMenuActive = false;
+            TradeCanvas.SetActive(false);
             PauseMenuActive = true;
             PauseCanvas.SetActive(true);
+            SetUIInactive();
+            CloseTransportPopup();
+            HideCoreUI();
         }
     }
     double ElectricityPrice=1.5;
@@ -905,6 +919,8 @@ public class UIHandlerScript : MonoBehaviour
         }
         else
         {
+            SettingsCanvas.SetActive(false);
+            SettingsMenuActive = false;
             HideCoreUI();
             SetUIInactive();
             CloseAllTransportPopUps();
@@ -912,6 +928,8 @@ public class UIHandlerScript : MonoBehaviour
             TradeCanvas.SetActive(true);
             SetTradeInfo();
             HideBuildingInfo();
+            PauseCanvas.SetActive(false);
+            PauseMenuActive = false;
         }
     }
     public  void ShowAlertPopUp(string Alert)
