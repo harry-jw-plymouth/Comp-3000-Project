@@ -1,4 +1,3 @@
-using NUnit.Framework;
 using SQLite4Unity3d;
 using System.Collections.Generic;
 using System.IO;
@@ -6,7 +5,6 @@ using System.Linq;
 using System.Xml.Linq;
 using System.Xml.Serialization;
 using Unity.VisualScripting;
-using UnityEditor.Build.Content;
 using UnityEngine;
 
 public class DBManager : MonoBehaviour

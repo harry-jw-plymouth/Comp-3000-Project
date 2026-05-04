@@ -1,7 +1,5 @@
 using System.Diagnostics;
 using TMPro;
-using UnityEditor;
-using UnityEditorInternal.Profiling.Memory.Experimental;
 using UnityEngine;
 using UnityEngine.UI;
 

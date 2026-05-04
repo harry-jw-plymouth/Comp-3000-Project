@@ -8,7 +8,6 @@ using UnityEngine.EventSystems;
 using UnityEngine.Rendering;
 using UnityEngine.Tilemaps;
 using UnityEngine.UIElements;
-using static UnityEditor.PlayerSettings;
 public class GridCreator : MonoBehaviour
 {
     [SerializeField] NPChandler npcHandler;

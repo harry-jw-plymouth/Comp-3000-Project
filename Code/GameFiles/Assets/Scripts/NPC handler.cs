@@ -1,8 +1,6 @@
 using System.Collections.Generic;
 using System.Data.Common;
 using TMPro;
-using Unity.VisualScripting;
-using Unity.VisualScripting.ReorderableList;
 using UnityEngine;
 
 public class NPChandler : MonoBehaviour

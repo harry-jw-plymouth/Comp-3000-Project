@@ -1,5 +1,3 @@
-using Mono.Cecil;
-using NUnit.Framework;
 using UnityEngine;
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
@@ -104,19 +102,7 @@ public class MainMenu : MonoBehaviour
         TutorialPageContents.Add("The top of the screen while playing shows various icons/ numbers.\r\nThe person icon is next to the display of the cities population\r\nThe coins icon is for the current money\r\nThe  Lightning icon is for the players power reserves\r\nThe Bin icon is for the number of waste the city has built up");
 
     }
-    //    void PopulateSaveView()
-    //  {
-    //    List<SaveFileModel> SaveFiles=DBManager.GetSaveFiles();
 
-    //  Debug.Log("Amount of files to display:" + SaveFiles.Count);
-    //   for (int i = 0;  i < SaveFiles.Count; i++)
-    // {
-    //   SaveItemScript ScrollItem = Instantiate(ScrollPrefab, ScrollContent);
-    // //ScrollItem.GetComponentInChildren<TMP_Text>().text = SaveFiles[i].Name;
-    //       ScrollItem.Setup(SaveFiles[i].Name);
-    // }
-
-    //}
     public static int GetCurrentSaveID()
     {
         return CurrentSaveID;

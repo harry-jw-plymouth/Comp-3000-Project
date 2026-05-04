@@ -3,11 +3,6 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Tilemaps;
 using System.Collections.Generic;
-using UnityEditor.PackageManager;
-using Unity.VisualScripting;
-using NUnit.Framework.Constraints;
-using UnityEditor.Build;
-using UnityEditor;
 
 public class TransportPlacementScript : MonoBehaviour
 {
