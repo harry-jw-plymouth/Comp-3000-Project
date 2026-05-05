@@ -16,11 +16,9 @@ public class BuildingsListManager : MonoBehaviour
     {
         UnityEngine.Debug.Log("Starting buildings list manager");
         SetBuildings();
-        DisplayBuildings();
     }
     void SetBuildings()
     {
-        //temporarily hard coded, in future will pull more dynamically
         Buildings = new Building[]
         {
             new Home("Small House",200,2," A small house", new int[1,1]{{0}} ,new int[]{0,0},
@@ -61,22 +59,8 @@ public class BuildingsListManager : MonoBehaviour
     {
         return Buildings;
     }
-    void DisplayBuildings()
-    {
-        for (int i = 0; i < Buildings.Length; i++) {
-            
-            GameObject New = Instantiate(BuildingObject, BuildingsView,false);
-            int BuildingPos = i;
-            New.GetComponent<Button>().onClick.AddListener(() => OnBuildingClicked(BuildingPos));
 
-        }
-        LayoutRebuilder.ForceRebuildLayoutImmediate(BuildingsView);
-    }
-    void OnBuildingClicked(int BuildingPos)
-    {
-       // UnityEngine.Debug.Log("Clicked " + Buildings[BuildingPos].Name);
-        BuildingCurrentlySelected = BuildingPos;
-    }
+
     public void OnSmallHouseClicked()
     {
         BuildingCurrentlySelected =0;
