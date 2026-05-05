@@ -12,6 +12,7 @@ public class TransportPlacementScript : MonoBehaviour
     public GridCreator GridHandler;
     public UIHandlerScript uiHandler;
     public GameStatusScript GameHandler;
+    public SoundManagerScript SoundManager;
 
     public NPChandler NPChandler;
     [SerializeField] private RuleTile TrackTileReference;
@@ -578,6 +579,12 @@ public class TransportPlacementScript : MonoBehaviour
             TotalCost+= TrainRoutes[i].ReactivateTrains(NPChandler);
         }
         GameHandler.AdjustMoney(-TotalCost);
+
+        if (TotalCost != 0)
+        {
+            SoundManager.PlayStartTrain();
+        }
+
     }
     void CheckForBusReactivation()
     {
@@ -587,6 +594,10 @@ public class TransportPlacementScript : MonoBehaviour
             TotalCost+=BusRoutes[i].ReactivateBusesOnRoute(NPChandler);
         }
         GameHandler.AdjustMoney(-TotalCost);
+        if (TotalCost != 0)
+        {
+            SoundManager.PlayStartBus();
+        }
     }
     public void CheckForcancelledTrains()
     {

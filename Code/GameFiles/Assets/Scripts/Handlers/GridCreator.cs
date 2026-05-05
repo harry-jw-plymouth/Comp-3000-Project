@@ -19,6 +19,7 @@ public class GridCreator : MonoBehaviour
     [SerializeField] private Tilemap GameMapReference;
     public static Tilemap GameMap;
     public UIHandlerScript uiHandler;
+    public SoundManagerScript SoundManager;
     public int NumberOfRoads = 0;
 
     public CameraController MainCameraController;
@@ -758,6 +759,7 @@ public class GridCreator : MonoBehaviour
                                     {
                                         Vector3 AdjustedStartPos = CurrentPos + new Vector3(1, 0.5f, 0);
                                         NewSprite = Instantiate(ShopPrefab, AdjustedStartPos, Quaternion.identity);
+                                        SoundManager.PlayShopSoundEffect();
                                     }
                                 }
                                 else if (BuildingsListManager.BuildingCurrentlySelected == 3)
@@ -804,6 +806,7 @@ public class GridCreator : MonoBehaviour
                                     {
                                         Vector3 AdjustedStartPos = CurrentPos + new Vector3(0.0f, 0.0f, 0);
                                         NewSprite = Instantiate(ShoppingCenterPrefab, AdjustedStartPos, Quaternion.identity);
+                                        SoundManager.PlayShopSoundEffect();
                                     }
                                 }
                                 else if (BuildingsListManager.BuildingCurrentlySelected == 8)
@@ -850,7 +853,8 @@ public class GridCreator : MonoBehaviour
                     New.SetBuildingPos(CellClickedPos);
                     PlacedBuildings.Add(New);
                     //     Debug.Log("New buildings count"+PlacedBuildings.Count);
-                    
+
+                    SoundManager.PlayPlaceBuilding();
 
                     if (New.GetType().GetIfIsHome())
                     {
@@ -896,12 +900,11 @@ public class GridCreator : MonoBehaviour
                     GameGrid[CellClickedPos.x, CellClickedPos.y].Contains = 5;
                     GameMap.SetTile(CellClickedPos, BusStopTile);
                     NumberOfBusStops++;
-              //      Debug.Log("Placing Bus stop");
+                    SoundManager.PlayEditTile();
                 }
                 else if (GameGrid[CellClickedPos.x,CellClickedPos.y].Contains==5)
                 {
                     if (TransportPlacementScript.CheckIfBusStopInUse(CellClickedPos)){
-                //        Debug.Log("Bus stop in use, cannot remove");
                         uiHandler.OpenNewPopUp("Cant remove stop", "stop still in use, route must be cancelled before stop is removed");
                     }
                     else
@@ -909,6 +912,7 @@ public class GridCreator : MonoBehaviour
                         GameGrid[CellClickedPos.x, CellClickedPos.y].Contains = 1;
                         GameMap.SetTile(CellClickedPos, RoadTile);
                         NumberOfBusStops--;
+                        SoundManager.PlayEditTile();
                     }
                         
                 }
@@ -923,6 +927,7 @@ public class GridCreator : MonoBehaviour
                         GameMap.SetTile(CellClickedPos, GreeneryTile);
                         NumberOfGreenery++;
                         GreeneryPositions.Add(CellClickedPos);
+                        SoundManager.PlayEditTile();
 
                     }
                     else if (UIHandlerScript.WaterEditorOn)
@@ -931,6 +936,7 @@ public class GridCreator : MonoBehaviour
                         GameMap.SetTile(CellClickedPos, WaterTile);
                         NumberOfWater++;
                         WaterPositions.Add(CellClickedPos);
+                        SoundManager.PlayEditTile();
                     }
                     else
                     {
@@ -938,18 +944,18 @@ public class GridCreator : MonoBehaviour
                         GameMap.SetTile(CellClickedPos, RoadTile);
                         NumberOfRoads++;
                         RoadPositions.Add(CellClickedPos);
+                        SoundManager.PlayEditTile();
                     }                
                 }
                 else if (GameGrid[CellClickedPos.x, CellClickedPos.y].Contains == 4)
                 {
-             //       Debug.Log("Railway clicked");
                     if (TransportPlacementScript.CheckIfRouteExistsUsingTrack(CellClickedPos))
                     {
-               //         Debug.Log("Route uses track");
                         uiHandler.OpenNewPopUp("Cant remove track", "Route exists using route");
                     }
                     else
                     {
+                        SoundManager.PlayEditTile();
                         GameGrid[CellClickedPos.x, CellClickedPos.y].Contains = 0;
                         GameMap.SetTile(CellClickedPos, GameTile);
                     }
@@ -966,7 +972,7 @@ public class GridCreator : MonoBehaviour
                             if(TransportPlacementScript.GetIfReRoutePossible(CellClickedPos, RouteIndex))
                             {
                                 //reroute possible, remove road and update route
-
+                                SoundManager.PlayEditTile();
                                 NumberOfRoads--;
                                 GameGrid[CellClickedPos.x, CellClickedPos.y].Contains = 0;
                                 GameMap.SetTile(CellClickedPos, GameTile);
@@ -978,7 +984,6 @@ public class GridCreator : MonoBehaviour
                             else
                             {
                                 // reroute not possible, show pop up saying cannot remove road
-                                uiHandler.ShowAlertPopUp("Cannot remove this road without disrupting a bus route");
                                 uiHandler.OpenNewPopUp("Cant remove Road", "removing this road will disrupt a bus route");
                             }
 
@@ -997,10 +1002,10 @@ public class GridCreator : MonoBehaviour
                     {
                         if (TransportPlacementScript.CheckIfBusStopInUse(CellClickedPos))
                         {
-                   //         Debug.Log("Bus stop in use, cannot remove");
                             uiHandler.OpenNewPopUp("Cant remove stop", "stop still in use, route must be cancelled before stop is removed");
                         }
                         else {
+                            SoundManager.PlayEditTile();
                             NumberOfBusStops--;
                             GameGrid[CellClickedPos.x, CellClickedPos.y].Contains = 0;
                             GameMap.SetTile(CellClickedPos, GameTile);
@@ -1011,6 +1016,7 @@ public class GridCreator : MonoBehaviour
                     {
                         if (UIHandlerScript.GreeneryEditorOn)
                         {
+                            SoundManager.PlayEditTile();
                             NumberOfGreenery--;
                             GameGrid[CellClickedPos.x, CellClickedPos.y].Contains = 0;
                             GameMap.SetTile(CellClickedPos, GameTile);
@@ -1020,18 +1026,16 @@ public class GridCreator : MonoBehaviour
                     }
                     else
                     {
-
-
+                        SoundManager.PlayEditTile();
                         GameGrid[CellClickedPos.x, CellClickedPos.y].Contains = 0;
                         GameMap.SetTile(CellClickedPos, GameTile);
                         RoadPositions.Remove(CellClickedPos);
+                        NumberOfRoads = RoadPositions.Count;
                     }
                   
                 }
                 GameStatusHandler.AdjustMoney(-30);
             }
-            
-            UpdateRoadsAroundEdit(CellClickedPos);
         }
         catch
         {
@@ -1069,6 +1073,7 @@ public class GridCreator : MonoBehaviour
                 {
                     Destroy(PlacedBuildings[BuildingPos].Sprite);
                 }
+                SoundManager.PlayBuildingRemove();
                 PlacedBuildings[BuildingPos].DestroyWarning();
                 npcHandler.RemoveAllNPCsFromBuilding(PlacedBuildings[BuildingPos].GetNPCsInBuilding());
                 List<int> Indexes = PlacedBuildings[BuildingPos].GetInhabitants();
@@ -1238,6 +1243,10 @@ public class GridCreator : MonoBehaviour
             
 
         }
+    }
+    public static bool GetIfWaterExists()
+    {
+        return NumberOfWater > 0;
     }
     public static Vector3 GetRandomRoadCoorindates()
     {

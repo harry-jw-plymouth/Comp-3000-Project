@@ -126,9 +126,12 @@ public class GameStatusScript : MonoBehaviour
     }
     public void AdjustMoney(int Amount)
     {
-        PlayerMoneyCount += Amount;
-        DisplayMoney();
+        if (MainMenu.GetCurrentGameMode() != 0) {
+            PlayerMoneyCount += Amount;
+            DisplayMoney();
+        }
     }
+       
     public void DisplayMoneyChange()
     {
         int Change=GetChangeInMoney(GridCreator.GetAllBuildings());

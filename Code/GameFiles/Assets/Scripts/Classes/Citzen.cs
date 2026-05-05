@@ -298,24 +298,18 @@ public class Citzen
     {
         List<Vector3Int> Positions = new List<Vector3Int>();
 
-        if (GetIfInBounds(CurrentPos.x+1,CurrentPos.y)&&
-            GridCreator.GameGrid[CurrentPos.x + 1, CurrentPos.y].Contains != 4 &&
-            GridCreator.GameGrid[CurrentPos.x + 1, CurrentPos.y].Contains != 2)
+        if (GetIfInBounds(CurrentPos.x+1,CurrentPos.y)&& GetIfSquareValid(new Vector3Int(CurrentPos.x+1,CurrentPos.y)))
         {
             Positions.Add(new Vector3Int(CurrentPos.x + 1, CurrentPos.y, 0));
         }
-        if (GetIfInBounds(CurrentPos.x-1, CurrentPos.y) && 
-            GridCreator.GameGrid[CurrentPos.x - 1, CurrentPos.y].Contains != 4 && GridCreator.GameGrid[CurrentPos.x - 1, CurrentPos.y].Contains != 2)
-        {
+        if (GetIfInBounds(CurrentPos.x-1, CurrentPos.y) && GetIfSquareValid(new Vector3Int(CurrentPos.x-1,CurrentPos.y,0 ))) { 
             Positions.Add(new Vector3Int(CurrentPos.x - 1, CurrentPos.y, 0));
         }
-        if (GetIfInBounds(CurrentPos.x, CurrentPos.y+1) &&
-            GridCreator.GameGrid[CurrentPos.x, CurrentPos.y + 1].Contains != 4 && GridCreator.GameGrid[CurrentPos.x , CurrentPos.y+1].Contains != 2)
+        if (GetIfInBounds(CurrentPos.x, CurrentPos.y+1) && GetIfSquareValid(new Vector3Int(CurrentPos.x,CurrentPos.y+1)))
         {
             Positions.Add(new Vector3Int(CurrentPos.x, CurrentPos.y + 1, 0));
         }
-        if (GetIfInBounds(CurrentPos.x, CurrentPos.y-1) &&
-            GridCreator.GameGrid[CurrentPos.x, CurrentPos.y - 1].Contains != 4 && GridCreator.GameGrid[CurrentPos.x, CurrentPos.y-1].Contains != 2)
+        if (GetIfInBounds(CurrentPos.x, CurrentPos.y-1) && GetIfSquareValid(new Vector3Int(CurrentPos.x,CurrentPos.y-1)))
         {
             Positions.Add(new Vector3Int(CurrentPos.x, CurrentPos.y - 1, 0));
         }
@@ -611,25 +605,6 @@ public class Citzen
                     NexPositionOnRoute = RoutePositions.Count - 1;
                 }
 
-                //   if (RoutePositions.Count < 3)
-                //    {
-                //        Debug.Log("Route too short");
-                //        CurrentAction = -1;
-                //        RoutePositions.Clear();
-
-                //                 TrainStationPositionsOnRoute.Clear();
-                //               BuildingCurrentlyTargetting = null;
-
-                //                    CurrentBusStop = new Vector3Int(-1, -1, -1);
-                //                  TargetBusStop= new Vector3Int(-1, -1, -1);
-
-                //                CurrentStation = null;
-                //                TargetStation = null;
-
-                //              return false;
-                //          }
-                //   ShowRoute();
-
                 if (RoutePositions.Count==0)
                 {
                     return false;
@@ -648,8 +623,7 @@ public class Citzen
             // check right tile
             if(GetIfInBounds(Current.x + 1, Current.y))
             {
-                if (GridCreator.GameGrid[Current.x + 1, Current.y].Contains != 4 &&
-                GridCreator.GameGrid[Current.x + 1, Current.y].Contains != 2)
+                if (GetIfSquareValid(new Vector3Int(Current.x + 1, Current.y,0)))
                 {
                     NewChecks.Add(new Vector3Int(Current.x + 1, Current.y, 0));
                 }
@@ -673,8 +647,7 @@ public class Citzen
             //check left tile
             if (GetIfInBounds(Current.x - 1, Current.y))
             {
-                if (GridCreator.GameGrid[Current.x - 1, Current.y].Contains != 4 &&
-                GridCreator.GameGrid[Current.x - 1, Current.y].Contains != 2)
+                if (GetIfSquareValid(new Vector3Int(Current.x - 1, Current.y,0)))
                 {
                     NewChecks.Add(new Vector3Int(Current.x - 1, Current.y, 0));
                 }
@@ -697,8 +670,7 @@ public class Citzen
             //check above tile
             if (GetIfInBounds(Current.x , Current.y+1))
             {
-                if (GridCreator.GameGrid[Current.x , Current.y+1].Contains != 4 &&
-                GridCreator.GameGrid[Current.x , Current.y+1].Contains != 2)
+                if (GetIfSquareValid(new Vector3Int(Current.x,Current.y+1,0)))
                 {
                     NewChecks.Add(new Vector3Int(Current.x , Current.y+1, 0));
                 }
@@ -721,8 +693,7 @@ public class Citzen
             //check below tile
             if (GetIfInBounds(Current.x, Current.y - 1))
             {
-                if (GridCreator.GameGrid[Current.x, Current.y - 1].Contains != 4 &&
-                GridCreator.GameGrid[Current.x, Current.y - 1].Contains != 2)
+                if (GetIfSquareValid(new Vector3Int(Current.x,Current.y-1,0)))
                 {
                     NewChecks.Add(new Vector3Int(Current.x, Current.y - 1, 0));
                 }
