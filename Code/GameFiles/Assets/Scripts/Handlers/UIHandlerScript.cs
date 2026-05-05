@@ -15,6 +15,7 @@ public class UIHandlerScript : MonoBehaviour
     public NPChandler NpcHandler;
     public GridCreator GridHandler;
     public UIHandlerScript uiHandler;
+    public SoundManagerScript SoundManager;
 
     public TextMeshProUGUI ReportText;
     public GameObject ReportDisplay;
@@ -163,6 +164,7 @@ public class UIHandlerScript : MonoBehaviour
     }
     public void OnCancelPlacementButtonClicked()
     {
+        SoundManager.PlayButtonClick();
         TileEditorOn= false;
     }
     public void OpenNewPopUp(string Title, string Text)
@@ -178,7 +180,7 @@ public class UIHandlerScript : MonoBehaviour
     }
     public void OnLayoutButtonClick()
     {
-        
+        SoundManager.PlayButtonClick();
         if (TilePlaceCanvasActive)
         {
             CloseTilePlaceCanvas();
@@ -228,6 +230,7 @@ public class UIHandlerScript : MonoBehaviour
     }
     public void OnCancelRouteButtonClick()
     {
+        SoundManager.PlayButtonClick();
         if (RouteDisplayIndex == -1) 
         {
             return;
@@ -240,7 +243,8 @@ public class UIHandlerScript : MonoBehaviour
     }
     public void OnCancelBusRouteButtonClick()
     {
-        if(BusRouteDisplayIndex==-1)
+        SoundManager.PlayButtonClick();
+        if (BusRouteDisplayIndex==-1)
         {
             ShowAlertPopUp("No bus route selected");
             return;
@@ -255,6 +259,7 @@ public class UIHandlerScript : MonoBehaviour
    
     public void OnBusRouteConfirmButtonClicked()
     {
+        SoundManager.PlayButtonClick();
         if (StartBusStop != null && EndBusStop != null)
         {
             if (StartBusStop != EndBusStop)
@@ -289,6 +294,7 @@ public class UIHandlerScript : MonoBehaviour
     }
     public void OnSettingsButtonClicked()
     {
+        SoundManager.PlayButtonClick();
         if (SettingsMenuActive)
         {
             SettingsCanvas.SetActive(false);
@@ -324,6 +330,7 @@ public class UIHandlerScript : MonoBehaviour
 
     public void OnDisplayBusRoutesButtonClicked()
     {
+        SoundManager.PlayButtonClick();
         BusRouteDisplayIndex = -1;
         if (BusRouteDisplayCanvasActive)
         {
@@ -352,6 +359,7 @@ public class UIHandlerScript : MonoBehaviour
     }
     public void OnDisplayRoutesButtonClicked()
     {
+        SoundManager.PlayButtonClick();
         RouteDisplayIndex = -1;
         if (RailRouteDisplayCanvasActive)
         {
@@ -381,7 +389,8 @@ public class UIHandlerScript : MonoBehaviour
 
     public void OnRouteConfirmButtonClicked()
     {
-        if(StartRouteStationBuilding!=-1&& EndRouteStationBuilding != -1)
+        SoundManager.PlayButtonClick();
+        if (StartRouteStationBuilding!=-1&& EndRouteStationBuilding != -1)
         {
             Debug.Log("Making new route");
             if (gameHandler.CheckIfPurchaseAffordable(100))
@@ -412,6 +421,7 @@ public class UIHandlerScript : MonoBehaviour
         }
     }
     public void OnStationSelectorBackButtonClicked() {
+        SoundManager.PlayButtonClick();
         MainUICanvas.SetActive(true);
         StationSelectCanvas.SetActive(false);
         SelectingRouteLocation=false;
@@ -428,6 +438,7 @@ public class UIHandlerScript : MonoBehaviour
     }
     public void OnRouteStartButtonClick()
     {
+        SoundManager.PlayButtonClick();
         Debug.Log("Selecting route start");
         if (GridCreator.GetIfTrainStationExists())
         {
@@ -449,6 +460,7 @@ public class UIHandlerScript : MonoBehaviour
     }
     public void OnBusRouteStartButtonClicked()
     {
+        SoundManager.PlayButtonClick();
         Debug.Log("Selecting route start");
         if (GridHandler.GetIfBusStopExists())
         {
@@ -462,14 +474,13 @@ public class UIHandlerScript : MonoBehaviour
         }
         else
         {
-            Debug.Log("No bus stop exsits");
             BusRouteInfoText.text = "No stop exists\r\nPlease place bus stop before attempting to set route";
         }
 
     }
     public void OnBusRouteEndButtonClicked()
     {
-        Debug.Log("Selecting route start");
+        SoundManager.PlayButtonClick();
         if (GridHandler.GetIfBusStopExists())
         {
             BusRouteSetCanvas.SetActive(false);
@@ -484,6 +495,7 @@ public class UIHandlerScript : MonoBehaviour
    
     public void OnTrainStationClicked(Vector3Int CellPos, int BuildingPos)
     {
+        SoundManager.PlayButtonClick();
         //Check where on the route this station is
         if (RouteStationPos == 0)
         {
@@ -491,7 +503,6 @@ public class UIHandlerScript : MonoBehaviour
             OnStationSelectorBackButtonClicked();
             RouteStartInfo.text = "Station at " + CellPos.x + "," + CellPos.y;
             StartRouteStationBuilding = BuildingPos;
-            Debug.Log("Start route:" + StartRouteStationBuilding);
         }
         else if (RouteStationPos == 1)
         {
@@ -501,12 +512,12 @@ public class UIHandlerScript : MonoBehaviour
                 OnStationSelectorBackButtonClicked();
                 RouteEndInfo.text = "Station at " + CellPos.x + "," + CellPos.y;
                 EndRouteStationBuilding = BuildingPos;
-                Debug.Log("End route:" + EndRouteStationBuilding);
             }
         }
     }
     public void OnBusStopClicked(Vector3Int CellPos)
     {
+        SoundManager.PlayButtonClick();
         OnStationSelectorBackButtonClicked();
         RouteIsForBus = false;
         if (RouteStationPos == 0)
@@ -524,10 +535,9 @@ public class UIHandlerScript : MonoBehaviour
     }
     public void OnRouteEndButtonClicked()
     {
-        Debug.Log("Selecting route end");
+        SoundManager.PlayButtonClick();
         if (GridCreator.GetIfTrainStationExists())
         {
-            Debug.Log("Selecting end");
             RouteSetCanvas.SetActive(false);
             MainUICanvas.SetActive(false);
             RailCanvas.SetActive(false);
@@ -555,6 +565,7 @@ public class UIHandlerScript : MonoBehaviour
 
     public void OnRouteMenuCloseButtonClicked()
     {
+        SoundManager.PlayButtonClick();
         RouteSetCanvas.SetActive(false);
         RouteMenuActive = false ;
 
@@ -565,6 +576,7 @@ public class UIHandlerScript : MonoBehaviour
     }
     public void OnTrainRouteButtonClicked()
     {
+        SoundManager.PlayButtonClick();
         OpenRouteCanvas();
         HideCoreUI();
         SetUIInactive();
@@ -586,6 +598,7 @@ public class UIHandlerScript : MonoBehaviour
     }
     public void OnBusStopButtonClicked()
     {
+        SoundManager.PlayButtonClick();
         if (BusStopEditorOn)
         {
             TileEditorOn = false;
@@ -605,6 +618,7 @@ public class UIHandlerScript : MonoBehaviour
     }
     public void OnBusrouteCanvasButtonClicked()
     {
+        SoundManager.PlayButtonClick();
         HideCoreUI() ;
         SetUIInactive();
 
@@ -623,6 +637,7 @@ public class UIHandlerScript : MonoBehaviour
     }
     public void OnBusRouteCanvasCloseButtonClosed()
     {
+        SoundManager.PlayButtonClick();
         BusRouteCanvasActive = false;
         BusRouteSetCanvas.SetActive(false);
         BusCanvas.SetActive(true);
@@ -638,6 +653,7 @@ public class UIHandlerScript : MonoBehaviour
     }
     public void OnBusButtonClicked()
     {
+        SoundManager.PlayButtonClick();
         if (BusCanvasActive)
         {
             CloseBusCanvas();
@@ -791,6 +807,7 @@ public class UIHandlerScript : MonoBehaviour
     }
     public void OnConfirmTradeButtonClicked()
     {
+        SoundManager.PlayButtonClick();
         int action = Action.value;
         if (AmountToBuy.text != "")
         {
@@ -908,7 +925,8 @@ public class UIHandlerScript : MonoBehaviour
     }
     public void OnTradeButtonClicked()
     {
-   //     Debug.Log("TradeButton clicked");
+        SoundManager.PlayButtonClick();
+        //     Debug.Log("TradeButton clicked");
         if (TradeMenuActive)
         {
             
@@ -939,10 +957,12 @@ public class UIHandlerScript : MonoBehaviour
     }
     public void OnAlertPopupButtonClicked()
     {
+        SoundManager.PlayButtonClick();
         AlertpopUp.SetActive(false);
     }
     public void OnSaveButtonClicked()
     {
+        SoundManager.PlayButtonClick();
         Debug.Log("Save button clicked");
         DBManager.UpdateSave(NpcHandler.GetCurrentNumberOfNPCs(), MainMenu.CurrentSaveID, gameHandler.GetPlayerMoney(),powerHandler.GetPowerReserves(),gameHandler.GetPlayerWaste()) ;
         DBManager.UpdateMapSave(MainMenu.CurrentSaveID, GridCreator.WIDTH, GridCreator.HEIGHT, GridCreator.GameGrid);
@@ -952,6 +972,7 @@ public class UIHandlerScript : MonoBehaviour
     }
     public void OnSaveAndExitClicked()
     {
+        SoundManager.PlayButtonClick();
         OnSaveButtonClicked();
         OnExitButtonClicked();
     }
@@ -977,15 +998,14 @@ public class UIHandlerScript : MonoBehaviour
     }
     public void OnRatingClicked()
     {
-     //   Debug.Log(" rating section clicked");
+        SoundManager.PlayButtonClick();
+
         ReportDisplay.SetActive(true);
         UpdatesButton.SetActive(false);
         List<string> Updates = GameStatusScript.GetReport();
         string Info = "";
-       // Debug.Log("Number of updates:"+Updates.Count);
         for(int i = 0; i < Updates.Count; i++)
         {
-         //   Debug.Log("Update[" + i + "]:" + Updates[i]);
             Info += Updates[i] + "\n";
         }
         ReportText.text = Info;
@@ -993,16 +1013,16 @@ public class UIHandlerScript : MonoBehaviour
     }
     public void OnReportClicked()
     {
+        SoundManager.PlayButtonClick();
         UpdatesButton.SetActive(true);
-      //  Debug.Log(" report section clicked");
         
         ReportDisplay.SetActive(false);
     }
     public void OnGreeneryButtonClicked()
     {
+        SoundManager.PlayButtonClick();
         BusStopEditorOn = false;
         WaterEditorOn = false;
-       // Debug.Log("Road button clicked");
         SetUIInactive();
         if (TileEditorOn)
         {
@@ -1022,9 +1042,9 @@ public class UIHandlerScript : MonoBehaviour
     }
     public void OnWaterButtonClicked()
     {
+        SoundManager.PlayButtonClick();
         GreeneryEditorOn = false;
         WaterEditorOn = false;
-     //   Debug.Log("Water button Clicked");
         SetUIInactive();
         if (TileEditorOn)
         {
@@ -1045,8 +1065,8 @@ public class UIHandlerScript : MonoBehaviour
 
     public void OnRoadButtonClicked()
     {
+        SoundManager.PlayButtonClick();
         BusStopEditorOn = false;
-     //   Debug.Log("Road button clicked");
         SetUIInactive();
         if (TileEditorOn)
         {
@@ -1066,7 +1086,7 @@ public class UIHandlerScript : MonoBehaviour
 
     public void OnTransportButtonClicked()
     {
-      //  Debug.Log("Transport button clicked");
+        SoundManager.PlayButtonClick();
         SetUIInactive();
         RailCanvas.SetActive(false);
         if (TransportPlacementOn)
@@ -1084,6 +1104,7 @@ public class UIHandlerScript : MonoBehaviour
     }
     public void OnRailButtonClicked()
     {
+        SoundManager.PlayButtonClick();
         if (RailMenuActive)
         {
             RailMenuActive = false;
@@ -1095,7 +1116,6 @@ public class UIHandlerScript : MonoBehaviour
             CloseBusCanvas();
             RailMenuActive = true;
             RailCanvas.SetActive(true);
-           // TransportBuilderPopUp.SetActive(false);
         }
     }
     public void CloseTransportPopup()
@@ -1112,9 +1132,10 @@ public class UIHandlerScript : MonoBehaviour
     }
     public void OnBuildingsButtonClick()
     {
+        SoundManager.PlayButtonClick();
+
         SetUIInactive();
         TileEditorOn = false;
-     //   Debug.Log("Building button clicked");
         if (BuildingsMenuPopUp.activeInHierarchy)
         {
             BuildingsListManager.BuildingCurrentlySelected = -1;
@@ -1131,19 +1152,18 @@ public class UIHandlerScript : MonoBehaviour
     }
     public void OnBuildingRemoveButtonClick()
     {
+        SoundManager.PlayButtonClick();
         SetUIInactive();
         TransportBuilderPopUp.SetActive(false);
 
         if (BuildingRemoverOn)
         {
-        //    Debug.Log("Building remover off");
             BuildingsMenuPopUp.SetActive(true);
             BuildingRemoverOn = false;
 
         }
         else
         {         
-   //         Debug.Log("Building remover on");
             BuildingsListManager.BuildingCurrentlySelected = -1;
             BuildingRemoverOn = true;
         }

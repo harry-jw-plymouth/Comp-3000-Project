@@ -91,6 +91,7 @@
     <Compile Include="Assets\Scripts\Special tiles\WaterTile.cs" />
     <Compile Include="Assets\Scripts\ColourBlindCameraController.cs" />
     <Compile Include="Assets\Scripts\Classes\Square.cs" />
+    <Compile Include="Assets\Scripts\MainMenuScripts\MainMenuSoundHandler.cs" />
     <Compile Include="Assets\Scripts\Classes\Bus.cs" />
     <Compile Include="Assets\Scripts\Handlers\InputHandlerScript.cs" />
     <Compile Include="Assets\Scripts\Classes\Building.cs" />

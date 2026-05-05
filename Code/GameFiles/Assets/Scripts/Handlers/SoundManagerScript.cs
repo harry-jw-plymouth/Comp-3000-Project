@@ -3,6 +3,7 @@ using UnityEngine;
 public class SoundManagerScript : MonoBehaviour
 {
     AudioSource BackgroundOST;
+    public AudioSource ButtonClick;
 
     float MusicVolume = 0.5f;
     float SFXVolume = 0.5f;
@@ -55,6 +56,10 @@ public class SoundManagerScript : MonoBehaviour
 
 
         BackgroundOST.volume = MusicVolume;
+    }
+    public void PlayButtonClick()
+    {
+        ButtonClick.Play();
     }
 
     // Update is called once per frame

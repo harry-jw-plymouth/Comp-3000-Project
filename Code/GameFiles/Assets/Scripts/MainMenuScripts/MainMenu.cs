@@ -37,6 +37,7 @@ public class MainMenu : MonoBehaviour
     public TMP_Text TutorialTitleText;
     public TMP_Text TutorialText;
 
+    public MainMenuSoundHandler SoundHandler;
     public DBManager dbmanager;
 
 
@@ -113,6 +114,7 @@ public class MainMenu : MonoBehaviour
     }
     public void OnFirstPageBackButtonClicked()
     {
+        SoundHandler.PlayButtonClickSound();
         SavesCanvas.SetActive(false);
         StartButton.SetActive(true);
     }
@@ -120,9 +122,11 @@ public class MainMenu : MonoBehaviour
     {
         StartButton.SetActive(false);
         SavesCanvas.SetActive(true);
+        SoundHandler.PlayButtonClickSound();
     }
     public void OnExitClicked()
     {
+        SoundHandler.PlayButtonClickSound();
         Application.Quit();
     }
     public void DisplayCredits(int Page)
@@ -133,6 +137,7 @@ public class MainMenu : MonoBehaviour
     }
     public void OnNextCreditsClicked()
     {
+        SoundHandler.PlayButtonClickSound();
         if (CurrentCreditsPage < CreditsPageContents.Count - 1)
         {
             DisplayCredits(CurrentCreditsPage + 1);
@@ -140,6 +145,7 @@ public class MainMenu : MonoBehaviour
     }
     public void OnPreviousCreditsClicked()
     {
+        SoundHandler.PlayButtonClickSound();
         if (CurrentCreditsPage > 0)
         {
             DisplayCredits(CurrentCreditsPage - 1);
@@ -154,6 +160,7 @@ public class MainMenu : MonoBehaviour
     }
     public void OnNextTutorialClicked()
     {
+        SoundHandler.PlayButtonClickSound();
         if (CurrentTutorialPage < TutorialPageContents.Count - 1)
         {
             DisplayTutorial(CurrentTutorialPage + 1);
@@ -161,6 +168,7 @@ public class MainMenu : MonoBehaviour
     }
     public void OnPreviousTutorialClicked()
     {
+        SoundHandler.PlayButtonClickSound();
         if (CurrentTutorialPage > 0)
         {
             DisplayTutorial(CurrentTutorialPage - 1);
@@ -168,17 +176,20 @@ public class MainMenu : MonoBehaviour
     }
     public void OnTutorialButtonClicked()
     {
+        SoundHandler.PlayButtonClickSound();
         TutorialCanvas.SetActive(true);
         SavesCanvas.SetActive(false);
         DisplayTutorial(0);
     }
     public void OnTutorialBackButtonClicked()
     {
+        SoundHandler.PlayButtonClickSound();
         TutorialCanvas.SetActive(false);
         SavesCanvas.SetActive(true);
     }
     public void OnCreditsClicked()
     {
+        SoundHandler.PlayButtonClickSound();
         CreditsCanvas.SetActive(true);
         SavesCanvas.SetActive(false);
         DisplayCredits(0);
@@ -190,6 +201,7 @@ public class MainMenu : MonoBehaviour
     }
     public void OnSelectSaveClicked()
     {
+        SoundHandler.PlayButtonClickSound();
         SavesCanvas.SetActive(false);
         SelectableSavesCanvas.SetActive(true);
         ShowSaves();
@@ -268,6 +280,7 @@ public class MainMenu : MonoBehaviour
     }
     public void OnNewFileCreateButtonClicked()
     {
+        SoundHandler.PlayButtonClickSound();
         Debug.Log("Creating new save");
         string FileName = FileNameInput.text;
         string GameModeSelected = GameModeSelection.options[GameModeSelection.value].text;
@@ -309,11 +322,13 @@ public class MainMenu : MonoBehaviour
     }
     public void OnClearButtonClicked()
     {
+        SoundHandler.PlayButtonClickSound();
         DBManager.ResetSaves();
         ShowSaves();
     }
     public void OnCreateNewButtonClicked()
     {
+        SoundHandler.PlayButtonClickSound();
         Debug.Log("Create new clicked");
         SaveObject1.SetActive(false);
         SaveObject2.SetActive(false);
@@ -331,6 +346,7 @@ public class MainMenu : MonoBehaviour
 
     public void OnGenerateNewClicked()
     {
+        SoundHandler.PlayButtonClickSound();
         //var Parmeters=new LoadSceneParameters(LoadSceneMode.Single)
         GameSaveID = -1;
 
@@ -344,6 +360,7 @@ public class MainMenu : MonoBehaviour
     }
     public void OnBackButtonClicked()
     {
+        SoundHandler.PlayButtonClickSound();
         SavesCanvas.SetActive(true);
         SelectableSavesCanvas.SetActive(false);
 
