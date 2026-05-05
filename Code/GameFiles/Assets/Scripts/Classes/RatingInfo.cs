@@ -19,6 +19,7 @@ public class RatingInfo
     int AirQualityRating = 0;
     int WastageRating = 0;
     int WaterPollutionRating= 0;
+    // Add report to be displayed based on homeless info
     public void SetHomeLessPercentage(float New){
         HomeLessPercentage = New;
         if(HomeLessPercentage > 60)
@@ -38,9 +39,11 @@ public class RatingInfo
             AddReport("Housing Situation Stable");
         }
     }
+    // return percentage of homeless NPCs
     public float GetHomeLessPercentage() { 
         return HomeLessPercentage;
     }
+    // Set rating from 0-100 based on how many roads there are relative to NPCs 
     public void SetRoadRating(int NumberOfRoads,int NumberOfBuildings)
     {
        // Debug.Log("Number of roads: " + NumberOfRoads);
@@ -96,7 +99,8 @@ public class RatingInfo
         }
        // Debug.Log("Value:"+RoadsPerBuilding);
        // Debug.Log("road rating:" + RoadRating);
-    }
+    } 
+    // set value from 0-100 and add report based on how many hospiatals there are relative to NPCs
     public void SetHospitalRating(int NumberOfNPCs, int NumberOfHospitals)
     {
         if (NumberOfHospitals == 0)
@@ -131,6 +135,7 @@ public class RatingInfo
         }
         //Debug.Log("Hospital rating:" + HospitalRating);
     }
+    // set value from 0-100 and add report based on how many shops there are relative to NPCs
     public void SetShopRating(int NumberOfNPCs,int NumberOfShops)
     {
         if (NumberOfShops == 0)
@@ -163,6 +168,7 @@ public class RatingInfo
             AddReport("A good amount of shops");
         }
     }
+    // set value from 0-100 and add report based on how much entertainment there is relative to NPCs
     public void SetEntertainmentRating(int NumberOfNPCs,int NumberrOfEntertainment)
     {
         if (NumberrOfEntertainment == 0)
@@ -196,6 +202,7 @@ public class RatingInfo
             AddReport("A great amount of Entertainment!");
         }
     }
+    // set value from 0-100 and add report based on power usage relative to power consumption
     public void SetPowerRating(int PowerGeneration,int PowerUsage)
     {
         double Generation = PowerGeneration;
@@ -240,6 +247,7 @@ public class RatingInfo
 
 
     }
+    // set value from 0-100 and add report based on how much the environment is effected by what the player has built
     public void SetEnviromentalEffectRating(int Ef, int NumberOfNPCs)
     {
         float EFPerPerson = (float)Ef / (float)NumberOfNPCs;
@@ -273,8 +281,8 @@ public class RatingInfo
             EnviromentRating = 100;
             ReportList.Add("Good enviromnetal effects, your city is doing a great job of co-existing with nature!");
         }
-
     }
+    // set value from 0-100 and add report based on how much waste is currently built up relative to number of people in the city
     public int SetWastageRating(int WasteAmount,int NumberOfNPCs)
     {
         float WastePerPerson = (float)WasteAmount / (float)NumberOfNPCs;
@@ -310,10 +318,12 @@ public class RatingInfo
         }
         return (int)WastePerPerson;
     }
+    // return air qaulity rating
     public int GetAirQualityRating()
     {
         return AirQualityRating;
     }
+    // set a value 0-100 rating how much air pollution exsits from buildings relative to the number of greenery  and set report accordingly
     public void SetAirQaulityRating(List<PlacedBuilding> Buildings, int NumberOfGreenery) { 
         int EffectFromBuildings = 0;
         for (int i = 0; i < Buildings.Count; i++)
@@ -378,6 +388,7 @@ public class RatingInfo
 
 
     }
+    // set a value 0-100 rating how much greenery is in the city relative to the number of NPCs and set report accordingly
     public void SetGreeneryRating(int NumberOfGreenery, int NumberOfNatureAreas,int NumberOfNPCs) { 
         int OverallGreeneryAmount=NumberOfGreenery+NumberOfNatureAreas*10;
         if (OverallGreeneryAmount == 0)
@@ -442,7 +453,7 @@ public class RatingInfo
         }
 
     }
-
+    // set a value 0-100 rating how many buildings are within reach of a power plant and add relevant report
     public void SetPowerReachRating(List<PlacedBuilding> Buildings)
     {
         int total = 0;
@@ -490,16 +501,19 @@ public class RatingInfo
             ReportList.Add("Amazing power reach");
         }
     }
+    // calculate the rating overall for pollution in the city
     public int GetOverallRatingForPollution()
     {
                return (AirQualityRating + WastageRating + WaterPollutionRating+GreeneryRating) / 4;
     }
+    // calculate the overall rating based on all indiviual ratings
     public void CalulcateRating()
     {
         Rating=(((int)(100-HomeLessPercentage)+ShopRating+
             HospitalRating+RoadRating+PowerRating+EntertainmentRating+
             EnviromentRating+PowerReachRating+TrainStationRating)/8)/2+GetOverallRatingForPollution()/2;
     }
+    // set value 0=100 rating how mcuh water pollution exists relative to the amount of water in the map
     public void CalculateWaterPollutionRating(int WaterPollution, int WaterTiles)
     {
         float PollutionPerTile = (float)WaterPollution / (float)WaterTiles;
@@ -534,6 +548,7 @@ public class RatingInfo
             ReportList.Add("Very good water pollution levels, your citzens are not at risk due to bad water!");
         }
     }
+    // set value 0=100 rating how many train stations exist relative to the number of people in the city 
     public void SetTrainStationRating(int NumberOfNPCs, int NumberOfTrainStation)
     {
         if (NumberOfTrainStation == 0)
@@ -567,17 +582,21 @@ public class RatingInfo
             AddReport("A very good amount of train stations");
         }
     }
+    // add report to list
     public void AddReport(string Report) {  
         ReportList.Add(Report); 
     }
+    // get list of reports 
     public List<string> GetReport()
     {
         return ReportList;
     }
+    // clear reports list so fresh batch can be added
     public void ClearReports()
     {
         ReportList.Clear();
     }
+    // return current rating
     public float GetRating() { 
         return Rating;
     }

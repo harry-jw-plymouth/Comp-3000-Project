@@ -27,7 +27,13 @@ public class SoundManagerScript : MonoBehaviour
         MusicVolume = newVolume;
         UpdateVolume();
 
-    } 
+    }
+    public void ChangeSFXVolume(float newVolume)
+    {
+        SFXVolume = newVolume;
+        UpdateVolume();
+
+    }
     public void UpdateVolume()
     {
          BackgroundOST.volume = MusicVolume;
@@ -46,6 +52,14 @@ public class SoundManagerScript : MonoBehaviour
         PlayerPrefs.SetFloat("MusicVolume", MusicVolume);
         PlayerPrefs.SetFloat("SFXVolume", SFXVolume);
         PlayerPrefs.Save();
+    }
+    public float GetSFXVolume()
+    {
+        return SFXVolume;
+    }
+    public float GetMusicVolume()
+    {
+        return MusicVolume;
     }
     public void LoadPreferences()
     {

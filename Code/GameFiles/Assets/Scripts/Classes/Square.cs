@@ -9,8 +9,6 @@ public class Square
     // 4 is train track, not walkable
     // 5 is bus stop tile, walkable
     // 6 is Greenery, walkable
-    // more to be added later
-
 
     public Square(int contains)
     {

@@ -74,7 +74,6 @@
     <Compile Include="Assets\Scripts\Classes\RatingInfo.cs" />
     <Compile Include="Assets\Scripts\Classes\PlacedBuilding.cs" />
     <Compile Include="Assets\Scripts\Classes\Home.cs" />
-    <Compile Include="Assets\Colorblind Effect\Assets\Scripts\Colorblind.cs" />
     <Compile Include="Assets\Scripts\Handlers\GameFeaturesHandler.cs" />
     <Compile Include="Assets\Scripts\Classes\DbModels\TrainRouteModel.cs" />
     <Compile Include="Assets\Scripts\Classes\Citzen.cs" />
@@ -97,7 +96,6 @@
     <Compile Include="Assets\Scripts\Classes\Building.cs" />
     <Compile Include="Assets\Scripts\Handlers\TransportPlacementScript.cs" />
     <Compile Include="Assets\Scripts\CameraController.cs" />
-    <Compile Include="Assets\Scripts\FontManagerScript.cs" />
     <Compile Include="Assets\Scripts\Classes\RoadRuleTile.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -105,8 +103,6 @@
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Overlay.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile-2-Pass.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap.shader" />
-    <None Include="Assets\Colorblind Effect\Documentation\ReadMe.txt" />
-    <None Include="Assets\Colorblind Effect\Assets\Shaders\Colorblind.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMPro_Mobile.cginc" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF SSD.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Surface-Mobile.shader" />

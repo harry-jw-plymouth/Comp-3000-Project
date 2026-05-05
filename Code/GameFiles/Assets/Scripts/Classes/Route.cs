@@ -3,6 +3,7 @@ using UnityEngine;
 using System.Collections.Generic;
 using System.Security.Cryptography.X509Certificates;
 using JetBrains.Annotations;
+using Unity.VisualScripting;
 
 public class Route
 {
@@ -22,51 +23,61 @@ public class Route
     {
         StartStation= Start;EndStation= End;
     }
+    // Return the cost each time a train on the route runs
     public int GetCostToRun()
     {
         return CostToRun;
     }
+    // return the money made per NPC riding the train
     public int GetFareCost()
     {
         return FareCost;
     }
+    // return if the train has been cancelled and reached the final destination on its journey 
     public bool GetIfEnded()
     {
         return Ended;   
-    }
+    } 
+    // Set the sprite used to show trains travelling on the route
     public void SetSpriteForTrainOnRoute(GameObject Sprite)
     {
         SpriteForTrains= Sprite;
     }
+    // return if the train has begun operation after initial creation
     public bool GetIfActivated()
     {
         return HasBeenActivated;
-    }
+    } 
+    // Set the rotue to being cancelled, this will stop the train running again when it reaches its next stop
     public void SetCancelled()
     {
         IsCancelled = true;
     }
+    // return if the route is cancelled
     public bool GetIfCancelled()
     {
         return IsCancelled;
     }
+    //return a list of all NPCs currently travelling on this route
     public List<int> GetNPCIDs()
     {
-        List<int> IDs=new List<int>();
-        for(int  i = 0; i < TrainsOnRoute.Count; i++)
+        List<int> IDs = new List<int>();
+        for (int i = 0; i < TrainsOnRoute.Count; i++)
         {
             List<int> Current = TrainsOnRoute[i].GetNPCIDsOnTrain();
-            for(int e = 0; e < Current.Count;e++)
+            for (int e = 0; e < Current.Count; e++)
             {
                 IDs.Add(Current[e]);
             }
         }
         return IDs;
     }
+    // return the length of the route
     public int GetRouteLength()
     {
         return RoutePositions.Count;
-    }
+    } 
+    // activate a train if it was just created. Create the sprite, set direction information and any information needed for moving
     public void Activate()
     {
     
@@ -83,6 +94,7 @@ public class Route
         New.SetDirections(target.x > start.x, target.y > start.y);
 
     }
+    // check all tiles next to the station and return a list of positions that are rail tiles
     public List<Vector3Int> GetRailsTouchingStation(PlacedBuilding Current)
     {
         List<Vector3Int>Positions=new List<Vector3Int>();
@@ -112,6 +124,7 @@ public class Route
         return Positions;
     }
 
+    // destroy all trains on route then clear the list, this prevents errors on shutdown and route removal
     public void DestroyRoute()
     {
         if (Application.isPlaying)
@@ -124,34 +137,8 @@ public class Route
         }
 
     }
-    /*
-    public void ReactivateTrains(NPChandler NpcHandler)
-    {
-        for (int i = 0; i < TrainsOnRoute.Count; i++)
-        {
-            if (!TrainsOnRoute[i].GetIfCurrentlyMoving())
-            {
-                Train CurrentTrain = TrainsOnRoute[i];
-                List<int> IDs=new List<int>();
-                if (GridCreator.GameMap.WorldToCell( CurrentTrain.GetCurrentStationPos()) ==  StartStation.GetBuildingPos())
-                {
-                    // Train at start station
-                    IDs= NpcHandler.GetNPCsIdWaitingForTrain(StartStation, EndStation);                         
-                }
-                else
-                {
-                    //train at end station
-                    IDs = NpcHandler.GetNPCsIdWaitingForTrain(EndStation,StartStation);
-                }
-                if (IDs.Count > 0) {
-                    Debug.Log("Picked up NPCs");
-                }
-                TrainsOnRoute[i].SetIDsOnTrain(IDs);
-                TrainsOnRoute[i].SetIsCurrentlyMoving(true);
-            }
-        }
-    }
-    */
+    // loop through trains on route, if the train is stopped at a station, check if it is cancelled, if not then set it to continue travelling back down the route
+    // during this process, calculate momney spent/gained on fare fees and running cost and return total
     public int ReactivateTrains(NPChandler NpcHandler)
     {
         int totalReactivateCost = 0;
@@ -169,10 +156,6 @@ public class Route
                     if (TrainsOnRoute[i].GetIfTrainCanBeReactivated())
                     {
                         totalReactivateCost += CostToRun;
-                        if (IsCancelled)
-                        {
-
-                        }
 
                         Train CurrentTrain = TrainsOnRoute[i];
                         List<int> IDs = new List<int>();
@@ -205,7 +188,9 @@ public class Route
             }
         }
         return totalReactivateCost;
-    }
+    } 
+    // for each train on route that isnt stopped, check if it has reached its destination, if so set it to stop moving, take NPCs of the train at the new station, and then reverse the direction of the train
+    // if it is not at its destination, keep moving it along the route positions on its route
     public void DoMovement(NPChandler NpcHandler)
     {
         for (int i = 0; i < TrainsOnRoute.Count; i++) 
@@ -349,7 +334,7 @@ public class Route
         }
         
     }
-
+    // check the target station, and return true if any of its squares match the current position
     public bool GetIfSquareIsPartOfTargetStation(Vector3Int Current, PlacedBuilding Target)
     {
         for (int y = 0; y < Target.GetShape().GetLength(0); y++)
@@ -364,7 +349,8 @@ public class Route
 
         }
         return false;
-    }
+    } 
+    // check all 4 directions to see if the target station is next to the current position
     public bool GetIfIsNextToTargetStation(Vector3Int Current, PlacedBuilding target)
     {
         if (GetIfSquareIsPartOfTargetStation(new Vector3Int(Current.x+1,Current.y,0), target))
@@ -385,6 +371,7 @@ public class Route
 
         return false;
     }
+    // get if sqaure on route is already checked in Breadth first search
     public bool GetIfAlreadyadded(Vector3Int Current, List<Vector3Int> Checked)
     {
         if (Checked.Contains(Current))
@@ -393,11 +380,12 @@ public class Route
         }
         return false;
     }
-
+    // return list of route positions on current route
     public List<Vector3Int> GetCurrentRoute()
     {
         return RoutePositions;
     }
+    // Breadth first search with railway tiles, when target reached re traverse route to identify how target was reached 
     public void SetRoute(Square[,]GameGrid)
     {
         Queue<Vector3Int> ToCheck = new Queue<Vector3Int>();
@@ -471,8 +459,4 @@ public class Route
         }
         
     }
-  //  public void SetRoute()List
-  //  {
-
-//    }
 }

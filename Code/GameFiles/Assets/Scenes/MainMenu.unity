@@ -7638,15 +7638,19 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Music\r\nGame background Music : https://www.zapsplat.com/music/game-day-rhythmic-upbeat-electronic-sports-game-instrumental-with-piano-chords-and-synths/
-    \r\nUI\r\nMoney ICON: https://xflomasterx.itch.io/coins-free\r\nCity background
-    for main menu: https://free-game-assets.itch.io/free-city-backgrounds-pixel-art
-    \r\nButtons and most UI elements :\r\nhttps://crusenho.itch.io/complete-ui-essential-pack
+  m_text: '  UI\r\n
+
+    BinIcon https://karsiori.itch.io/free-pixel-art-trash-pack-animated
+    Money ICON: https://xflomasterx.itch.io/coins-free\r\nCity background for main
+    menu: https://free-game-assets.itch.io/free-city-backgrounds-pixel-art \r\nButtons
+    and most UI elements :\r\nhttps://crusenho.itch.io/complete-ui-essential-pack
     \r\nGame Font : https://www.1001fonts.com/arcadeclassic-font.html  \r\nTiles\r\nGrass
     tiles: https://cardinalzebra.itch.io/grass-road-tiles \r\nRoad tiles (edited
     to have pathway): https://kubigames.itch.io/road-tiles/download/eyJleHBpcmVzIjoxNzczMjY1NTE3LCJpZCI6MzkwMjY1fQ%3d%3d.WJny6AaDSPHNmF3wyioaGVCdeuk%3d
     \r\nWater tile/animation (grass overlay was added by me):https://zrodfects.itch.io/16x16-water-tiles-animated-tileset-1-starter-pack
-    \r\n'
+    \r\n
+
+'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: e035ec6d91f79db46a23316f3109dd94, type: 2}
   m_sharedMaterial: {fileID: 8991214297436973525, guid: e035ec6d91f79db46a23316f3109dd94, type: 2}
@@ -7741,7 +7745,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.00024009, y: 33}
+  m_AnchoredPosition: {x: 1.3, y: 22.7}
   m_SizeDelta: {x: 733.38, y: 409.99}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1434729004

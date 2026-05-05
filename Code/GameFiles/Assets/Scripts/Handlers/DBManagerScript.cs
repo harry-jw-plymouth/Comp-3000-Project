@@ -9,7 +9,6 @@ using UnityEngine;
 
 public class DBManager : MonoBehaviour
 {
-    //[SerializeField] private SQLiteConnection dbReference;
     public static SQLite4Unity3d.SQLiteConnection db;
     string SaveFileTableName = "SaveFile.db";
     
@@ -25,6 +24,7 @@ public class DBManager : MonoBehaviour
         
     }
 
+    // initialise all tables in the db
     void InitialiseDb()
     {
         string DBPath = Path.Combine(Application.persistentDataPath, SaveFileTableName);
@@ -37,6 +37,7 @@ public class DBManager : MonoBehaviour
         db.CreateTable<BusRouteModel>();
         Debug.Log("Database loaded");
     }
+    // convert map data to bytes to be stored in the db 
     public static byte[] GetMapForDB(Square[,] Grid, int Height, int Width)
     {
         byte[] TranslatedMap = new byte[Width * Height];
@@ -48,22 +49,26 @@ public class DBManager : MonoBehaviour
             }
         }
         return TranslatedMap;
-    }
+    } 
+    // Add a map to the database, convert to correct format using GetMapForDB
     public static void AddNewMapToDB(int AssociatedID, int width, int Height, Square[,]Grid )
     {
         SaveMapModel Map = new SaveMapModel { AssociatedSaveID = AssociatedID, GridWidth=width, GridHeight=Height,GridData=GetMapForDB(Grid,Height,width) };
         db.Insert(Map);
     }
+    //return a list of all map data from the database
     public static List<SaveMapModel> GetMapsFromDB()
     {
         return db.Table<SaveMapModel>().ToList();
     }
+    // return map data for a specific ID 
     public static SaveMapModel GetSpecificMap(int AssociatedID)
     {
         SaveMapModel Map = db.Table<SaveMapModel>()
                      .FirstOrDefault(x => x.AssociatedSaveID == AssociatedID);
         return Map;
     }
+    // update a map in the data base with a specific ID association
     public static bool UpdateMapSave(int AssociatedID, int width, int Height, Square[,] Grid)
     {
         var SaveFile = db.Table<SaveMapModel>().Where(x => x.AssociatedSaveID == AssociatedID).FirstOrDefault();
@@ -81,12 +86,7 @@ public class DBManager : MonoBehaviour
         return true;
 
     }
-  //  public static Square[,] GeB(int AssociatedId)
-   // {
-  //      SaveMapModel Map = GetSpecificMap(AssociatedId);
-   //     return Map
-
-//    }  
+   // add the NPC info for a save
     public static void AddNewNPCInfo(int AssociatedId,int Amount)
     {
         SaveNPCInfoModel New = new SaveNPCInfoModel
@@ -96,6 +96,7 @@ public class DBManager : MonoBehaviour
         };
         db.Insert(New);
     }
+    // create a new file, return the ID if succesful or -1 if not 
     public static int AttemptToCreateNewFile(string Name, string Mode)
     {
         List<SaveFileModel> SaveFiles = GetSaveFiles();
@@ -125,6 +126,7 @@ public class DBManager : MonoBehaviour
         Debug.Log("Error, no save slot available");
         return -1;
     }
+    // update a save file with a specific ID 
     static bool UpdateForNewFile(string Name, string Mode, SaveFileModel Current,int associationID) {
         var SaveFile=db.Table<SaveFileModel>().Where(x=>x.Id==Current.Id).FirstOrDefault();
 
@@ -150,6 +152,7 @@ public class DBManager : MonoBehaviour
     {
         
     }
+    // Clear all database tables
     public static void ClearDB()
     {
         db.DeleteAll<SaveFileModel>();
@@ -159,6 +162,7 @@ public class DBManager : MonoBehaviour
         db.DeleteAll<TrainRouteModel>();
         db.DeleteAll<BusRouteModel>();
     }
+    //Clear db then create blank saves for each slot 
     public static void ResetSaves()
     {
         ClearDB();
@@ -166,6 +170,7 @@ public class DBManager : MonoBehaviour
         CreateNewFile("", "", true,10,10000,10000,0);
         CreateNewFile("", "", true,10,10000,10000,0);
     }
+    // update save fuke with specfic ID
     public static bool UpdateSave( int NPCAmount,int CurrentID,int CurrentMoney,int CurrentPower,int CurrentWaste)
     {
         var SaveFile = db.Table<SaveFileModel>().Where(x => x.IDToAssociate == CurrentID).FirstOrDefault();
@@ -184,11 +189,13 @@ public class DBManager : MonoBehaviour
         return true;
 
     }
+    // Add train route to db table for save
     public static void AddRoute(Vector3Int StartStation, Vector3Int EndStation,int CurrentID)
     {
         TrainRouteModel Route = new TrainRouteModel { AssociatedSaveID = CurrentID, StartXpos = StartStation.x, StartYpos = StartStation.y, EndXpos = EndStation.x, EndYpos = EndStation.y };
         db.Insert(Route);
     }
+    // Add bus route to db table for save
     public static void AddBusRoute(Vector3Int StartStopPos,Vector3Int EndStopPos,int CurrentID)
     {
         BusRouteModel Route = new BusRouteModel { AssociatedSaveID = CurrentID, 
@@ -197,23 +204,27 @@ public class DBManager : MonoBehaviour
         int result=db.Insert(Route);
         Debug.Log("Bus route save restult: " + result); 
     }
+    // return all train routes for a save file
     public static List<TrainRouteModel> GetAllTrainRoutesForID(int ID)
     {
         return db.Table<TrainRouteModel>().Where(x => x.AssociatedSaveID == ID).ToList();
     }
+    // return all bus routes for a save file
     public static List<BusRouteModel> GetAllBusRoutesForID(int ID)
     {
         return db.Table <BusRouteModel>().Where(x => x.AssociatedSaveID == ID).ToList();
     }
+    // Remove all train routes for a save 
     public static void ClearTrainRoutesForSave(int ID)
     {
         db.Execute("DELETE FROM TrainRoutes WHERE AssociatedSaveID = ?", ID);
     }
+    // Remove all bus routes for a save 
     public static void ClearBusRoutesForSave(int ID)
     {
         db.Execute("DELETE FROM BusRoutes WHERE AssociatedSaveID = ?", ID);
     }
-
+    //clear all train routes for a save then upload up to date routes
     public static void UpdateTrainRoutesForSave(int ID,List<Route> routes)
     {
         ClearTrainRoutesForSave(ID);
@@ -222,6 +233,7 @@ public class DBManager : MonoBehaviour
             AddRoute(routes[i].StartStation.GetBuildingPosAsInt(), routes[i].EndStation.GetBuildingPosAsInt(),ID);
         }
     }
+    //clear all Bus routes for a save then upload up to date routes
     public static void UpdateBusRoutesForSave(int ID, List<BusRoute> routes)
     {
         ClearBusRoutesForSave(ID);
@@ -230,11 +242,13 @@ public class DBManager : MonoBehaviour
             AddBusRoute(routes[i].StartStop, routes[i].EndStop, ID);
         }
     }
+    // Create a new save file 
     public static void CreateNewFile(string FileName,string FileType, bool FileIsEmpty,int NPCAmount, int CurrentMoney,int CurrentPower,int CurrentWaste)
     {
         SaveFileModel Save = new SaveFileModel { Name=FileName,Type=FileType,IsEmpty=FileIsEmpty,NumberOfNPCs=NPCAmount, Money=CurrentMoney, Power=CurrentPower, Waste=CurrentWaste};
         db.Insert(Save);
     }
+    // Debugging function for displaying save files
     public void DisplaySaveFiles()
     {
         List<SaveFileModel> SaveFiles = db.Table<SaveFileModel>().ToList();
@@ -245,6 +259,7 @@ public class DBManager : MonoBehaviour
             Debug.Log("Type:" + SaveFile.Type);
         }
     }
+    // Return int showing what game mode the save file is
     public int GetSaveTypeForID(int Associatedid)
     {
         List<SaveFileModel> Saves = GetSaveFiles();
@@ -258,16 +273,19 @@ public class DBManager : MonoBehaviour
         }
         
     }
+    // return a list of all save files
     public static List<SaveFileModel> GetSaveFiles()
     {
         return db.Table<SaveFileModel>().ToList();
     }
+    // get save file for specific ID 
     public static SaveFileModel GetSpecificSaveFile(int AssociatedID)
     {
         SaveFileModel Current= db.Table<SaveFileModel>()
                      .FirstOrDefault(x => x.IDToAssociate == AssociatedID);
         return Current;
     }
+    // Add new building for save with specified ID
     public static void AddNewBuilding(int AssociatedId, PlacedBuilding Current)
     {
         SaveBuildingModel New = new SaveBuildingModel { AssociatedSaveID = AssociatedId,
@@ -279,10 +297,12 @@ public class DBManager : MonoBehaviour
         };
         db.Insert(New);
     }
+    // Clear building data for specific save ID
     public static void ClearBuildingsForSave(int IDToClear)
     {
         db.Execute("DELETE FROM Building WHERE AssociatedSaveID = ?", IDToClear);
     }
+    //Add all building data to save for ID
     public static void AddAllBuildingsForSave(int ID,List<PlacedBuilding> BuildingsToAdd)
     {
         ClearBuildingsForSave(ID);
@@ -291,6 +311,7 @@ public class DBManager : MonoBehaviour
             AddNewBuilding(ID, BuildingsToAdd[i]);
         }
     }
+    // return all buildings for specific save 
     public static List<SaveBuildingModel> GetAllBuildingsForSave(int SaveID)
     {
         return db.Table<SaveBuildingModel>().Where(x=>x.AssociatedSaveID== SaveID).ToList();

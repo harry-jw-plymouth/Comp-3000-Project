@@ -53,6 +53,7 @@ public class UIHandlerScript : MonoBehaviour
     public TextMeshProUGUI FinalCost;
     public TMP_InputField AmountToBuy;
     public Button TradeConfirm;
+    public TextMeshProUGUI TradeInfo;
 
     public GameStatusScript gameHandler;
     public PowerHandlerScript powerHandler;
@@ -103,6 +104,7 @@ public class UIHandlerScript : MonoBehaviour
     public TextMeshProUGUI RouteDisplayEndBusStopInfo;
 
     public Slider MusicVolumeSlider;
+    public Slider SFXVolumeSlider;
     public TMP_Dropdown ColourBlindModeDropdown;
 
     public GameObject TilePlaceCanvas;
@@ -141,43 +143,46 @@ public class UIHandlerScript : MonoBehaviour
     public int RouteDisplayIndex = -1;
     public int BusRouteDisplayIndex = -1;
 
+    double ElectricityPrice = 1.5;
+    int PurchaseAmount = -1;
+
     int RouteStationPos = -1;
     //  public Square[,] GameGrid;
     private void Start()
     {
-        TileEditorOn = false ;
-    //  GameGrid = new Square[GridCreator.WIDTH, GridCreator.HEIGHT];
-    //   SetGrid();
-
-
-}
+        TileEditorOn = false;
+    }
     // Update is called once per frame
     void Update()
     {
         
     }
+    // Close UI for selecting what tile to place and set tile editing to off to stop tile editing from happening 
     public void CloseTilePlaceCanvas()
     {
         TilePlaceCanvasActive = false;
         TilePlaceCanvas.SetActive(false);
         TileEditorOn = false;
     }
+    // on button click, stop the player clicks editing tiles
     public void OnCancelPlacementButtonClicked()
     {
         SoundManager.PlayButtonClick();
         TileEditorOn= false;
     }
+    // display info pop up with a title and text content as parameters
     public void OpenNewPopUp(string Title, string Text)
     {
-       // Debug.Log("Displaying Pop up");
         NewPopUpCanvas.SetActive(true);
         PopUpTitle.text = Title;
         PopUpDescription.text = Text;
     }
+    // close pop up when close button clicked
     public void OnNewPopUpClosed()
     {
         NewPopUpCanvas.SetActive(false);
     }
+    // open tile place canvas if not open and close all other UI, otherwise close the tile canvas
     public void OnLayoutButtonClick()
     {
         SoundManager.PlayButtonClick();
@@ -208,6 +213,7 @@ public class UIHandlerScript : MonoBehaviour
         }
 
     }
+    // Display route to UI
     public void DisplayRoutes(List<Route> RoutesToDisplay)
     {
         CurrentRoutes = RoutesToDisplay;
@@ -218,6 +224,7 @@ public class UIHandlerScript : MonoBehaviour
             EndStationForRoute.text = "End:" + RoutesToDisplay[0].EndStation.GetBuildingPosAsInt();
         }
     }
+    // Display bus route to UO
     public void DisplayBusRoutes(List<BusRoute> RoutesToDisplay)
     {
         CurrentBusRoutes = RoutesToDisplay;
@@ -228,6 +235,7 @@ public class UIHandlerScript : MonoBehaviour
             RouteDisplayEndBusStopInfo.text = "End:" + RoutesToDisplay[0].EndStop;
         }
     }
+    // on cancel route button clicked, delete that route and display info to user
     public void OnCancelRouteButtonClick()
     {
         SoundManager.PlayButtonClick();
@@ -241,6 +249,7 @@ public class UIHandlerScript : MonoBehaviour
 
         RouteDisplayIndex = -1;
     }
+    // on cancel bus route button clicked, delete that route and display info to user
     public void OnCancelBusRouteButtonClick()
     {
         SoundManager.PlayButtonClick();
@@ -256,7 +265,7 @@ public class UIHandlerScript : MonoBehaviour
 
         BusRouteDisplayIndex = -1;
     }
-   
+   //when bus route confirm button clicked, if the route is valid and the player can afford it a new rotue is created
     public void OnBusRouteConfirmButtonClicked()
     {
         SoundManager.PlayButtonClick();
@@ -264,7 +273,7 @@ public class UIHandlerScript : MonoBehaviour
         {
             if (StartBusStop != EndBusStop)
             {
-                Debug.Log("Making new bus route");
+
                 BusRoute NewBusRoute = new BusRoute(StartBusStop,EndBusStop);
                 if (NewBusRoute.GetIfPathBetweenBusStops(StartBusStop, EndBusStop))
                 {
@@ -287,11 +296,11 @@ public class UIHandlerScript : MonoBehaviour
                 {
                     uiHandler.OpenNewPopUp("Cant create bus route", "no route between stops");
                     Debug.Log("Couldnt set bus route, no path");
-                }
-               
+                } 
             }
         }
     }
+    // on settings button click, toggle settings menu on/off
     public void OnSettingsButtonClicked()
     {
         SoundManager.PlayButtonClick();
@@ -308,26 +317,34 @@ public class UIHandlerScript : MonoBehaviour
             SettingsMenuActive = true;
             SetUIInactive();
             HideCoreUI();
-            CloseAllRegularPopUps();
             CloseAllTransportPopUps();
             TradeMenuActive = false;
             TradeCanvas.SetActive(false);
 
-
+            SFXVolumeSlider.value = SoundManager.GetSFXVolume();
+            MusicVolumeSlider.value = SoundManager.GetMusicVolume();
         }
     }
+    // Adjust music volume 
     public void OnMusicVolumeSliderAdjusted()
     {
         float Value=MusicVolumeSlider.value;
         SoundHandler.ChangeMusicVolume(Value);
+    } 
+    // adjust SFX volume 
+    public void OnSFXVolumeSliderAdjusted()
+    {
+        float Value =SFXVolumeSlider.value;
+        SoundHandler.ChangeSFXVolume(Value);
     }
+    // when colour blind mode changed in settings,call function to change view accordingly
     public void OnColourBlindModeDropdownChanged()
     {
         Debug.Log("Colour blind mode dropdown changed");
         int index = ColourBlindModeDropdown.value;
         ColourBlindHandler.SetMode(index);
     }
-
+    // on settings button clicked, close other UI and open settings, or close settings and open core UI if already open
     public void OnDisplayBusRoutesButtonClicked()
     {
         SoundManager.PlayButtonClick();
@@ -357,6 +374,7 @@ public class UIHandlerScript : MonoBehaviour
             TransportBuilderPopUp.SetActive(false);
         }
     }
+    // if route displaying UI open, close it and open core route ui, otherwise open route setting UI
     public void OnDisplayRoutesButtonClicked()
     {
         SoundManager.PlayButtonClick();
@@ -386,7 +404,7 @@ public class UIHandlerScript : MonoBehaviour
             TransportBuilderPopUp.SetActive(false);
         }
     }
-
+    // On route confirm button clicked, if route speicifed is valid then create route. display information to user if not valid 
     public void OnRouteConfirmButtonClicked()
     {
         SoundManager.PlayButtonClick();
@@ -419,7 +437,8 @@ public class UIHandlerScript : MonoBehaviour
         {
             TrainRouteInfoText.text = "Could not create route, please select a valid start and end point then try again";
         }
-    }
+    } 
+    // open canvas to select positions for route 
     public void OnStationSelectorBackButtonClicked() {
         SoundManager.PlayButtonClick();
         MainUICanvas.SetActive(true);
@@ -436,6 +455,7 @@ public class UIHandlerScript : MonoBehaviour
         }
        
     }
+    // on route start button in train UI clicked, open UI for selecting route start position
     public void OnRouteStartButtonClick()
     {
         SoundManager.PlayButtonClick();
@@ -458,6 +478,7 @@ public class UIHandlerScript : MonoBehaviour
             TrainRouteInfoText.text = "No stations found for route, build more stations then try again";
         }
     }
+    // on bus route start button in train UI clicked, open UI for selecting route start position
     public void OnBusRouteStartButtonClicked()
     {
         SoundManager.PlayButtonClick();
@@ -478,6 +499,7 @@ public class UIHandlerScript : MonoBehaviour
         }
 
     }
+    // when bus route end selction button clicked, open UI for selecting bus stops
     public void OnBusRouteEndButtonClicked()
     {
         SoundManager.PlayButtonClick();
@@ -492,7 +514,7 @@ public class UIHandlerScript : MonoBehaviour
             RouteTypeInfo.text = "Select bus stop";
         }
     }
-   
+   // When setting train stations on route, display info for clicked train station
     public void OnTrainStationClicked(Vector3Int CellPos, int BuildingPos)
     {
         SoundManager.PlayButtonClick();
@@ -515,6 +537,7 @@ public class UIHandlerScript : MonoBehaviour
             }
         }
     }
+    // When selecting bus stop on route, set information for bus stop clicked
     public void OnBusStopClicked(Vector3Int CellPos)
     {
         SoundManager.PlayButtonClick();
@@ -533,6 +556,7 @@ public class UIHandlerScript : MonoBehaviour
         }
 
     }
+    // Open UI for selection end point for UI
     public void OnRouteEndButtonClicked()
     {
         SoundManager.PlayButtonClick();
@@ -553,16 +577,18 @@ public class UIHandlerScript : MonoBehaviour
             TrainRouteInfoText.text = "No train stations found, build more before setting a route";
         }
     }
+    //Show route for building rail transport
     public void ShowTrainRouteUI()
     {
         RailMenuActive = true;
         RailCanvas.SetActive(true);
     }
+    //show transport builder options
     public void ShowTransportUI()
     {
         TransportBuilderPopUp.SetActive(true);
     }
-
+    // close train route UI and display core UI
     public void OnRouteMenuCloseButtonClicked()
     {
         SoundManager.PlayButtonClick();
@@ -572,8 +598,8 @@ public class UIHandlerScript : MonoBehaviour
         ShowCoreUI();
         ShowTrainRouteUI();
         ShowTransportUI();
-
     }
+    //open train route creation UI
     public void OnTrainRouteButtonClicked()
     {
         SoundManager.PlayButtonClick();
@@ -586,16 +612,19 @@ public class UIHandlerScript : MonoBehaviour
 
         TrainRouteInfoText.text = "Select the start and end station on the route and then click confirm. \r\nSetting up a route costs 10 coins";
     }
+    // open  canvas for creating routes
     public void OpenRouteCanvas()
     {
         RouteMenuActive= true ;
         RouteSetCanvas.SetActive(true);
     }
+    // close canvad for bus related options
     public void CloseBusCanvas()
     {
         BusCanvasActive = false;
         BusCanvas.SetActive(false);
-    }
+    } 
+    // when bus stop editor clicked, set values accordingly so clicking tiles will build bus stops, or turn off if already on
     public void OnBusStopButtonClicked()
     {
         SoundManager.PlayButtonClick();
@@ -611,11 +640,13 @@ public class UIHandlerScript : MonoBehaviour
         }
 
     }
+    // turn settings for editing bus stops to off
     public void StopEditingBusStops()
     {
         TileEditorOn = false;
         BusStopEditorOn = false;
     }
+    // hide Core UI and open bus route creation canvas 
     public void OnBusrouteCanvasButtonClicked()
     {
         SoundManager.PlayButtonClick();
@@ -635,6 +666,7 @@ public class UIHandlerScript : MonoBehaviour
         BusRouteInfoText.text = "Set a start and end point for your route then confirm to create your route!";
 
     }
+    // close bus route creation canvas and reopen core UI
     public void OnBusRouteCanvasCloseButtonClosed()
     {
         SoundManager.PlayButtonClick();
@@ -646,11 +678,8 @@ public class UIHandlerScript : MonoBehaviour
         ShowCoreUI();
         ShowTransportUI();
         BusCanvas.SetActive(true);
-
-
-
-
     }
+    // On bus button clicked, if already on then turn off, if not on, hide conflicting UI then open
     public void OnBusButtonClicked()
     {
         SoundManager.PlayButtonClick();
@@ -665,9 +694,9 @@ public class UIHandlerScript : MonoBehaviour
             CloseRailPopUp();
             BusCanvasActive = true;
             BusCanvas.SetActive(true);
-          //  TransportBuilderPopUp.SetActive(false);
         }
-    }
+    } 
+    // display info for building and display box for displaying info
     public void DisplayBuildingInfo(PlacedBuilding BuildingToDisplay)
     {
         NewBuidingInfoBox.SetActive(true);
@@ -701,7 +730,7 @@ public class UIHandlerScript : MonoBehaviour
 
 
     }
-   
+   // display info for building hover at position of building
     public void DisplayBuildingInfoAtSpecificPos(PlacedBuilding BuildingToDisplay, Vector3Int PosToShow)
     {
         NewBuidingInfoBox.SetActive(true);
@@ -738,14 +767,8 @@ public class UIHandlerScript : MonoBehaviour
        // infoRect.position=GridCreator.GameMap.CellToWorld(PosToShow)+ new Vector3(0.5f, 0.5f, 0);
         Vector3 worldPos = GridCreator.GameMap.CellToWorld(PosToShow) + new Vector3(0.5f, 1.5f, 0);
         Vector3 screenPos = Camera.main.WorldToScreenPoint(worldPos);
-
-   
-
-
-        //infoRect.position = screenPos;
-        //NewInfoRect.position = screenPos;
     }
-
+    // close building info box
     public void HideBuildingInfo()
     {
         BuildingInfoShowing = false;
@@ -753,7 +776,7 @@ public class UIHandlerScript : MonoBehaviour
         NewBuidingInfoBox.SetActive(false);
 
     }
-
+    // open pause menu if not open or close if already open
     public void OpenPauseMenu()
     {
         if (PauseMenuActive)
@@ -773,11 +796,9 @@ public class UIHandlerScript : MonoBehaviour
             HideCoreUI();
         }
     }
-    double ElectricityPrice=1.5;
-    int PurchaseAmount = -1;
+    //  when value edited in trade UI, display the way this will effect players money reserves
     public void OnEditMadeToNumberToTrade()
     {      
-       // Debug.Log("Edit made");
        
         if (AmountToBuy.text != "")
         {
@@ -792,9 +813,8 @@ public class UIHandlerScript : MonoBehaviour
                 FinalCost.text = "Money gained from selling: " + PurchaseAmount / ElectricityPrice;
             }
         }
-       
-       
     }
+    // display info for trade 
     public void SetTradeInfo()
     {
         string MaterialSelectedToBuy = TradeItems.options[TradeItems.value].text;
@@ -802,9 +822,8 @@ public class UIHandlerScript : MonoBehaviour
         int action = Action.value;
         // set trade cost
         CostConversionText.text = "Money cost per " + MaterialSelectedToBuy + " : " + 1.5f;
-        
-
     }
+    // if trade info valid, complete trade
     public void OnConfirmTradeButtonClicked()
     {
         SoundManager.PlayButtonClick();
@@ -819,14 +838,13 @@ public class UIHandlerScript : MonoBehaviour
                 if (gameHandler.CheckIfPurchaseAffordable(FinalCost)){
                     gameHandler.AdjustMoney(-(FinalCost));
                     powerHandler.AdjustPower(PurchaseAmount);
-                    ShowAlertPopUp("purhased "+FinalCost+" for "+PurchaseAmount+" electricity");
+                    TradeInfo.text= "purhased " + FinalCost + " for " + PurchaseAmount + " electricity";
                     AmountToBuy.text = "";
                 }
                 else
                 {
-                    ShowAlertPopUp("Not enough money");
+                    TradeInfo.text = "Not enough money for trade";
                 }
-                
             }
             else
             {
@@ -837,28 +855,20 @@ public class UIHandlerScript : MonoBehaviour
                     powerHandler.AdjustPower(-(FinalElectricityCost));
                     gameHandler.AdjustMoney(PurchaseAmount);
                     AmountToBuy.text = "";
-                    ShowAlertPopUp("sold " + FinalElectricityCost + " for " + PurchaseAmount + " money");
+                    TradeInfo.text="sold " + FinalElectricityCost + " for " + PurchaseAmount + " money";
                 }
                 else
                 {
-                    ShowAlertPopUp("Not enough power");
+                   TradeInfo.text="Not enough power";
                 }
             }
         }
         else
         {
-            ShowAlertPopUp("Please enter a value ");
+            TradeInfo.text="Please enter a value ";
         }
     }
-    public void CloseAllRegularPopUps()
-    {
-        // Hide Buildings view
-
-
-        // Hide transport View
-
-        // Hide Tile editor view
-    }
+    // close All UI associated with transport
     public void CloseAllTransportPopUps()
     {
         // rail route viewer
@@ -903,30 +913,32 @@ public class UIHandlerScript : MonoBehaviour
         RouteSelectedInfo.SetActive(false);
         GridHandler.DeHighlightAllBusRoutes();
 
-    }
+    } 
+    // Hide base UI for transport
     public void HideTransportCanvases()
     {
         CloseBusCanvas();
         CloseRailPopUp();
         CloseTransportPopup();
     }
-
+    // hide core transport,layout and buidlings buttons
    public void HideCoreUI()
     {
         TransportCoreButton.SetActive(false); 
         LayoutCoreButton.SetActive(false); ;
         BuildingCoreButton.SetActive(false);
     }
+    // show core transport,layout and buidlings buttons
     public void ShowCoreUI()
     {
         TransportCoreButton.SetActive(true);
         LayoutCoreButton.SetActive(true);
         BuildingCoreButton.SetActive(true);
     }
+    // toggle trade UI on and off, hiding/opening other UI accordingly
     public void OnTradeButtonClicked()
     {
         SoundManager.PlayButtonClick();
-        //     Debug.Log("TradeButton clicked");
         if (TradeMenuActive)
         {
             
@@ -949,17 +961,20 @@ public class UIHandlerScript : MonoBehaviour
             PauseCanvas.SetActive(false);
             PauseMenuActive = false;
         }
-    }
+    } 
+    // show pop up (old)
     public  void ShowAlertPopUp(string Alert)
     {
         AlertpopUp.SetActive(true);
         AlertText.text = Alert;
     }
+    // close popup (old)
     public void OnAlertPopupButtonClicked()
     {
         SoundManager.PlayButtonClick();
         AlertpopUp.SetActive(false);
-    }
+    } 
+    // save the game by updating all relevant info in the db
     public void OnSaveButtonClicked()
     {
         SoundManager.PlayButtonClick();
@@ -970,20 +985,21 @@ public class UIHandlerScript : MonoBehaviour
         DBManager.UpdateTrainRoutesForSave(MainMenu.CurrentSaveID, TransportPlacementScript.TrainRoutes);
         DBManager.UpdateBusRoutesForSave(MainMenu.CurrentSaveID, TransportPlacementScript.BusRoutes);
     }
+    // save the game then close to main menu
     public void OnSaveAndExitClicked()
     {
         SoundManager.PlayButtonClick();
         OnSaveButtonClicked();
         OnExitButtonClicked();
     }
+    //Close scene and return to main menu
     public void OnExitButtonClicked()
     {
-    //    Debug.Log("Exit button clicked");
         SceneManager.LoadScene("MainMenu");
     }
+    // set some core UI to hidden
     void SetUIInactive()
     {
-      //  TransportButton.SetActive(false);
         BuildingsMenuPopUp.SetActive(false);
         TransportBuilderPopUp.SetActive(false);
         BuildingsListManager.BuildingCurrentlySelected = -1;
@@ -994,8 +1010,8 @@ public class UIHandlerScript : MonoBehaviour
         BuildingRemoverOn=false;
 
         CloseTilePlaceCanvas();
-
     }
+    //display reports from rating information
     public void OnRatingClicked()
     {
         SoundManager.PlayButtonClick();
@@ -1011,6 +1027,7 @@ public class UIHandlerScript : MonoBehaviour
         ReportText.text = Info;
 
     }
+    // hide reports from rating info
     public void OnReportClicked()
     {
         SoundManager.PlayButtonClick();
@@ -1018,6 +1035,7 @@ public class UIHandlerScript : MonoBehaviour
         
         ReportDisplay.SetActive(false);
     }
+    // on water greenery clicked, set tile editor to be editing water
     public void OnGreeneryButtonClicked()
     {
         SoundManager.PlayButtonClick();
@@ -1040,6 +1058,7 @@ public class UIHandlerScript : MonoBehaviour
             GreeneryEditorOn = true;
         }
     }
+    // on water button clicked, set tile editor to be editing greenery
     public void OnWaterButtonClicked()
     {
         SoundManager.PlayButtonClick();
@@ -1053,7 +1072,6 @@ public class UIHandlerScript : MonoBehaviour
         }
         else
         {
-
             TilePlaceCanvas.SetActive(true);
             TilePlaceCanvasActive = true;
             CloseBusCanvas();
@@ -1062,7 +1080,7 @@ public class UIHandlerScript : MonoBehaviour
             WaterEditorOn = true;
         }
     }
-
+    // on road button clicked, set tile editor to be editing road
     public void OnRoadButtonClicked()
     {
         SoundManager.PlayButtonClick();
@@ -1083,7 +1101,7 @@ public class UIHandlerScript : MonoBehaviour
             WaterEditorOn = false;
         }
     }
-
+    // open UI for selecting canvas type or close it if already open
     public void OnTransportButtonClicked()
     {
         SoundManager.PlayButtonClick();
@@ -1101,7 +1119,8 @@ public class UIHandlerScript : MonoBehaviour
             TransportPlacementOn = true;
             TransportBuilderPopUp.SetActive(true);
         }
-    }
+    } 
+    // open rail UI or close it if already open
     public void OnRailButtonClicked()
     {
         SoundManager.PlayButtonClick();
@@ -1117,7 +1136,8 @@ public class UIHandlerScript : MonoBehaviour
             RailMenuActive = true;
             RailCanvas.SetActive(true);
         }
-    }
+    } 
+    // close transport UI
     public void CloseTransportPopup()
     {
         TransportBuilderPopUp.SetActive(false);
@@ -1126,10 +1146,12 @@ public class UIHandlerScript : MonoBehaviour
         TransportPlacementOn = false;
         CloseRailPopUp();
     }
+    // close UI for rail related buttons
     public void CloseRailPopUp()
     {
         RailCanvas.SetActive(false);
     }
+    // open UI for placing buildings or close it if already open
     public void OnBuildingsButtonClick()
     {
         SoundManager.PlayButtonClick();
@@ -1149,7 +1171,8 @@ public class UIHandlerScript : MonoBehaviour
             BuildingRemoveButton.SetActive(true);
         }
             
-    }
+    } 
+    // set building remover to be active if not already or not active if already active 
     public void OnBuildingRemoveButtonClick()
     {
         SoundManager.PlayButtonClick();

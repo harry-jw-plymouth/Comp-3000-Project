@@ -19,8 +19,6 @@ public class PlacedBuilding
         OriginPos = originPos;
         Sprite = sprite;
         CurrentlyInRangeOfPower= false;
-       
-        //BuildingPos = new Vector3( originPos[0],originPos[1],0);
     }
     public bool GetIfTrainStation()
     {
@@ -143,8 +141,6 @@ public class PlacedBuilding
     {
         return buildingType.GetIfIsPowerPlant();
     }
-    
-
     public bool GetIfIsShop()
     {
         return buildingType.GetIfBuildingIsAShop();

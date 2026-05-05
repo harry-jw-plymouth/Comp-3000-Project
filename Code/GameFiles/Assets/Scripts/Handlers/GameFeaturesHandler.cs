@@ -29,6 +29,7 @@ public class GameStatusScript : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        // Set Current game mode, player money count, city accumulated waste and display relevant info on UI
         CurrentGameMode=MainMenu.GetCurrentGameMode();
         PlayerMoneyCount = GetPlayerStartingMoney();
         AmountOfWaste= GetStartingPlayerWaste();
@@ -42,17 +43,18 @@ public class GameStatusScript : MonoBehaviour
 
 
     }
+    // If new save file, return 0, otherwise return value from save file
     public int GetStartingPlayerWaste()
     {
         if (MainMenu.GetCurrentSaveID() != -1)
-        {
-            
+        { 
             return DBManager.GetSpecificSaveFile(MainMenu.GetCurrentSaveID()).Waste;
         }
         Debug.Log("No save file found, giving default waste");
         return 0;
     }
 
+    // increase waste amount depending on waste produced by buildings and decrease it based on wastage facilities in operation
     void UpdateWasteAmount()
     {
         int NumberOfWastageCenters = GridCreator.GetNumberOfWastageFacilities();
@@ -63,6 +65,7 @@ public class GameStatusScript : MonoBehaviour
 
         WasteAmountText.text = "Waste amount: "+AmountOfWaste.ToString();
     }
+    // Call rating functions that calculate elements relating to the enviornment
     void CalculateEnviornmentRating()
     {
         CurrentInfo.SetAirQaulityRating(GridCreator.PlacedBuildings,GridCreator.NumberOfGreenery);
@@ -71,14 +74,17 @@ public class GameStatusScript : MonoBehaviour
         CurrentInfo.CalculateWaterPollutionRating(GridCreator.GetWaterPollution(), GridCreator.NumberOfWater);
         CurrentInfo.SetEnviromentalEffectRating(GridCreator.GetTotalEnviormentalEffects(), npcHandler.GetCurrentNumberOfNPCs());
     }
+    // return current players money amount
     public int GetPlayerMoney()
     {
         return PlayerMoneyCount;
     }   
+    // return currnet player city waste accumulation
     public int GetPlayerWaste()
     {
                 return AmountOfWaste;
     }
+    // set up player starting money, if new save file set to 10000, else pull value from database file
     public int GetPlayerStartingMoney()
     {
         if (MainMenu.GetCurrentSaveID() != -1)
@@ -89,14 +95,17 @@ public class GameStatusScript : MonoBehaviour
         Debug.Log("No save file found, giving default money");
         return 10000;
     }
+    // return string of all issues noted when calculating city rating
     public static List<string> GetReport()
     {
         return Info;
-    }
+    } 
+    // return true if player has equal to or more than the cost 
     public bool CheckIfPurchaseAffordable(int Cost)
     {
         return Cost <=PlayerMoneyCount;
     }
+    // calculate how much the player will gain/lose next time tax is collected
     public int GetChangeInMoney(List<PlacedBuilding>Buildings)
     {
         int TotalChange = 0;
@@ -104,18 +113,22 @@ public class GameStatusScript : MonoBehaviour
             TotalChange += Buildings[i].GetMoneyGeneration() ;
         }
         return TotalChange;
-    }
+    } 
+    // return countdown to next tax collection
     public int GetTimeToDisplay()
     {
         return (UpdateFrequency - (int)FrequencyCounter)/100;
     }
+    // display time left to next tax collection to UI
     public void UpateTimeDisplay() {
         TimeDisplayText.text =  GetTimeToDisplay().ToString();
     }
+    // return air qaulity 
     public int GetAirQaulityRating()
     {
         return CurrentInfo.GetAirQualityRating();
     }
+    // adjust money depending on building money generation then display the new value
     public void DoMoney()
     {
         List<PlacedBuilding>Buildings=GridCreator.GetAllBuildings();
@@ -124,6 +137,7 @@ public class GameStatusScript : MonoBehaviour
 
         DisplayMoney();
     }
+    // adjust the player money as long as the game mode is not in sandbox 
     public void AdjustMoney(int Amount)
     {
         if (MainMenu.GetCurrentGameMode() != 0) {
@@ -131,18 +145,20 @@ public class GameStatusScript : MonoBehaviour
             DisplayMoney();
         }
     }
-       
+    // display the amount money will change on next tax collection to the UI
     public void DisplayMoneyChange()
     {
         int Change=GetChangeInMoney(GridCreator.GetAllBuildings());
         MoneyChangeText.text =  "Money change:"+Change.ToString();
 
     }
+    // Display how much power will change on next power usage to UI
     public void DisplayPowerChange()
     {
         int Change=GridCreator.GetPowerGeneration()-GridCreator.GetPowerUsage(); ;
         PowerChangeText.text =  "Power change:"+Change.ToString();
     }
+    // add buffer to doing check for money so that player loses/gains money at a reasonable rate
     public void CheckForMoneyCheck()
     {
         MoneyCounter++;
@@ -152,7 +168,7 @@ public class GameStatusScript : MonoBehaviour
             DoMoney();
         }
     }
-
+    // each frame do checks for whether money, rating and waste information should be updated
     // Update is called once per frame
     void Update()
     {
@@ -175,15 +191,18 @@ public class GameStatusScript : MonoBehaviour
             UpdateWasteAmount();
         }
     }
+    // display current money to UI
     public void DisplayMoney()
     {
         MoneyDisplayText.text = PlayerMoneyCount.ToString();
     }
+    // Subtract money from player money in accordance with building placed
     public void DoPlaceBuildingCosts(Building buildingPlaced)
     {
         PlayerMoneyCount -= buildingPlaced.CostToBuild;
         DisplayMoney();
     }
+    // call all functions to determine city rating then display
     void CalculateCityRating()
     {
         //clear old reports
@@ -210,6 +229,7 @@ public class GameStatusScript : MonoBehaviour
 
         
     }
+    // return the city rating
     public static int GetRating()
     {
         return (int)CurrentRating;
