@@ -41,10 +41,12 @@ public class TransportPlacementScript : MonoBehaviour
     {
         
     }
+    //add new train route
     public static void AddRoute(Route New)
     {
         TrainRoutes.Add(New);
     }
+    // add new bus route
     public static void AddBusRoute(BusRoute New)
     {
         BusRoutes.Add(New);
@@ -53,6 +55,7 @@ public class TransportPlacementScript : MonoBehaviour
     {
         TrackTile = TrackTileReference;
     }
+    // return all routes using a certain piece of track
     public static List<Route> GetAllRoutesUsingTrack(Vector3Int TrackPos)
     {
         List<Route> routes = new List<Route>();
@@ -65,6 +68,7 @@ public class TransportPlacementScript : MonoBehaviour
         }
         return routes;
     }
+    // return all routes containing a road position
     public static List<BusRoute> GetAllRoutesUsingRoad(Vector3Int RoadPos)
     {
         List<BusRoute> routes = new List<BusRoute>();
@@ -77,14 +81,12 @@ public class TransportPlacementScript : MonoBehaviour
         }
         return routes;
     }
-
+    // if loading save, load all routes for save ID and set up
     public static void SetupRoutesFromSave(int ID,GridCreator GridHandler,TransportPlacementScript TransportHandler)
     {
-        Debug.Log("Setting up routes");
         List<TrainRouteModel>RoutesInDB=DBManager.GetAllTrainRoutesForID(ID);
         for(int i = 0; i < RoutesInDB.Count; i++)
         {
-            Debug.Log("Loading train route " + i);
             TrainRouteModel Current = RoutesInDB[i];
             int StartStationIndex= GridHandler.GetBuildingClicked(new Vector3Int(Current.StartXpos, Current.StartYpos, 0));
             int EndStationIndex= GridHandler.GetBuildingClicked(new Vector3Int(Current.EndXpos, Current.EndYpos, 0));
@@ -126,13 +128,11 @@ public class TransportPlacementScript : MonoBehaviour
                 {
                     newRoute.SetRoute(GridCreator.GameGrid);
                     AddBusRoute(newRoute);
-
                 }
             }
         }
-
     }
-
+    // loop through all positions occupied by station and return true if any of them match the currebt target position
     public bool GetIfSquareIsPartOfTargetStation(Vector3Int Current, PlacedBuilding Target)
     {
         for (int y = 0; y < Target.GetShape().GetLength(0); y++)
@@ -143,12 +143,11 @@ public class TransportPlacementScript : MonoBehaviour
                 {
                     return true;
                 }
-            }
-                
+            }       
         }
         return false;
     }
-    
+    // check surounding squares and return true if any surrounding squares is the target station
     bool getIfIsNextToTargetStation(Vector3Int pos, PlacedBuilding target)
     {
         if (GetIfSquareIsPartOfTargetStation(pos + Vector3Int.right, target)) return true;
@@ -158,6 +157,7 @@ public class TransportPlacementScript : MonoBehaviour
 
         return false;
     }
+    // return true if a sqaure aready checked in BFS
     public bool GetIfAlreadyadded(Vector3Int Current, List<Vector3Int> Checked)
     {
         if (Checked.Contains(Current))
@@ -166,7 +166,7 @@ public class TransportPlacementScript : MonoBehaviour
         }
         return false;
     }
-
+    // BFS navigating rail tiles returning true if a valid route can be found between stations 
     public bool GetIfLinkBetweenStations(int StartBuilding,int EndBuilding)
     {
         List<Vector3Int>PositionsToCheck = new List<Vector3Int>();
@@ -211,7 +211,6 @@ public class TransportPlacementScript : MonoBehaviour
         bool found = false;
         while (!found && PositionsToCheck.Count > 0) {
             Vector3Int CurrentPos = PositionsToCheck[0];
-           // Vector3Int New;
             PositionsToCheck.RemoveAt(0);
             if (getIfIsNextToTargetStation(CurrentPos,EndStation))
             {
@@ -229,23 +228,18 @@ public class TransportPlacementScript : MonoBehaviour
                     if (GridCreator.GameGrid[CurrentPos.x + 1, CurrentPos.y].Contains == 4)
                     {
                         ToCheck.Add(new Vector3Int(CurrentPos.x + 1, CurrentPos.y, 0));
-                        // PositionsToCheck.Add(new Vector3Int(CurrentPos.x + 1, CurrentPos.y, 0));
-                        // AlreadyAdded.Add(new Vector3Int(CurrentPos.x + 1, CurrentPos.y, 0));
                     }
                     if (GridCreator.GameGrid[CurrentPos.x - 1, CurrentPos.y].Contains == 4)
                     {
                         ToCheck.Add(new Vector3Int(CurrentPos.x - 1, CurrentPos.y, 0));
-                      // AlreadyAdded.Add(new Vector3Int(CurrentPos.x - 1, CurrentPos.y, 0));
                     }
                     if (GridCreator.GameGrid[CurrentPos.x, CurrentPos.y + 1].Contains == 4)
                     {
                         ToCheck.Add(new Vector3Int(CurrentPos.x, CurrentPos.y + 1, 0));
-                       // AlreadyAdded.Add(new Vector3Int(CurrentPos.x, CurrentPos.y + 1, 0));
                     }
                     if (GridCreator.GameGrid[CurrentPos.x, CurrentPos.y - 1].Contains == 4)
                     {
                         ToCheck.Add(new Vector3Int(CurrentPos.x, CurrentPos.y - 1, 0));
-                      //  AlreadyAdded.Add(new Vector3Int(CurrentPos.x, CurrentPos.y - 1, 0));
                     }
                     for (int i = 0; i < ToCheck.Count; i++) {
                         if (!GetIfAlreadyadded(ToCheck[i], AlreadyAdded)){
@@ -255,8 +249,7 @@ public class TransportPlacementScript : MonoBehaviour
                     }
                     ToCheck=new List<Vector3Int>();
                 }
-            }
-            
+            }  
         }
         if (!found)
         {
@@ -264,49 +257,44 @@ public class TransportPlacementScript : MonoBehaviour
         }
         return found;
     }
+    //Reset value so check is not done for placement
     public void CancelSelection()
     {
-        //Reset value so check is not done for placement
+        
         TransportModeSelected = -1;
     }
+    //Set transport selection to rail
     public void OnRailButtonClicked()
     {
-        //Set transport selection to rail
         Debug.Log("Rail selected");
         TransportModeSelected = 0;
     }
+    // Set tile editing to placing rail
     public void OnRailPlacementButtonClicked()
     {
-        Debug.Log("Rail mode set to 0");
         RailMode = 0;
         TransportModeSelected = 0;
     }
+    // set placement settings to place train stations
     public void OnStationPlacementButtonClicked()
     {
         Debug.Log("Rail mode set to 1");
         RailMode = 1;
         BuildingsListManager.BuildingCurrentlySelected = 8;
     }
+    // unused: would have been for building underground routes
     public void OnUnderGroundButtonClicked()
     {
         //Set transport selection to Underground
-        Debug.Log("Underground selected");
         TransportModeSelected = 1; 
     }
+    //Set transport selection to Bus
     public void OnbusButtonClicked()
-    {
-        //Set transport selection to Bus
+    { 
         Debug.Log("Bus selected");
         TransportModeSelected = 2;
     }
-    public void DoBusClickHandling(Vector3Int CellClickedPos)
-    {
-        Debug.Log("Attempting to place bus route");
-    }
-    public void DoUnderGroundClickHandling(Vector3Int CellClickedPos)
-    {
-        Debug.Log("Attempting to place underground");
-    }
+    // do handling for placing rail
     public void DoTransportPlacement(Vector3Int CellClickedPos)
     {
         
@@ -318,23 +306,15 @@ public class TransportPlacementScript : MonoBehaviour
         }
         else if (TransportModeSelected == 1)
         {
-            DoUnderGroundClickHandling(CellClickedPos);
         }
         else if (TransportModeSelected == 2) {
-            DoBusClickHandling(CellClickedPos);
         }
         else
         {
             Debug.Log("No transport mode selected");
         }
     }
-    public void PlaceStation(Vector3Int CellClickedPos)
-    {
-        Debug.Log("PlacingStations");
-        
-        
-        
-    }
+    // return tiles surrounding another tikes
     public List<Vector3Int>GetSurroundingTiles(Vector3Int CellClickedPos)
     {
         List<Vector3Int> Tiles = new List<Vector3Int> ();
@@ -346,6 +326,7 @@ public class TransportPlacementScript : MonoBehaviour
 
 
     }
+    // return true if rail can be placed at position, checking if surrounding tiles contain rail
     public bool GetIfRailCanBePlaced(Vector3Int CellClickedPos)
     {
         List<Vector3Int> Tiles = GetSurroundingTiles(CellClickedPos);
@@ -362,17 +343,18 @@ public class TransportPlacementScript : MonoBehaviour
                     return true;
                 }
             }
-        }
-        
+        } 
         return false;
     }
+    // place all rail from save on game load
     public void PlaceRailOnSaveLoad(Vector3Int CurrentPos)
     {
         GridCreator.GameMap.SetTile(CurrentPos, TrackTile);
-
     }
+    // attempt to place rail at specified positon
     public void PlaceRail(Vector3Int CellClickedPos)
     {
+        // debugging information
         Debug.Log("Attempting to place rail at "+ CellClickedPos.x +", "+CellClickedPos.y);
         Debug.Log("RailMode:" + RailMode);
         if (RailMode != -1)
@@ -392,14 +374,12 @@ public class TransportPlacementScript : MonoBehaviour
                     }
                     else
                     {
-                        Debug.Log("Rail could not be placed");
+                        uiHandler.OpenNewPopUp("Cant place rail", "Invalid position");
                     }
                     
                 }
                 catch(System.Exception error)
-                {
-
-                    
+                {                  
                     Debug.Log("Click not in grid square: "+error);
 
                 }
@@ -408,7 +388,6 @@ public class TransportPlacementScript : MonoBehaviour
             else if(RailMode == 1)
             {
                 //place stations
-                PlaceStation(CellClickedPos);
             }
         }
         else
@@ -417,62 +396,37 @@ public class TransportPlacementScript : MonoBehaviour
         }
         
     }
-    void CheckForMouseClick()
-    {
-        if(Input.GetMouseButtonDown(0) && TransportModeSelected!=-1)
-        {
-            if (TransportModeSelected != -1)
-            {
-                if (TransportModeSelected == 0)
-                {
-                    Debug.Log("Attempting to place rail");
-                }
-            }
-            else
-            {
-                Debug.Log("No Mode of transport selected");
-            }
-        }
-    }
+    // loop though all train routes, if any of them have just been addded then begin their movement
     void CheckForNewRoutes()
     {
         for(int i = 0; i < TrainRoutes.Count; i++)
         {
             if (!TrainRoutes[i].GetIfActivated())
             {
-
-                //  GameObject NewSprite = Instantiate(RedModernTrainFront, TrainRoutes[i].GetCurrentRoute()[0],Quaternion.identity);
                 GameObject NewSprite = RedModernTrainFront;
                 TrainRoutes[i].SetSpriteForTrainOnRoute(NewSprite);
                 TrainRoutes[i].Activate();
                 NewSprite.GetComponent<SpriteRenderer>().enabled = true;
-
             }
         }
     }
+    // loop though all bus routes, if any of them have just been addded then begin their movement
     void CheckForNewBusRoutes()
     {
         for (int i = 0; i < BusRoutes.Count; i++)
         {
             if (!BusRoutes[i].GetIfActivated())
             {
-
-                //                GameObject FrontSprite = Instantiate(RedModernBusFront, BusRoutes[i].GetCurrentRoute()[0], Quaternion.identity);
-                //              GameObject LeftSprite = Instantiate(RedModernBusLeft, BusRoutes[i].GetCurrentRoute()[0], Quaternion.identity);
-                //            GameObject RightSprite = Instantiate(RedModernBusRight, BusRoutes[i].GetCurrentRoute()[0], Quaternion.identity);
-                //          GameObject BackSprite = Instantiate(RedModernBusBack, BusRoutes[i].GetCurrentRoute()[0], Quaternion.identity);
-
                 GameObject FrontSprite = RedModernBusFront;
                 GameObject LeftSprite = RedModernBusLeft;
                 GameObject RightSprite = RedModernBusRight;
                 GameObject BackSprite = RedModernBusBack;
                 BusRoutes[i].SetSpritesForBusOnRoute(FrontSprite,LeftSprite,RightSprite,BackSprite);
                 BusRoutes[i].Activate();
-                //NewSprite.GetComponent<SpriteRenderer>().enabled = true;
-
             }
         }
     }
+    // loop through train routes to allow them to handle movement on the route
     void DoMovement()
     {
         for (int i = 0; i < TrainRoutes.Count; i++) {
@@ -481,8 +435,8 @@ public class TransportPlacementScript : MonoBehaviour
                 TrainRoutes[i].DoMovement(NPChandler);
             }
         }
-
     }
+    // loop through bus routes to allow them to handle movement on the route
     void DoBusMovement()
     {
         for (int i = 0; i < BusRoutes.Count; i++)
@@ -492,13 +446,13 @@ public class TransportPlacementScript : MonoBehaviour
                 BusRoutes[i].DoMovement(NPChandler);
             }
         }
-
     }
-    
+    // return all train routes
     public static List<Route> GetAllTrainRoutes()
     {
         return TrainRoutes;
     }
+    // check all train routes and return true if any of them contain both station position parameters
     public static bool CheckIfRouteBetweenStations(Vector3Int StartPos,Vector3Int EndPos) 
     {
         for(int i = 0;i < TrainRoutes.Count; i++)
@@ -511,6 +465,7 @@ public class TransportPlacementScript : MonoBehaviour
         }
         return false;
     }
+    // check all bus routes and return true if any of them contain a certain road position
     public static bool CheckIfRouteExistsUsingRoad(Vector3Int RoadPosition)
     {
         for (int i = 0; i <BusRoutes.Count; i++)
@@ -522,6 +477,7 @@ public class TransportPlacementScript : MonoBehaviour
         }
         return false;
     }
+    // check all train route and return true if any of them contain the track position passed
     public static bool CheckIfRouteExistsUsingTrack(Vector3Int TrackPosition)
     {
         for(int i = 0; i < TrainRoutes.Count; i++)
@@ -532,7 +488,8 @@ public class TransportPlacementScript : MonoBehaviour
             }
         }
         return false ;
-    }
+    } 
+    // check all bus routes and return true if any of them start/end at the positions passed as parameters 
     public static bool CheckIfRouteBetweenBusStops(Vector3Int StartPos, Vector3Int EndPos)
     {
         for (int i = 0; i < BusRoutes.Count; i++)
@@ -545,6 +502,7 @@ public class TransportPlacementScript : MonoBehaviour
         }
         return false;
     }
+    // check all train routes and return all routes using a certain train station
     public static List<Route> GetAllTrainRoutesForStation(PlacedBuilding Current)
     {
         List<Route> routes = new List<Route>();
@@ -558,6 +516,7 @@ public class TransportPlacementScript : MonoBehaviour
         }
         return routes;
     }
+    // check all bus routes and return all routes using a certain bus stop
     public static List<BusRoute> GetAllBusRoutesForStop(Vector3Int CurrentStop)
     {
         List<BusRoute> Busroutes = new List<BusRoute>();
@@ -571,6 +530,7 @@ public class TransportPlacementScript : MonoBehaviour
         }
         return Busroutes;
     }
+    // check all train routes and reactivate any trains that have been stopped long enough at a station  
     void CheckForReactivation()
     {
         int TotalCost = 0;
@@ -586,6 +546,7 @@ public class TransportPlacementScript : MonoBehaviour
         }
 
     }
+    // check all bus routes and reactivate any buses that have been stopped long enough at a bus stop  
     void CheckForBusReactivation()
     {
         int TotalCost= 0;
@@ -599,6 +560,7 @@ public class TransportPlacementScript : MonoBehaviour
             SoundManager.PlayStartBus();
         }
     }
+    // loop through train routes and remove any cancelled routes that have concluded movement
     public void CheckForcancelledTrains()
     {
         List<Route>DeletedRoutes=new List<Route>();
@@ -607,9 +569,7 @@ public class TransportPlacementScript : MonoBehaviour
             if (TrainRoutes[i].GetIfEnded())
             {
                 TrainRoutes[i].DestroyRoute();
-                TrainRoutes.RemoveAt(i);
-                
-                
+                TrainRoutes.RemoveAt(i); 
             }
         }
         for (int i = 0; i < DeletedRoutes.Count; i++) { 
@@ -618,6 +578,7 @@ public class TransportPlacementScript : MonoBehaviour
         NPChandler.UpdateNPCRoutesAfterRoutesRemoval(DeletedRoutes);
 
     }
+    //loop through bus routes and return index of route using the road position, return -1 if not found
     public static int CheckIfRoadIsInUseForRoute(Vector3Int RoadPos)
     {
         for(int i = 0; i < BusRoutes.Count; i++)
@@ -629,14 +590,17 @@ public class TransportPlacementScript : MonoBehaviour
         }
         return -1;
     }
+    // check possible routes and return false if the specified pos would make the bus route impossible if removed
     public static bool GetIfReRoutePossible(Vector3Int RoadPos,int RouteIndex)
     {
         return BusRoutes[RouteIndex].CheckIfRoutePossibleWithEdit(GridCreator.GameGrid, RoadPos);
     }
+    // Update bus route after tile on route edited
     public static void UpdateBusRoute(int RouteIndex )
     {
           BusRoutes[RouteIndex].SetRoute(GridCreator.GameGrid);
     }
+    // loop through buses and remove any buses routes that are cancelled and have concluded moving
     void CheckForCancelledBuses()
     {
         List<BusRoute> DeletedRoutes = new List<BusRoute>();
@@ -646,8 +610,6 @@ public class TransportPlacementScript : MonoBehaviour
             {
                 BusRoutes[i].DestroyRoute();
                 BusRoutes.RemoveAt(i);
-
-
             }
         }
         for (int i = 0; i < DeletedRoutes.Count; i++)
@@ -655,7 +617,7 @@ public class TransportPlacementScript : MonoBehaviour
             BusRoutes.Remove(DeletedRoutes[i]);
         }
         NPChandler.UpdateNPCRoutesAfterBusRoutesRemoval(DeletedRoutes);
-    }
+    } 
     public static bool CheclIfTrainStationInUse(PlacedBuilding Station)
     {
         for(int i = 0; i < TrainRoutes.Count; i++)
@@ -668,6 +630,7 @@ public class TransportPlacementScript : MonoBehaviour
         }
         return false;
     }
+    // loop through bus routes and return true if any use the bus stop 
     public static bool CheckIfBusStopInUse(Vector3Int BusStopPos)
     {
         for(int i = 0; i < BusRoutes.Count; i++)
@@ -681,7 +644,8 @@ public class TransportPlacementScript : MonoBehaviour
 
         }
         return false;
-    }
+    } 
+    // do handling for train routes
     void DoTrainRoutes()
     {
         CheckForNewRoutes();
@@ -689,6 +653,7 @@ public class TransportPlacementScript : MonoBehaviour
         DoMovement();
         CheckForcancelledTrains();
     }
+    // hide NPCs sprites who are on a bus
     void CheckForJustReactivatedBuses()
     {
         for (int i = 0; i < BusRoutes.Count; i++) {
@@ -699,17 +664,7 @@ public class TransportPlacementScript : MonoBehaviour
             }
         }
     }
-    void CheckForJustFinishedBuses()
-    {
-        for (int i = 0; i < BusRoutes.Count; i++)
-        {
-            if (BusRoutes[i].GetIfJustFinished())
-            {
-                NPChandler.HideNPCSBoardingBus(BusRoutes[i].GetNPCIDs());
-                BusRoutes[i].SetJustFinished(false);
-            }
-        }
-    }
+    // do all handling for bus routes
     void DoBusRoutes()
     {
         CheckForNewBusRoutes();
@@ -721,6 +676,7 @@ public class TransportPlacementScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //check trains and buses every once in a while using as a counter to stop it occuring to often every single frame
         AmountCheckCounter++;
         if (AmountCheckCounter >= CheckFrame)
         {
@@ -728,10 +684,8 @@ public class TransportPlacementScript : MonoBehaviour
             DoTrainRoutes();
             DoBusRoutes();
         }
-
-        
-      //  CheckForMouseClick();
     }
+    // clear all train routes to prevent errors when game closed
     public void ClearTrainRoutes()
     {
         if (TrainRoutes != null)
@@ -746,6 +700,7 @@ public class TransportPlacementScript : MonoBehaviour
             TrainRoutes.Clear();
         }
     }
+    // clear all bus routes to prevent errors when game closed
     public void ClearBusRoutes()
     {
         if (BusRoutes != null)
@@ -760,6 +715,7 @@ public class TransportPlacementScript : MonoBehaviour
             BusRoutes.Clear();
         }
     }
+    // destroy train route information to ensure errors do not occur upon removal
     private void OnDestroy()
     {
         ClearTrainRoutes();

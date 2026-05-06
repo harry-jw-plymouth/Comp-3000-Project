@@ -84,10 +84,7 @@
     <Compile Include="Assets\Scripts\Classes\DbModels\SaveMapModel.cs" />
     <Compile Include="Assets\Scripts\Classes\DbModels\SaveBuildingModel.cs" />
     <Compile Include="Assets\Scripts\Classes\Route.cs" />
-    <Compile Include="Assets\Scripts\Classes\SettingsManager.cs" />
-    <Compile Include="Assets\Scripts\SaveItemScript.cs" />
     <Compile Include="Assets\Scripts\Classes\PowerPlant.cs" />
-    <Compile Include="Assets\Scripts\Special tiles\WaterTile.cs" />
     <Compile Include="Assets\Scripts\ColourBlindCameraController.cs" />
     <Compile Include="Assets\Scripts\Classes\Square.cs" />
     <Compile Include="Assets\Scripts\MainMenuScripts\MainMenuSoundHandler.cs" />

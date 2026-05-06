@@ -133,7 +133,6 @@ public class RatingInfo
             HospitalRating = 100;
             AddReport("A very good amount of hospitals");
         }
-        //Debug.Log("Hospital rating:" + HospitalRating);
     }
     // set value from 0-100 and add report based on how many shops there are relative to NPCs
     public void SetShopRating(int NumberOfNPCs,int NumberOfShops)

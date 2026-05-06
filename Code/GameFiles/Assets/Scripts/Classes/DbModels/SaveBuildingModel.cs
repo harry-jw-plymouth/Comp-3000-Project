@@ -1,6 +1,7 @@
 using SQLite4Unity3d;
 using UnityEngine;
 
+//model for saving models to the database
 [Table ("Building")]
 public class SaveBuildingModel
 {

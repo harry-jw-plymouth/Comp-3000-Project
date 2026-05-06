@@ -39,7 +39,7 @@ Shader "Hidden/ColourBlindFilter"
                 o.uv = v.uv;
                 return o;
             }
-
+            //apply Protanopia filter
             float3 ApplyProtanopia(float3 c)
             {
                 return float3(
@@ -48,7 +48,7 @@ Shader "Hidden/ColourBlindFilter"
                     0.242 * c.g + 0.758 * c.b
                 );
             }
-
+            //apply Deuternopia filter
             float3 ApplyDeuteranopia(float3 c)
             {
                 return float3(
@@ -57,7 +57,7 @@ Shader "Hidden/ColourBlindFilter"
                     0.3   * c.g + 0.7   * c.b
                 );
             }
-
+            //apply tritanopia filter
             float3 ApplyTritanopia(float3 c)
             {
                 return float3(
@@ -66,17 +66,21 @@ Shader "Hidden/ColourBlindFilter"
                     0.475 * c.g + 0.525 * c.b
                 );
             }
-
+            // depending on mode, apply colour filter accordingly
             fixed4 frag (v2f i) : SV_Target
             {
                 float4 col = tex2D(_MainTex, i.uv);
-
+                
                 if (_Mode == 1)
+                {
                     col.rgb = ApplyProtanopia(col.rgb);
-                else if (_Mode == 2)
+                }   
+                else if (_Mode == 2){
                     col.rgb = ApplyDeuteranopia(col.rgb);
-                else if (_Mode == 3)
+                }          
+                else if (_Mode == 3){
                     col.rgb = ApplyTritanopia(col.rgb);
+                }
 
                 return col;
             }

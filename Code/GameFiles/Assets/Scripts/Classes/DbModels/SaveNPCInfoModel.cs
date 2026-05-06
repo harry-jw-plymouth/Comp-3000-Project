@@ -1,6 +1,7 @@
 using UnityEngine;
 using SQLite4Unity3d;
 
+// db table model for saving NPC info to the database
 [Table ("NPCInfo")]
 public class SaveNPCInfoModel
 {

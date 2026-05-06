@@ -1,6 +1,7 @@
 using UnityEngine;
 using SQLite4Unity3d;
 
+//database table for maps in the database
 [Table ("Grid")]
 public class SaveMapModel
 {

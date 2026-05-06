@@ -1,6 +1,8 @@
 using UnityEngine;
 using SQLite4Unity3d;
 
+//model for saving bus routes to database
+// saves record ID, the ID of the save associated, the start x and y Positions and the end x and y positions
 [Table("BusRoutes")]
 public class BusRouteModel
 {

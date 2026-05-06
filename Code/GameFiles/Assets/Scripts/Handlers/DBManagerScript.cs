@@ -146,7 +146,6 @@ public class DBManager : MonoBehaviour
         db.Update(SaveFile);
         return true;
     }
-
     // Update is called once per frame
     void Update()
     {

@@ -1,8 +1,7 @@
 using UnityEngine;
-
-using UnityEngine;
 using UnityEngine.Tilemaps;
 
+// custom rule tile which road and bus stops inherit from allowing them to react to each other as if they are the same tile map
 [CreateAssetMenu(menuName = "Tiles/Road Rule Tile")]
 public class RoadRuleTile : RuleTile
 {
@@ -16,9 +15,6 @@ public class RoadRuleTile : RuleTile
         {
             return !(other is RoadRuleTile);
         }
-
-
-
         return base.RuleMatch(neighbor, other);
     }
 }

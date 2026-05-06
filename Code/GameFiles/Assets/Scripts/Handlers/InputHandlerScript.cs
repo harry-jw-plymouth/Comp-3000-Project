@@ -8,12 +8,12 @@ public class InputHandlerScript : MonoBehaviour
     {
         
     }
-
     // Update is called once per frame
     void Update()
     {
         CheckForInputs();
     }
+    // check key inputs
     void CheckForInputs()
     {
         if (Input.GetKeyDown(KeyCode.Escape))

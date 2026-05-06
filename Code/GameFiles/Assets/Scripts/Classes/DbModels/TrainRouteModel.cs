@@ -1,6 +1,7 @@
 using SQLite4Unity3d;
 using UnityEngine;
 
+// model for saving train routes to db table
 [Table ("TrainRoutes")]
 public class TrainRouteModel
 {

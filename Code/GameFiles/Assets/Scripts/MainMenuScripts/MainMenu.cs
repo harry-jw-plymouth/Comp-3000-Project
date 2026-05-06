@@ -65,6 +65,7 @@ public class MainMenu : MonoBehaviour
         SetupCreditsContents();
         SetupTutorialContents();
     }
+    // set the values of the list for each page of the credits 
     void SetupCreditsContents()
     {
         CreditsPageContents.Add("  UI\\r\\n\r\nBinIcon https://karsiori.itch.io/free-pixel-art-trash-pack-animated Money ICON: https://xflomasterx.itch.io/coins-free\\r\\nCity background for main menu: https://free-game-assets.itch.io/free-city-backgrounds-pixel-art \\r\\nButtons and most UI elements :\\r\\nhttps://crusenho.itch.io/complete-ui-essential-pack \\r\\nGame Font : https://www.1001fonts.com/arcadeclassic-font.html  \\r\\nTiles\\r\\nGrass tiles: https://cardinalzebra.itch.io/grass-road-tiles \\r\\nRoad tiles (edited to have pathway): https://kubigames.itch.io/road-tiles/download/eyJleHBpcmVzIjoxNzczMjY1NTE3LCJpZCI6MzkwMjY1fQ%3d%3d.WJny6AaDSPHNmF3wyioaGVCdeuk%3d \\r\\nWater tile/animation (grass overlay was added by me):https://zrodfects.itch.io/16x16-water-tiles-animated-tileset-1-starter-pack \\r\\n\r\n");
@@ -72,6 +73,7 @@ public class MainMenu : MonoBehaviour
         CreditsPageContents.Add("Music \r\nGameplay background Music : https://www.zapsplat.com/music/game-day-rhythmic-upbeat-electronic-sports-game-instrumental-with-piano-chords-and-synths/ \r\nMain menu music: https://www.epidemicsound.com/music/tracks/e8438738-fb07-479c-97c2-09d60eb04539/ \r\nSound effects\r\nUi Click: https://www.epidemicsound.com/saved/27887854/ \r\nShop place : https://www.epidemicsound.com/sound-effects/tracks/6caad476-d3e4-44ad-afa1-1e9187c46bd0/ \r\nBuilding remove: https://www.epidemicsound.com/sound-effects/search?term=buildinf%20damage \r\nBuilding place: https://www.epidemicsound.com/sound-effects/search?term=Hammer \r\nBus running : https://www.epidemicsound.com/sound-effects/tracks/1d2a910c-11ae-4bb6-b7a1-72519ee4cdc5/ \r\nTrain running: https://www.epidemicsound.com/sound-effects/tracks/fe9bbc35-9158-4743-bdc8-188082a917dd/ \r\nCity AMbience: https://www.epidemicsound.com/sound-effects/tracks/8d637c99-8043-4cbe-a50c-ae2eac8cefaa/ \r\nTile editing : https://www.epidemicsound.com/sound-effects/tracks/4dc122e1-f2c4-4547-a4a7-549008b5eaa3/  \r\n");
         CreditsPageContents.Add("  Sprite splitter : https://ezgif.com/split\\r\\nWebsite for developing sprites : https://www.piskelapp.com/\\r\\nWebsite  for getting sound assets: https://www.epidemicsound.com/ \r\n\r\nHand made assets - Made By Harry Watton \\r\\nUI \\r\\nMain menu game logo, Save slot Block, Power icon, Population icon \\r\\nTiles\\r\\nTrain track tiles ,Bus stop tile (Modified from road mentioned previously)\\r\\nBuildings \\r\\nShopping center, Small house, Medium house, Power plant, Wind farm,Train station\\r\\nOther:\\r\\nBus sprites, Train sprites\\r\\n\\r\\nDeveloper- Harry Watton\\r\\n\\r\\nDeveloped using the Unity 6 engine \\r\\n\r\n");
     }
+    // set the titles and page contents from each page of the tutorial
     void SetupTutorialContents()
     {
         TutorialPageTitles.Add("Tutorial part1: Background");
@@ -104,38 +106,44 @@ public class MainMenu : MonoBehaviour
         TutorialPageContents.Add("The top of the screen while playing shows various icons/ numbers.\r\nThe person icon is next to the display of the cities population\r\nThe coins icon is for the current money\r\nThe  Lightning icon is for the players power reserves\r\nThe Bin icon is for the number of waste the city has built up");
 
     }
-
+    // Return the ID of the current save slot selected (0,1 or 2)
     public static int GetCurrentSaveID()
     {
         return CurrentSaveID;
     }
+    // return true if a new file was created when opening the current game
     public static bool GetIfNewFileCreated()
     {
         return NewFileCreated;
     }
+    // reopen title page
     public void OnFirstPageBackButtonClicked()
     {
         SoundHandler.PlayButtonClickSound();
         SavesCanvas.SetActive(false);
         StartButton.SetActive(true);
     }
+    // on start clicked open main menu selection
     public void OnStartClicked()
     {
         StartButton.SetActive(false);
         SavesCanvas.SetActive(true);
         SoundHandler.PlayButtonClickSound();
     }
+    // on exit button clicked close the game
     public void OnExitClicked()
     {
         SoundHandler.PlayButtonClickSound();
         Application.Quit();
     }
+    // display the contents of the credits list at the index passed to the credits page
     public void DisplayCredits(int Page)
     {
         CreditsText.text = CreditsPageContents[Page];
         CurrentCreditsPage = Page;
 
     }
+    // display the contents of the next position of the credits list to the credits page
     public void OnNextCreditsClicked()
     {
         SoundHandler.PlayButtonClickSound();
@@ -144,6 +152,7 @@ public class MainMenu : MonoBehaviour
             DisplayCredits(CurrentCreditsPage + 1);
         }
     }
+    // display the previous page of credits 
     public void OnPreviousCreditsClicked()
     {
         SoundHandler.PlayButtonClickSound();
@@ -152,6 +161,7 @@ public class MainMenu : MonoBehaviour
             DisplayCredits(CurrentCreditsPage - 1);
         }
     }
+    // display tutorial content of specific page to UI
     public void DisplayTutorial(int Page)
     {
         TutorialTitleText.text = TutorialPageTitles[Page];
@@ -159,6 +169,7 @@ public class MainMenu : MonoBehaviour
         CurrentTutorialPage = Page;
 
     }
+    //  display contnets of next tutorial page
     public void OnNextTutorialClicked()
     {
         SoundHandler.PlayButtonClickSound();
@@ -167,6 +178,7 @@ public class MainMenu : MonoBehaviour
             DisplayTutorial(CurrentTutorialPage + 1);
         }
     }
+    // display contents of previous tutorial page to UI
     public void OnPreviousTutorialClicked()
     {
         SoundHandler.PlayButtonClickSound();
@@ -175,6 +187,7 @@ public class MainMenu : MonoBehaviour
             DisplayTutorial(CurrentTutorialPage - 1);
         }
     }
+    // open tutorial page and call display tutorial to display the first page
     public void OnTutorialButtonClicked()
     {
         SoundHandler.PlayButtonClickSound();
@@ -182,12 +195,14 @@ public class MainMenu : MonoBehaviour
         SavesCanvas.SetActive(false);
         DisplayTutorial(0);
     }
+    // close tutorial page
     public void OnTutorialBackButtonClicked()
     {
         SoundHandler.PlayButtonClickSound();
         TutorialCanvas.SetActive(false);
         SavesCanvas.SetActive(true);
     }
+    // open credits page and call display credits to display the first page
     public void OnCreditsClicked()
     {
         SoundHandler.PlayButtonClickSound();
@@ -195,11 +210,13 @@ public class MainMenu : MonoBehaviour
         SavesCanvas.SetActive(false);
         DisplayCredits(0);
     }
+    // close credits page
     public void OnCreditsBackButtonClicked()
     {
         CreditsCanvas.SetActive(false);
         SavesCanvas.SetActive(true);
     }
+    // Display Save slots menu UI
     public void OnSelectSaveClicked()
     {
         SoundHandler.PlayButtonClickSound();
@@ -207,6 +224,7 @@ public class MainMenu : MonoBehaviour
         SelectableSavesCanvas.SetActive(true);
         ShowSaves();
     }
+    // load existing save file attached to the save index passed
     public void LoadSaveFile(int Save)
     {
         NewFileCreated = false;
@@ -214,18 +232,22 @@ public class MainMenu : MonoBehaviour
         CurrentGameMode=dbmanager.GetSaveTypeForID(Save);
         SceneManager.LoadScene("GameScene");
     }
+    // Open save file in save slot 1
     public void OnSave1Click()
     {
         LoadSaveFile(0);
     }
+    // Open save file in save slot 2
     public void OnSave2Click()
     {
         LoadSaveFile(1);
     }
+    // Open save file in save slot 3
     public void OnSave3Click()
     {
         LoadSaveFile(2);
     }
+    //display saves to save slot UI
     public void ShowSaves()
     {
         SaveObject1.SetActive(false);
@@ -271,14 +293,17 @@ public class MainMenu : MonoBehaviour
             SaveObjectButton3.SetActive(true);
         }
     }
+    // return game mode selected,0 is sand box, 1 is standard
     public static int GetCurrentGameMode()
     {
         return CurrentGameMode;
     }
+    // return world size,0 is small,1 is medium,2 is large
     public static int GetCurrentWorldSize()
     {
         return WorldType;
     }
+    // create a new save file then load into the game if creating save was succesful
     public void OnNewFileCreateButtonClicked()
     {
         SoundHandler.PlayButtonClickSound();
@@ -287,6 +312,8 @@ public class MainMenu : MonoBehaviour
         string GameModeSelected = GameModeSelection.options[GameModeSelection.value].text;
         int GameSizeSelected = GameSizeSelection.value;
         WorldType = GameSizeSelected;
+
+        // debugging code
         Debug.Log("FileName:" +FileName);
         Debug.Log("Game mode:" +GameModeSelected);
         if (GameSizeSelected == 0)
@@ -317,20 +344,20 @@ public class MainMenu : MonoBehaviour
                 NewFileCreated = true;
                 CurrentSaveID = SaveID;
                 SceneManager.LoadScene("GameScene");
-
             }
         }
     }
+    //  clear and reset all save slots
     public void OnClearButtonClicked()
     {
         SoundHandler.PlayButtonClickSound();
         DBManager.ResetSaves();
         ShowSaves();
     }
+    // display UI for creating a new save files
     public void OnCreateNewButtonClicked()
     {
         SoundHandler.PlayButtonClickSound();
-        Debug.Log("Create new clicked");
         SaveObject1.SetActive(false);
         SaveObject2.SetActive(false);
         SaveObject3.SetActive(false);
@@ -342,23 +369,8 @@ public class MainMenu : MonoBehaviour
         ClearSavesButton.SetActive(false);
 
         NewObjectButton.SetActive(true);
-
     }
-
-    public void OnGenerateNewClicked()
-    {
-        SoundHandler.PlayButtonClickSound();
-        //var Parmeters=new LoadSceneParameters(LoadSceneMode.Single)
-        GameSaveID = -1;
-
-        if (GameSaveID == -1)
-        {
-            DBManager.CreateNewFile("New File","",false,10,10000,10000,0);
-     
-        }
-        SceneManager.LoadScene("GameScene");
-        
-    }
+    // close save selection and go to menu page
     public void OnBackButtonClicked()
     {
         SoundHandler.PlayButtonClickSound();
@@ -370,7 +382,7 @@ public class MainMenu : MonoBehaviour
         SaveObject3.SetActive(false);
         SaveObjectButton1.SetActive(false);
     }
-
+    // destroy data of all train routes
     public void ClearTrainRoutes()
     {
         if (TransportPlacementScript.TrainRoutes != null)
@@ -385,6 +397,7 @@ public class MainMenu : MonoBehaviour
             TransportPlacementScript.TrainRoutes.Clear();
         }
     }
+    // destroy data of all bus routes
     public void ClearBusRoutes()
     {
         if (TransportPlacementScript.BusRoutes != null)
@@ -399,6 +412,7 @@ public class MainMenu : MonoBehaviour
             TransportPlacementScript.BusRoutes.Clear();
         }
     }
+    // make sure old data is removed before opening a new game to prevent errors 
     public void CleanupBeforeOpeningSave()
     {
         ClearTrainRoutes();

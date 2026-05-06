@@ -53,7 +53,6 @@ public class GameStatusScript : MonoBehaviour
         Debug.Log("No save file found, giving default waste");
         return 0;
     }
-
     // increase waste amount depending on waste produced by buildings and decrease it based on wastage facilities in operation
     void UpdateWasteAmount()
     {

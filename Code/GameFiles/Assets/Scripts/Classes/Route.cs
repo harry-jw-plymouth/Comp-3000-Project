@@ -416,8 +416,6 @@ public class Route
                 RoutePositions.Reverse();
 
                 return;
-
-                
             }
 
             Vector3Int New = new Vector3Int();
@@ -427,23 +425,18 @@ public class Route
             if (GridCreator.GameGrid[Current.x + 1, Current.y].Contains == 4)
             {
                 NewChecks.Add(new Vector3Int(Current.x + 1, Current.y, 0));
-                // PositionsToCheck.Add(new Vector3Int(CurrentPos.x + 1, CurrentPos.y, 0));
-                // AlreadyAdded.Add(new Vector3Int(CurrentPos.x + 1, CurrentPos.y, 0));
             }
             if (GridCreator.GameGrid[Current.x - 1, Current.y].Contains == 4)
             {
                 NewChecks.Add(new Vector3Int(Current.x - 1, Current.y, 0));
-                // AlreadyAdded.Add(new Vector3Int(CurrentPos.x - 1, CurrentPos.y, 0));
             }
             if (GridCreator.GameGrid[Current.x, Current.y + 1].Contains == 4)
             {
                 NewChecks.Add(new Vector3Int(Current.x, Current.y + 1, 0));
-                // AlreadyAdded.Add(new Vector3Int(CurrentPos.x, CurrentPos.y + 1, 0));
             }
             if (GridCreator.GameGrid[Current.x, Current.y - 1].Contains == 4)
             {
                 NewChecks.Add(new Vector3Int(Current.x, Current.y - 1, 0));
-                //  AlreadyAdded.Add(new Vector3Int(CurrentPos.x, CurrentPos.y - 1, 0));
             }
             for (int i = 0; i < NewChecks.Count; i++)
             {

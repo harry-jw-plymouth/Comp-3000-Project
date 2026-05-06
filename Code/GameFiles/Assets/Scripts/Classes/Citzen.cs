@@ -63,7 +63,7 @@ public class Citzen
     public Vector3Int TargetBusStop;
 
     
-
+    // constructor
     public Citzen(Vector3 Pos,int ID,GameObject sprite)
     {
         NPCSprite = sprite;
@@ -74,70 +74,35 @@ public class Citzen
         CurrentBusStop = new Vector3Int(-1, -1, -1);
         TargetBusStop = new Vector3Int(-1, -1, -1);
     }
+    //stop displaying NPC sprite
     public void HideSprite()
     {
         NPCSprite.GetComponent<SpriteRenderer>().enabled = false;
     }
-    public void SetLastPos(Vector3 Pos)
-    {
-        LastFramePos=Pos;
-    }
-    public void UpdateStuckCount(int Change)
-    {
-        if(LastFramePos.x==Position.x && LastFramePos.y == Position.y)
-        {
-            StuckCount += Change;
-        }
-        else
-        {
-            StuckCount= 0;
-        }
-        SetLastPos(Position);
-        
-    }
-    public void ResetStuckNPC()
-    {
-        CurrentStation= null;
-        TargetStation= null;
-
-        CurrentBusStop=new Vector3Int(-1,-1, -1);
-        TargetBusStop=new Vector3Int(-1,-1,-1);
-        SetCurrentAction(-1);
-
-    }
-    public bool CheckIfStuck()
-    {
-        if (StuckCount > 200)
-        {
-            return true;
-           
-        }
-        return false;
-    }
-    public void ResetStuckCount()
-    {
-        StuckCount = 0;
-    }
+    // return NPC route positions
     public List<Vector3> GetRoutePositions()
     {
         return RoutePositions; 
     }
+    // return the citzen ID
     public int GetCitzenID()
     {
         return CitzenID;
     }
+    // destroy NPC sprite to prevent errors when NPC removed
     public void RemoveNPCSprite()
     {
         Object.Destroy(NPCSprite);
     }
+    // set index of the NPC home position
     public void SetHomeIndex(int Index)
     {
         HomeIndex = Index;
     }
+    // do handling for when an NPC gets off a train
     public void GetOffTrain()
     {
-     //   Debug.Log("Npc moved to target station at "+ TargetStation.GetBuildingPosAsInt());
-     //   Debug.Log("Start station was:"+CurrentStation.GetBuildingPosAsInt());
+
         Position = TargetStation.GetBuildingPos();
         SetCurrentAction(0);
         CurrentStation = null;
@@ -151,6 +116,7 @@ public class Citzen
             NeedsUpdateAfterTravel = false;
         }
     }
+    // do handling for when an NPC gets off a bus
     public void GetOffBus()
     {
        // Debug.Log("Get off bus called");
@@ -171,11 +137,13 @@ public class Citzen
             NeedsUpdateAfterTravel = false;
         }
 
-    }
+    } 
+    // return index for NPC home positiom
     public int GetHomeIndex()
     {
         return HomeIndex;
     }
+    // return true if NPC in a building
     public bool GetIfInBuilding()
     {
         if (InBuilding > 0)
@@ -184,6 +152,7 @@ public class Citzen
         }
         return false;
     }
+    // calculate NPC happiness based on various factors
     public int CalculateHappiness()
     {
         int Happiness = 100;
@@ -202,31 +171,37 @@ public class Citzen
         }
         return Happiness;
     }
-
+    // get NPC happiness 
     public int GetHappiness()
     {
         return Happiness;
     }
+    // Set NPC boredom to new value
     public void AdjustBoredom(int Adjustment)
     {
         Boredom += Adjustment;
     }
+    // get NPC current boredom
     public int GetBoredom()
     {
         return Boredom;
     } 
+    // increase NPC by a random amount
     public void IncreaseBoredom(int Max)
     {
         Boredom += (int)Random.Range(0, Max);
     }
+    // return whether an NPC just entered a building
     public bool GetIfJusteEnteredBuilding()
     {
         return JustEnteredBuilding;
     }
+    // return the poositon of the building the NPC wants to go inside
     public Vector3 GetPosOfBuildingToEnter()
     {
         return BuildingInsidePos;
     }
+    // increase NPC sickness to a random amount
     public void IncreaseSickness(int Max,int AirQaulity)
     {
         
@@ -252,48 +227,58 @@ public class Citzen
             Sickness += 5;
         }
     }
+    // get NPC sickness
     public int GetSickness()
     {
         return Sickness;
     }
+    // increase NPC tiredness by a somewhat random amount
     public void IncreaseTiredNess()
     {
         TiredNess += (int)Random.Range(0, 2);
     }
+    // set NPC home position
     public void SetHome(Building home)
     {
         Home =home;
     }
+    // Get NPC Home 
     public Building GetHome()
     {
         return Home;
     }
+    // Get NPC Home position
     public Vector3 GetHomePos()
     {
         return HomePosition;
     }
+    // Set home positon for NPC
     public void SetHomePos(Vector3 Pos)
     {
         HomePosition = Pos;
     }
+    // update status of whether NPC is homeless
     public void UpdateHomeStatus(bool NewStatus)
     {
         IsHomeLess = NewStatus;
     }
+    // remove data for NPC Home 
     public void RemoveHomeData()
     {
         Home = null;
         HomePosition = new Vector3(-1, -1, -1);
     }
+    // get if NPC is homeless
     public bool GetIfHomeless()
     {
         return IsHomeLess;
     }
+    //  set the building currently targetted by NPC to enter
     public void SetTargetBuilding(Building target)
     {
-        BuildingCurrentlyTargetting = target;
-        
+        BuildingCurrentlyTargetting = target;       
     }
+    // get tiles surrounding a certain tile
     public List<Vector3Int> GetSurroundingTiles(Vector3Int CurrentPos)
     {
         List<Vector3Int> Positions = new List<Vector3Int>();
@@ -315,36 +300,7 @@ public class Citzen
         }
         return Positions;
     }
-    /*
-    public List<Vector3Int>CheckForTrainStation(int xChange,int yChange,GridCreator GridHandler,Vector3Int Current)
-    {
-        List<Vector3Int>NewChecks=new List<Vector3Int>();
-        int CurrentBuildingPos = GridHandler.GetBuildingClicked(new Vector3Int(Current.x+xChange,Current.y+yChange,0));
-        if (CurrentBuildingPos != -1)
-        {
-            PlacedBuilding CurrentBuilding = GridCreator.PlacedBuildings[CurrentBuildingPos];
-            if (CurrentBuilding.GetIfTrainStation())
-            {
-                List<Route> Routes = TransportPlacementScript.GetAllTrainRoutesForStation(CurrentBuilding);
-                for (int i = 0; i < Routes.Count; i++)
-                {
-                    if (CurrentBuilding == Routes[i].StartStation)
-                    {
-                    //    NewChecks.Add(new Vector3Int(Current.x +xChange, Current.y+yChange, 0));
-                        NewChecks.Add(new Vector3Int((int)Routes[i].EndStation.GetBuildingPos().x, (int)Routes[i].EndStation.GetBuildingPos().y, 0));
-
-                    }
-                    else if (CurrentBuilding == Routes[i].EndStation)
-                    {
-                        NewChecks.Add(new Vector3Int((int)Routes[i].StartStation.GetBuildingPos().x, (int)Routes[i].StartStation.GetBuildingPos().y, 0));
-                    }
-                }
-
-            }
-        }
-        return NewChecks;
-    }
-    */
+    // check if position is a building and return true if it is also a train station
     public List<Vector3Int> CheckForTrainStation(int xChange,int yChange,GridCreator GridHandler,Vector3Int Current)
     {
         List<Vector3Int> newChecks = new List<Vector3Int>();
@@ -355,12 +311,16 @@ public class Citzen
             return newChecks;
 
         if (!GridCreator.PlacedBuildings[buildingIndex].GetIfTrainStation())
+        {
             return newChecks;
+        }
+            
 
         newChecks.Add(new Vector3Int(Current.x + xChange, Current.y + yChange, 0));
 
         return newChecks;
     }
+    // debugging code for displaying a route
     public void ShowRoute()
     {
         for (int i = 0; i < RoutePositions.Count; i++)
@@ -373,22 +333,22 @@ public class Citzen
             else
             {
               //  Debug.Log(" Route Pos " + i + ":" + RoutePositions[i]);
-            }
-                
+            }          
         }
     }
+    // reactivate sprite for NPC
     public void ReDisplaySprite()
     {
         NPCSprite.GetComponent<SpriteRenderer>().enabled = true;
     }
+    // return if square is valid for NPC BFS traversal. blocks water, train tracks and buildings
     public bool GetIfSquareValid(Vector3Int Current)
     {
         return GridCreator.GameGrid[Current.x, Current.y].Contains != 4 &&
                 GridCreator.GameGrid[Current.x, Current.y].Contains != 2 &&
                 GridCreator.GameGrid[Current.x , Current.y].Contains != 3;
-
     }
-  
+    // Temporary version of set route BFS code used for debugging
     public bool SetRouteNew(Vector3Int Target, Square[,] Grid, Tilemap GameMap,GridCreator GridHandler)
     {
         Debug.Log("Setting new route");
@@ -467,8 +427,10 @@ public class Citzen
         Debug.Log("Route not found");
         return false;
     }
-
-
+    // Breadth first search code which constructs a route for NPC to a target
+    // contains commented out debugging code
+    // return true if route succesful, false if no route could be made 
+    // when setting route, travel routes seen as fast travel, with train stations and bus stops adding the tiles around the corresponding bus stops and train stations
     public bool SetRoute(Vector3Int Target, Square[,]Grid, Tilemap GameMap,GridCreator GridHandler)
     {
         Queue<Vector3Int> ToCheck = new Queue<Vector3Int>();
@@ -492,10 +454,8 @@ public class Citzen
                 ToCheck.Enqueue(TilesAroundStart[i]);
                 AlreadyVisited.Add(TilesAroundStart[i]);
                 CameFrom[TilesAroundStart[i]] = StartPos;
-            }
-                
+            }               
         }
-
         while (ToCheck.Count > 0)
         {
             Vector3Int Current = ToCheck.Dequeue();
@@ -605,21 +565,18 @@ public class Citzen
                     NexPositionOnRoute = RoutePositions.Count - 1;
                 }
 
+                // handling for failed route
                 if (RoutePositions.Count==0)
                 {
                     return false;
                 }
-
                 return true;
-
-
             }
 
             Vector3Int New = new Vector3Int();
             List<Vector3Int> NewChecks = new List<Vector3Int>();
             
             //add surrounding tiles
-
             // check right tile
             if(GetIfInBounds(Current.x + 1, Current.y))
             {
@@ -642,8 +599,7 @@ public class Citzen
                 }
                 
             }
-           
-
+          
             //check left tile
             if (GetIfInBounds(Current.x - 1, Current.y))
             {
@@ -689,7 +645,6 @@ public class Citzen
                 }
             }
            
-
             //check below tile
             if (GetIfInBounds(Current.x, Current.y - 1))
             {
@@ -713,6 +668,7 @@ public class Citzen
                 }
             }
            
+            // check for new tiles and add them to list to be checked
             for (int i = 0; i < NewChecks.Count; i++)
             {
                 if (!AlreadyVisited.Contains(NewChecks[i]))
@@ -722,57 +678,66 @@ public class Citzen
                     CameFrom[NewChecks[i]] = Current;
                 }
             }
-
-
         }
       //  Debug.Log("Route could not be set for NPC"+ CitzenID);
         return false;
     }
+    // return the bus stop the NPC is cuurrently at/moving too
     public Vector3Int GetCurrentBusStop()
     {
         return CurrentBusStop;
     }
+    // return bus stop the NPC is currently targetting
     public Vector3Int GetTargetBusStop()
     {
         return TargetBusStop;
     }
-    
+    // return current world positon of NPC
     public Vector3 GetPosition()
     {
         return Position;
     }
+    // get current action for NPC
     public int GetCurrentAction()
     {
         return CurrentAction;
     }
+    // set current action for NPC
     public void SetCurrentAction(int NewAction)
     {
         CurrentAction = NewAction;
     }
+    // set target for movement for NPC
     public void SetMovementTarget(Vector3 Target)
     {
         MovementTarget = Target;
     }
+    // Get counter for checking when/frequency of NPC movement 
     public int GetMoveCounter()
     {
         return MoveCounter;
     }
+    // update counter for checking when/frequency of NPC movement 
     public void UpdateCounter()
     {
         MoveCounter++;
     }
+    // reset counter for checking when/frequency of NPC movement 
     public void ResetCounter()
     {
         MoveCounter = 0;
     }
+    // set whether the target position is a building
     public void SetIfTargetIsBuilding(bool Target)
     {
         TargetIsbuilding = Target;
     }
+    // return whether the target position is a building
     public bool GetIfTargetIsBuilding()
     {
         return TargetIsbuilding;
     }
+    // when building removed, handle NPC to ensure NPC is not in a building that doesnt exist
     public void ForceLeaveBuidlingOnBuildingRemoval()
     {
         NPCSprite.GetComponent<SpriteRenderer>().enabled = true;
@@ -785,6 +750,7 @@ public class Citzen
 
      //   ResetBuildingData();
     }
+    // spend time in Building, when time in building finished update NPC action
     public void SpendTImeInBuilding(int AirQaulity)
     {
         IncreaseSickness(2,AirQaulity);
@@ -799,21 +765,24 @@ public class Citzen
 
         }
     }
+    // set requires data when NPC leaves a building 
     public void ResetBuildingData()
     {
         buildingInsideIndex = -1;
         JustLeftBuilding = false;
         BuildingInsidePos = new Vector3(-1, -1, -1);
-
     }
+    // adjust how tired the NPC is
     public void AdjustTiredness(int Change)
     {
         TiredNess += Change;
     }
+    // return how tired the NPC is
     public int GetTiredNess()
     {
         return TiredNess;
     }
+    // adjust NPC Stats for being at home, When being at home long enough, update action so NPC continues
     public void SpendTImeAtHome()
     {
         IncreaseBoredom(1);
@@ -835,6 +804,7 @@ public class Citzen
 
         }
     }
+    // adjust NPC Stats for being in hospital, When being in hospital long enough update action so NPC continues
     public void SpendTImeAtHospital()
     {
         IncreaseBoredom(2);
@@ -856,9 +826,9 @@ public class Citzen
             {
                 Sickness = 0;
             }
-
         }
     }
+    // adjust NPC Stats for being in entertainment, When being in entertainment long enough update action so NPC continues
     public void PartakeInEnterainment(int AirQualityRating)
     {
       //  Debug.Log("Partaking in entertainment");
@@ -866,7 +836,6 @@ public class Citzen
         IncreaseSickness(2,AirQualityRating);
         IncreaseTiredNess();
 
-        // Debug.Log("NPC at home");
         InBuilding--;
         if (InBuilding == 0)
         {
@@ -882,21 +851,26 @@ public class Citzen
             {
                 Boredom = 0;
             }
-
         }
     }
+    // randomly determine time an NPC will spend in a building based on the buildings upper and lower time bound values
     public int GetTimeInBuilding(int LowerBound,int UpperBound)
     {
         return UnityEngine.Random.Range(LowerBound, UpperBound); 
     }
+    // return if a square is within the bounds of the map to ensure out of bounds errors do not occur
     public bool GetIfInBounds(int XPos,int YPos)
     {
         return XPos>=0 && XPos<GridCreator.WIDTH && YPos>=0 && YPos<GridCreator.HEIGHT;
     }
+    // Move NPC towards target on route 
+    // each time it is called, move NPC closer to the next position on route, when a route position met, set movement target to next position on route
+    // when final target reached, set NPC actions accordingly
+    // contains debugging code commented out 
     public void MoveTowardsTargetOnRoute(GridCreator GridHandler,int AirQaulity)
     {
 
-        Debug.Log("NPC " + CitzenID + " is moving towards target on route");
+        //Debug.Log("NPC " + CitzenID + " is moving towards target on route");
 
         IncreaseBoredom(1);
         IncreaseSickness(1,AirQaulity);
@@ -907,15 +881,16 @@ public class Citzen
             return;
         }    
 
-
      //   Debug.Log("Nex position:" + NexPositionOnRoute);
       //  Debug.Log("Route length" + RoutePositions.Count);
         if(Position.y > RoutePositions[NexPositionOnRoute].y)
         {
+            // move down
             Position.y = Mathf.Max(Position.y - MovementSpeed, RoutePositions[NexPositionOnRoute].y);
         }
         else
         {
+            // move up
             Position.y = Mathf.Min(Position.y + MovementSpeed, RoutePositions[NexPositionOnRoute].y);
         }
         if (Position.x > RoutePositions[NexPositionOnRoute].x)
@@ -978,12 +953,10 @@ public class Citzen
              //       Debug.Log("NPC " + CitzenID + " is now selecting a new route");
                     SetCurrentAction(-1);
                 }
-
             }
             else
             {
                 //Next target
-
                 int TempCurrentIndex = NexPositionOnRoute;
                 if (TempCurrentIndex == 0)
                 {
@@ -1013,7 +986,7 @@ public class Citzen
 
 
                     // check for train station
-                    int BuildingCheckIndex = GridHandler.GetBuildingClicked(GridCreator.GameMap.WorldToCell((RoutePositions[TempCurrentIndex])));
+                int BuildingCheckIndex = GridHandler.GetBuildingClicked(GridCreator.GameMap.WorldToCell((RoutePositions[TempCurrentIndex])));
                 if (BuildingCheckIndex != -1)
                 {
                     PlacedBuilding Station = GridCreator.PlacedBuildings[BuildingCheckIndex];
@@ -1022,6 +995,7 @@ public class Citzen
                         if (TempCurrentIndex + 1 < RoutePositions.Count)
                         {
                             // Debug.Log("NPC in train station");
+                            // NPC is in train station
                             int NextBuildingCheckIndex = GridHandler.GetBuildingClicked(GridCreator.GameMap.WorldToCell((RoutePositions[NexPositionOnRoute + 1])));
                             if (NextBuildingCheckIndex != -1)
                             {
@@ -1046,7 +1020,6 @@ public class Citzen
                                     {
                                         //      NexPositionOnRoute++; 
                                     }
-
                                 }
                                 else
                                 {
@@ -1057,9 +1030,7 @@ public class Citzen
                             {
                                 // NexPositionOnRoute++;
                             }
-                        }
-                       
-
+                        }                      
                     }
                     else
                     {
@@ -1086,50 +1057,48 @@ public class Citzen
                                 SetCurrentAction(7);
                                 NexPositionOnRoute++;
                                 return;
-
                             }
                             else
                             {
                                 //       NexPositionOnRoute++;
                             }
-
                         }
                         else
                         {
                             //    NexPositionOnRoute++;
                         }
-                    }
-                    
+                    }                   
                 }
                 NexPositionOnRoute++;                    
             }
         }
     }
+    // temporary code used for debugging
     public void MoveTowardsTargetOnRouteNew(GridCreator GridHandler, int AirQaulity)
     {
-        Debug.Log("NPC " + CitzenID + " is moving towards target on route");
+        //Debug.Log("NPC " + CitzenID + " is moving towards target on route");
 
         IncreaseBoredom(1);
         IncreaseSickness(1,AirQaulity);
         IncreaseTiredNess();
         if (Position.y > RoutePositions[NexPositionOnRoute].y)
         {
-            Debug.Log("NPC " + CitzenID + " is moving down");
+          //  Debug.Log("NPC " + CitzenID + " is moving down");
             Position.y = Mathf.Max(Position.y - MovementSpeed, RoutePositions[NexPositionOnRoute].y);
         }
         else
         {
-            Debug.Log("NPC " + CitzenID + " is moving up");
+          //  Debug.Log("NPC " + CitzenID + " is moving up");
             Position.y = Mathf.Min(Position.y + MovementSpeed, RoutePositions[NexPositionOnRoute].y);
         }
         if (Position.x > RoutePositions[NexPositionOnRoute].x)
         {
-            Debug.Log("NPC " + CitzenID + " is moving left");
+        //    Debug.Log("NPC " + CitzenID + " is moving left");
             Position.x = Mathf.Max(Position.x - MovementSpeed, RoutePositions[NexPositionOnRoute].x);
         }
         else
         {
-            Debug.Log("NPC " + CitzenID + " is moving right");
+          //  Debug.Log("NPC " + CitzenID + " is moving right");
             Position.x = Mathf.Min(Position.x + MovementSpeed, RoutePositions[NexPositionOnRoute].x);
         }
         NPCSprite.transform.position = Position;
@@ -1148,23 +1117,23 @@ public class Citzen
                     NPCSprite.GetComponent<SpriteRenderer>().enabled = false;
                     if (BuildingCurrentlyTargetting.IsHome)
                     {
-                        Debug.Log("NPC " + CitzenID + " is now home");
+                        //Debug.Log("NPC " + CitzenID + " is now home");
                         SetCurrentAction(2);
                     }
                     else if (BuildingCurrentlyTargetting.GetIfIsHospital())
                     {
-                        Debug.Log("NPC " + CitzenID + " is now partaling in hospital");
+                        //Debug.Log("NPC " + CitzenID + " is now partaling in hospital");
                         SetCurrentAction(3);
                     }
                     else if (BuildingCurrentlyTargetting.GetIfEntertainment())
                     {
-                        Debug.Log("NPC " + CitzenID + " is now partaling in entertainment");
+                        //Debug.Log("NPC " + CitzenID + " is now partaling in entertainment");
                         SetCurrentAction(4);
                     }
                 }
                 else
                 {
-                        Debug.Log("NPC " + CitzenID + " is now selecting a new action");
+                    //Debug.Log("NPC " + CitzenID + " is now selecting a new action");
                     SetCurrentAction(-1);
                 }
 
@@ -1176,130 +1145,13 @@ public class Citzen
             }
         }
     }
-
-    /*
-    public void MoveTowardsTargetOnRouteNew(GridCreator GridHandler, int AirQaulityRating)
-    {
-
-
-
-        IncreaseBoredom(1);
-        IncreaseSickness(2,AirQaulityRating);
-        IncreaseTiredNess();
-
-        if (RoutePositions == null || RoutePositions.Count == 0)
-        {
-            SetCurrentAction(-1);
-            return;
-        }
-
-        if (NexPositionOnRoute < 0 || NexPositionOnRoute >= RoutePositions.Count)
-        {
-            SetCurrentAction(-1);
-            return;
-        }
-
-        //   Debug.Log("Nex position:" + NexPositionOnRoute);
-        //  Debug.Log("Route length" + RoutePositions.Count);
-        if (Position.y > RoutePositions[NexPositionOnRoute].y)
-        {
-            Position.y = Mathf.Max(Position.y - MovementSpeed, RoutePositions[NexPositionOnRoute].y);
-        }
-        else
-        {
-            Position.y = Mathf.Min(Position.y + MovementSpeed, RoutePositions[NexPositionOnRoute].y);
-        }
-        if (Position.x > RoutePositions[NexPositionOnRoute].x)
-        {
-            //move left 
-            NPCSprite.GetComponent<SpriteRenderer>().flipX = true;
-            Position.x = Mathf.Max(Position.x - MovementSpeed, RoutePositions[NexPositionOnRoute].x);
-        }
-        else
-        {
-            //move right
-            NPCSprite.GetComponent<SpriteRenderer>().flipX = false;
-            Position.x = Mathf.Min(Position.x + MovementSpeed, RoutePositions[NexPositionOnRoute].x);
-        }
-        NPCSprite.transform.position = Position;
-        if (Vector3.Distance(Position, RoutePositions[NexPositionOnRoute]) < 0.01f)
-        {
-            if (NexPositionOnRoute == RoutePositions.Count - 1)
-            {
-                Vector3Int cell = GridCreator.GameMap.WorldToCell(Position);
-                
-                //Final target reached
-                //Debug.Log("NPC With ID: " + CitzenID + " Finished route at " + RoutePositions[RoutePositions.Count-1]);
-                CurrentBusStop = new Vector3Int(-1, -1, -1);
-                TargetBusStop = new Vector3Int(-1, -1, -1);
-
-                RoutePositions = new List<Vector3>();
-                MovementTarget = new Vector3();
-                if (TargetIsbuilding)
-                {
-
-                    JustEnteredBuilding = true;
-                    SetCurrentAction(1);
-                    TargetIsbuilding = false;
-                    InBuilding = GetTimeInBuilding(BuildingCurrentlyTargetting.GetLowerBound(), BuildingCurrentlyTargetting.GetUpperBound());
-                    NPCSprite.GetComponent<SpriteRenderer>().enabled = false;
-                    if (BuildingCurrentlyTargetting.IsHome)
-                    {
-                        //       Debug.Log("NPC " + CitzenID + " is now home");
-                        SetCurrentAction(2);
-                    }
-                    else if (BuildingCurrentlyTargetting.GetIfIsHospital())
-                    {
-                        //    Debug.Log("NPC " + CitzenID + " is now partaling in hospital");
-                        SetCurrentAction(3);
-                    }
-                    else if (BuildingCurrentlyTargetting.GetIfEntertainment())
-                    {
-                        //       Debug.Log("NPC " + CitzenID + " is now partaling in entertainment");
-                        SetCurrentAction(4);
-                    }
-                }
-                else
-                {
-                    //       Debug.Log("NPC " + CitzenID + " is now selecting a new route");
-                    SetCurrentAction(-1);
-                }
-
-            }
-            else
-            {
-                //Next target
-
-                int TempCurrentIndex = NexPositionOnRoute;
-                if (TempCurrentIndex == 0)
-                {
-                 //   ShowRoute();
-                }
-
-                else if (TempCurrentIndex == RoutePositions.Count - 1)
-                {
-
-                    //          Debug.Log("NPC " + CitzenID + "Has reached the next point on their route\n Previous position:" + RoutePositions[TempCurrentIndex - 1] + " \n" +
-                    //        " position just arrived at: " + RoutePositions[TempCurrentIndex] +
-                    //      "\n Next position : N/A");
-                }
-                else
-                {
-                    //             Debug.Log("NPC " + CitzenID + "Has reached the next point on their route\n Previous position:" + RoutePositions[TempCurrentIndex - 1] + " \n" +
-                    //           " position just arrived at: " + RoutePositions[TempCurrentIndex] +
-                    //         "\n Next position : " + RoutePositions[TempCurrentIndex + 1]);
-                }  
-              
-                NexPositionOnRoute++;
-            }
-        }
-    }*/
+    // old movement code, used before BFS routing was implemented
     public void MovetowardsTarget(int AirQaulity)
     {
         IncreaseBoredom(1);
         IncreaseSickness(1,AirQaulity);
         IncreaseTiredNess();
-     //   Debug.Log("Moving");
+        // move up
         if (Position.y > MovementTarget.y)
         {
             Position.y = Mathf.Max(Position.y - MovementSpeed, MovementTarget.y);
@@ -1349,9 +1201,6 @@ public class Citzen
             {
                 SetCurrentAction(-1);
             }
-               
-
         }
     }
-    
 }

@@ -7,6 +7,7 @@ public class MainMenuSoundHandler : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        // play background ost and set it to loop
         MainMenuBackgroundOST.Play();
         MainMenuBackgroundOST.loop = true;
     }
@@ -16,7 +17,7 @@ public class MainMenuSoundHandler : MonoBehaviour
     {
         
     }
-
+    // play sound effect for button clicks
     public void PlayButtonClickSound()
     {
         ButtonClick.Play();

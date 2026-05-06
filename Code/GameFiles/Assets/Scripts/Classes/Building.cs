@@ -57,90 +57,112 @@ public class Building
         AreaPollution= AreaPoll;
         WasteCreated= WasteCre;
 }
+    //return waste amount for building
     public int GetBuildingWaste()
     {
         return WasteCreated;
     }
+    //return true if building is a wastage center
     public bool GetIfIsWastageCenter()
     {
         return IsWastageCenter;
     }
+    //set whether the building is a train station or not 
     public void SetIsTrainStation(bool New)
     {
         IsTrainStation= New;
     }
+    //set whether the building is a wastage center or not 
     public void SetIsWatageCenter(bool New)
     {
         IsWastageCenter = New;
     }
+    //return true if building is a train station
     public bool GetIfIsTrainStation()
     {
         return IsTrainStation;
     }
+    // get value denoting how much the building would effect the environment
     public int GetEnviromentalValue()
     {
         return EnviromentalEffect;
     }
+    // return cost to place building
     public int GetCostToBuild()
     {
         return CostToBuild;
     }
+    // return how much the money generates or costs to run
     public int GetTaxGeneration()
     {
         return TaxGeneration;
     }
+    // return how much entertainment the building provides
     public int GetEntertainmentValue()
     {
         return EntertainmentValue;
     }
+    //return true if building is entertainment
     public bool GetIfEntertainment()
     {
         return IsEntertaiment;
     }
+    //return true if building is a power plant
     public bool GetIfPowerPlant()
     {
         return IsPowerPlant;
     }
+    // return the shape of the building
     public int[,] GetShape()
     {
         return Shape;
     }
+    // return the index of the building type in the building list in building list manager
     public int GetTypeIndex()
     {
         return TypeIndex;
     }
+    //return true if the building is a hopsital
     public bool GetIfIsHospital()
     {
         return IsHospital;
     }
+    //return true if the building is greenery
     public bool GetIfIsGreenery()
     {
         return IsGreenery;
     }
+    //return true if building is a shop
     public bool GetIfBuildingIsAShop()
     {
         return IsShop;
     }
+    // return true if building is a home
     public bool GetIfIsHome()
     {
         return IsHome; 
     }
+    //return true if building is a power plant
     public bool GetIfIsPowerPlant()
     {
         return IsPowerPlant;
     }
+    // return lower amount for time an NPC could spend in the building
     public int GetLowerBound()
     {
         return LowerTimeInBuilding;
     }
+    // return upper amount for time an NPC could spend in the building
     public int GetUpperBound()
     {
         return UpperTimeInBuilding;
     }
+    // return water pollution
     public int GetWaterPollution()
     {
         return WaterPollution;
     }
+    // return instance of building to not cause issues with the same instance in multiple buildings
     public virtual Building GetInstance()
     {
         Building building = new Building(Name, CostToBuild, TaxGeneration, Description, Shape, Origin, IsShop, LowerTimeInBuilding, UpperTimeInBuilding, IsHospital, TypeIndex, PowerUsage, EnviromentalEffect, IsEntertaiment, EntertainmentValue, IsTrainStation, IsGreenery, AirPollution, WaterPollution, AreaPollution, WasteCreated);

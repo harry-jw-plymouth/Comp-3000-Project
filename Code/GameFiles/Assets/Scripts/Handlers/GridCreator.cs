@@ -80,11 +80,11 @@ public class GridCreator : MonoBehaviour
     public static List<Vector3Int> WaterPositions = new List<Vector3Int>();
     public static int NumberOfWater = 0;
 
+    public static int NearestPowerPlantIndex = -1;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-
         CreateGrid();
         CenterCamera();
     }
@@ -93,16 +93,18 @@ public class GridCreator : MonoBehaviour
         GameGrid = new Square[WIDTH, HEIGHT];
         GameMap = GameMapReference;
     }
+    // set camera position to center of map when world generated
     void CenterCamera()
     {
-     //   Debug.Log("Camera centered");
         Vector3 CenterPos = GameMap.CellToWorld(new Vector3Int(WIDTH / 2, HEIGHT / 2, 0));
         MainCamera.transform.position = new Vector3(CenterPos.x, CenterPos.y, MainCamera.transform.position.z);
     }
+    // return all placed buildings
     public static List<PlacedBuilding> GetAllBuildings()
     {
         return PlacedBuildings;
     }
+    // dehighlight all positions on routes previously highlighted
     public void DeHighlightAllRoutes()
     {
         for (int i = 0; i < RoutesHighlighted.Count; i++) {
@@ -115,6 +117,7 @@ public class GridCreator : MonoBehaviour
         }
         RoutesHighlighted.Clear();
     }
+    // dehighlight all positions on bus routes previously highlighted
     public void DeHighlightAllBusRoutes()
     {
         for (int i = 0; i < BusRoutesHighlighted.Count; i++)
@@ -128,7 +131,7 @@ public class GridCreator : MonoBehaviour
         }
         BusRoutesHighlighted.Clear();
     }
-
+    //check all sqaures that would be taken up by a placed building, if all are unoccupied return true
     bool CheckIfBuildingCanBeplaced(int x, int y,Building building)
     {
         //Debug.Log("New Y: " + (y + building.Shape.GetLength(0)));
@@ -161,7 +164,8 @@ public class GridCreator : MonoBehaviour
             }
         }
         return true;
-    }
+    } 
+    // highlight area where buiilding would be placed
     void DrawSelectedBuilding(Vector3Int MouseHoverPosition)
     {
         for (int Y = 0; Y < BuildingsListManager.Buildings[BuildingsListManager.BuildingCurrentlySelected].Shape.GetLength(0); Y++)
@@ -173,21 +177,22 @@ public class GridCreator : MonoBehaviour
                     Vector3Int CurrentPos = GetPositionForSquare(MouseHoverPosition, BuildingsListManager.Buildings[BuildingsListManager.BuildingCurrentlySelected].Shape, X, Y, BuildingsListManager.Buildings[BuildingsListManager.BuildingCurrentlySelected].Origin);
                     GameMap.SetColor(CurrentPos, new Color(1f, 1f, 1f, 0.5f));
                     PreviousBuildingHighlight.Add(CurrentPos);
-
                 }
 
             }
         }
-
     }
+    // return number of placed buildings
     public int GetNumberOfBuildings()
     {
         return PlacedBuildings.Count;
     }
+    // return number of greenery tiles
     public static int GetNumberOfGreenery()
     {
         return NumberOfGreenery;
     }
+    // return number of buildings marked with greenery
     public static int GetNumberOfGreenBuildings()
     {
         int total = 0;
@@ -200,6 +205,7 @@ public class GridCreator : MonoBehaviour
         }
         return total;
     }
+    // calculate and return total waste from buildings placed
     public static int GetWasteFromBuildings()
     {
         int Waste = 0;
@@ -210,6 +216,7 @@ public class GridCreator : MonoBehaviour
         }
         return Waste;
     }
+    // return number of wastage management buildings
     public static int GetNumberOfWastageFacilities()
     {
         int Amount = 0;
@@ -222,6 +229,7 @@ public class GridCreator : MonoBehaviour
         }
         return Amount;
     }
+    // total and return water pollution from placed buildings
     public static int GetWaterPollution()
     {
         int Amount = 0;
@@ -231,6 +239,7 @@ public class GridCreator : MonoBehaviour
         }
         return Amount;
     }
+    // total and return power generation from placed buildings
     public static int GetPowerGeneration()
     {
         int Total = 0;
@@ -356,6 +365,7 @@ public class GridCreator : MonoBehaviour
         }
         return XDiff + YDiff;
     }
+    // find and return postion of nearest road, return 0 vector if no road found
     public static Vector3 GetPosOfNearestRoad(Vector3 CurrentPos)
     { 
         Vector3 CurrentClosest=new Vector3(0,0,0);
@@ -377,6 +387,7 @@ public class GridCreator : MonoBehaviour
         }
         return CurrentClosest;
     }
+    // find and return postion of nearest shop, return -1 vector if no shop found
     public static Vector3 GetPosOfNearestShop(Vector3 CurrentPos)
     {
         Vector3 CurrentClosest = new Vector3(0, 0, 0);
@@ -403,6 +414,7 @@ public class GridCreator : MonoBehaviour
         }
         return CurrentClosest;
     }
+    // calculate and return total environmental effect from placed buildings
     public static int GetTotalEnviormentalEffects()
     {
         int EnviromentalEffects = 0;
@@ -412,6 +424,7 @@ public class GridCreator : MonoBehaviour
         }
         return EnviromentalEffects;
     }
+    // find and return postion of nearest entertainment, return -1 vector if no entertainment found
     public static Vector3 GetPosOfNearestEntertainment(Vector3 CurrentPos)
     {
         Vector3 CurrentClosest = new Vector3(0, 0, 0);
@@ -438,6 +451,7 @@ public class GridCreator : MonoBehaviour
         }
         return CurrentClosest;
     }
+    // find and return postion of nearest hospital, return -1 vector if no hospital found
     public static Vector3 GetPosOfNearestHospital(Vector3 CurrentPos)
     {
         Vector3 CurrentClosest = new Vector3(0, 0, 0);
@@ -463,14 +477,15 @@ public class GridCreator : MonoBehaviour
             return new Vector3(-1, -1, -1);
         }
         return CurrentClosest;
-    }
+    } 
+    // return building type selected in building selection UI
     public static Building GetSelectedBuilding()
     {
         return RecentlySelectedBuilding;
     }
+    // remove building and set the tiles it occupies to grass tiles
     void RemoveSelectedBuilding(Building RemovedBuilding, Vector3Int Origin)
-    {
-        
+    {      
         for (int Y = 0; Y < RemovedBuilding.Shape.GetLength(0); Y++)
         {
             for (int X = 0; X < RemovedBuilding.Shape.GetLength(1); X++)
@@ -486,13 +501,11 @@ public class GridCreator : MonoBehaviour
 
                     GameMap.SetTileFlags(CurrentPos, TileFlags.None);
                     GameMap.SetColor(CurrentPos, Color.white);
-
                 }
-
             }
         }
-
     }
+
     Vector3Int GetPositionForSquare(Vector3Int ClickPos, int[,]shape,int CurrentX,int CurrentY,int[] Origin) 
     {
         int XDiff =  System.Math.Abs( Origin[0] - CurrentX);
@@ -501,7 +514,6 @@ public class GridCreator : MonoBehaviour
         int NewX=ClickPos.x + XDiff;
         int NewY=ClickPos.y - YDiff;
         return new Vector3Int(NewX,NewY,0);
-
     }
     void RevertPreviousBuildingHightlight()
     {
@@ -657,67 +669,7 @@ public class GridCreator : MonoBehaviour
 
         return SurroundingTiles;
     }
-    void UpdateRoadsAroundEdit(Vector3Int EditPosition)
-    {
-        bool[,] SurroundingTiles = GetSurroundingTiles(EditPosition);
-        bool Check=true;
-        for (int x = 0; x < 3; x++)
-        {
-            for (int y = 0; y < 3; y++)
-            {
-                if (!SurroundingTiles[x, y])
-                {
-                    Check=false; break;
-                }
-                    
-            }
-        }
-        if (Check)
-        {
-            //road tile with no pavement, road all around 
-            //roads at all sides should be set to have no pavement connecting 
-        }
-        else
-        {
-            if (SurroundingTiles[0,1] && SurroundingTiles[1,0]&& SurroundingTiles[1, 2] && SurroundingTiles[2, 1])
-            {
-                //road tile with pavement on each corner but open roads all 4 directions
-                // 4 adjacent road tiles have open road leading into tile
-            }
-            else if (SurroundingTiles[0, 1] && SurroundingTiles[1, 0] && SurroundingTiles[1, 2] && !SurroundingTiles[2,1])
-            {
-                //Road tile with pavement in top corners and on the bottom
-                //road tiles to left, right and top should have road leading in
-            }
-            else if (SurroundingTiles[0, 1] && SurroundingTiles[1, 0] && !SurroundingTiles[1, 2] && !SurroundingTiles[2, 1])
-            {
-                //Road tile with pavement in top left corner,on the right and on the bottom
-                //road tiles to left and top should have road leading in
-            }
-            else if (SurroundingTiles[0, 1] && !SurroundingTiles[1, 0] && !SurroundingTiles[1, 2] && !SurroundingTiles[2, 1])
-            {
-                //Road tile with pavement in all directions other than ome
-                //road tiles to top should have road leading in
-            }
-            else if (SurroundingTiles[0, 1] && SurroundingTiles[1, 0] && !SurroundingTiles[1, 2] && SurroundingTiles[2, 1])
-            {
-                //Road tile with pavement to the right
-                //road tiles in all directions other than up should have road leading in
-            }
-            else if (SurroundingTiles[0, 1] && !SurroundingTiles[1, 0] && !SurroundingTiles[1, 2] && SurroundingTiles[2, 1])
-            {
-                //Road tile with pavement to the right and left
-                //road tiles above and below should have road leading in
-            }
-            else if (!SurroundingTiles[0, 1] && !SurroundingTiles[1, 0] && !SurroundingTiles[1, 2] && SurroundingTiles[2, 1])
-            {
-                //Road tile with pavement up, right and left
-                //road tile below should have road leading in
-            }
-        }
 
-
-    }
     void PlaceBuilding(Vector3Int CellClickedPos)
     {
         //Place building
@@ -1091,6 +1043,7 @@ public class GridCreator : MonoBehaviour
         UpdateStatusOfBuildingsInRangeOfPower();
         DisplayPowerAvailabilityOnBuilding();
     }
+
     void DisplayBuildingInfo(int BuildingIndex)
     {
   //      Debug.Log("Displaying building info");
@@ -1298,7 +1251,7 @@ public class GridCreator : MonoBehaviour
         
 
     }
-    public static int NearestPowerPlantIndex = -1;
+    // return posisiton of nearest power plant
     public static Vector3 GetPosOfNearestPowerPlant(Vector3 CurrentPos)
     {
         Vector3 CurrentClosest = new Vector3(-1, -1, -1);
@@ -1321,7 +1274,7 @@ public class GridCreator : MonoBehaviour
         }
         return CurrentClosest;
     }
-
+    // set buildings within range of power plants as being powered
     void UpdateStatusOfBuildingsInRangeOfPower()
     {
         for (int i = 0; PlacedBuildings.Count > i; i++) {
@@ -1336,13 +1289,10 @@ public class GridCreator : MonoBehaviour
                     {
                         PlacedBuildings[i].SetInRangeOfPowerPlant(true);
                     }
-                }
-                
+                }            
             }
         }
     }
-
-
     // Update is called once per frame
     void Update()
     {
@@ -1350,7 +1300,8 @@ public class GridCreator : MonoBehaviour
         CheckForMouseClicK();
 
         DisplayPowerAvailabilityOnBuilding();
-    }
+    } 
+    // create road area for NPCs to start on when new save made
     void CreateStartingArea()
     {
         Vector3Int MapCenter=new Vector3Int(WIDTH/2, HEIGHT/2,0);
@@ -1374,35 +1325,21 @@ public class GridCreator : MonoBehaviour
         BuildingsListManager.BuildingCurrentlySelected = 4;
 
         GameObject NewSprite = new GameObject();
-        PlaceBuilding(BuildingStart);
-   
-        //Vector3 AdjustedStartPos = MapCenter + new Vector3(-0.5f, -0.5f, 0);
-        //NewSprite = Instantiate( TownHallPrefab, AdjustedStartPos, Quaternion.identity);
-        //PlacedBuildings.Add(new PlacedBuilding(BuildingsListManager.Buildings[4]
-        //    , new int[] { (int)AdjustedStartPos.x,(int)AdjustedStartPos.y },
-          //  NewSprite));
-        //for(int x = 0; x < 3; x++)
-       // {
-           // for (int y = 0; y < 3; y++) {
-         //       GameGrid[(int)AdjustedStartPos.x+ x, (int)AdjustedStartPos.y + y+3].Contains = 2;
-          //  }
-        //}
+      //  PlaceBuilding(BuildingStart);
+
         npcHandler.SetHomes();
 
-    }
+    } 
+    // Place buildings function but for when laoding map from save
     GameObject GetSriteForBuilding(SaveBuildingModel Save)
     {
-     //   Debug.Log("GetSprite function");
-        // create sprite by instantiating then return so it can be saved
         GameObject NewSprite = new GameObject();
         Vector3Int NewPos= new Vector3Int(Save.OriginX,Save.OriginY,0);
-    //    Debug.Log("New Pos:"+NewPos.ToString());
         bool SpriteMade = false;
         for (int Y = 0; Y < BuildingsListManager.Buildings[Save.TypeIndex].Shape.GetLength(0); Y++)
         {
             for (int X = 0; X < BuildingsListManager.Buildings[Save.TypeIndex].Shape.GetLength(1); X++)
             {
-      //          Debug.Log("Shape"+Y+","+X+" :" + BuildingsListManager.Buildings[Save.TypeIndex].Shape[Y, X]);
                 if (BuildingsListManager.Buildings[Save.TypeIndex].Shape[Y, X] != -1)
                 {
                     Vector3Int CurrentPos = GetPositionForSquare(NewPos, BuildingsListManager.Buildings[Save.TypeIndex].Shape, X, Y, BuildingsListManager.Buildings[Save.TypeIndex].Origin);
@@ -1446,7 +1383,6 @@ public class GridCreator : MonoBehaviour
                         {
                             if (BuildingsListManager.Buildings[Save.TypeIndex].Shape[Y, X] == 0)
                             {
-         //                       Debug.Log("Instantiating town hall");
                                 Vector3 AdjustedStartPos = CurrentPos + new Vector3(-0.5f, -0.5f, 0);
   
                                 NewSprite = Instantiate(TownHallPrefab, AdjustedStartPos, Quaternion.identity);
@@ -1509,30 +1445,19 @@ public class GridCreator : MonoBehaviour
                                 NewSprite = Instantiate(RecyclingCenterPrefab, AdjustedStartPos, Quaternion.identity);
                             }
                         }
-
                     }
-                   
-
-                 }
-               // RevertPreviousBuildingHightlight();
-              //  PlacedBuilding New = new PlacedBuilding(BuildingsListManager.Buildings[Save.TypeIndex].GetInstance(), new int[] { NewPos.x, NewPos.y }, NewSprite);
-             //   New.SetBuildingPos(NewPos);
-              //  PlacedBuildings.Add(New);
-                //     Debug.Log("New buildings count"+PlacedBuildings.Count);
-             //   if (New.GetType().GetIfIsHome())
-               // {
-                 //   npcHandler.SetHomes();
-                //}
+                }
             }
         }
         PowerIcons.Add(null);
         return NewSprite;
-
     }
+    // check if position within bounds of the map
     public bool GetIfInBounds(int XPos, int YPos)
     {
         return XPos >= 0 && XPos < WIDTH && YPos >= 0 && YPos < HEIGHT;
     }
+    // get lowest value neighbour from perlin noise map for river generation
     Vector3Int GetLowestNeigbour(int x, int y, float[,]HeightMap)
     {
         Vector3Int LowestNeighbour= new Vector3Int(x, y, 0);
@@ -1554,15 +1479,14 @@ public class GridCreator : MonoBehaviour
                 }
             }
         }
-
         return LowestNeighbour;
     }
+    // generate start positions for rivers, ensuring they all start at squares with atleast a minimum height for the start position
     public List<Vector3Int> GetRiverStartPositions(int Min, int Max, float MinimumHeight, float[,]HeightMap)
     {
         int NumberOfRivers = UnityEngine.Random.Range(Min, Max);
         NumberOfRivers += MainMenu.GetCurrentWorldSize()*20;
         List<Vector3Int> StartPositions = new List<Vector3Int>();
-        Debug.Log("Number of rivers: "+NumberOfRivers);
         for (int i = 0; i < NumberOfRivers; i++)
         {
             int x = UnityEngine.Random.Range(0, WIDTH);
@@ -1573,7 +1497,6 @@ public class GridCreator : MonoBehaviour
                 {
                     StartPositions.Add(new Vector3Int(x, y, 0));
                 }
-
             }
             else
             {
@@ -1587,13 +1510,13 @@ public class GridCreator : MonoBehaviour
                         {
                             StartPositions.Add(new Vector3Int(x, y, 0));
                         }
-
                     }
                 }
             }
         }
         return StartPositions;
     }
+    // check 2 tiles and return true if they are not parralel
     bool CheckIfDiagonal(Vector3Int Next, Vector3Int Current)
     {
         if (Next.x != Current.x && Next.y != Current.y)
@@ -1602,28 +1525,44 @@ public class GridCreator : MonoBehaviour
         }
         return false;
     }
+    // generate rivers around the map upon loading save
     void GenerateRivers()
     {
         float[,] HeightMap=new float[WIDTH, HEIGHT];
 
-        float MinimumHeight = 0.8f;
+        float MinimumHeight = 0.5f;
         
-        
-        for (int x= 0; x < WIDTH; x++)
+        int CurrentWorldSize=MainMenu.GetCurrentWorldSize();
+        float Scalevalue=0.3f;
+        if (CurrentWorldSize == 0)
+        {
+            Scalevalue = 0.3f;
+        }
+        else if (CurrentWorldSize == 1)
+        {
+            Scalevalue = 0.5f;
+        }
+        else
+        {
+            Scalevalue=0.6f;
+        }
+         // generate perlin noise map to simulate a hill 
+        for (int x = 0; x < WIDTH; x++)
         {
             for (int y = 0; y < HEIGHT; y++)
             {
-                HeightMap[x, y] = Mathf.PerlinNoise(x * 0.03f, y * 0.03f);
-            }
+                HeightMap[x, y] = Mathf.PerlinNoise(x * 0.1f, y *0.1f);
+             }
         }
         List<Vector3Int> RiverStartPositions = GetRiverStartPositions(5, 8, MinimumHeight, HeightMap);
         List<Vector3Int> RiverPositions = new List<Vector3Int>();
 
         List<List<Vector3Int>> Rivers = new List<List<Vector3Int>>();
+
+        // loop through river start positions, simulate water flowing down perlin noise hill
         for (int i = 0; i < RiverStartPositions.Count;i++)
         {
             List<Vector3Int> CurrentRiver = new List<Vector3Int>();
-           // Rivers[i]=new List<Vector3Int>();
 
             Vector3Int CurrentPos=RiverStartPositions[i];
             int RiverLength = 0;
@@ -1638,6 +1577,7 @@ public class GridCreator : MonoBehaviour
                 }
                 else
                 {
+                    // if water flowing diagonally, add connection points so water is not disconnected
                     if (CheckIfDiagonal(Next, CurrentPos)){
                         Vector3Int Connection1 = new Vector3Int(
                             CurrentPos.x+ (Next.x - CurrentPos.x),
@@ -1663,6 +1603,7 @@ public class GridCreator : MonoBehaviour
             }
             Rivers.Add(CurrentRiver);
         }
+        // loop through generated rivers, make them different widths
         for (int i = 0; i < Rivers.Count; i++)
         {
             int Width = UnityEngine.Random.Range(1, 4);
@@ -1758,10 +1699,11 @@ public class GridCreator : MonoBehaviour
             }  
         }
     }
-    
+    // select random postions across the map and distribute greenery
     void ScatterGreenery()
     {
-        for (int i = 0; i < 200; i++)
+        int Mode = MainMenu.GetCurrentWorldSize();
+        for (int i = 0; i < 150+(50*Mode); i++)
         {
             int x = UnityEngine.Random.Range(0, WIDTH);
             int y = UnityEngine.Random.Range(0, HEIGHT);
@@ -1832,8 +1774,8 @@ public class GridCreator : MonoBehaviour
                     
             }
         }
-    }
-    
+    }   
+    // Load Game map from data base and set up if loading a save file, or generate a map for new save file
     void CreateGrid()
     {
         try
@@ -1881,23 +1823,14 @@ public class GridCreator : MonoBehaviour
                 
                 CreateStartingArea();
                 DBManager.AddNewMapToDB(MainMenu.GetCurrentSaveID(), WIDTH, HEIGHT, GameGrid);
-
-
             }
             else
             {
-             //   Debug.Log("Loading map from db");
-            //    Debug.Log("SaveID" + MainMenu.GetCurrentSaveID());
-                //Get from db and set up
                 SaveMapModel CurrentSaveMap = DBManager.GetSpecificMap(MainMenu.GetCurrentSaveID());
                 List<SaveBuildingModel> BuildingsFromDb=DBManager.GetAllBuildingsForSave(MainMenu.GetCurrentSaveID());
-           //     Debug.Log("CurrentID:" + CurrentSaveMap.AssociatedSaveID);
-           //     Debug.Log("Map size" + CurrentSaveMap.GridData.Length);
+
                 byte[] UnconvertedMap = CurrentSaveMap.GridData;
-                for(int i=0;i< UnconvertedMap.Length; i++)
-                {
-             //       Debug.Log(UnconvertedMap[i]);
-                }
+
                 WIDTH = CurrentSaveMap.GridWidth; HEIGHT=CurrentSaveMap.GridHeight; 
                 GameGrid = new Square[WIDTH, HEIGHT];
 
@@ -1954,8 +1887,6 @@ public class GridCreator : MonoBehaviour
                             NumberOfGreenery++;
                             GreeneryPositions.Add(CurrentPosition);
                         }
-
-
                     }
                 }
                 Building[] BaseBuildingTypes = BuildingsListManager.GetBuildings();
@@ -1966,10 +1897,6 @@ public class GridCreator : MonoBehaviour
                     New.SetWarningSprite(NoPowerForBuildingWarning);
                     New.SetWarningSprite(Instantiate(NoPowerForBuildingWarning, new Vector3(BuildingsFromDb[i].Xpos, BuildingsFromDb[i].Ypos, 0), Quaternion.identity));
                     PlacedBuildings.Add(New);
-                    
-
-
-
                 }
                 npcHandler.SetHomes();
                 UpdateStatusOfBuildingsInRangeOfPower();
@@ -2000,10 +1927,9 @@ public class GridCreator : MonoBehaviour
             {
                 //Generate from save 
             }
-        }
-
-        
+        }    
     }
+    // destroy and clear all data that could cause issues on reload
     private void OnDestroy()
     {
         PlacedBuildings.Clear();
@@ -2019,4 +1945,3 @@ public class GridCreator : MonoBehaviour
         PowerIcons.Clear();
     }
 }
-

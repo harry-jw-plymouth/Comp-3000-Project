@@ -13,6 +13,7 @@ public class PowerHandlerScript : MonoBehaviour
     int WarningLimit = 50;
 
     public UIHandlerScript uiHandler;
+    //maximum amount of power a city can hold at one time
     int BasePowerCap = 25000;
 
     bool EmptyWarningDone = false;
@@ -24,22 +25,23 @@ public class PowerHandlerScript : MonoBehaviour
         PowerReserves=SetPowerOnStart();
         UpdatePowerDisplay();
     }
-    // Update is called once per frame
+    // Set power to 10000 if this is a new save file or the value in the save file if loading existing save file
     public int SetPowerOnStart()
     {
         if (MainMenu.CurrentSaveID != -1)
         {
             Debug.Log("Save file found, setting power to saved amount");
-            Debug.Log("Power amount:" + DBManager.GetSpecificSaveFile(MainMenu.CurrentSaveID).Power);
             return DBManager.GetSpecificSaveFile(MainMenu.CurrentSaveID).Power;
         }
         Debug.Log("No save file found, setting power to default amount");
         return 10000;
     }
+    // return players current power reserves
     public int GetPowerReserves()
     {
         return PowerReserves;
     }
+    // Update is called once per frame 
     void Update()
     {
         FrequencyCounter++;
@@ -53,45 +55,50 @@ public class PowerHandlerScript : MonoBehaviour
 
         }
     }
+    // if electricity runs out and player doesnt act display pop up accordingly
     void DoPowerEmpty()
     {
         if (!EmptyWarningDone)
         {
             EmptyWarningDone = true;
-            uiHandler.ShowAlertPopUp("Power reserves are empty, buy some power and get some power generators going");
+            uiHandler.OpenNewPopUp("Power warning", "Power reserves are empty, buy some power and get some power generators going");
         }
         WarningCounter++;
-        Debug.Log("Warning counter" + WarningCounter);
         if (WarningCounter == WarningLimit) {
             // Complete power failure 
-            Debug.Log("Critical power failure");
-            uiHandler.ShowAlertPopUp("Your city is without power");
+            uiHandler.OpenNewPopUp ("Your city is without power","Various city functions are now not working");
         }
     }
+    //return maximum power the player can have at any one time
     int GetPowerCap()
     {
         return BasePowerCap;
-    }
+    } 
+    // increase/decrease power then update UI to display it, only change power if game mode is standard
     public void AdjustPower(int power)
     {
-        PowerReserves+=power;
+        if (MainMenu.GetCurrentGameMode() != 0) {
+            PowerReserves += power;
+        }
+       
         UpdatePowerDisplay();
     }
+    // get if the player has enough power for the amount they want to sell
     public bool GetIfEnoughPowerForSell(int AmountToSell)
     {
         return AmountToSell <= PowerReserves;
     }
+    // update UI to display current power
     private void UpdatePowerDisplay() {
         DisplayText.text = PowerReserves.ToString() + "/" + GetPowerCap();
     }
+    // if power is empty do handling for empty power, then update power amount and update power displayed in UI
     void ConsumePower()
     {
         int PowerGeneration = GridCreator.GetPowerGeneration();
         int PowerUsage=GridCreator.GetPowerUsage();
         PowerReserves += PowerGeneration-PowerUsage;
-    //    Debug.Log("Power genersted:" + PowerGeneration);
-    //    Debug.Log("Usage:" + PowerUsage);
-    //    Debug.Log("Reserves after change:" + PowerReserves);
+
         if (PowerReserves < 0||PowerReserves==0)
         {
             PowerReserves= 0;
@@ -107,13 +114,6 @@ public class PowerHandlerScript : MonoBehaviour
             PowerReserves = GetPowerCap();
         }
         UpdatePowerDisplay();
-        
-
-
-
-
-        
-
     }
 
 }

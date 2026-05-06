@@ -5,7 +5,7 @@ public class PowerPlant : Building
     public int PowerGeneration;
     public int Range;
  
-
+    // inherit from Building class
     public PowerPlant(string name,int Cost,int Tax, string description, int[,] shape, int[] origin, bool Shop, 
         int LB, int UB, bool hospital, int typeIndex, int Usage,int EF,bool Entertainment,int EV,
         bool isStation,bool isGreenery, int AirPoll, int WaterPoll, int AreaPoll, int WasteCre, int PowerGen,int range)
@@ -15,10 +15,12 @@ public class PowerPlant : Building
         IsPowerPlant = true;
         Range = range;
     }
+    // return how much power the generates each cycle
     public int GetPowerGeneration()
     {
         return PowerGeneration;
     }
+    // return how much range the power plant has 
     public int GetRange()
     {
         return Range;

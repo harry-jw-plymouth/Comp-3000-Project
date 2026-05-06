@@ -17,16 +17,12 @@ public class CameraController : MonoBehaviour
     Vector3 GridMinimum;
     Vector3 GridMaximum;
 
-
-
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-   //     StartCoroutine(WaitOneFrame());
         GameCamera=GetComponent<Camera>();
-       // SetBounds();
-
     }
+    // set limits to where the camera can be moved to ensure it cannot go out of bounds
     public void SetBounds()
     {
 
@@ -40,31 +36,19 @@ public class CameraController : MonoBehaviour
         GridMaximum = new Vector3(TopRightPos.x - CameraWidth, TopRightPos.y - CameraHeight, 0);
         
     }
-    public void CenterCamera()
-    {
-       
-       // Vector3 Center = GridCreator.GameMap.transform.TransformPoint(GridCreator.GameMap.localBounds.center);
-        //transform.position = new Vector3(Center.x, Center.y, 0);
-    }
-
     // Update is called once per frame
+    // update camera position each frame
     void Update()
     {
         if (!Moved)
         {
-            CenterCamera();
             SetBounds();
             Moved=true;
         }
         MoveCamera();
         
     }
-    IEnumerator WaitOneFrame()
-    {
-        yield return null;
-        CenterCamera() ; 
-    }
-    
+    // move camera in accordance with player inputs
     void MoveCamera()
     {
         Vector3 NewPos=transform.position + new Vector3(MoveInput.x, MoveInput.y, 0) * Speed * Time.deltaTime;
@@ -86,6 +70,7 @@ public class CameraController : MonoBehaviour
         }
         transform.position = NewPos;
     }
+    // get data from the player inputs
     public void OnMove(InputAction.CallbackContext context)
     {
         MoveInput = context.ReadValue<Vector2>();

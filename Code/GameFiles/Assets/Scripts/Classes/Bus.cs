@@ -47,22 +47,27 @@ public class Bus
 
         CurrentPosition = FrontSprite.transform.position;
     }
+    // return counter for reactivation count
     public int GetReactivateCount()
     {
         return ReactivateCount;
     }
+    // reset counter for reactivation checking
     public void ResetReactivateCount()
     {
         ReactivateCount = 0;
     }
+    // increment counter for checking if bus has stopped long enough to be reactivated
     public void IncrementReactivateCount()
     {
         ReactivateCount++;
     }
+    // return true if counter for checking how long bus has been stopped is high enough
     public bool GetIfBusCanBeReactivated()
     {
         return ReactivateCount >= ReactivateTime;
     }
+    // destory all sprites
     public void DestroySprite()
     {
         Object.Destroy(FrontSprite);
@@ -70,55 +75,65 @@ public class Bus
         Object.Destroy(RightSprite);
         Object.Destroy(BackSprite);
     }
+    // update sprite positon
     public void MoveSprite()
     {
         FrontSprite.transform.position = GetPosition() +new Vector3(0.5f, 0.5f, 0);
         LeftSprite.transform.position = GetPosition() +new Vector3(0.5f, 0.5f, 0);
         RightSprite.transform.position = GetPosition() +new Vector3(0.5f, 0.5f, 0);
         BackSprite.transform.position = GetPosition() +new  Vector3(0.5f,0.5f,0) ;
-
     }
+    // update the most recent stop a bus has been too
     public void SetLastStop(Vector3Int Stop)
     {
         CurrentOrPreviousStop = Stop;
     }
+    // return the most recent stop visited by the bus
     public Vector3 GetCurrentStopPos()
     {
         return CurrentOrPreviousStop;
     }
+    // set list of NPC IDs on the bus 
     public void SetIDsOnBus(List<int> NPCIds)
     {
         NPCIdsOnBus= NPCIds;
-       // Debug.Log("Train picked up " + NPCIds.Count + " people");
     }
+    // clear list of NPC Ids on the bus
     public void ResetIDsOnBus()
     {
         NPCIdsOnBus.Clear();
     }
+    // return list of NPC IDs on the bus
     public List<int> GetNPCIDsOnBus()
     {
         return NPCIdsOnBus;
     }
+    // based on position, return true if target is reached
     public bool GetIfTargetReached()
     {
         return Vector3.Distance(CurrentPosition, CurrentTarget) < 0.05f;
     }
+    // return if the bus is moving
     public bool GetIfCurrentlyMoving()
     {
         return isCurrentlyMoving;
     }
+    // set whether the bus is moving
     public void SetIsCurrentlyMoving(bool New)
     {
         isCurrentlyMoving = New;
     }
+    // set directions for bus, up/down, left/right
     public void SetDirections(bool x, bool y)
     {
         XCurrentlyIncreasing = x; YCurrentlyIncreasing = y;
     }
+    // set new movement target for bus
     public void SetNewTarget(Vector3 Position)
     {
         CurrentTarget = Position;
     }
+    // move sprite position 
     public void UpdateSprite(Vector3 New,Vector3 Old)
     {
         int NewDirection;
@@ -169,6 +184,7 @@ public class Bus
         ChangeSpriteDirection(NewDirection);
 
     }
+    // set sprite to be facing direction the bus is going
     public void ChangeSpriteDirection(int NewDir)
     {
         if (NewDir != CurrentDirection)
@@ -208,10 +224,12 @@ public class Bus
             }
         }
     }
+    // set position of bus to new position
     public void AdjustPosition(Vector3 position)
     {
         CurrentPosition = position;
     }
+    // return current position of bus
     public Vector3 GetPosition()
     {
         return CurrentPosition;

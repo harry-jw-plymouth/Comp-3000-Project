@@ -1,6 +1,7 @@
 using UnityEngine;
 using SQLite4Unity3d;
 
+//model for save files table in database
 [Table("SaveFile")]
 public class SaveFileModel
 {
