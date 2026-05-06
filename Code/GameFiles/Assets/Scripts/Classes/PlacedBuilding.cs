@@ -9,17 +9,24 @@ public class PlacedBuilding
     public GameObject Sprite;
     public GameObject PowerWarning;
     Vector3 BuildingPos;
-    List<int> NPCsInBuildingIndexes=new List<int>();
+    List<int> NPCInBuildingIDs=new List<int>();
     List<int>Inhabitants=new List<int>();
     bool CurrentlyInRangeOfPower;
     int TimeWithoutPower = 0;
+    int BuildingID;
     // constructor
-    public PlacedBuilding(Building buildingType, int[] originPos, GameObject sprite)
+    public PlacedBuilding(Building buildingType, int[] originPos, GameObject sprite,int ID)
     {
         this.buildingType = buildingType;
         OriginPos = originPos;
         Sprite = sprite;
         CurrentlyInRangeOfPower= false;
+        BuildingID = ID;
+    }
+    // return building ID
+    public int GetBuildingID() 
+    { 
+        return BuildingID; 
     }
     // return if building is train station
     public bool GetIfTrainStation()
@@ -112,9 +119,9 @@ public class PlacedBuilding
         return Inhabitants;
     }
     // add NPC to being in building
-    public void AddInhabitantIndex(int Index)
+    public void AddInhabitantIDs(int Ids)
     {
-        Inhabitants.Add(Index);
+        Inhabitants.Add(Ids);
     }
     // remove specific NPC from building
     public void RemoveSpecificInhabitantIndex(int Index)
@@ -124,17 +131,17 @@ public class PlacedBuilding
     // return NPC IDs in building
     public List<int> GetNPCsInBuilding()
     {
-        return NPCsInBuildingIndexes;
+        return NPCInBuildingIDs;
     }
     // add NPC index to list of NPCs in building
-    public void AddNPCIndex(int Index)
+    public void AddNPCID(int ID)
     {
-        NPCsInBuildingIndexes.Add(Index);
+        NPCInBuildingIDs.Add(ID);
     }
     // remove NPC from being inside building
-    public void RemoveSpecificIndex(int Index)
+    public void RemoveSpecificID(int Id)
     {
-        NPCsInBuildingIndexes.Remove(Index);
+        NPCInBuildingIDs.Remove(Id);
     }
     // return index of buildinf type in building manager list
     public int GetTypeIndex()

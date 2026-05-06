@@ -60,20 +60,26 @@ public class NPChandler : MonoBehaviour
         PopulationCountDisplay.text = NumberOfNpcs.ToString();
     }
     // Remove NPCs from building 
-    public  void RemoveAllNPCsFromBuilding(List<int>Indexes)
+    public  void RemoveAllNPCsFromBuilding(List<int>IDs)
     {
-        for (int i = 0; i < Indexes.Count; i++) {
-            NPCList[Indexes[i]].ForceLeaveBuidlingOnBuildingRemoval();
+        for (int i = 0; i < NPCList.Count; i++) {
+            if (IDs.Contains(NPCList[i].GetCitzenID())) {
+                NPCList[i].ForceLeaveBuidlingOnBuildingRemoval();
+            }
+           
         }
     } 
     // update NPC homes to ensure NPC home settings are up to date when a building is removed
-    public void UpdateHomesForNPCsAfterBuildingRemoval(List<int>Indexes)
+    public void UpdateHomesForNPCsAfterBuildingRemoval(List<int>IDs)
     {
         //for each NPC that was assigned to the home just removed, set them to homeless
-        for (int i = 0; i < Indexes.Count; i++) {
-            NPCList[Indexes[i]].SetHomeIndex(-1);
-            NPCList[Indexes[i]].UpdateHomeStatus(true);
-            NPCList[Indexes[i]].RemoveHomeData();
+        for (int i = 0; i < NPCList.Count; i++) {
+            if (IDs.Contains(NPCList[i].GetCitzenID()))
+            {
+                NPCList[i].SetHomeID(-1);
+                NPCList[i].UpdateHomeStatus(true);
+                NPCList[i].RemoveHomeData();
+            }        
         }
 
         //then update the NPC homeless status
@@ -135,11 +141,12 @@ public class NPChandler : MonoBehaviour
                             if (home.AdjustResidents(1))
                             {
                                 // if NPC was able to be added, set home found to true so building loop can break and set required data for NPC living at the specified home
-                                building.AddInhabitantIndex(i);
+                                building.AddInhabitantIDs(NPCList[i].GetCitzenID());
                                 HomeFound = true;
 
                                 NPCList[i].SetHome(home);
-                                NPCList[i].SetHomeIndex(HomeIndex--);
+                                NPCList[i].SetHomeID(building.GetBuildingID());
+                                HomeIndex--;
                                 NPCList[i].UpdateHomeStatus(false);
                                 NPCList[i].SetHomePos(building.GetBuildingPos());
                                 TotalSet++;
@@ -362,7 +369,7 @@ public class NPChandler : MonoBehaviour
     // Select new action for NPC
     void SelectNewAction(int NPCIndex)
     {
-        //Debug.Log("Start of select action");
+        Debug.Log("Start of select action");
         int ShopChance = 5;
         int HomeChance = 15 + ((NPCList[NPCIndex].GetTiredNess()/50));
         int WanderChance = 80;
@@ -528,9 +535,9 @@ public class NPChandler : MonoBehaviour
     {
         for(int i = Indexes.Count-1; i >= 0; i--)
         {
-            if (NPCList[Indexes[i]].GetHomeIndex() != -1)
+            if (NPCList[Indexes[i]].GetHomeID() != -1)
             {
-                if (GridCreator.PlacedBuildings[NPCList[Indexes[i]].GetHomeIndex()].buildingType is Home home)
+                if (GridCreator.PlacedBuildings[NPCList[Indexes[i]].GetHomeID()].buildingType is Home home)
                 {
                     home.AdjustResidents(-1);
                 }                
@@ -659,30 +666,37 @@ public class NPChandler : MonoBehaviour
         }
 
     }
+   
    // for each NPC, update what they are currently doing
    // For movement, NPCs  only move on certain frames to ensure they dont move too often 
     void UpdateNPCs()
     {
+       
         List<int> NPCsToRemove=new List<int>();
         MovementCounter++;
         // check for updates to each NPC
         for (int i = 0; i < NPCList.Count; i++) {
+            Debug.Log("Current action: "+NPCList[i].GetCurrentAction());
+            
 
             if (NPCList[i].GetIfJusteEnteredBuilding())
             {
-                int BuildingIndex=gridCreator.EnterBuildingForNPC(NPCList[i].GetPosition(),i);
+                int BuildingIndex = gridCreator.EnterBuildingForNPC(NPCList[i].GetPosition(), NPCList[i].GetCitzenID());
+
                 if (BuildingIndex != -1)
                 {
-                    NPCList[i].buildingInsideIndex=BuildingIndex; 
+                    NPCList[i].buildingInsideID = GridCreator.PlacedBuildings[BuildingIndex].GetBuildingID(); 
                 }
                 NPCList[i].JustEnteredBuilding = false;
 
             }
             //if NPCs just left building then update building data accordingly 
-            if (NPCList[i].JustLeftBuilding && NPCList[i].buildingInsideIndex != -1)
+            int CurrentBuildingIndexTemp = GridCreator.GetIndexFromBuildingID(NPCList[i].buildingInsideID);
+            if (NPCList[i].JustLeftBuilding && CurrentBuildingIndexTemp  != -1)
             {
-                if (NPCList[i].buildingInsideIndex < GridCreator.PlacedBuildings.Count) {
-                    GridCreator.PlacedBuildings[NPCList[i].buildingInsideIndex].RemoveSpecificIndex(i);
+                if (NPCList[i].buildingInsideID < GridCreator.PlacedBuildings.Count) {
+                    GridCreator.PlacedBuildings[CurrentBuildingIndexTemp].RemoveSpecificID(NPCList[i].GetCitzenID());
+
                 }
                 
                 NPCList[i].ResetBuildingData();

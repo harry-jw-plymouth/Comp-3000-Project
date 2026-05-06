@@ -33,13 +33,13 @@ public class Citzen
     public bool JustEnteredBuilding = false;
     public bool JustLeftBuilding=false;
     Vector3 BuildingInsidePos = new Vector3(-1, -1, -1);
-    public int buildingInsideIndex = -1;
+    public int buildingInsideID = -1;
 
     public bool NeedsUpdateAfterTravel = false;
     public bool ReadyToUpdateAfterTravel = false;
 
     Building Home;
-    int HomeIndex = -1;
+    int HomeID = -1;
     Vector3 HomePosition=new Vector3(-1,-1,-1);
     int StuckCount = 0;
 
@@ -95,9 +95,9 @@ public class Citzen
         Object.Destroy(NPCSprite);
     }
     // set index of the NPC home position
-    public void SetHomeIndex(int Index)
+    public void SetHomeID(int ID)
     {
-        HomeIndex = Index;
+        HomeID = ID;
     }
     // do handling for when an NPC gets off a train
     public void GetOffTrain()
@@ -139,9 +139,9 @@ public class Citzen
 
     } 
     // return index for NPC home positiom
-    public int GetHomeIndex()
+    public int GetHomeID()
     {
-        return HomeIndex;
+        return HomeID;
     }
     // return true if NPC in a building
     public bool GetIfInBuilding()
@@ -155,7 +155,7 @@ public class Citzen
     // calculate NPC happiness based on various factors
     public int CalculateHappiness()
     {
-        int Happiness = 100;
+        float Happiness = 100;
         Happiness -= TiredNess / 100;
         Happiness -= Sickness / 100;
         Happiness-=Boredom / 100;
@@ -169,7 +169,7 @@ public class Citzen
         {
             Happiness = Happiness / 2;
         }
-        return Happiness;
+        return (int)Happiness;
     }
     // get NPC happiness 
     public int GetHappiness()
@@ -351,7 +351,7 @@ public class Citzen
     // Temporary version of set route BFS code used for debugging
     public bool SetRouteNew(Vector3Int Target, Square[,] Grid, Tilemap GameMap,GridCreator GridHandler)
     {
-        Debug.Log("Setting new route");
+      //  Debug.Log("Setting new route");
         Queue<Vector3Int> ToCheck = new Queue<Vector3Int>();
         HashSet<Vector3Int> AlreadyVisited = new HashSet<Vector3Int>();
 
@@ -380,7 +380,7 @@ public class Citzen
                 RoutePositions.Add(CurrentRoutePos);
                 RoutePositions.Reverse();
 
-                Debug.Log("Route found");
+        //        Debug.Log("Route found");
                 return true;
 
 
@@ -424,7 +424,7 @@ public class Citzen
 
 
         }
-        Debug.Log("Route not found");
+    //    Debug.Log("Route not found");
         return false;
     }
     // Breadth first search code which constructs a route for NPC to a target
@@ -740,15 +740,22 @@ public class Citzen
     // when building removed, handle NPC to ensure NPC is not in a building that doesnt exist
     public void ForceLeaveBuidlingOnBuildingRemoval()
     {
+        Debug.Log("Force leaving building");
         NPCSprite.GetComponent<SpriteRenderer>().enabled = true;
         BuildingCurrentlyTargetting = null;
         SetCurrentAction(-1);
         InBuilding = 0;
-        buildingInsideIndex = -1;
-        JustLeftBuilding = false;
-        JustEnteredBuilding = false;
+        buildingInsideID = -1;
 
-     //   ResetBuildingData();
+    //    JustLeftBuilding = false;
+        JustEnteredBuilding = false;
+        JustLeftBuilding = true;
+
+        RoutePositions = new List<Vector3>();
+        NexPositionOnRoute = 0;
+        MovementTarget =new  Vector3(-1,-1, -1);
+
+        //   ResetBuildingData();
     }
     // spend time in Building, when time in building finished update NPC action
     public void SpendTImeInBuilding(int AirQaulity)
@@ -761,14 +768,14 @@ public class Citzen
             BuildingCurrentlyTargetting = null;
             SetCurrentAction(-1);
             JustLeftBuilding = true;
-            buildingInsideIndex=-1;
+            buildingInsideID=-1;
 
         }
     }
     // set requires data when NPC leaves a building 
     public void ResetBuildingData()
     {
-        buildingInsideIndex = -1;
+        buildingInsideID = -1;
         JustLeftBuilding = false;
         BuildingInsidePos = new Vector3(-1, -1, -1);
     }
@@ -787,16 +794,16 @@ public class Citzen
     {
         IncreaseBoredom(1);
         Sickness--;
-       // Debug.Log("NPC at home");
+        Debug.Log("NPC at home");
         InBuilding--;
         TiredNess--;
-        Debug.Log("Time left ay home : " + InBuilding);
+       // Debug.Log("Time left ay home : " + InBuilding);
         if (InBuilding == 0)
         {
             NPCSprite.GetComponent<SpriteRenderer>().enabled = true;
             BuildingCurrentlyTargetting = null;
             SetCurrentAction(-1);
-            buildingInsideIndex = -1;
+            buildingInsideID = -1;
             if (TiredNess < 0)
             {
                 TiredNess = 0;
@@ -816,7 +823,7 @@ public class Citzen
         {
             NPCSprite.GetComponent<SpriteRenderer>().enabled = true;
             BuildingCurrentlyTargetting = null;
-            buildingInsideIndex = -1;
+            buildingInsideID = -1;
             SetCurrentAction(-1);
             if (TiredNess < 0)
             {
@@ -842,7 +849,7 @@ public class Citzen
             NPCSprite.GetComponent<SpriteRenderer>().enabled = true;
             BuildingCurrentlyTargetting = null;
             SetCurrentAction(-1);
-            buildingInsideIndex = -1;
+            buildingInsideID = -1;
             if (Boredom < 0)
             {
                 Boredom = 0;
@@ -931,7 +938,18 @@ public class Citzen
                     SetCurrentAction(1);
                     TargetIsbuilding = false;
                     InBuilding = GetTimeInBuilding(BuildingCurrentlyTargetting.GetLowerBound(), BuildingCurrentlyTargetting.GetUpperBound());
-                    NPCSprite.GetComponent<SpriteRenderer>().enabled = false;
+                    if(BuildingCurrentlyTargetting != null)
+                    {
+                        InBuilding = GetTimeInBuilding(BuildingCurrentlyTargetting.GetLowerBound(), BuildingCurrentlyTargetting.GetUpperBound());
+                    }
+                    else
+                    {
+                        TargetIsbuilding = false;
+                        SetCurrentAction(-1);
+                        return;
+                    }
+
+                        NPCSprite.GetComponent<SpriteRenderer>().enabled = false;
                     if (BuildingCurrentlyTargetting.IsHome)
                     {
                  //       Debug.Log("NPC " + CitzenID + " is now home");
