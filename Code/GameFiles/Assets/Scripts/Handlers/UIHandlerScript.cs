@@ -792,6 +792,7 @@ public class UIHandlerScript : MonoBehaviour
             PauseMenuActive = true;
             PauseCanvas.SetActive(true);
             SetUIInactive();
+            CloseAllTransportPopUps();
             CloseTransportPopup();
             HideCoreUI();
         }
