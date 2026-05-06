@@ -759,7 +759,7 @@ public class UIHandlerScript : MonoBehaviour
         }
         else
         {
-            BuildingSpeificText.text = " building is a " + BuildingToDisplay.GetType();
+            BuildingSpeificText.text = BuildingToDisplay.GetType().Description;
         } 
 
         var NewInfoRect = NewBuidingInfoBox.GetComponent<RectTransform>();
