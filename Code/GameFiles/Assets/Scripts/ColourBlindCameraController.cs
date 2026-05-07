@@ -4,21 +4,13 @@ public class ColourBlindCameraController : MonoBehaviour
 {
     public Material material;
 
-    public enum ColourBlindMode
-    {
-        Normal=0,
-        Protanopia=1,
-        Deuteranopia=2,
-        Tritanopia=3
-    }
-
-    public ColourBlindMode mode = ColourBlindMode.Normal;
+    public int BlindMode = 0;
 
     private void OnRenderImage(RenderTexture source, RenderTexture destination)
     {
         if (material != null)
         {
-            material.SetInt("_Mode", (int)mode);
+            material.SetInt("_Mode",BlindMode);
             Graphics.Blit(source, destination, material);
         }
         else
@@ -26,26 +18,28 @@ public class ColourBlindCameraController : MonoBehaviour
             Graphics.Blit(source, destination);
         }
     }
+    // Update the mode for colour blind mode
     public void SetMode(int NewMode)
     {
-        mode = (ColourBlindMode)NewMode;
+        BlindMode = NewMode;
         SavePreference();
-        Debug.Log("Colour Blind Mode set to: " + mode.ToString());
     }
+    // Get preferences from saved player prefernces for persistent setting of colour blind mode
     public void LoadPreference()
     {
         if (PlayerPrefs.HasKey("ColourBlindMode"))
         {
-            mode = (ColourBlindMode)PlayerPrefs.GetInt("ColourBlindMode");
+            BlindMode = PlayerPrefs.GetInt("ColourBlindMode");
         }
         else
         {
-            mode = ColourBlindMode.Normal;
+            BlindMode = 0;
         }
     }
+    // save player preferences 
     public void SavePreference()
     {
-        PlayerPrefs.SetInt("ColourBlindMode", (int)mode);
+        PlayerPrefs.SetInt("ColourBlindMode", BlindMode);
         PlayerPrefs.Save();
     }
 
