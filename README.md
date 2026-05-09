@@ -22,7 +22,8 @@ Main menu screen<br/>
 ![Hub Screen](MDImages/F2.png)
 Hub screen<br/>
 ![Save selection](MDImages/F3.png)
-Save selection screen<br/>
+Save selection screen<br/><br/>
+In addition, the credits and tutorial can be seen from here
 ![Credits screen](MDImages/F4.png)
 Credits screen<br/>
 ![Tutorial screen](MDImages/F5.png)
@@ -30,12 +31,14 @@ Tutorial screen<br/>
 
 ### Creating save file 
 
-When a player clicks the create new save button on one of the save slots, a pop up will appear which presents them with various options for creating a save file. Here the player can choose the game mode (for details on game modes please see Game guide section 4),map size and the save file name. 
+When a player clicks the create new save button on one of the save slots, a pop up will appear which presents them with various options for creating a save file. <br/>
+Here the player can choose the game mode (for details on game modes please see Game guide section 4),map size and the save file name. 
 When the player has set the name and mode they want they can click the create button generating a new game map (for more information on this please see section 5 of world generation). If the player has not added anything to the save file name field the save file will prompt the player to add a name and not allow the save file to be created until they do
+![New game](MDImages/F6.png)
+new save file screen<br/>
+![New game](MDImages/F7.png)
+new save file input prompt<br/>
 
-Game guide figure 5: Create new save UI
-
-Game guide figure 6: New save name prompt 
 ### Loading and deleting save file
 On the main save screen, the player has the option to load a save file. When a save slot is occupied and the player clicks the save slot, the game will be loaded using the data from that save slot to generate the city in line with the save file. For more details on this please see section 5.2 of the player guide
 In addition the player can delete existing files. Clicking the clear files button will remove the save files allowing players to start fresh when they are done with a save file 
