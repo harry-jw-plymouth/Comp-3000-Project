@@ -59,7 +59,7 @@ public class GameStatusScript : MonoBehaviour
         int NumberOfWastageCenters = GridCreator.GetNumberOfWastageFacilities();
 
         int WasteCreated= GridCreator.GetWasteFromBuildings();
-        AmountOfWaste+= WasteCreated-(NumberOfWastageCenters*40);
+        AmountOfWaste+= WasteCreated-(NumberOfWastageCenters*150);
         AmountOfWaste= Mathf.Max(0, AmountOfWaste);
 
         WasteAmountText.text = "Waste amount: "+AmountOfWaste.ToString();

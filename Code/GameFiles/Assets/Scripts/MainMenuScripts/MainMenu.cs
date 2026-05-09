@@ -29,6 +29,7 @@ public class MainMenu : MonoBehaviour
     public TMP_Dropdown GameModeSelection;
     public TMP_Dropdown GameSizeSelection;
     public TMP_InputField FileNameInput;
+    public TMP_Text NewFilePrompt;
 
     public TMP_Text SaveText1;
     public TMP_Text SaveText2;
@@ -219,6 +220,7 @@ public class MainMenu : MonoBehaviour
     // Display Save slots menu UI
     public void OnSelectSaveClicked()
     {
+        NewFilePrompt.text = "";
         SoundHandler.PlayButtonClickSound();
         SavesCanvas.SetActive(false);
         SelectableSavesCanvas.SetActive(true);
@@ -335,6 +337,7 @@ public class MainMenu : MonoBehaviour
         if (FileName == "")
         {
             Debug.Log("Empty field");
+            NewFilePrompt.text = "Please  enter  a file name";
         }
         else
         {
@@ -354,7 +357,7 @@ public class MainMenu : MonoBehaviour
         DBManager.ResetSaves();
         ShowSaves();
     }
-    // display UI for creating a new save files
+    // display UI for creating a new save file
     public void OnCreateNewButtonClicked()
     {
         SoundHandler.PlayButtonClickSound();
