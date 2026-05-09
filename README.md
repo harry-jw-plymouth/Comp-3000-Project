@@ -3,14 +3,14 @@
 This repository contains the project 'Green city builder', an educational city building simulator game that features environmental elements. It was developed as part of the Comp 3000 project module 
 # Overview 
 ## Game Overview 
-The game is 2d topdown game with a pixel art style that was made as a part of the city simulation genre. It features city building aspects, dynamic NPCs, public transport, dynamic world generation, multiple game modes, trading and more. <br/> 
-What sets it apart though is the environmental focus of the game, where the city is affected by differant aspects of the environment. For example building various buildings that produce air pollution while removing lots of greenery will cause the worlds air pollution to increase, this can lead to increased chances of NPCs getting sick which reduces NPC happines and may result in NPCs deciding to leave the city. <br/>
-The player is given information as they play on how their actions are effecting the city, educating them on the real ways city building can effect the environment. This was created with education in mind aiming to educate the people who play the game about the environment. For more details please see the game guide later in this read me
+The game is a 2d topdown game with a pixel art style that was made as a part of the city simulation genre. It features city building aspects, dynamic NPCs, public transport, dynamic world generation, multiple game modes, trading and more. <br/> 
+What sets it apart though is the environmental focus of the game, where the city is affected by different aspects of the environment. For example building various buildings that produce air pollution while removing lots of greenery will cause the world's air pollution to increase, this can lead to increased chances of NPCs getting sick which reduces NPC happiness and may result in NPCs deciding to leave the city. <br/>
+The player is given information as they play on how their actions are affecting the city, educating them on the real ways city building can affect the environment. This was created with education in mind aiming to educate the people who play the game about the environment. For more details please see the game guide later in this read me
 ## Repository overview 
 This repository contains various items from the project. <br/>
 A key one of these is the source code for the project which can be seen in the code folder.  Here you can find all the files that were used in the production of the game. This included unity file data, c# code/visual studio files, the games various sprites and animations and all other data that was required for the games development.<br/>
-In addition there are project managment and research folders. The project management folder stores snapshots from tracking sprints aswell as meeting notes allowing for the planning history of the project to be maintained. The research folder contains pdf versions of any research done throughout the project. <br/> 
-Finnally there is a build folder which contains an exe version of the game not reliant on the production environment to run
+In addition there are project management and research folders. The project management folder stores snapshots from tracking sprints as well as meeting notes allowing for the planning history of the project to be maintained. The research folder contains pdf versions of any research done throughout the project. <br/> 
+Finally there is a build folder which contains an exe version of the game not reliant on the production environment to run
 # Running the code/GameGuide 
 This section details a full guide to playing the game. This can also be found in the project report.
 ## How to play/run
@@ -186,7 +186,7 @@ This can be done by clicking transport, either bus or rail depending on the rout
 When a route is marked as cancelled, the bus/train on that route will finish moving if it is currently in the process of moving. Then when all movement is complete, the route is fully removed, checking all NPCs and rerouting them/ selecting new actions for them if their current route included the removed transport route
 
 # Asset/package usage credits 
-Various assetts and packages, including sprites, animation, sound effects and more were used in the development of this game. Below you can find details on all assets/software used in the development game<br/> 
+Various assets and packages, including sprites, animation, sound effects and more were used in the development of this game. Below you can find details on all assets/software used in the development game<br/> 
 These can also be seen in the game and the project report
 ##  Packages/software credits
 - Unity 6 (Game engine) -  https://unity.com/ <br/>
@@ -232,5 +232,3 @@ These can also be seen in the game and the project report
 - Plants: https://shubibubi.itch.io/nature-things <br/>
 - Trees :https://karsiori.itch.io/free-pixel-art-tree-pack <br/>
 - NPCs https://free-game-assets.itch.io/free-townspeople-cyberpunk-pixel-art <br/>
-
-# Game guide 
