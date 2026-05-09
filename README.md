@@ -18,16 +18,16 @@ To run this game, and play for yourself, please open the build folder and run Gr
 ##  Main menu and Save files
 When the player opens the game, the first thing they will see is the main menu, this is a simple screen with the games logo and the start button. Clicking this will load a screen with more options, one of these being the save menu . Clicking this will load save files, which presents the user with all the save files currently made or the option to make a new one.
 ![Main menu screen](MDImages/F1.png)
-Main menu screen<br/>
+#### Main menu screen<br/>
 ![Hub Screen](MDImages/F2.png)
-Hub screen<br/>
+#### Hub screen<br/>
 ![Save selection](MDImages/F3.png)
-Save selection screen<br/><br/>
+#### Save selection screen<br/><br/>
 In addition, the credits and tutorial can be seen from here
 ![Credits screen](MDImages/F4.png)
-Credits screen<br/>
+#### Credits screen<br/>
 ![Tutorial screen](MDImages/F5.png)
-Tutorial screen<br/>
+#### Tutorial screen<br/>
 
 ### Creating save file 
 
@@ -35,35 +35,32 @@ When a player clicks the create new save button on one of the save slots, a pop 
 Here the player can choose the game mode (for details on game modes please see Game guide section 4),map size and the save file name. 
 When the player has set the name and mode they want they can click the create button generating a new game map (for more information on this please see section 5 of world generation). If the player has not added anything to the save file name field the save file will prompt the player to add a name and not allow the save file to be created until they do
 ![New game](MDImages/F6.png)
-new save file screen<br/>
+#### New save file screen<br/>
 ![New game](MDImages/F7.png)
-new save file input prompt<br/>
+#### New save file input prompt<br/>
 
 ### Loading and deleting save file
 On the main save screen, the player has the option to load a save file. When a save slot is occupied and the player clicks the save slot, the game will be loaded using the data from that save slot to generate the city in line with the save file. For more details on this please see section 5.2 of the player guide
 In addition the player can delete existing files. Clicking the clear files button will remove the save files allowing players to start fresh when they are done with a save file 
 ## Game UI  
-
 ### Main UI 
-The main UI seen in the game has various sections for various functionalities. 
-The starting UI that is seen most commonly has selections for tile editing, building editing, transport editing and displays general information about the game at the top of the screen. 
+The main UI seen in the game has various sections for various functionalities. <br/>
+The starting UI that is seen most commonly has selections for tile editing, building editing, transport editing and displays general information about the game at the top of the screen. <br/>
 The Information header at the top of the screen displays how much money the city is generating/losing, how much power the city is generating /losing, the amount of money and power the player has currently and the number of NPCs currently in the city. 
-
-Game guide figure 7: main game UI
-
-Game guide figure 8: info header
-
+![Main game UI](MDImages/F8.png)
+#### Main game UI<br/>
+![Info UI](MDImages/F9.png)
+#### Info header<br/><br/>
 Next to the information header is the section that displays the current city rating, this is a 0-100 scale where 0 is terrible and 100 is the best possible city that is essentially flawless. When this is clicked, more information is displayed to the player on how they can improve their city rating 
-
-Game guide figure 9: rating
-
-
-Game guide figure 10: rating info
+![Rating UI](MDImages/F10.png)
+#### Rating header<br/><br/>
+![Rating Info](MDImages/F11.png)
+#### rating info<br/><br/>
 Finally there are the 3 buttons for editing and interacting with the world. 
-
-Game guide figure 11: core UI buttons
-Game Guide 2.2 Building editing 
-The first button will open the building menu, which allows for the player to select, place and remove buildings. 
+![Core UI](MDImages/F12.png)
+#### Core UI buttons<br/><br/>
+### Building editing 
+The first button from the core UI will open the building menu, which allows for the player to select, place and remove buildings. 
 
 Game guide figure 12: Core building UI
 ## Transport placement editing 
