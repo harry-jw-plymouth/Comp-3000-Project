@@ -61,20 +61,21 @@ Finally there are the 3 buttons for editing and interacting with the world.
 #### Core UI buttons<br/><br/>
 ### Building editing 
 The first button from the core UI will open the building menu, which allows for the player to select, place and remove buildings. 
+![Core building UI](MDImages/F13.png)
+#### Core building UI buttons<br/><br/>
 
-Game guide figure 12: Core building UI
-## Transport placement editing 
+### Transport placement editing 
 By opening the transport UI, the player can edit bus stops, train stations and rail placement depending on the UI open. This is where the player can set up routes for public transport 
+![rail building UI](MDImages/F14.png)
+#### rail building UI buttons<br/><br/>
+![bus building UI](MDImages/F15.png)
+#### bus building UI buttons<br/><br/>
+## Tile editing 
+When clicking the layout button the tile editing UI will open with options for editing tiles. For more information on this functionality please see later in this guide
+![Layout editor UI](MDImages/F16.png)
+#### layout editor UI <br/><br/>
 
-Game guide figure 13: Rail editor UI
-
-Game guide figure 14: Bus editor UI
-Game Guide 2.4 Tile editing 
-When clicking the layout button the tile editing UI will open with options for editing tiles. For more information on this functionality please see game guide 6.2
-
-Game guide figure 15: layout editor UI
-
-Game Guide 2.5 Transport Routes UI
+## Transport Routes UI
 Selecting the set routes button for either rail or bus transport UI will open the route setting UI. From here you can click the display routes button which can be used to view existing routes and cancel routes 
 
 Game guide figure 16: route creation UI
