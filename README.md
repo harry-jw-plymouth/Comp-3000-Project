@@ -176,15 +176,14 @@ From here a train will run back and forth between this 2 stations
 ![Train route selection](MDImages/F26.png)
 #### Train route selection <br/><br/> 
 ### Bus routes creation
-When the player opens the bus routes menu, they will be presented with buttons to set the starting bus stop and ending bus stop on the route. Clicking these buttons will display a UI allowing them to click bus stops which in doing so will set that stop as the start/end bus stop for the route. When the player clicks confirm, if both route positions have been set, the positions are different from each other and the selections have a route to each other, a new route will be confirmed and created. From here a bus will run back and forth between this 2 points 
+When the player opens the bus routes menu, they will be presented with buttons to set the starting bus stop and ending bus stop on the route. Clicking these buttons will display a UI allowing them to click bus stops which in doing so will set that stop as the start/end bus stop for the route. When the player clicks confirm, if both route positions have been set, the positions are different from each other and the selections have a route to each other, a new route will be confirmed and created. From here a bus will run back and forth between these 2 points 
+![Bus route creation](MDImages/F27.png)
+#### Bus route creation<br/><br/> 
 
-
-
-Game guide 9.3 Route deletion
-When a player decides they no longer want a certain route running, they have the option to shutdown the running of the route. 
-This can be done by clicking transport, either bus or rail depending on the route type the player wants to remove, set route then finally see routes. This will open up a page where clicking a tile containing a route will show the full route and display its information on the UI. Here the player can click the cancel route button which will set the route to cancelled. 
+### Route deletion
+When a player decides they no longer want a certain route running, they have the option to shutdown the running of the route. <br/>
+This can be done by clicking transport, either bus or rail depending on the route type the player wants to remove, set route then finally see routes. This will open up a page where clicking a tile containing a route will show the full route and display its information on the UI. Here the player can click the cancel route button which will set the route to cancelled. <br/>
 When a route is marked as cancelled, the bus/train on that route will finish moving if it is currently in the process of moving. Then when all movement is complete, the route is fully removed, checking all NPCs and rerouting them/ selecting new actions for them if their current route included the removed transport route
-
 
 # Asset/package usage credits 
 Various assetts and packages, including sprites, animation, sound effects and more were used in the development of this game. Below you can find details on all assets/software used in the development game<br/> 
