@@ -30,7 +30,6 @@ In addition, the credits and tutorial can be seen from here
 #### Tutorial screen<br/>
 
 ### Creating save file 
-
 When a player clicks the create new save button on one of the save slots, a pop up will appear which presents them with various options for creating a save file. <br/>
 Here the player can choose the game mode (for details on game modes please see Game guide section 4),map size and the save file name. 
 When the player has set the name and mode they want they can click the create button generating a new game map (for more information on this please see section 5 of world generation). If the player has not added anything to the save file name field the save file will prompt the player to add a name and not allow the save file to be created until they do
@@ -70,26 +69,28 @@ By opening the transport UI, the player can edit bus stops, train stations and r
 #### rail building UI buttons<br/><br/>
 ![bus building UI](MDImages/F15.png)
 #### bus building UI buttons<br/><br/>
-## Tile editing 
+### Tile editing 
 When clicking the layout button the tile editing UI will open with options for editing tiles. For more information on this functionality please see later in this guide
 ![Layout editor UI](MDImages/F16.png)
 #### layout editor UI <br/><br/>
 
-## Transport Routes UI
+### Transport Routes UI
 Selecting the set routes button for either rail or bus transport UI will open the route setting UI. From here you can click the display routes button which can be used to view existing routes and cancel routes 
+![Route creation UI](MDImages/F17.png)
+#### route creation UI <br/><br/>
 
-Game guide figure 16: route creation UI
-
-Game guide figure 17: route viewing UI
-Game Guide 2.6 Pause menu UI
+![Route viewing UI](MDImages/F18.png)
+#### route Viewing UI <br/><br/>
+### Pause menu UI
 Clicking the escape key opens the pause menu. This menu will allow the player to return to the main menu, save the game or open settings. When the settings button is clicked the settings UI is opened, here the player can adjust game volume and accessibility options
+![settings UI](MDImages/F19.png)
+#### settings UI <br/><br/>
+![Pause UI](MDImages/F20.png)
+#### Pause UI <br/><br/> 
 
-Game guide figure 18: Settings UI
-
-Game guide figure 19: Pause UI
-Game Guide 3 NPCs 
-A key part of the game was NPCs which act as the city's citizen population. These citizens can partake in a wide variety of actions which are chosen dynamically based on various factors
-Game guide 3.1 NPC Decision making and stats 
+## NPCs 
+A key part of the game was NPCs which act as the city's citizen population. These citizens can partake in a wide variety of actions which are chosen dynamically based on various factors <br />
+### NPC Decision making and stats 
 Each NPC has various stats that they take into account when deciding on a new action. These stats are tiredness, sickness and boredom and they can all be affected by different buildings.
 When making a decision, the NPC can choose between the following:
 Wandering(Walk to a random position,increases tiredness boredom and sickness while walking )
