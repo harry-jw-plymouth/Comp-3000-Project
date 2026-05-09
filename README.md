@@ -120,27 +120,28 @@ Standard mode is for the players who want to play the game like a real functioni
 Various features appear in the world the city is set in
 ###  Map features on world creation
 When a new map is created,a random map will be created. The map size can be set by the player on the main menu and will adjust the features of the map created. The key map features that are created are the following. 
-Game Guide 5.1.1 River generation
+### River generation
 The key thing generated onto the map is rivers, these use perlin noise to create simulated hills for the water to flow down to have semi believable rivers 
-
-Game guide figure 19: water world generation
-Game Guide 5.2.2 Greenery generation 
+![World generation](MDImages/F21.png)
+#### World generation example <br/><br/> 
+### Greenery generation 
 Another key feature generated is the greenery placed around the map. This is something that must be removed carefully when terraforming as removing too many will reduce the environmental rating. These are placed in random spots in various patterns 
+![Greenery example](MDImages/F22.png)
+#### Greenery example <br/><br/> 
 
-Game guide Figure 20: greenery example
-
-Game guide 5.2 Loading from save
+### Loading from save
 When a player loads a save file, the details of that save file are retrieved and used to generate the game world. When the world generates, it will match exactly how it was in the save file allowing players to save their city and come back later
-Game guide 6 World editing 
+## World editing 
 To allow the player to build and design their city, various options for editing the city and the world around it are present
-Game guide 6.1 Building editing 
-By opening the buildings UI and selecting a building, the player can click a position on the map and place a building. In standard mode they will only be able to do that if they have enough money to afford this and no matter the game mode, buildings can only be placed if the target position is not occupied by another building or invalid tile. When placing a building squares will be highlighted to show where the placed building would go. 
-
-Game guide figure 21 Building placing before 
-
-Game guide figure 22 Building placing after
+### Building editing 
+By opening the buildings UI and selecting a building, the player can click a position on the map and place a building.<br/> 
+In standard mode they will only be able to do that if they have enough money to afford this and no matter the game mode, buildings can only be placed if the target position is not occupied by another building or invalid tile. When placing a building, squares will be highlighted to show where the placed building would go. 
+![Building placement before](MDImages/F23.png)
+#### Building placement before<br/><br/> 
+![Building placement after](MDImages/F24.png)
+#### Building placement after <br/><br/> 
 In addition the player can remove buildings by using the remove button on the same page, if a building is in use(e.g by an npc or a train station on a train route), it cannot be removed until it has concluded being used
-Game guide 6.2 Tile editing 
+### Tile editing 
 Tiles around the map can also be edited and can be turned into grass, road, water, greenery or bus stops.  This can be edited by clicking the layout button then selecting a certain tile type. Not all tiles can be placed on each other, for example a river would have to be turned to grass before you can build a road on that tile. In addition bus stops can only be placed on road tiles and are actually separate and placed from the bus UI. In standard mode, placing a tile costs money
 Game guide 7 Environmental features 
 As it was a key point and focus of the game, environmental features are a key part of the game. The following are examples of this 
