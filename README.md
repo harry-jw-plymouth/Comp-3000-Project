@@ -105,18 +105,20 @@ When NPCs select a position they want to move to, they will calculate if a route
 When routing, NPCs will see public transport as fast options, no matter the distance travelled by a train/bus, NPCs will see this as one square of movement due to its increased speed 
 
 ### NPC buildings interaction
-Certain NPC actions involve them moving into buildings (for example going home, going shopping, doing something entertaining or being treated at a hospital). When an NPC selects this action, they will attempt to find a route to the nearest building of the specified type and if the route is possible they will set the building as their target. When the NPC arrives in the building they will go inside (assuming the player hasn't removed it). While inside, certain stats of the NPC will improve (e.g entertainment reduces boredom, hospital reduces sickness etc). When they enter the building a random value based on the building type will be selected, and this will determine how long they remain in the building. When the counter runs out, the NPC will leave the building and select a new action. While an NPC is in a building, that building cannot be removed
-Game Guide 3.4 NPC homelessness 
+Certain NPC actions involve them moving into buildings (for example going home, going shopping, doing something entertaining or being treated at a hospital). <br/> 
+When an NPC selects this action, they will attempt to find a route to the nearest building of the specified type and if the route is possible they will set the building as their target. When the NPC arrives in the building they will go inside (assuming the player hasn't removed it). While inside, certain stats of the NPC will improve (e.g entertainment reduces boredom, hospital reduces sickness etc). When they enter the building a random value based on the building type will be selected, and this will determine how long they remain in the building. When the counter runs out, the NPC will leave the building and select a new action.<br/> 
+While an NPC is in a building, that building cannot be removed
+### NPC homelessness 
 A key aspect of NPCs is that you must provide enough homes for them. If you have more NPCs than available housing then some NPCs will not be assigned a home and marked as homeless. These NPCs will be much less happy than NPCs with a home and having too many homeless NPCs will affect your city rating meaning it is important to watch the available housing carefully.
-Game guide 4 Game modes
+## Game modes
 To allow for players with different playstyles to enjoy the game, multiple game modes were included
-Game guide 4.1 Sandbox 
+### Sandbox 
 Sandbox mode is the mode for players not interested in keeping track of money and power. In this mode they can build to their hearts content while never running low on money or power
-Game guide 4.2 Standard 
+### Standard 
 Standard mode is for the players who want to play the game like a real functioning city. In this mode they have to keep track of their use of money and power. If money runs out, nothing can be built, if power runs out, buildings will stop functioning, decreasing NPC happiness and causing them to start leaving at an increased rate
-Game guide 5 World generation 
+## World generation 
 Various features appear in the world the city is set in
-Game guide 5.1 Map features on world creation
+###  Map features on world creation
 When a new map is created,a random map will be created. The map size can be set by the player on the main menu and will adjust the features of the map created. The key map features that are created are the following. 
 Game Guide 5.1.1 River generation
 The key thing generated onto the map is rivers, these use perlin noise to create simulated hills for the water to flow down to have semi believable rivers 
