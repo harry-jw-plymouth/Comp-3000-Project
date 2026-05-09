@@ -18,10 +18,15 @@ To run this game, and play for yourself, please open the build folder and run Gr
 ##  Main menu and Save files
 When the player opens the game, the first thing they will see is the main menu, this is a simple screen with the games logo and the start button. Clicking this will load a screen with more options, one of these being the save menu . Clicking this will load save files, which presents the user with all the save files currently made or the option to make a new one.
 ![Main menu screen](MDImages/F1.png)
+Main menu screen<br/>
 ![Hub Screen](MDImages/F2.png)
+Hub screen<br/>
 ![Save selection](MDImages/F3.png)
+Save selection screen<br/>
 ![Credits screen](MDImages/F4.png)
+Credits screen<br/>
 ![Tutorial screen](MDImages/F5.png)
+Tutorial screen<br/>
 
 ## Creating save file 
 
