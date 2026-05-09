@@ -142,39 +142,44 @@ In standard mode they will only be able to do that if they have enough money to 
 #### Building placement after <br/><br/> 
 In addition the player can remove buildings by using the remove button on the same page, if a building is in use(e.g by an npc or a train station on a train route), it cannot be removed until it has concluded being used
 ### Tile editing 
-Tiles around the map can also be edited and can be turned into grass, road, water, greenery or bus stops.  This can be edited by clicking the layout button then selecting a certain tile type. Not all tiles can be placed on each other, for example a river would have to be turned to grass before you can build a road on that tile. In addition bus stops can only be placed on road tiles and are actually separate and placed from the bus UI. In standard mode, placing a tile costs money
-Game guide 7 Environmental features 
+Tiles around the map can also be edited and can be turned into grass, road, water, greenery or bus stops.<br/> 
+This can be edited by clicking the layout button then selecting a certain tile type. Not all tiles can be placed on each other, for example a river would have to be turned to grass before you can build a road on that tile. In addition bus stops can only be placed on road tiles and are actually separate and placed from the bus UI.<br/>
+In standard mode, placing a tile costs money
+## Environmental features 
 As it was a key point and focus of the game, environmental features are a key part of the game. The following are examples of this 
-If too many buildings emit air pollution with not enough greenery to deal with it, air quality will decrease and NPCs will have higher chances of getting sick
-Building too many buildings with high water pollution will pollute rivers, reducing NPC happiness
-Buildings create wastage, without building proper wastage facilities this will not be handled and will cause pollution in turn reducing the city rating 
-Various power plant types exist, building the more environmentally friendly options reduce environmental impact and increase city rating 
-Various wastage facility types exist, building the more environmentally friendly options reduce environmental impact and increase city rating 
+- If too many buildings emit air pollution with not enough greenery to deal with it, air quality will decrease and NPCs will have higher chances of getting sick
+- Building too many buildings with high water pollution will pollute rivers, reducing NPC happiness
+- Buildings create wastage, without building proper wastage facilities this will not be handled and will cause pollution in turn reducing the city rating 
+- Various power plant types exist, building the more environmentally friendly options reduce environmental impact and increase city rating 
+Various wastage facility types exist, building the more environmentally friendly options reduce environmental impact and increase city rating <br/>
+
 The specific details of a city and its impact on the environment can be seen any time in the rating info box, this details exactly what the NPC can do at any time to improve the environment in their city
-Game guide 8 City ratings
+## City ratings
 Based on all the different aspects of the city, a city rating is calculated and constantly displayed in the top left of the screen. This includes rating 
-Whether there is enough hospitals
-Whether there is enough shops
-Whether there is enough roads
-Whether there is enough power
-Whether there is enough entertainment 
-Whether most the buildings are close enough to a power plant to be powered
-Whether there is enough public transport
-Whether there is enough homes
-And most significantly, the various environmental features in the city 
+- Whether there is enough hospitals
+- Whether there is enough shops
+- Whether there is enough roads
+- Whether there is enough power
+- Whether there is enough entertainment 
+- Whether most the buildings are close enough to a power plant to be powered
+- Whether there is enough public transport
+- Whether there is enough homes
+- And most significantly, the various environmental features in the city <br/>
 By following the advice given on the rating UI these ratings can be improved and the cities score can increase
-Game guide 9 Transport 
+## Transport 
 The player can set up bus routes or train routes for their citizens to use. These allow for increased NPC movement around the city and ensure for better access to different points in the city 
-Game guide 9.1 Train routes Creating 
-When the player opens the train routes menu, they will be presented with buttons to set the starting train station and ending train station on the route. Clicking these buttons will display a UI allowing them to click train stations which in doing so will set that stop as the start/end bus stop for the route. When the player clicks confirm, if both route positions have been set, the positions are different from each other and the selections have a route to each other via train tracks, a new route will be confirmed and created. From here a train will run back and forth between this 2 stations
-
-Game guide figure 23:Train route creation UI
-
-Game guide figure 24:Train station selecting UI
-Game guide 9.2 Bus routes creation
+### Train routes Creation
+When the player opens the train routes menu, they will be presented with buttons to set the starting train station and ending train station on the route.<br/> Clicking these buttons will display a UI allowing them to click train stations which in doing so will set that stop as the start/end bus stop for the route. When the player clicks confirm, if both route positions have been set, the positions are different from each other and the selections have a route to each other via train tracks, a new route will be confirmed and created.<br/>
+From here a train will run back and forth between this 2 stations
+![Train route creation](MDImages/F25.png)
+#### Train route creation<br/><br/> 
+![Train route selection](MDImages/F26.png)
+#### Train route selection <br/><br/> 
+### Bus routes creation
 When the player opens the bus routes menu, they will be presented with buttons to set the starting bus stop and ending bus stop on the route. Clicking these buttons will display a UI allowing them to click bus stops which in doing so will set that stop as the start/end bus stop for the route. When the player clicks confirm, if both route positions have been set, the positions are different from each other and the selections have a route to each other, a new route will be confirmed and created. From here a bus will run back and forth between this 2 points 
 
-Game guide figure 25: Bus route creation UI
+
+
 Game guide 9.3 Route deletion
 When a player decides they no longer want a certain route running, they have the option to shutdown the running of the route. 
 This can be done by clicking transport, either bus or rail depending on the route type the player wants to remove, set route then finally see routes. This will open up a page where clicking a tile containing a route will show the full route and display its information on the UI. Here the player can click the cancel route button which will set the route to cancelled. 
