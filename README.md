@@ -89,19 +89,22 @@ Clicking the escape key opens the pause menu. This menu will allow the player to
 #### Pause UI <br/><br/> 
 
 ## NPCs 
-A key part of the game was NPCs which act as the city's citizen population. These citizens can partake in a wide variety of actions which are chosen dynamically based on various factors <br />
+A key part of the game was NPCs which act as the city's citizen population. These citizens can partake in a wide variety of actions which are chosen dynamically based on various factors 
 ### NPC Decision making and stats 
-Each NPC has various stats that they take into account when deciding on a new action. These stats are tiredness, sickness and boredom and they can all be affected by different buildings.
+Each NPC has various stats that they take into account when deciding on a new action. These stats are tiredness, sickness and boredom and they can all be affected by different buildings.<br/> 
 When making a decision, the NPC can choose between the following:
-Wandering(Walk to a random position,increases tiredness boredom and sickness while walking )
-Go home (Going home reduces npc tiredness and sickness but increases boredom, chance of going home is increased when NPC tiredness is higher)
-Going to the shop
-Go to hospital(Being in hospital reduces NPC sickness and tiredness but increases boredom, chance of going to hospital is higher when NPC has high levels of sickness)
-Partake in entertainment (Being in entertainment reduces boredom but increases sickness and tiredness, chance of going to entertainment building increases with NPC boredom)
+- Wandering(Walk to a random position,increases tiredness boredom and sickness while walking )
+- Go home (Going home reduces npc tiredness and sickness but increases boredom, chance of going home is increased when NPC tiredness is higher)
+- Going to the shop
+- Go to hospital(Being in hospital reduces NPC sickness and tiredness but increases boredom, chance of going to hospital is higher when NPC has high levels of sickness)
+- Partake in entertainment (Being in entertainment reduces boredom but increases sickness and tiredness, chance of going to entertainment building increases with NPC boredom)<br/>
 In addition, if an NPC is quite unhappy, they may choose to leave the city. Likewise if your city is doing well, new NPCs may join your city
-Game guide 3.2 NPC Movement
-When NPCs select a position they want to move to, they will calculate if a route is possible and find the best route. This is done via a breadth first search, where valid tiles(grass,road and greenery tiles) are progressively checked until the target is found.  If the target is successfully found the NPC will have that position set as their movement target and will save the route to begin walking that way. When routing, NPCs will see public transport as fast options, no matter the distance travelled by a train/bus, NPCs will see this as one square of movement due to its increased speed 
-Game guide 3.3 NPC buildings interaction
+
+### NPC Movement
+When NPCs select a position they want to move to, they will calculate if a route is possible and find the best route. This is done via a breadth first search, where valid tiles(grass,road and greenery tiles) are progressively checked until the target is found.  If the target is successfully found the NPC will have that position set as their movement target and will save the route to begin walking that way. <br.>
+When routing, NPCs will see public transport as fast options, no matter the distance travelled by a train/bus, NPCs will see this as one square of movement due to its increased speed 
+
+### NPC buildings interaction
 Certain NPC actions involve them moving into buildings (for example going home, going shopping, doing something entertaining or being treated at a hospital). When an NPC selects this action, they will attempt to find a route to the nearest building of the specified type and if the route is possible they will set the building as their target. When the NPC arrives in the building they will go inside (assuming the player hasn't removed it). While inside, certain stats of the NPC will improve (e.g entertainment reduces boredom, hospital reduces sickness etc). When they enter the building a random value based on the building type will be selected, and this will determine how long they remain in the building. When the counter runs out, the NPC will leave the building and select a new action. While an NPC is in a building, that building cannot be removed
 Game Guide 3.4 NPC homelessness 
 A key aspect of NPCs is that you must provide enough homes for them. If you have more NPCs than available housing then some NPCs will not be assigned a home and marked as homeless. These NPCs will be much less happy than NPCs with a home and having too many homeless NPCs will affect your city rating meaning it is important to watch the available housing carefully.
