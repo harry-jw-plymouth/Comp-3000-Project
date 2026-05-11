@@ -1367,7 +1367,6 @@ public class GridCreator : MonoBehaviour
 
         }
         Vector3Int BuildingStart = new Vector3Int( (int)MapCenter.x,MapCenter.y+2,0);
-        BuildingsListManager.BuildingCurrentlySelected = 4;
 
         GameObject NewSprite = new GameObject();
       //  PlaceBuilding(BuildingStart);

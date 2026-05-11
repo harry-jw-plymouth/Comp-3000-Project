@@ -226,6 +226,30 @@ public class MainMenu : MonoBehaviour
         SelectableSavesCanvas.SetActive(true);
         ShowSaves();
     }
+    // delete save 1
+    public void OnDeleteSave1Click()
+    {
+        SoundHandler.PlayButtonClickSound();
+        DeleteSpecificFile(0);
+    }
+    // delete save2
+    public void OnDeleteSave2Click()
+    {
+        SoundHandler.PlayButtonClickSound();
+        DeleteSpecificFile(1);
+    }
+    // delete save 3
+    public void OnDeleteSave3Click()
+    {
+        SoundHandler.PlayButtonClickSound();
+        DeleteSpecificFile(2);
+    }
+    // delete a specific file
+    public void DeleteSpecificFile(int File)
+    {
+        DBManager.ResetOneSave(File);
+        ShowSaves();
+    }
     // load existing save file attached to the save index passed
     public void LoadSaveFile(int Save)
     {

@@ -2,9 +2,6 @@ using SQLite4Unity3d;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Xml.Linq;
-using System.Xml.Serialization;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class DBManager : MonoBehaviour
@@ -169,7 +166,38 @@ public class DBManager : MonoBehaviour
         CreateNewFile("", "", true,10,10000,10000,0);
         CreateNewFile("", "", true,10,10000,10000,0);
     }
-    // update save fuke with specfic ID
+    // Reset one save
+    public static void ResetOneSave(int SavePosition)
+    {
+        ClearBuildingsForSave(SavePosition);
+        UpdateBusRoutesForSave(SavePosition, new List<BusRoute>());
+        UpdateTrainRoutesForSave(SavePosition, new List<Route>());
+        UpdateSaveForDeletion(SavePosition);
+
+    }
+    //update one save after being deleted
+    public static bool UpdateSaveForDeletion(int ID)
+    {
+        var SaveFile = db.Table<SaveFileModel>().Where(x => x.IDToAssociate == ID).FirstOrDefault();
+
+        if (SaveFile == null)
+        {
+            Debug.Log("Error updating save file");
+            return false;
+        }
+        SaveFile.NumberOfNPCs = 10;
+        SaveFile.Money = 10000;
+        SaveFile.Power = 10000;
+        SaveFile.Waste = 10000;
+        SaveFile.Name = "";
+        SaveFile.Type = "";
+        SaveFile.IsEmpty = true;
+
+        db.Update(SaveFile);
+        return true;
+    }
+
+    // update save file with specfic ID
     public static bool UpdateSave( int NPCAmount,int CurrentID,int CurrentMoney,int CurrentPower,int CurrentWaste)
     {
         var SaveFile = db.Table<SaveFileModel>().Where(x => x.IDToAssociate == CurrentID).FirstOrDefault();

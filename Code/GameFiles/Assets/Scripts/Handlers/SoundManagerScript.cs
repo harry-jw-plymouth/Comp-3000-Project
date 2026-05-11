@@ -46,9 +46,13 @@ public class SoundManagerScript : MonoBehaviour
         RemoveBuilding.volume = SFXVolume;
         AddBuilding.volume = SFXVolume;
         StartBus.volume = SFXVolume;
+        StartTrain.volume = SFXVolume;
+        EditTile.volume = SFXVolume;    
 
         MainAmbience.volume = SFXVolume;
         WaterAmbience.volume = SFXVolume;
+
+        MainMenuSoundHandler.PassSettings(MusicVolume, SFXVolume);
     }
     // save the players prefernces
     public void SavePreferences()
@@ -86,6 +90,7 @@ public class SoundManagerScript : MonoBehaviour
         {
             SFXVolume = 0.5f;
         }
+        
     }
     // check if conditions are met for playing ambience, play/pause accordingly
     void DoAmbience()
@@ -114,6 +119,7 @@ public class SoundManagerScript : MonoBehaviour
         WaterAmbience.loop = true;
         BackgroundOST.Play();
         LoadPreferences();
+        UpdateVolume();
 
 
         BackgroundOST.volume = MusicVolume;
